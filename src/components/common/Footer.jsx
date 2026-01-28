@@ -4,9 +4,6 @@ import { HashLink } from 'react-router-hash-link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Heart, 
-  Send, 
-  Github, 
-  MessageCircle, 
   ExternalLink, 
   ArrowUp,
   Sparkles,
@@ -15,15 +12,9 @@ import {
 } from 'lucide-react'
 import Logo from './Logo'
 import DonateModal from './DonateModal'
+import { socialIcons, socialHoverStyles } from './SocialIcons'
 import config from '../../config'
 import { getLatestVersion } from '../../data/changelog'
-
-// Иконки для социальных сетей
-const socialIcons = {
-  Telegram: Send,
-  VK: MessageCircle,
-  GitHub: Github,
-}
 
 // Функция плавного скролла с отступом для хедера
 const scrollWithOffset = (el) => {
@@ -112,7 +103,9 @@ function ScrollToTopButton() {
 
 // Компонент социальной иконки
 function SocialIcon({ link, size = 'md' }) {
-  const Icon = socialIcons[link.name] || ExternalLink
+  const IconComponent = socialIcons[link.name]
+  const hoverStyle = socialHoverStyles[link.name] || ''
+  
   const sizeClasses = {
     sm: 'p-2 w-9 h-9',
     md: 'p-2.5 w-10 h-10',
@@ -139,12 +132,16 @@ function SocialIcon({ link, size = 'md' }) {
         transition-all duration-300 
         flex items-center justify-center
         group relative overflow-hidden
-        ${link.color || ''}
+        ${hoverStyle}
       `}
       aria-label={link.name}
     >
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-blue-500/10 to-purple-500/10" />
-      <Icon className={`${iconSizes[size]} relative z-10 transition-transform group-hover:scale-110`} />
+      {IconComponent ? (
+        <IconComponent className={`${iconSizes[size]} relative z-10 transition-transform group-hover:scale-110`} />
+      ) : (
+        <ExternalLink className={`${iconSizes[size]} relative z-10 transition-transform group-hover:scale-110`} />
+      )}
     </motion.a>
   )
 }

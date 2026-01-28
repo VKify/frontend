@@ -11,7 +11,25 @@ export function scrollToElement(elementId, offset = HEADER_HEIGHT + 20) {
   const element = document.getElementById(elementId)
   if (!element) return
 
-  const performScroll = () => {
+  // Если мы в начале страницы, где виден AnnouncementBar
+  if (window.scrollY < SCROLL_THRESHOLD) {
+    // Мгновенно проскроллим за порог, чтобы AnnouncementBar исчез
+    window.scrollTo({ top: SCROLL_THRESHOLD + 1, behavior: 'instant' })
+    
+    // Небольшая задержка для перерасчёта layout после исчезновения AnnouncementBar
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const elementTop = element.getBoundingClientRect().top + window.scrollY
+        const targetPosition = Math.max(0, elementTop - offset)
+        
+        window.scrollTo({ 
+          top: targetPosition, 
+          behavior: 'smooth' 
+        })
+      })
+    })
+  } else {
+    // Обычный плавный скролл
     const elementTop = element.getBoundingClientRect().top + window.scrollY
     const targetPosition = Math.max(0, elementTop - offset)
     
@@ -19,15 +37,6 @@ export function scrollToElement(elementId, offset = HEADER_HEIGHT + 20) {
       top: targetPosition, 
       behavior: 'smooth' 
     })
-  }
-
-  // Если страница в самом верху, сначала немного проскроллим,
-  // чтобы хедер стал фиксированным, затем скроллим к элементу
-  if (window.scrollY < SCROLL_THRESHOLD) {
-    window.scrollTo({ top: SCROLL_THRESHOLD + 10, behavior: 'smooth' })
-    setTimeout(performScroll, 300)
-  } else {
-    performScroll()
   }
 }
 
@@ -40,8 +49,26 @@ export function scrollWithOffset(el) {
   if (!el) return
 
   const offset = HEADER_HEIGHT + 20
-
-  const performScroll = () => {
+  
+  // Если мы в начале страницы, где виден AnnouncementBar
+  if (window.scrollY < SCROLL_THRESHOLD) {
+    // Мгновенно проскроллим за порог, чтобы AnnouncementBar исчез
+    window.scrollTo({ top: SCROLL_THRESHOLD + 1, behavior: 'instant' })
+    
+    // Небольшая задержка для перерасчёта layout после исчезновения AnnouncementBar
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const elementTop = el.getBoundingClientRect().top + window.scrollY
+        const targetPosition = Math.max(0, elementTop - offset)
+        
+        window.scrollTo({ 
+          top: targetPosition, 
+          behavior: 'smooth' 
+        })
+      })
+    })
+  } else {
+    // Обычный плавный скролл
     const elementTop = el.getBoundingClientRect().top + window.scrollY
     const targetPosition = Math.max(0, elementTop - offset)
     
@@ -49,14 +76,6 @@ export function scrollWithOffset(el) {
       top: targetPosition, 
       behavior: 'smooth' 
     })
-  }
-
-  // Если страница в самом верху, сначала немного проскроллим
-  if (window.scrollY < SCROLL_THRESHOLD) {
-    window.scrollTo({ top: SCROLL_THRESHOLD + 10, behavior: 'smooth' })
-    setTimeout(performScroll, 300)
-  } else {
-    performScroll()
   }
 }
 

@@ -7,9 +7,6 @@ import {
   ChevronRight, 
   Sparkles, 
   ExternalLink, 
-  Send, 
-  Github, 
-  MessageCircle,
   X,
   Zap,
   ArrowRight
@@ -17,6 +14,7 @@ import {
 import ThemeToggle from './ThemeToggle'
 import Button from './Button'
 import Logo from './Logo'
+import { socialIcons } from './SocialIcons'
 import config from '../../config'
 import { getLatestVersion } from '../../data/changelog'
 
@@ -24,27 +22,30 @@ import { getLatestVersion } from '../../data/changelog'
 const NAV_HEIGHT = 80
 const SCROLL_THRESHOLD = 50
 
-const socialIcons = {
-  Telegram: Send,
-  VK: MessageCircle,
-  GitHub: Github,
-}
-
 // Функция скролла с учётом фиксированного хедера
 const scrollWithOffset = (el) => {
-  const performScroll = () => {
+  // Если мы в начале страницы, где виден AnnouncementBar
+  if (window.scrollY < SCROLL_THRESHOLD) {
+    // Мгновенно проскроллим за порог, чтобы AnnouncementBar исчез
+    window.scrollTo({ top: SCROLL_THRESHOLD + 1, behavior: 'instant' })
+    
+    // Небольшая задержка для перерасчёта layout после исчезновения AnnouncementBar
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const absoluteTop = el.getBoundingClientRect().top + window.scrollY
+        window.scrollTo({ 
+          top: Math.max(0, absoluteTop - NAV_HEIGHT - 20), 
+          behavior: 'smooth' 
+        })
+      })
+    })
+  } else {
+    // Обычный плавный скролл
     const absoluteTop = el.getBoundingClientRect().top + window.scrollY
     window.scrollTo({ 
       top: Math.max(0, absoluteTop - NAV_HEIGHT - 20), 
       behavior: 'smooth' 
     })
-  }
-  
-  if (window.scrollY < SCROLL_THRESHOLD) {
-    window.scrollTo({ top: SCROLL_THRESHOLD + 10, behavior: 'smooth' })
-    setTimeout(performScroll, 250)
-  } else {
-    performScroll()
   }
 }
 
@@ -72,9 +73,18 @@ function ProgressBar() {
 }
 
 // Компонент логотипа
-function HeaderLogo({ isScrolled }) {
+function HeaderLogo({ isScrolled, isHomePage }) {
+  const handleLogoClick = (e) => {
+    // Если мы на главной странице, скроллим вверх
+    if (isHomePage) {
+      e.preventDefault()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+    // Если на другой странице, Link сработает автоматически
+  }
+
   return (
-    <Link to="/" className="flex items-center gap-3 group">
+    <Link to="/" onClick={handleLogoClick} className="flex items-center gap-3 group">
       <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -329,7 +339,7 @@ function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, late
                     Сообщество
                   </p>
                   {config.social.map((link) => {
-                    const Icon = socialIcons[link.name] || ExternalLink
+                    const IconComponent = socialIcons[link.name]
                     return (
                       <a
                         key={link.name}
@@ -339,7 +349,11 @@ function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, late
                         className="flex items-center justify-between px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                       >
                         <div className="flex items-center gap-3">
-                          <Icon className="w-5 h-5" />
+                          {IconComponent ? (
+                            <IconComponent className="w-5 h-5" />
+                          ) : (
+                            <ExternalLink className="w-5 h-5" />
+                          )}
                           <span>{link.name}</span>
                         </div>
                         <ExternalLink className="w-4 h-4 opacity-50" />
@@ -393,6 +407,7 @@ export default function Header() {
   
   const location = useLocation()
   const navigation = useMemo(() => config.navigation.main, [])
+  const isHomePage = location.pathname === '/'
 
   // Получаем последнюю версию из changelog
   const latestVersion = useMemo(() => {
@@ -461,7 +476,7 @@ export default function Header() {
 
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
-            <HeaderLogo isScrolled={isScrolled} />
+            <HeaderLogo isScrolled={isScrolled} isHomePage={isHomePage} />
 
             <div className="hidden lg:flex items-center">
               <div className="flex items-center bg-gray-100/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full p-1.5">

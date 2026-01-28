@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Download, Heart, Send, MessageCircle, ExternalLink, Chrome, Star, Users, Zap, Palette, Shield, Sparkles } from 'lucide-react'
+import { Download, Heart, ExternalLink, Chrome, Star, Users, Zap, Palette, Shield, Sparkles } from 'lucide-react'
 import DonateModal from '../common/DonateModal'
 import Logo from '../common/Logo'
+import { TelegramIcon, VKIcon } from '../common/SocialIcons'
 import config from '../../config'
 
 const stats = [
@@ -199,7 +200,7 @@ export default function CTA() {
                       whileTap={{ scale: 0.95 }}
                       className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all"
                     >
-                      <Send className="w-5 h-5" />
+                      <TelegramIcon className="w-5 h-5" />
                       <span className="font-medium">Telegram</span>
                     </motion.a>
                     
@@ -211,7 +212,7 @@ export default function CTA() {
                       whileTap={{ scale: 0.95 }}
                       className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all"
                     >
-                      <MessageCircle className="w-5 h-5" />
+                      <VKIcon className="w-5 h-5" />
                       <span className="font-medium">VK</span>
                     </motion.a>
                   </div>
