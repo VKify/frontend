@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Frown, RefreshCw, Send, MessageCircle, Heart } from 'lucide-react'
+import { Frown, RefreshCw, Heart } from 'lucide-react'
 import SEO from '../components/common/SEO'
 import Button from '../components/common/Button'
 import FeedbackForm from '../components/uninstall/FeedbackForm'
+import { TelegramIcon, VKIcon } from '../components/common/SocialIcons'
 import config from '../config'
 
 export default function Uninstall() {
@@ -89,9 +90,9 @@ export default function Uninstall() {
               href={config.links.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-[#0077ff]/10 text-gray-700 dark:text-gray-300 hover:text-[#0077ff] transition-colors"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-[#0088cc]/10 text-gray-700 dark:text-gray-300 hover:text-[#0088cc] transition-colors"
             >
-              <Send className="w-5 h-5" />
+              <TelegramIcon className="w-5 h-5" />
               Telegram
             </a>
             <a
@@ -100,7 +101,7 @@ export default function Uninstall() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-[#0077ff]/10 text-gray-700 dark:text-gray-300 hover:text-[#0077ff] transition-colors"
             >
-              <MessageCircle className="w-5 h-5" />
+              <VKIcon className="w-5 h-5" />
               ВКонтакте
             </a>
           </div>

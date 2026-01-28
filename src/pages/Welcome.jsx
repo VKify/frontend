@@ -2,9 +2,6 @@ import { motion } from 'framer-motion'
 import { 
   PartyPopper, 
   ExternalLink, 
-  Send, 
-  MessageCircle, 
-  Github,
   Settings,
   Palette,
   Shield,
@@ -13,6 +10,7 @@ import {
 } from 'lucide-react'
 import SEO from '../components/common/SEO'
 import Button from '../components/common/Button'
+import { TelegramIcon, VKIcon, GitHubIcon } from '../components/common/SocialIcons'
 import config from '../config'
 
 const steps = [
@@ -35,25 +33,25 @@ const steps = [
 
 const quickLinks = [
   {
-    icon: Send,
+    icon: TelegramIcon,
     title: 'Telegram-канал',
     description: 'Новости и обновления',
     href: config.links.telegram,
-    color: 'bg-blue-500',
+    color: 'bg-[#0088cc]',
   },
   {
-    icon: MessageCircle,
+    icon: VKIcon,
     title: 'Группа ВКонтакте',
     description: 'Поддержка и обсуждения',
     href: config.links.vk,
-    color: 'bg-sky-500',
+    color: 'bg-[#0077ff]',
   },
   {
-    icon: Github,
+    icon: GitHubIcon,
     title: 'GitHub',
     description: 'Исходный код и баги',
     href: config.links.github,
-    color: 'bg-gray-800',
+    color: 'bg-gray-800 dark:bg-gray-700',
   },
 ]
 
