@@ -1,6 +1,6 @@
 export const changelog = [
     {
-    version: '1.5.0',
+    version: '1.1.0',
     date: '2026-01-29',
     title: 'Переход на React + Расширенная кастомизация',
     highlights: [
