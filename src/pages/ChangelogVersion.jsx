@@ -67,12 +67,7 @@ export default function ChangelogVersion() {
   ]
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950"
-    >
+    <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950">
       <SEO 
         title={`Версия ${ver}`}
         description={`${title} — обновление VKify v${ver}`}
@@ -80,11 +75,7 @@ export default function ChangelogVersion() {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Link */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="mb-8"
-        >
+        <div className="mb-8">
           <Link
             to="/changelog"
             className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-[#0077ff] dark:hover:text-[#0077ff] transition-colors group"
@@ -92,14 +83,10 @@ export default function ChangelogVersion() {
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             Все обновления
           </Link>
-        </motion.div>
+        </div>
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
-        >
+        <div className="mb-12">
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <Badge variant="version" className="text-lg px-4 py-1.5">
               v{ver}
@@ -112,7 +99,7 @@ export default function ChangelogVersion() {
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white">
             {title}
           </h1>
-        </motion.div>
+        </div>
 
         {/* Changes */}
         <div className="space-y-8">
@@ -154,12 +141,7 @@ export default function ChangelogVersion() {
         </div>
 
         {/* Known Issues */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="mt-8 p-6 rounded-2xl border border-yellow-200 dark:border-yellow-900/50 bg-yellow-50 dark:bg-yellow-900/20"
-        >
+        <div className="mt-8 p-6 rounded-2xl border border-yellow-200 dark:border-yellow-900/50 bg-yellow-50 dark:bg-yellow-900/20">
           <div className="flex items-center gap-3 mb-4">
             <AlertTriangle className="w-5 h-5 text-yellow-600 dark:text-yellow-500" />
             <h3 className="text-lg font-bold text-gray-900 dark:text-white">
@@ -178,21 +160,16 @@ export default function ChangelogVersion() {
               GitHub Issues
             </a>.
           </p>
-        </motion.div>
+        </div>
 
         {/* Navigation */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="mt-12 flex justify-center"
-        >
+        <div className="mt-12 flex justify-center">
           <Button to="/changelog" variant="secondary" className="gap-2">
             <ArrowLeft className="w-4 h-4" />
             Назад к списку обновлений
           </Button>
-        </motion.div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   )
 }

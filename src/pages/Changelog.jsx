@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import { Filter, Sparkles, Bug, Zap } from 'lucide-react'
 import SEO from '../components/common/SEO'
 import VersionCard from '../components/changelog/VersionCard'
@@ -24,12 +23,8 @@ export default function Changelog() {
   })
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950"
-    >
+    // Убрали motion.div - анимация теперь в AnimatedPage
+    <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950">
       <SEO 
         title="История обновлений"
         description="Следите за всеми обновлениями VKify — новые функции, исправления и улучшения."
@@ -37,11 +32,7 @@ export default function Changelog() {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
+        <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             История{' '}
             <span className="bg-gradient-to-r from-[#0077ff] to-blue-400 bg-clip-text text-transparent">
@@ -51,15 +42,10 @@ export default function Changelog() {
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Все изменения, исправления и новые функции VKify
           </p>
-        </motion.div>
+        </div>
 
         {/* Filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="flex flex-wrap items-center justify-center gap-2 mb-12"
-        >
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
           {filters.map((filter) => (
             <button
               key={filter.id}
@@ -76,14 +62,12 @@ export default function Changelog() {
               {filter.label}
             </button>
           ))}
-        </motion.div>
+        </div>
 
         {/* Timeline */}
         <div className="relative">
-          {/* Timeline Line */}
           <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-800 hidden md:block" />
 
-          {/* Versions */}
           <div className="space-y-6">
             {filteredChangelog.map((version, index) => (
               <VersionCard 
@@ -103,6 +87,6 @@ export default function Changelog() {
           </div>
         )}
       </div>
-    </motion.div>
+    </div>
   )
 }

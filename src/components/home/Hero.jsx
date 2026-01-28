@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Download, Chrome, Sparkles, Shield, Palette, Zap, Play, Star } from 'lucide-react'
+import { ArrowRight, Download, Chrome, Sparkles, Shield, Palette, Zap, Play, Star, Globe } from 'lucide-react'
 import Button from '../common/Button'
 import Hero3DCard from './Hero3DCard'
 import config from '../../config'
@@ -163,7 +163,48 @@ export default function Hero() {
               </Button>
             </motion.div>
 
-            {/* Social Proof */}
+            {/* Supported Browsers */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="mt-10 flex flex-wrap items-center gap-4 justify-center lg:justify-start"
+            >
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                Работает в:
+              </span>
+
+              <div className="flex items-center gap-3">
+                {/* Chrome */}
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg
+                  bg-yellow-100 text-yellow-800
+                  dark:bg-yellow-500/20 dark:text-yellow-300
+                  text-sm">
+                  <Globe className="w-4 h-4" />
+                  <span>Chrome</span>
+                </div>
+
+                {/* Edge */}
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg
+                  bg-blue-100 text-blue-800
+                  dark:bg-blue-500/20 dark:text-blue-300
+                  text-sm">
+                  <Globe className="w-4 h-4" />
+                  <span>Edge</span>
+                </div>
+
+                {/* Opera */}
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg
+                  bg-red-100 text-red-800
+                  dark:bg-red-500/20 dark:text-red-300
+                  text-sm">
+                  <Globe className="w-4 h-4" />
+                  <span>Opera</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Social Proof - раскомментировать когда будет больше пользователей
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -181,6 +222,7 @@ export default function Hero() {
                 <span className="font-semibold text-gray-700 dark:text-gray-300">10K+</span> пользователей
               </div>
             </motion.div>
+            */}
           </div>
 
           {/* Right Column - Visual */}

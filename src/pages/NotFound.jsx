@@ -154,12 +154,7 @@ export default function NotFound() {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 pt-20 pb-16 relative overflow-hidden"
-    >
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 pt-20 pb-16 relative overflow-hidden">
       <SEO 
         title="Страница не найдена"
         description="Запрашиваемая страница не существует"
@@ -337,6 +332,6 @@ export default function NotFound() {
           Такое бывает даже с лучшими из нас 🤷‍♂️
         </motion.p>
       </div>
-    </motion.div>
+    </div>
   )
 }

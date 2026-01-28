@@ -8,12 +8,7 @@ import config from '../config'
 
 export default function Uninstall() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-gray-950"
-    >
+    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-gray-950">
       <SEO 
         title="Жаль, что вы уходите"
         description="Помогите нам стать лучше — расскажите, почему вы удалили VKify."
@@ -111,6 +106,6 @@ export default function Uninstall() {
           </div>
         </motion.div>
       </div>
-    </motion.div>
+    </div>
   )
 }

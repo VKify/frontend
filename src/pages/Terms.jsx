@@ -38,12 +38,7 @@ const sections = [
 
 export default function Terms() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950"
-    >
+    <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950">
       <SEO 
         title="Условия использования"
         description="Условия использования браузерного расширения VKify."
@@ -136,6 +131,6 @@ export default function Terms() {
           </p>
         </motion.div>
       </div>
-    </motion.div>
+    </div>
   )
 }

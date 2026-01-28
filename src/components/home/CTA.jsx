@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Download, Heart, Send, MessageCircle, ExternalLink, Chrome, Star, Users, Zap } from 'lucide-react'
+import { Download, Heart, Send, MessageCircle, ExternalLink, Chrome, Star, Users, Zap, Palette, Shield, Sparkles } from 'lucide-react'
 import DonateModal from '../common/DonateModal'
 import Logo from '../common/Logo'
 import config from '../../config'
@@ -9,6 +9,12 @@ const stats = [
   { icon: Users, value: config.stats.users, label: 'пользователей' },
   { icon: Star, value: config.stats.rating, label: 'рейтинг' },
   { icon: Zap, value: config.stats.features, label: 'функций' },
+]
+
+const features = [
+  { icon: Palette, label: '12 тем оформления' },
+  { icon: Shield, label: 'Блокировка рекламы' },
+  { icon: Sparkles, label: '50+ функций' },
 ]
 
 export default function CTA() {
@@ -91,7 +97,30 @@ export default function CTA() {
                 свой VK удобнее, красивее и приватнее
               </p>
 
-              {/* Stats */}
+              {/* Features pills */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="flex flex-wrap items-center justify-center gap-3 mb-10"
+              >
+                {features.map((feature, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 + i * 0.1 }}
+                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm"
+                  >
+                    <feature.icon className="w-4 h-4 text-cyan-300" />
+                    <span>{feature.label}</span>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* Stats - раскомментировать когда будет больше пользователей
               <div className="flex flex-wrap items-center justify-center gap-8 mb-12">
                 {stats.map((stat, i) => (
                   <motion.div
@@ -110,6 +139,7 @@ export default function CTA() {
                   </motion.div>
                 ))}
               </div>
+              */}
 
               {/* Main CTA Button */}
               <motion.div

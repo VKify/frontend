@@ -1,5 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
+import { Routes, Route } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import ScrollToTop from './components/common/ScrollToTop'
 import Header from './components/common/Header'
@@ -16,26 +15,22 @@ const Terms = lazy(() => import('./pages/Terms'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 function App() {
-  const location = useLocation()
-
   return (
     <div className="min-h-screen flex flex-col bg-primary">
       <ScrollToTop />
       <Header />
       <main className="flex-1">
         <Suspense fallback={<Loading />}>
-          <AnimatePresence mode="wait">
-            <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<Home />} />
-              <Route path="/welcome" element={<Welcome />} />
-              <Route path="/uninstall" element={<Uninstall />} />
-              <Route path="/changelog" element={<Changelog />} />
-              <Route path="/changelog/:version" element={<ChangelogVersion />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </AnimatePresence>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/welcome" element={<Welcome />} />
+            <Route path="/uninstall" element={<Uninstall />} />
+            <Route path="/changelog" element={<Changelog />} />
+            <Route path="/changelog/:version" element={<ChangelogVersion />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </Suspense>
       </main>
       <Footer />
