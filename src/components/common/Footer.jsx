@@ -1,4 +1,3 @@
-// src/components/common/Footer.jsx
 import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link'
@@ -101,7 +100,7 @@ function ScrollToTopButton() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 p-3 bg-[#0077ff] text-white rounded-full shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-shadow"
+          className="fixed bottom-8 right-8 z-10 p-3 bg-[#0077ff] text-white rounded-full shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-shadow"
           aria-label="Наверх"
         >
           <ArrowUp className="w-5 h-5" />
@@ -305,19 +304,25 @@ function DonateButton({ onClick }) {
 function BrandSection({ onDonateClick, latestVersion }) {
   return (
     <div className="col-span-2">
-      <Link to="/" className="inline-flex items-center gap-3 mb-6 group">
-        <motion.div 
-          whileHover={{ rotate: 5, scale: 1.05 }}
-          transition={{ type: 'spring', stiffness: 300 }}
-          className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0077ff] to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-shadow"
-        >
-          <div className="absolute inset-0 rounded-2xl bg-blue-500 blur-xl opacity-0 group-hover:opacity-50 transition-opacity" />
-          <Logo className="w-8 h-8 text-white relative z-10" />
-        </motion.div>
+      {/* Разделяем на две отдельные ссылки */}
+      <div className="inline-flex items-center gap-3 mb-6 group">
+        <Link to="/">
+          <motion.div 
+            whileHover={{ rotate: 5, scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 300 }}
+            className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0077ff] to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-shadow"
+          >
+            <div className="absolute inset-0 rounded-2xl bg-blue-500 blur-xl opacity-0 group-hover:opacity-50 transition-opacity" />
+            <Logo className="w-8 h-8 text-white relative z-10" />
+          </motion.div>
+        </Link>
         <div>
-          <span className="text-xl font-bold text-gray-900 dark:text-white block group-hover:text-[#0077ff] transition-colors">
+          <Link 
+            to="/"
+            className="text-xl font-bold text-gray-900 dark:text-white block hover:text-[#0077ff] transition-colors"
+          >
             {config.app.name}
-          </span>
+          </Link>
           <Link 
             to="/changelog" 
             className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 hover:text-[#0077ff] transition-colors"
@@ -326,7 +331,7 @@ function BrandSection({ onDonateClick, latestVersion }) {
             v{latestVersion}
           </Link>
         </div>
-      </Link>
+      </div>
       
       <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed max-w-xs mb-6">
         {config.app.description}

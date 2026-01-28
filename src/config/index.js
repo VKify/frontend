@@ -6,6 +6,7 @@ export const config = {
     description: 'Расширение для браузера, которое делает ВКонтакте удобнее, красивее и приватнее',
     tagline: 'Расширение для VK',
     email: '@vkify',
+    video: '',
   },
 
   // Внешние ссылки
@@ -26,7 +27,6 @@ export const config = {
         { name: 'Статистика', href: '/#stats', isAnchor: true, sectionId: 'stats' },
         { name: 'Скриншоты', href: '/#screenshots', isAnchor: true, sectionId: 'screenshots' },
         { name: 'Скачать', href: '/#cta', isAnchor: true, sectionId: 'cta' },
-        { name: 'Обновления', href: '/changelog', isAnchor: false },
     ],
     footer: {
       product: [

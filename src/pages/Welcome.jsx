@@ -59,12 +59,7 @@ const quickLinks = [
 
 export default function Welcome() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950"
-    >
+    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
       <SEO 
         title="Добро пожаловать"
         description="Спасибо за установку VKify! Узнайте, как начать использовать расширение."
@@ -238,6 +233,6 @@ export default function Welcome() {
           </div>
         </motion.div>
       </div>
-    </motion.div>
+    </div>
   )
 }

@@ -32,12 +32,7 @@ const sections = [
 
 export default function Privacy() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950"
-    >
+    <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950">
       <SEO 
         title="Политика конфиденциальности"
         description="Узнайте, как VKify защищает вашу конфиденциальность. Мы не собираем никаких данных."
@@ -105,6 +100,6 @@ export default function Privacy() {
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }

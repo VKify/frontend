@@ -86,23 +86,21 @@ function HeaderLogo({ isScrolled }) {
         </div>
       </motion.div>
       
-      <div className="flex flex-col">
-        <span className="text-xl font-bold text-gray-900 dark:text-white">
+      {/* Фиксированная высота контейнера */}
+      <div className="flex flex-col justify-center h-10">
+        <span className="text-xl font-bold text-gray-900 dark:text-white leading-tight">
           {config.app.name}
         </span>
-        <AnimatePresence>
-          {isScrolled && (
-            <motion.span 
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
-              className="text-[10px] text-gray-500 dark:text-gray-400 -mt-0.5 overflow-hidden"
-            >
-              {config.app.tagline}
-            </motion.span>
-          )}
-        </AnimatePresence>
+        {/* Tagline всегда занимает место, просто невидим */}
+        <span 
+          className={`
+            text-[10px] text-gray-500 dark:text-gray-400 leading-tight
+            transition-opacity duration-200
+            ${isScrolled ? 'opacity-100' : 'opacity-0'}
+          `}
+        >
+          {config.app.tagline}
+        </span>
       </div>
     </Link>
   )
