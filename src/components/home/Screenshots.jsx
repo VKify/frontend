@@ -118,11 +118,6 @@ function ScreenMockup({ type, isActive }) {
   if (type === 'css') {
     return (
       <div className={baseClasses + " bg-gray-900 p-3 sm:p-4 font-mono"}>
-        <div className="flex gap-1.5 sm:gap-2 mb-3 sm:mb-4">
-          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500" />
-          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500" />
-          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500" />
-        </div>
         <motion.div
           initial={false}
           animate={isActive ? { opacity: [0, 1] } : { opacity: 1 }}
