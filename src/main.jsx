@@ -1,12 +1,14 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import { hydrateRoot, createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import App from './App'
 import { ThemeProvider } from './context/ThemeContext'
 import './styles/index.css'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const container = document.getElementById('root')
+
+const app = (
   <React.StrictMode>
     <HelmetProvider>
       <BrowserRouter>
@@ -17,3 +19,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </HelmetProvider>
   </React.StrictMode>
 )
+
+// Если страница пре-рендерена — hydrate, иначе — render
+if (container.hasChildNodes()) {
+  hydrateRoot(container, app)
+} else {
+  createRoot(container).render(app)
+}
