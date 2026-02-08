@@ -9,6 +9,12 @@ export const config = {
     video: '',
   },
 
+  // Аналитика
+  analytics: {
+    googleAnalytics: 'G-1MT0EPKQ4B',
+    yandexMetrika: 106720485,
+  },
+
   // Внешние ссылки
   links: {
     chromeWebStore: 'https://chromewebstore.google.com/detail/vkify/lofggenkgbpdmmplnbgfplnpfjhgljla',

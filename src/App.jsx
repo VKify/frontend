@@ -4,6 +4,7 @@ import ScrollToTop from './components/common/ScrollToTop'
 import Header from './components/common/Header'
 import Footer from './components/common/Footer'
 import Loading from './components/common/Loading'
+import Analytics from './components/common/Analytics'
 
 const Home = lazy(() => import('./pages/Home'))
 const Welcome = lazy(() => import('./pages/Welcome'))
@@ -17,6 +18,7 @@ const NotFound = lazy(() => import('./pages/NotFound'))
 function App() {
   return (
     <div className="min-h-screen flex flex-col bg-primary">
+      <Analytics />
       <ScrollToTop />
       <Header />
       <main className="flex-1">
