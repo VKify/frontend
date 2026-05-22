@@ -9,7 +9,7 @@ import CTA from '../components/home/CTA'
 export default function Home() {
   return (
     <div className="bg-white dark:bg-gray-950">
-      <SEO 
+      <SEO
         title={null}
         description="VKify — мощное браузерное расширение для кастомизации ВКонтакте. Темы, блокировка рекламы, приватность и более 50 функций."
       />

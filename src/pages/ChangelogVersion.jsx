@@ -68,9 +68,10 @@ export default function ChangelogVersion() {
 
   return (
     <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950">
-      <SEO 
+      <SEO
         title={`Версия ${ver}`}
         description={`${title} — обновление VKify v${ver}`}
+        url={`/changelog/${ver}`}
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

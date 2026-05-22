@@ -17,45 +17,17 @@ import Logo from './Logo'
 import { socialIcons } from './SocialIcons'
 import config from '../../config'
 import { getLatestVersion } from '../../data/changelog'
+import { useExtension } from '../../hooks/useExtension'
+import { scrollWithOffset, getActiveSection } from '../../utils/scroll'
 
-// Константы
-const NAV_HEIGHT = 80
 const SCROLL_THRESHOLD = 50
 
-// Функция скролла с учётом фиксированного хедера
-const scrollWithOffset = (el) => {
-  // Если мы в начале страницы, где виден AnnouncementBar
-  if (window.scrollY < SCROLL_THRESHOLD) {
-    // Мгновенно проскроллим за порог, чтобы AnnouncementBar исчез
-    window.scrollTo({ top: SCROLL_THRESHOLD + 1, behavior: 'instant' })
-    
-    // Небольшая задержка для перерасчёта layout после исчезновения AnnouncementBar
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        const absoluteTop = el.getBoundingClientRect().top + window.scrollY
-        window.scrollTo({ 
-          top: Math.max(0, absoluteTop - NAV_HEIGHT - 20), 
-          behavior: 'smooth' 
-        })
-      })
-    })
-  } else {
-    // Обычный плавный скролл
-    const absoluteTop = el.getBoundingClientRect().top + window.scrollY
-    window.scrollTo({ 
-      top: Math.max(0, absoluteTop - NAV_HEIGHT - 20), 
-      behavior: 'smooth' 
-    })
-  }
-}
+// Маршруты, на которых глобальная шапка не рендерится — у них своя
+// детальная шапка (DetailNavbar) с собственным прогрессбаром.
+// Раньше глобальный Header и inline-навбар этих страниц оба сидели
+// fixed top-0 z-50 и перекрывали друг друга.
+const DETAIL_ROUTES = /^\/(themes|wallpapers)\/[^/]+$|^\/theme\/[^/]+$/
 
-// Экспорт для использования в других компонентах
-export const scrollToElement = (elementId) => {
-  const el = document.getElementById(elementId)
-  if (el) scrollWithOffset(el)
-}
-
-// Компонент прогресс-бара
 function ProgressBar() {
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, {
@@ -72,15 +44,12 @@ function ProgressBar() {
   )
 }
 
-// Компонент логотипа
 function HeaderLogo({ isScrolled, isHomePage }) {
   const handleLogoClick = (e) => {
-    // Если мы на главной странице, скроллим вверх
     if (isHomePage) {
       e.preventDefault()
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-    // Если на другой странице, Link сработает автоматически
   }
 
   return (
@@ -116,7 +85,6 @@ function HeaderLogo({ isScrolled, isHomePage }) {
   )
 }
 
-// Компонент навигационного элемента
 function NavItem({ item, isActive }) {
   const baseClasses = `relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
     isActive
@@ -168,12 +136,11 @@ function NavItem({ item, isActive }) {
   )
 }
 
-// Компонент Announcement Bar
 function AnnouncementBar({ isVisible, latestVersion }) {
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.div 
+        <motion.div
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
@@ -193,7 +160,6 @@ function AnnouncementBar({ isVisible, latestVersion }) {
   )
 }
 
-// Компонент кнопки меню
 function MenuButton({ isOpen, onClick }) {
   return (
     <motion.button
@@ -225,7 +191,6 @@ function MenuButton({ isOpen, onClick }) {
   )
 }
 
-// Компонент элемента мобильного меню
 function MobileNavItem({ item, isActive, onClick }) {
   const baseClasses = `w-full flex items-center justify-between px-4 py-4 rounded-2xl text-base font-medium transition-colors ${
     isActive
@@ -267,7 +232,6 @@ function MobileNavItem({ item, isActive, onClick }) {
   )
 }
 
-// Компонент мобильного меню
 function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, latestVersion }) {
   const checkIsActive = (item) => {
     if (item.isAnchor) {
@@ -364,7 +328,7 @@ function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, late
               </div>
 
               <div className="p-4 border-t border-gray-200 dark:border-gray-800">
-                <Button 
+                <Button
                   href={config.links.chromeWebStore}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -373,7 +337,7 @@ function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, late
                   <Download className="w-5 h-5" />
                   Установить бесплатно
                 </Button>
-                
+
                 <p className="mt-3 text-center text-xs text-gray-500">
                   <Zap className="w-3 h-3 inline mr-1" />
                   Бесплатно • Chrome, Edge, Opera
@@ -387,33 +351,22 @@ function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, late
   )
 }
 
-function getActiveSection(sectionIds, offset = 150) {
-  const scrollPosition = window.scrollY + offset
-
-  for (let i = sectionIds.length - 1; i >= 0; i--) {
-    const element = document.getElementById(sectionIds[i])
-    if (element && scrollPosition >= element.offsetTop) {
-      return sectionIds[i]
-    }
-  }
-  
-  return null
-}
-
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
-  
+
   const location = useLocation()
   const navigation = useMemo(() => config.navigation.main, [])
   const isHomePage = location.pathname === '/'
+  const isDetailRoute = DETAIL_ROUTES.test(location.pathname)
 
-  // Получаем последнюю версию из changelog
   const latestVersion = useMemo(() => {
     const latest = getLatestVersion()
     return latest?.version || '1.0.0'
   }, [])
+
+  const { detected, version: extensionVersion } = useExtension()
 
   useEffect(() => {
     let ticking = false
@@ -463,7 +416,13 @@ export default function Header() {
     return location.pathname === item.href
   }, [location.pathname, activeSection])
 
-  const showAnnouncementBar = !isScrolled && location.pathname === '/'
+  // Бар «новая версия» скрываем если расширение уже установлено актуальной версии
+  const extensionIsUpToDate = detected === true && extensionVersion === latestVersion
+  const showAnnouncementBar = !isScrolled && location.pathname === '/' && !extensionIsUpToDate
+
+  // Детальные страницы рендерят собственный DetailNavbar — глобальная шапка
+  // им не нужна (и раньше визуально конфликтовала: оба элемента fixed top-0 z-50).
+  if (isDetailRoute) return null
 
   return (
     <>
@@ -488,7 +447,7 @@ export default function Header() {
 
             <div className="hidden lg:flex items-center gap-3">
               <ThemeToggle />
-              <Button 
+              <Button
                 href={config.links.chromeWebStore}
                 target="_blank"
                 rel="noopener noreferrer"

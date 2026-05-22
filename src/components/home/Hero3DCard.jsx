@@ -1,15 +1,18 @@
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
-import { 
-  Palette, 
-  Shield, 
-  Zap, 
-  Eye, 
-  Download, 
-  Music,
-  MessageCircle,
+import {
+  Palette,
+  Shield,
+  EyeOff,
   Lock,
-  Sparkles
+  Sparkles,
+  Code2,
+  Type,
+  Ghost,
+  Activity,
+  ImageIcon,
+  Brush,
+  Ban,
 } from 'lucide-react'
 import Logo from '../common/Logo'
 
@@ -54,59 +57,65 @@ function TiltCard({ children }) {
 
 // Все функции для карточек
 const allFeatures = [
-  { 
-    Icon: Palette, 
-    label: 'Темы', 
-    value: '12+', 
+  {
+    Icon: Palette,
+    label: 'Тем оформления',
+    value: '72+',
     color: 'from-purple-500 to-pink-500',
   },
-  { 
-    Icon: Shield, 
-    label: 'Реклама', 
-    value: '0%', 
+  {
+    Icon: Shield,
+    label: 'Реклама',
+    value: '0%',
     color: 'from-green-500 to-emerald-500',
   },
-  { 
-    Icon: Zap, 
-    label: 'Скорость', 
-    value: '2x', 
-    color: 'from-yellow-500 to-orange-500',
+  {
+    Icon: Ban,
+    label: 'Трекеры',
+    value: 'Блок',
+    color: 'from-red-500 to-rose-500',
   },
-  { 
-    Icon: Eye, 
-    label: 'Просмотры', 
-    value: 'Скрыты', 
-    color: 'from-blue-500 to-cyan-500',
+  {
+    Icon: Lock,
+    label: 'Приватность',
+    value: '100%',
+    color: 'from-orange-500 to-red-500',
   },
-  { 
-    Icon: Download, 
-    label: 'Музыка', 
-    value: '∞', 
-    color: 'from-pink-500 to-rose-500',
+  {
+    Icon: Type,
+    label: 'Шрифтов',
+    value: '16+',
+    color: 'from-cyan-500 to-blue-500',
   },
-  { 
-    Icon: MessageCircle, 
-    label: 'Сообщения', 
-    value: 'Тайные', 
-    color: 'from-indigo-500 to-purple-500',
+  {
+    Icon: ImageIcon,
+    label: 'Живые обои',
+    value: 'Вкл',
+    color: 'from-teal-500 to-emerald-500',
   },
-  { 
-    Icon: Lock, 
-    label: 'Приватность', 
-    value: '100%', 
-    color: 'from-emerald-500 to-teal-500',
+  {
+    Icon: Code2,
+    label: 'CSS-редактор',
+    value: 'Свой',
+    color: 'from-indigo-500 to-violet-500',
   },
-  { 
-    Icon: Sparkles, 
-    label: 'Функций', 
-    value: '50+', 
+  {
+    Icon: Activity,
+    label: 'Слежка онлайн',
+    value: 'Вкл',
     color: 'from-amber-500 to-orange-500',
   },
-  { 
-    Icon: Music, 
-    label: 'Музыка', 
-    value: 'Фон', 
-    color: 'from-cyan-500 to-blue-500',
+  {
+    Icon: Brush,
+    label: 'Скругления',
+    value: 'Любые',
+    color: 'from-pink-500 to-fuchsia-500',
+  },
+  {
+    Icon: Sparkles,
+    label: 'Функций',
+    value: '50+',
+    color: 'from-yellow-500 to-orange-500',
   },
 ]
 

@@ -14,30 +14,40 @@ const ChangelogVersion = lazy(() => import('./pages/ChangelogVersion'))
 const Privacy = lazy(() => import('./pages/Privacy'))
 const Terms = lazy(() => import('./pages/Terms'))
 const NotFound = lazy(() => import('./pages/NotFound'))
+const Themes = lazy(() => import('./pages/Themes'))
+const ThemePreview = lazy(() => import('./pages/ThemePreview'))
+const ThemeDetail = lazy(() => import('./pages/ThemeDetail'))
+const Wallpapers = lazy(() => import('./pages/Wallpapers'))
+const WallpaperDetail = lazy(() => import('./pages/WallpaperDetail'))
 
 function App() {
-  return (
-    <div className="min-h-screen flex flex-col bg-primary">
-      <Analytics />
-      <ScrollToTop />
-      <Header />
-      <main className="flex-1">
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/welcome" element={<Welcome />} />
-            <Route path="/uninstall" element={<Uninstall />} />
-            <Route path="/changelog" element={<Changelog />} />
-            <Route path="/changelog/:version" element={<ChangelogVersion />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </main>
-      <Footer />
-    </div>
-  )
+    return (
+        <div className="min-h-screen flex flex-col bg-primary">
+            <Analytics />
+            <ScrollToTop />
+            <Header />
+            <main className="flex-1">
+                <Suspense fallback={<Loading />}>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/welcome" element={<Welcome />} />
+                        <Route path="/uninstall" element={<Uninstall />} />
+                        <Route path="/changelog" element={<Changelog />} />
+                        <Route path="/changelog/:version" element={<ChangelogVersion />} />
+                        <Route path="/privacy" element={<Privacy />} />
+                        <Route path="/terms" element={<Terms />} />
+                        <Route path="/themes" element={<Themes />} />
+                        <Route path="/theme/:encoded" element={<ThemePreview />} />
+                        <Route path="/themes/:id" element={<ThemeDetail />} />
+                        <Route path="/wallpapers" element={<Wallpapers />} />
+                        <Route path="/wallpapers/:id" element={<WallpaperDetail />} />
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
+                </Suspense>
+            </main>
+            <Footer />
+        </div>
+    )
 }
 
 export default App

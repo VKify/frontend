@@ -13,7 +13,7 @@ const stats = [
 ]
 
 const features = [
-  { icon: Palette, label: '12 тем оформления' },
+  { icon: Palette, label: '72 тем оформления' },
   { icon: Shield, label: 'Блокировка рекламы' },
   { icon: Sparkles, label: '50+ функций' },
 ]

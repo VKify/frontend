@@ -1,6 +1,7 @@
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
-import { Home, ArrowLeft, Search, Frown, RefreshCw, Sparkles } from 'lucide-react'
+import { Home, ArrowLeft, Frown, RefreshCw, Sparkles, Palette, Image as ImageIcon } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import SEO from '../components/common/SEO'
 import Button from '../components/common/Button'
 
@@ -322,12 +323,44 @@ export default function NotFound() {
           </Button>
         </motion.div>
 
+        {/* Быстрые ссылки на разделы */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="mt-4"
+        >
+          <p className="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-widest mb-4">
+            Может, вы искали это?
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              { to: '/themes',    icon: <Palette className="w-4 h-4" />,   label: 'Темы оформления' },
+              { to: '/wallpapers',icon: <ImageIcon className="w-4 h-4" />, label: 'Обои' },
+              { to: '/',          icon: <Home className="w-4 h-4" />,      label: 'Главная' },
+            ].map(({ to, icon, label }) => (
+              <Link
+                key={to}
+                to={to}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
+                           bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300
+                           hover:bg-blue-50 dark:hover:bg-blue-950/40 hover:text-blue-600 dark:hover:text-blue-400
+                           border border-gray-200 dark:border-gray-800
+                           transition-all duration-150"
+              >
+                {icon}
+                {label}
+              </Link>
+            ))}
+          </div>
+        </motion.div>
+
         {/* Footer Note */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9 }}
-          className="mt-12 text-xs text-gray-400 dark:text-gray-600"
+          className="mt-10 text-xs text-gray-400 dark:text-gray-600"
         >
           Такое бывает даже с лучшими из нас 🤷‍♂️
         </motion.p>

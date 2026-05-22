@@ -50,4 +50,4 @@ Disallow: /
 Sitemap: https://vkify.ru/sitemap.xml
 
 # Host (для Яндекса)
-Host: https://vkify.ru
+Host: vkify.ru

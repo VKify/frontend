@@ -20,36 +20,37 @@ export default function Analytics() {
       document.head.appendChild(gaScript)
 
       const gaInlineScript = document.createElement('script')
-      gaInlineScript.innerHTML = `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '${GA_ID}', { send_page_view: false });
-      `
+      gaInlineScript.textContent = [
+        'window.dataLayer = window.dataLayer || [];',
+        'function gtag(){dataLayer.push(arguments);}',
+        'gtag("js", new Date());',
+        `gtag("config", "${GA_ID}", { send_page_view: false });`,
+      ].join('\n')
       document.head.appendChild(gaInlineScript)
     }
 
     // Яндекс.Метрика
     if (YM_ID && YM_ID !== 12345678) {
       const ymScript = document.createElement('script')
-      ymScript.innerHTML = `
-        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-        ym(${YM_ID}, "init", {
-          clickmap:true,
-          trackLinks:true,
-          accurateTrackBounce:true,
-          webvisor:true
-        });
-      `
+      ymScript.textContent = [
+        '(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};',
+        'm[i].l=1*new Date();',
+        'for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}',
+        'k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})',
+        '(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");',
+        `ym(${YM_ID}, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });`,
+      ].join('\n')
       document.head.appendChild(ymScript)
 
       // Noscript для Яндекс.Метрики
       const noscript = document.createElement('noscript')
-      noscript.innerHTML = `<div><img src="https://mc.yandex.ru/watch/${YM_ID}" style="position:absolute; left:-9999px;" alt="" /></div>`
+      const img = document.createElement('img')
+      img.src = `https://mc.yandex.ru/watch/${YM_ID}`
+      img.style.cssText = 'position:absolute; left:-9999px;'
+      img.alt = ''
+      const div = document.createElement('div')
+      div.appendChild(img)
+      noscript.appendChild(div)
       document.body.appendChild(noscript)
     }
   }, [])

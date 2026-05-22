@@ -1,6 +1,18 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import prerender from '@prerenderer/rollup-plugin'
+import { themeIds }     from './src/data/themes.js'
+import { wallpaperIds } from './src/data/wallpapers.js'
+
+const routes = [
+  // Static pages
+  '/', '/welcome', '/uninstall', '/changelog', '/privacy', '/terms',
+  '/themes', '/wallpapers',
+  // Dynamic theme pages
+  ...themeIds.map(id => `/themes/${id}`),
+  // Dynamic wallpaper pages
+  ...wallpaperIds.map(id => `/wallpapers/${id}`),
+]
 
 export default defineConfig({
   plugins: [react()],
@@ -8,25 +20,23 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
-          animations: ['framer-motion'],
+        // rolldown/Vite 8 requires manualChunks as a function (the object
+        // form throws "manualChunks is not a function").
+        manualChunks(id) {
+          if (!id.includes('node_modules')) return
+          if (/[\\/]node_modules[\\/](react|react-dom|react-router|react-router-dom|scheduler)[\\/]/.test(id)) {
+            return 'vendor'
+          }
+          if (id.includes('framer-motion')) return 'animations'
         },
       },
       plugins: [
         prerender({
-          routes: [
-            '/',
-            '/welcome',
-            '/uninstall',
-            '/changelog',
-            '/privacy',
-            '/terms'
-          ],
+          routes,
           renderer: '@prerenderer/renderer-puppeteer',
           rendererOptions: {
-            maxConcurrentRoutes: 1,
-            renderAfterTime: 500,
+            maxConcurrentRoutes: 4,
+            renderAfterTime: 1200,
           },
         }),
       ],

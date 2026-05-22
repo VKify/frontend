@@ -122,3 +122,26 @@ body {
 ::selection {
   background-color: rgba(0, 119, 255, 0.3);
 }
+
+/* ─── prefers-reduced-motion ───────────────────────────────────────────────── */
+/*
+ * Пользователи с настройкой «уменьшить движение» получают
+ * мгновенные переходы вместо анимаций. Framer Motion
+ * автоматически уважает этот медиа-запрос через свой
+ * хук useReducedMotion, но CSS-анимации нужно контролировать вручную.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Оставляем только самые важные opacity-переходы */
+  .transition-opacity {
+    transition-duration: 150ms !important;
+  }
+}

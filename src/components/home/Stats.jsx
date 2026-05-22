@@ -13,13 +13,13 @@ const stats = [
     icon: Sparkles,
     color: 'from-blue-500 to-cyan-500' 
   },
-  { 
-    value: 12, 
-    suffix: '', 
-    label: 'тем оформления', 
+  {
+    value: 72,
+    suffix: '+',
+    label: 'тем оформления',
     description: 'на любой вкус',
     icon: Palette,
-    color: 'from-purple-500 to-pink-500' 
+    color: 'from-purple-500 to-pink-500'
   },
   { 
     value: 0, 

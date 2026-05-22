@@ -16,14 +16,12 @@ import { socialIcons, socialHoverStyles } from './SocialIcons'
 import config from '../../config'
 import { getLatestVersion } from '../../data/changelog'
 
-// Функция плавного скролла с отступом для хедера
 const scrollWithOffset = (el) => {
   const yOffset = -80
   const y = el.getBoundingClientRect().top + window.scrollY + yOffset
   window.scrollTo({ top: y, behavior: 'smooth' })
 }
 
-// Компонент анимированного фона
 function AnimatedBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -65,7 +63,6 @@ function AnimatedBackground() {
   )
 }
 
-// Компонент кнопки "Наверх"
 function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false)
 
@@ -101,7 +98,6 @@ function ScrollToTopButton() {
   )
 }
 
-// Компонент социальной иконки
 function SocialIcon({ link, size = 'md' }) {
   const IconComponent = socialIcons[link.name]
   const hoverStyle = socialHoverStyles[link.name] || ''
@@ -146,7 +142,6 @@ function SocialIcon({ link, size = 'md' }) {
   )
 }
 
-// Компонент ссылки футера
 function FooterLink({ item }) {
   const [isHovered, setIsHovered] = useState(false)
 
@@ -166,7 +161,6 @@ function FooterLink({ item }) {
     />
   )
 
-  // Внешняя ссылка
   if (item.external) {
     return (
       <a
@@ -186,7 +180,6 @@ function FooterLink({ item }) {
     )
   }
 
-  // Якорная ссылка (HashLink)
   if (item.isAnchor) {
     return (
       <HashLink
@@ -205,7 +198,6 @@ function FooterLink({ item }) {
     )
   }
 
-  // Обычная внутренняя ссылка
   return (
     <Link
       to={item.href}
@@ -221,7 +213,6 @@ function FooterLink({ item }) {
   )
 }
 
-// Компонент секции ссылок
 function LinkSection({ title, links }) {
   return (
     <div>
@@ -246,7 +237,6 @@ function LinkSection({ title, links }) {
   )
 }
 
-// Компонент кнопки поддержки
 function DonateButton({ onClick }) {
   const [isHovered, setIsHovered] = useState(false)
 
@@ -297,11 +287,9 @@ function DonateButton({ onClick }) {
   )
 }
 
-// Компонент брендинга
 function BrandSection({ onDonateClick, latestVersion }) {
   return (
     <div className="col-span-2">
-      {/* Разделяем на две отдельные ссылки */}
       <div className="inline-flex items-center gap-3 mb-6 group">
         <Link to="/">
           <motion.div 
@@ -358,7 +346,6 @@ function BrandSection({ onDonateClick, latestVersion }) {
   )
 }
 
-// Компонент нижней панели
 function BottomBar({ currentYear, latestVersion }) {
   return (
     <div className="py-6 border-t border-gray-200/50 dark:border-gray-800/50">
@@ -405,12 +392,10 @@ function BottomBar({ currentYear, latestVersion }) {
   )
 }
 
-// Основной компонент Footer
 export default function Footer() {
   const [isDonateOpen, setIsDonateOpen] = useState(false)
   const currentYear = useMemo(() => new Date().getFullYear(), [])
-  
-  // Получаем последнюю версию из changelog
+
   const latestVersion = useMemo(() => {
     const latest = getLatestVersion()
     return latest?.version || '1.0.0'
@@ -431,15 +416,14 @@ export default function Footer() {
         <AnimatedBackground />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Newsletter Section */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="py-12 border-b border-gray-200/50 dark:border-gray-800/50"
           >
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div>
+              <div className="text-center md:text-left">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
                   Будьте в курсе обновлений
                 </h3>
@@ -463,7 +447,6 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          {/* Main Footer Content */}
           <div className="py-12 md:py-16">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
               <BrandSection 

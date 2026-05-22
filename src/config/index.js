@@ -5,8 +5,7 @@ export const config = {
     name: 'VKify',
     description: 'Расширение для браузера, которое делает ВКонтакте удобнее, красивее и приватнее',
     tagline: 'Расширение для VK',
-    email: '@vkify',
-    video: '',
+    email: 'support@vkify.ru',
   },
 
   // Аналитика
@@ -39,6 +38,8 @@ export const config = {
         { name: 'Возможности', href: '/#features', isAnchor: true },
         { name: 'Скриншоты', href: '/#screenshots', isAnchor: true },
         { name: 'Как установить', href: '/#how-it-works', isAnchor: true },
+        { name: 'Темы оформления', href: '/themes' },
+        { name: 'Коллекция обоев', href: '/wallpapers' },
         { name: 'Обновления', href: '/changelog' },
       ],
       resources: [
@@ -85,7 +86,16 @@ export const config = {
     users: '10K+',
     rating: '4.9',
     features: '50+',
-    themes: '12',
+    themes: '72',
+  },
+
+  // Форма обратной связи (Google Forms)
+  feedback: {
+    formId: '1-FTj02V2EF9Gmxejh3JM-yvQIxRf7NnTm_QWxLm7RUw',
+    fields: {
+      reasons: 'entry.1286215964', // первый вопрос — чекбоксы
+      comment:  'entry.245136211', // второй вопрос — абзац
+    },
   },
 
   // SEO
