@@ -309,7 +309,7 @@ export default function ThemeDetail() {
                             <div className="p-5 bg-gray-50 dark:bg-gray-900 rounded-2xl space-y-3">
                                 <button
                                     onClick={handleApplyInVK}
-                                    className="flex items-center justify-center gap-2 w-full py-3 bg-[#0077ff] hover:bg-blue-500 text-white text-sm font-bold rounded-xl active:scale-[0.98] transition-all"
+                                    className="hidden lg:flex items-center justify-center gap-2 w-full py-3 bg-[#0077ff] hover:bg-blue-500 text-white text-sm font-bold rounded-xl active:scale-[0.98] transition-all"
                                 >
                                     {applied
                                         ? <><Check className="w-4 h-4" /> Применено!</>

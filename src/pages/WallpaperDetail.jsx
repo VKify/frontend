@@ -440,7 +440,7 @@ export default function WallpaperDetail() {
                     <div className="grid lg:grid-cols-3 gap-10">
 
                         {/* Левая: описание + похожие */}
-                        <div className="lg:col-span-2 space-y-8">
+                        <div className="lg:col-span-2 min-w-0 space-y-8">
                             <div>
                                 <h1 className="text-3xl font-black text-gray-950 dark:text-white tracking-tight mb-3">
                                     {wallpaper.title}
@@ -473,7 +473,7 @@ export default function WallpaperDetail() {
                         </div>
 
                         {/* Правая: кнопки + мета */}
-                        <div className="space-y-4">
+                        <div className="min-w-0 space-y-4">
 
                             {/* Кнопки */}
                             <div className="p-5 bg-gray-50 dark:bg-gray-900 rounded-2xl space-y-3">
@@ -510,7 +510,7 @@ export default function WallpaperDetail() {
 
                                 <button
                                     onClick={handleApplyInVK}
-                                    className="flex items-center justify-center gap-2 w-full py-3 bg-[#0077ff] hover:bg-blue-500 text-white text-sm font-bold rounded-xl active:scale-[0.98] transition-all"
+                                    className="hidden lg:flex items-center justify-center gap-2 w-full py-3 bg-[#0077ff] hover:bg-blue-500 text-white text-sm font-bold rounded-xl active:scale-[0.98] transition-all"
                                 >
                                     {applied
                                         ? <><Check className="w-4 h-4" /> Применено!</>
