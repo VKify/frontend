@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>VKify</title>
+  <script>
+    // GitHub Pages SPA fallback:
+    // сохраняем полный URL в sessionStorage и возвращаем пользователя на /,
+    // откуда index.html восстанавливает путь через history.replaceState.
+    sessionStorage.redirect = location.href;
+    location.replace('/');
+  </script>
+</head>
+<body></body>
+</html>
