@@ -88,7 +88,7 @@ function BigPreview({ theme }) {
         >
             {/* Имитация топбара VK */}
             <div
-                className="flex items-center gap-3 px-5 py-3 border-b"
+                className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2.5 sm:py-3 border-b"
                 style={{ background: theme.preview.card, borderColor: theme.preview.accent + '22' }}
             >
                 <VkLogo accent={theme.preview.accent} size={28} />
@@ -102,7 +102,7 @@ function BigPreview({ theme }) {
             </div>
 
             {/* Имитация контента */}
-            <div className="flex gap-4 p-5">
+            <div className="flex gap-4 p-3 sm:p-5">
                 {/* Сайдбар (desktop) */}
                 <div className="hidden sm:flex flex-col gap-2 w-40">
                     {Array.from({ length: 5 }).map((_, i) => (
@@ -255,10 +255,10 @@ export default function ThemeDetail() {
                 <BigPreview theme={theme} />
 
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-                    <div className="grid lg:grid-cols-3 gap-10">
+                    <div className="grid lg:grid-cols-3 gap-8 lg:gap-10">
 
-                        {/* Левая: описание + похожие */}
-                        <div className="lg:col-span-2 space-y-8">
+                        {/* Левая: описание + похожие (на мобиле идёт второй) */}
+                        <div className="lg:col-span-2 order-2 lg:order-1 min-w-0 space-y-8">
                             <div>
                                 <h1 className="text-3xl font-black text-gray-950 dark:text-white tracking-tight mb-2">
                                     {theme.name}
@@ -287,8 +287,8 @@ export default function ThemeDetail() {
                             )}
                         </div>
 
-                        {/* Правая: действия + параметры */}
-                        <div className="space-y-4">
+                        {/* Правая: действия + параметры (на мобиле идёт первой) */}
+                        <div className="order-1 lg:order-2 min-w-0 space-y-4 lg:sticky lg:top-24 self-start">
                             {/* Цветовые пятна */}
                             <div className="flex gap-2 mb-2">
                                 {[
@@ -347,7 +347,7 @@ export default function ThemeDetail() {
                                 <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl">
                                     <p className="text-xs text-gray-400 dark:text-gray-500 mb-2 font-medium">Ссылка на тему</p>
                                     <div className="flex items-center gap-2 bg-white dark:bg-gray-800 rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-700">
-                    <span className="flex-1 text-[10px] font-mono text-gray-500 dark:text-gray-400 truncate">
+                    <span className="flex-1 min-w-0 text-[10px] font-mono text-gray-500 dark:text-gray-400 truncate">
                       {shareUrl}
                     </span>
                                         <button onClick={handleCopyLink} className="flex-shrink-0 text-blue-500 hover:text-blue-600 transition-colors">

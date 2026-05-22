@@ -115,7 +115,7 @@ export default function ThemePreview() {
                     <div className="grid lg:grid-cols-3 gap-10">
 
                         {/* Левая колонка */}
-                        <div className="lg:col-span-2 space-y-6">
+                        <div className="lg:col-span-2 order-2 lg:order-1 min-w-0 space-y-6">
                             <div>
                                 <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 dark:bg-blue-950/50 text-[#0077ff] text-xs font-semibold rounded-full mb-3">
                                     <Palette className="w-3.5 h-3.5" />
@@ -152,7 +152,7 @@ export default function ThemePreview() {
                         </div>
 
                         {/* Правая колонка (sticky) */}
-                        <div className="space-y-4 lg:sticky lg:top-24 self-start">
+                        <div className="order-1 lg:order-2 min-w-0 space-y-4 lg:sticky lg:top-24 self-start">
                             <div className="p-5 bg-gray-50 dark:bg-gray-900 rounded-2xl space-y-3">
                                 <button
                                     onClick={handleApply}
@@ -189,7 +189,7 @@ export default function ThemePreview() {
                             <div className="p-4 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl">
                                 <p className="text-xs text-gray-400 dark:text-gray-500 mb-2 font-medium">Ссылка на тему</p>
                                 <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 rounded-xl px-3 py-2 border border-gray-200 dark:border-gray-700">
-                                    <span className="flex-1 text-[10px] font-mono text-gray-500 dark:text-gray-400 truncate">
+                                    <span className="flex-1 min-w-0 text-[10px] font-mono text-gray-500 dark:text-gray-400 truncate">
                                         {shareUrl}
                                     </span>
                                     <button onClick={handleCopy} className="shrink-0 text-[#0077ff] hover:text-blue-500 transition-colors">
