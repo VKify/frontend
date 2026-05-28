@@ -23,6 +23,10 @@ import {
   Plug,
   Eye,
   Bug,
+  Search,
+  Bookmark,
+  Download,
+  Sparkles,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/common/SEO'
@@ -294,20 +298,41 @@ export default function Welcome() {
               />
             </div>
 
-            {/* Реклама в ленте */}
+            {/* Реклама в ленте — фильтр API: перехват newsfeed.get до рендера,
+                рекламные посты режутся ещё на сетевом уровне. */}
             <div className="flex items-center justify-between py-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-[#0077ff]/10 flex items-center justify-center flex-shrink-0">
                   <Shield className="w-5 h-5 text-[#0077ff]" />
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white text-sm">Реклама в ленте</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Убрать рекламные посты из ленты новостей</p>
+                  <p className="font-medium text-gray-900 dark:text-white text-sm">Реклама в ленте — API</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Перехват рекламных постов до рендера ленты</p>
                 </div>
               </div>
               <Toggle
-                checked={settings.block_feed_ads ?? true}
-                onChange={() => toggle('block_feed_ads')}
+                checked={settings.block_feed_ads_api ?? true}
+                onChange={() => toggle('block_feed_ads_api')}
+                disabled={notConnected}
+              />
+            </div>
+
+            {/* Реклама в ленте — фильтр DOM: страховочный слой поверх
+                API-фильтра. Срабатывает на промопосты, которые проскочили
+                сквозь сеть (ERID-маркеры, кастомные слова, hardMarkers). */}
+            <div className="flex items-center justify-between py-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[#0077ff]/10 flex items-center justify-center flex-shrink-0">
+                  <Shield className="w-5 h-5 text-[#0077ff]" />
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-white text-sm">Реклама в ленте — DOM</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Скрытие промопостов, проскочивших API-фильтр</p>
+                </div>
+              </div>
+              <Toggle
+                checked={settings.block_feed_ads_dom ?? true}
+                onChange={() => toggle('block_feed_ads_dom')}
                 disabled={notConnected}
               />
             </div>
@@ -348,6 +373,71 @@ export default function Welcome() {
               />
             </div>
 
+          </div>
+        </motion.section>
+
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35 }}
+          className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-900 border border-blue-100 dark:border-gray-800 shadow-sm"
+        >
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-5">
+            <Sparkles className="w-5 h-5 text-[#0077ff]" />
+            Что нового в v1.3
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {[
+              {
+                Icon: Search,
+                title: 'Поиск по функциям',
+                desc: 'Ctrl+K в попапе — мгновенный переход к любой настройке расширения. Звезда у результата кладёт функцию в избранное',
+              },
+              {
+                Icon: Download,
+                title: 'Экспорт диалогов',
+                desc: 'Скачать переписку в JSON, TXT, HTML или ZIP с фотографиями. Опционально расшифровать сообщения сохранённым ключом',
+              },
+              {
+                Icon: Bookmark,
+                title: 'Заметки из сообщений',
+                desc: 'Иконка-закладка у каждого сообщения сохраняет его в локальный архив — потом найдёте во вкладке «Заметки»',
+              },
+              {
+                Icon: Settings,
+                title: 'Панель прямо на VK',
+                desc: (
+                  <>
+                    Откройте{' '}
+                    <a
+                      href="https://vk.com/vkify_settings"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#0077ff] hover:underline font-medium"
+                    >
+                      vk.com/vkify_settings
+                    </a>{' '}
+                    — попап появится прямо на странице, без открытия иконки расширения
+                  </>
+                ),
+              },
+            ].map(({ Icon, title, desc }, i) => (
+              <motion.div
+                key={title}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 + i * 0.05 }}
+                className="flex gap-3 p-3 rounded-2xl bg-white/70 dark:bg-gray-900/60 border border-white dark:border-gray-800"
+              >
+                <div className="w-9 h-9 rounded-lg bg-[#0077ff]/10 flex items-center justify-center flex-shrink-0">
+                  <Icon className="w-4 h-4 text-[#0077ff]" />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-semibold text-gray-900 dark:text-white text-sm mb-0.5">{title}</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">{desc}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </motion.section>
 

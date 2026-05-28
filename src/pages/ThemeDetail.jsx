@@ -19,23 +19,28 @@ import { generateShareUrl } from '../utils/themeShare'
 import { useExtension } from '../hooks/useExtension'
 import InstallModal from './ThemePreview/InstallModal'
 
-// Читабельные названия параметров конфига
+// Читабельные названия параметров конфига.
+// Ключи синхронизированы с реальной схемой расширения
+// (см. vkify-extension/src/shared/constants/settings-schema.ts).
 const PARAM_LABELS = {
-    custom_theme_id:     'Пресет',
-    custom_theme:        'Цвет фона',
-    custom_accent:       'Акцентный цвет',
-    block_opacity:       'Прозрачность карточек',
-    extension_theme:     'Режим темы',
-    block_left_ads:      'Скрыть рекламу (колонка)',
-    block_feed_ads:      'Скрыть рекламу (лента)',
-    block_trackers:      'Блокировать трекеры',
-    compact_spacing:     'Компактный режим',
-    border_radius:       'Скругление',
-    page_offset_enabled: 'Смещение страницы',
-    page_offset_value:   'Величина смещения',
-    custom_font_id:      'Шрифт',
-    custom_font_value:   'CSS шрифта',
-    spy_online:          'Слежка за онлайном',
+    custom_theme_id:        'Пресет',
+    custom_theme:           'Цвет фона',
+    custom_accent:          'Акцентный цвет',
+    block_opacity:          'Прозрачность карточек',
+    extension_theme:        'Режим темы',
+    block_left_ads:         'Скрыть рекламу (колонка)',
+    block_feed_ads_api:     'Реклама в ленте — фильтр API',
+    block_feed_ads_dom:     'Реклама в ленте — фильтр DOM',
+    block_trackers:         'Блокировать трекеры',
+    compact_spacing:        'Компактный режим',
+    border_radius:          'Скругление',
+    content_width_enabled:  'Расширить контент',
+    content_width:          'Ширина контента',
+    page_offset_enabled:    'Смещение страницы',
+    page_offset_value:      'Величина смещения',
+    custom_font_id:         'Шрифт',
+    custom_font_value:      'CSS шрифта',
+    spy_online:             'Слежка за онлайном',
 }
 
 // Похожие: та же категория, исключая текущую

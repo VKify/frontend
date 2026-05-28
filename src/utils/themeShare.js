@@ -35,6 +35,7 @@ const THEME_PARAMS = [
     // Скругление, ширина, смещение
     'border_radius',
     'content_width',
+    'content_width_enabled',
     'compact_spacing',
     'page_offset_enabled',
     'page_offset_value',
@@ -106,7 +107,10 @@ const DEFAULTS = {
     custom_text_transform:     'none',
 
     border_radius:             0,
-    content_width:             0,
+    // Расширение по умолчанию пишет content_width: 1100 (см. defaults.ts),
+    // но применяется значение только когда content_width_enabled === true.
+    content_width:             1100,
+    content_width_enabled:     false,
     compact_spacing:           false,
     page_offset_enabled:       false,
     page_offset_value:         50,   // 50 = центр
@@ -175,6 +179,7 @@ const KEY_MAP = {
     // Layout
     border_radius:             'br',
     content_width:             'cw',
+    content_width_enabled:     'cwe',
     compact_spacing:           'cp',
     page_offset_enabled:       'pe',
     page_offset_value:         'pv',

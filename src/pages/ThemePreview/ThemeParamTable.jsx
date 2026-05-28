@@ -29,6 +29,7 @@ export const PARAM_META = {
     custom_text_decoration:     { label: 'Оформление текста',       group: 'font' },
     custom_text_transform:      { label: 'Регистр',                 group: 'font' },
     border_radius:              { label: 'Скругление',              group: 'shape',      type: 'px' },
+    content_width_enabled:      { label: 'Расширить контент',       group: 'shape',      type: 'bool' },
     content_width:              { label: 'Ширина контента',         group: 'shape',      type: 'px' },
     compact_spacing:            { label: 'Компактный режим',        group: 'modes',      type: 'bool' },
     page_offset_enabled:        { label: 'Смещение страницы',       group: 'modes',      type: 'bool' },
