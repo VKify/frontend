@@ -20,8 +20,7 @@ export function adjustColor(hex, amount) {
     const r = parseInt(c.slice(0, 2), 16)
     const g = parseInt(c.slice(2, 4), 16)
     const b = parseInt(c.slice(4, 6), 16)
-    const dark = (r * 0.299 + g * 0.587 + b * 0.114) / 255 < 0.5
-    const d = amount !== undefined ? amount : (dark ? 22 : -14)
+    const d = amount !== undefined ? amount : (isDarkColor(hex) ? 22 : -14)
     const clamp = v => Math.min(255, Math.max(0, v + d))
     return `#${[clamp(r), clamp(g), clamp(b)].map(v => v.toString(16).padStart(2, '0')).join('')}`
 }
