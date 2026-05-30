@@ -4,52 +4,37 @@ import { Download, MousePointerClick, Settings, Play, CheckCircle2, ArrowRight, 
 import Button from '../common/Button'
 import Section, { SectionHeader } from '../common/Section'
 import config from '../../config'
+import { useTranslation } from '../../i18n'
 
-const steps = [
-  {
-    icon: Download,
-    title: 'Установите расширение',
-    description: 'Добавьте VKify в браузер из Chrome Web Store бесплатно',
-    color: 'from-blue-500 to-cyan-500',
-    features: ['Бесплатно навсегда', 'Без регистрации', 'Автообновления'],
-  },
-  {
-    icon: MousePointerClick,
-    title: 'Откройте VK',
-    description: 'Перейдите на vk.com — расширение активируется автоматически',
-    color: 'from-purple-500 to-pink-500',
-    features: ['Мгновенная активация', 'Работает сразу', 'Без перезагрузки'],
-  },
-  {
-    icon: Settings,
-    title: 'Настройте под себя',
-    description: 'Выберите тему, включите нужные функции и наслаждайтесь',
-    color: 'from-orange-500 to-red-500',
-    features: [`${config.stats.themes} темы и ${config.stats.fonts} шрифтов`, 'Приватность и шифрование', 'Скачивание видео и историй'],
-  },
+// Только структура (иконка + цвет); тексты — из i18n: howItWorks.steps[i].*
+const stepMeta = [
+  { icon: Download, color: 'from-blue-500 to-cyan-500' },
+  { icon: MousePointerClick, color: 'from-purple-500 to-pink-500' },
+  { icon: Settings, color: 'from-orange-500 to-red-500' },
 ]
 
 // ID видео с YouTube
 const YOUTUBE_VIDEO_ID = config.app.video
 
 export default function HowItWorks() {
+  const { t } = useTranslation()
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
 
   return (
     <Section id="how-it-works" variant="default" withPattern>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badge="Быстрый старт"
+          badge={t('howItWorks.badge')}
           badgeIcon={CheckCircle2}
           badgeColor="green"
-          title="Три шага до"
-          titleHighlight="идеального VK"
-          description="Установка займёт меньше минуты. Никакой регистрации, никаких сложных настроек — просто установите и пользуйтесь."
+          title={t('howItWorks.titleTop')}
+          titleHighlight={t('howItWorks.titleAccent')}
+          description={t('howItWorks.description')}
         />
 
         {/* Steps */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-6">
-          {steps.map((step, index) => (
+          {stepMeta.map((step, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
@@ -88,15 +73,15 @@ export default function HowItWorks() {
                 {/* Content */}
                 <div className="text-center">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3">
-                    {step.title}
+                    {t(`howItWorks.steps.${index}.title`)}
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">
-                    {step.description}
+                    {t(`howItWorks.steps.${index}.description`)}
                   </p>
 
                   {/* Features list */}
                   <div className="space-y-1.5 sm:space-y-2">
-                    {step.features.map((feature, i) => (
+                    {t(`howItWorks.steps.${index}.features`, { themes: config.stats.themes, fonts: config.stats.fonts }).map((feature, i) => (
                       <div 
                         key={i}
                         className="flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400"
@@ -109,7 +94,7 @@ export default function HowItWorks() {
                 </div>
 
                 {/* Arrow for mobile - только на 1 колонку */}
-                {index < steps.length - 1 && (
+                {index < stepMeta.length - 1 && (
                   <div className="flex justify-center mt-4 sm:hidden">
                     <ArrowRight className="w-5 h-5 text-gray-300 dark:text-gray-600 rotate-90" />
                   </div>
@@ -185,22 +170,22 @@ export default function HowItWorks() {
                         
                         {/* Бейдж "Скоро" */}
                         <div className="absolute -top-1.5 -right-1.5 sm:-top-2 sm:-right-2 px-1.5 sm:px-2 py-0.5 sm:py-1 bg-orange-500 rounded-full">
-                          <span className="text-[8px] sm:text-[10px] md:text-xs font-bold text-white">Скоро</span>
+                          <span className="text-[8px] sm:text-[10px] md:text-xs font-bold text-white">{t('howItWorks.video.soon')}</span>
                         </div>
                       </motion.div>
-                      
+
                       {/* Текст */}
                       <h3 className="text-base sm:text-xl md:text-2xl font-bold text-white mb-1 sm:mb-2">
-                        Видео уже в работе
+                        {t('howItWorks.video.title')}
                       </h3>
                       <p className="text-white/60 text-xs sm:text-sm md:text-base max-w-xs sm:max-w-md mb-3 sm:mb-6 leading-relaxed">
-                        Мы готовим подробный видеообзор. Скоро здесь появится демонстрация всех возможностей!
+                        {t('howItWorks.video.subtitle')}
                       </p>
-                      
+
                       {/* Прогресс бар */}
                       <div className="w-full max-w-[200px] sm:max-w-xs">
                         <div className="flex items-center justify-between text-[10px] sm:text-xs text-white/40 mb-1.5 sm:mb-2">
-                          <span>Прогресс</span>
+                          <span>{t('howItWorks.video.progress')}</span>
                           <span>~80%</span>
                         </div>
                         <div className="h-1.5 sm:h-2 bg-white/10 rounded-full overflow-hidden">
@@ -217,7 +202,7 @@ export default function HowItWorks() {
                       {/* Подписка - скрываем на очень маленьких экранах */}
                       <div className="hidden sm:flex mt-4 sm:mt-6 items-center gap-2 text-white/40 text-xs sm:text-sm">
                         <Bell className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                        <span>Следите за обновлениями в Telegram</span>
+                        <span>{t('howItWorks.video.telegram')}</span>
                       </div>
                     </div>
                   </div>
@@ -235,7 +220,7 @@ export default function HowItWorks() {
                     <button
                       onClick={() => setIsVideoPlaying(false)}
                       className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white transition-colors z-10"
-                      aria-label="Закрыть видео"
+                      aria-label={t('howItWorks.video.close')}
                     >
                       <X className="w-4 h-4 sm:w-5 sm:h-5" />
                     </button>
@@ -275,10 +260,10 @@ export default function HowItWorks() {
                     {/* Текст снизу */}
                     <div className="absolute bottom-4 sm:bottom-8 left-0 right-0 text-center px-4">
                       <p className="text-white font-medium text-sm sm:text-base">
-                        Посмотрите {config.app.name} в действии
+                        {t('howItWorks.video.watchInAction', { name: config.app.name })}
                       </p>
                       <p className="text-white/60 text-xs sm:text-sm mt-1">
-                        2 минуты • Обзор возможностей
+                        {t('howItWorks.video.duration')}
                       </p>
                     </div>
                   </div>
@@ -303,7 +288,7 @@ export default function HowItWorks() {
             className="shadow-lg shadow-blue-500/25"
           >
             <Download className="w-5 h-5 mr-2" />
-            Установить бесплатно
+            {t('common.installFree')}
           </Button>
         </motion.div>
       </div>

@@ -14,6 +14,7 @@ import {
 } from 'lucide-react'
 import Logo from '../common/Logo'
 import config from '../../config'
+import { useTranslation } from '../../i18n'
 
 // 3D Card с эффектом наклона
 function TiltCard({ children }) {
@@ -54,68 +55,19 @@ function TiltCard({ children }) {
   )
 }
 
-// Плавающие карточки — реальные «вау»-функции
+// Плавающие карточки — реальные «вау»-функции.
+// labelKey → hero3d.*; valueKey → переводимое значение, иначе value как есть.
 const allFeatures = [
-  {
-    Icon: Palette,
-    label: 'Тем оформления',
-    value: `${config.stats.themes}+`,
-    color: 'from-purple-500 to-pink-500',
-  },
-  {
-    Icon: Shield,
-    label: 'Реклама',
-    value: '0%',
-    color: 'from-green-500 to-emerald-500',
-  },
-  {
-    Icon: Lock,
-    label: 'Шифрование',
-    value: 'E2E',
-    color: 'from-orange-500 to-red-500',
-  },
-  {
-    Icon: Download,
-    label: 'Скачивание',
-    value: '1080p',
-    color: 'from-indigo-500 to-violet-500',
-  },
-  {
-    Icon: Eye,
-    label: 'Кто читал',
-    value: 'Видно',
-    color: 'from-blue-500 to-cyan-500',
-  },
-  {
-    Icon: Type,
-    label: 'Шрифтов',
-    value: config.stats.fonts,
-    color: 'from-cyan-500 to-blue-500',
-  },
-  {
-    Icon: ImageIcon,
-    label: 'Видео-обои',
-    value: 'Вкл',
-    color: 'from-teal-500 to-emerald-500',
-  },
-  {
-    Icon: Code2,
-    label: 'CSS-редактор',
-    value: 'Свой',
-    color: 'from-indigo-500 to-purple-500',
-  },
-  {
-    Icon: Activity,
-    label: 'Слежка онлайн',
-    value: 'Вкл',
-    color: 'from-amber-500 to-orange-500',
-  },
-  {
-    Icon: Sparkles,
-    label: 'Поиск функций',
-    value: 'Cmd+K',
-    color: 'from-yellow-500 to-orange-500',
-  },
+  { Icon: Palette,   labelKey: 'themes',     value: `${config.stats.themes}+`, color: 'from-purple-500 to-pink-500' },
+  { Icon: Shield,    labelKey: 'ads',        value: '0%',                       color: 'from-green-500 to-emerald-500' },
+  { Icon: Lock,      labelKey: 'encryption', value: 'E2E',                      color: 'from-orange-500 to-red-500' },
+  { Icon: Download,  labelKey: 'download',   value: '1080p',                    color: 'from-indigo-500 to-violet-500' },
+  { Icon: Eye,       labelKey: 'whoRead',    valueKey: 'visible',               color: 'from-blue-500 to-cyan-500' },
+  { Icon: Type,      labelKey: 'fonts',      value: config.stats.fonts,         color: 'from-cyan-500 to-blue-500' },
+  { Icon: ImageIcon, labelKey: 'wallpapers', valueKey: 'on',                    color: 'from-teal-500 to-emerald-500' },
+  { Icon: Code2,     labelKey: 'css',        valueKey: 'custom',                color: 'from-indigo-500 to-purple-500' },
+  { Icon: Activity,  labelKey: 'online',     valueKey: 'on',                    color: 'from-amber-500 to-orange-500' },
+  { Icon: Sparkles,  labelKey: 'search',     value: 'Cmd+K',                    color: 'from-yellow-500 to-orange-500' },
 ]
 
 // Позиции для 3 карточек
@@ -144,6 +96,7 @@ const cardPositions = [
 ]
 
 export default function Hero3DCard() {
+  const { t } = useTranslation()
   const [currentFeatures, setCurrentFeatures] = useState([0, 1, 2])
   
   // Меняем карточки каждые 3 секунды
@@ -275,8 +228,8 @@ export default function Hero3DCard() {
                       <IconComponent className="w-5 h-5 text-white" />
                     </motion.div>
                     <div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">{feature.label}</div>
-                      <div className="text-lg font-bold text-gray-900 dark:text-white">{feature.value}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">{t(`hero3d.${feature.labelKey}`)}</div>
+                      <div className="text-lg font-bold text-gray-900 dark:text-white">{feature.valueKey ? t(`hero3d.${feature.valueKey}`) : feature.value}</div>
                     </div>
                   </div>
                 </motion.div>

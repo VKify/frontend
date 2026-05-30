@@ -5,6 +5,7 @@ import DonateModal from '../common/DonateModal'
 import Logo from '../common/Logo'
 import { TelegramIcon, VKIcon } from '../common/SocialIcons'
 import config from '../../config'
+import { useTranslation } from '../../i18n'
 
 const stats = [
   { icon: Users, value: config.stats.users, label: 'пользователей' },
@@ -12,13 +13,15 @@ const stats = [
   { icon: Zap, value: config.stats.features, label: 'функций' },
 ]
 
+// Подписи пиллов — из i18n: cta.pills.<id>
 const features = [
-  { icon: Palette, label: `${config.stats.themes} темы и обои` },
-  { icon: Shield, label: 'Без рекламы и трекеров' },
-  { icon: Sparkles, label: `${config.stats.features} функций` },
+  { icon: Palette, id: 'themes' },
+  { icon: Shield, id: 'adblock' },
+  { icon: Sparkles, id: 'features' },
 ]
 
 export default function CTA() {
+  const { t } = useTranslation()
   const [isDonateOpen, setIsDonateOpen] = useState(false)
 
   return (
@@ -88,14 +91,13 @@ export default function CTA() {
 
               {/* Heading */}
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-                Готовы преобразить
+                {t('cta.titleTop')}
                 <br />
-                <span className="text-cyan-300">ВКонтакте?</span>
+                <span className="text-cyan-300">{t('cta.titleAccent')}</span>
               </h2>
-              
+
               <p className="text-lg sm:text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Присоединяйтесь к тысячам пользователей, которые уже сделали 
-                свой VK удобнее, красивее и приватнее
+                {t('cta.subtitle')}
               </p>
 
               {/* Features pills */}
@@ -116,7 +118,7 @@ export default function CTA() {
                     className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm"
                   >
                     <feature.icon className="w-4 h-4 text-cyan-300" />
-                    <span>{feature.label}</span>
+                    <span>{t(`cta.pills.${feature.id}`, { themes: config.stats.themes, features: config.stats.features })}</span>
                   </motion.div>
                 ))}
               </motion.div>
@@ -163,12 +165,12 @@ export default function CTA() {
                   </div>
                   
                   <Chrome className="w-6 h-6" />
-                  <span>Установить для Chrome</span>
+                  <span>{t('cta.installChrome')}</span>
                   <ExternalLink className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
                 </motion.a>
 
                 <p className="text-white/60 text-sm">
-                  Бесплатно • Без регистрации • Мгновенная установка
+                  {t('cta.installNote')}
                 </p>
               </motion.div>
 
@@ -188,7 +190,7 @@ export default function CTA() {
                     className="flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm text-white font-medium rounded-xl border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all"
                   >
                     <Heart className="w-5 h-5 text-red-400" />
-                    <span>Поддержать проект</span>
+                    <span>{t('common.support')}</span>
                   </motion.button>
                   
                   <div className="flex items-center gap-3">

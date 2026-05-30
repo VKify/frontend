@@ -5,8 +5,10 @@ import { features } from '../../data/features'
 import { Sparkles } from 'lucide-react'
 import Section, { SectionHeader } from '../common/Section'
 import config from '../../config'
+import { useTranslation } from '../../i18n'
 
 export default function Features() {
+  const { t } = useTranslation()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -14,12 +16,12 @@ export default function Features() {
     <Section id="features" variant="alternate" withGlow>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badge={`${config.stats.features} функций`}
+          badge={t('features.badge', { features: config.stats.features })}
           badgeIcon={Sparkles}
           badgeColor="blue"
-          title="Самое нужное —"
-          titleHighlight="в одном расширении"
-          description="Темы, приватность, скачивание медиа и контроль активности. Всё настраивается прямо во ВКонтакте — без лишних вкладок."
+          title={t('features.titleTop')}
+          titleHighlight={t('features.titleAccent')}
+          description={t('features.description')}
         />
 
         {/* Features Grid */}
@@ -49,16 +51,16 @@ export default function Features() {
 
               {/* Content */}
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                {feature.title}
+                {t(`features.cards.${feature.id}.title`)}
               </h3>
-              
+
               <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                {feature.description}
+                {t(`features.cards.${feature.id}.description`)}
               </p>
 
               {/* Details List */}
               <ul className="space-y-3">
-                {feature.details.map((detail, i) => (
+                {t(`features.cards.${feature.id}.details`, { themes: config.stats.themes, fonts: config.stats.fonts }).map((detail, i) => (
                   <li
                     key={i}
                     className="flex items-start gap-3 text-sm text-gray-500 dark:text-gray-400"
@@ -83,7 +85,7 @@ export default function Features() {
           transition={{ delay: 0.5 }}
           className="mt-16 text-center text-gray-500 dark:text-gray-400"
         >
-          А ещё поиск по функциям на <kbd className="px-1.5 py-0.5 rounded-md bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-xs font-mono text-gray-700 dark:text-gray-300">Cmd/Ctrl + K</kbd>, избранное и быстрые действия — новые функции добавляются регулярно
+          {t('features.bottomPre')}<kbd className="px-1.5 py-0.5 rounded-md bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-xs font-mono text-gray-700 dark:text-gray-300">Cmd/Ctrl + K</kbd>{t('features.bottomPost')}
         </motion.p>
       </div>
     </Section>

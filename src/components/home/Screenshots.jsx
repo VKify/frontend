@@ -3,57 +3,26 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, X, ZoomIn, Palette, ShieldOff, Code, Eye, ImageIcon, Type } from 'lucide-react'
 import Section from '../common/Section'
 import config from '../../config'
+import { useTranslation } from '../../i18n'
 
+// Тексты (title/description) — из i18n: screenshots.items.<mockup>.*
 const screenshots = [
-  {
-    id: 1,
-    title: 'Настройки тем',
-    description: `Выбирайте из ${config.stats.themes}+ готовых цветовых схем или создайте свою`,
-    icon: Palette,
-    color: 'from-purple-500 to-pink-500',
-    mockup: 'themes',
-  },
-  {
-    id: 2,
-    title: 'Блокировка рекламы',
-    description: 'Чистая лента без промо-постов, историй и рекомендаций',
-    icon: ShieldOff,
-    color: 'from-green-500 to-emerald-500',
-    mockup: 'adblock',
-  },
-  {
-    id: 3,
-    title: 'CSS-редактор',
-    description: 'Полная свобода кастомизации с подсветкой синтаксиса',
-    icon: Code,
-    color: 'from-blue-500 to-cyan-500',
-    mockup: 'css',
-  },
-  {
-    id: 4,
-    title: 'Режим невидимки',
-    description: 'Скрывайте онлайн-статус, просмотры и набор текста',
-    icon: Eye,
-    color: 'from-orange-500 to-red-500',
-    mockup: 'privacy',
-  },
-  {
-    id: 5,
-    title: 'Живые обои',
-    description: 'Анимированные и статичные фоны прямо в интерфейсе VK',
-    icon: ImageIcon,
-    color: 'from-teal-500 to-cyan-500',
-    mockup: 'wallpapers',
-  },
-  {
-    id: 6,
-    title: 'Выбор шрифта',
-    description: `${config.stats.fonts} шрифтов для комфортного чтения`,
-    icon: Type,
-    color: 'from-indigo-500 to-violet-500',
-    mockup: 'fonts',
-  },
+  { id: 1, icon: Palette,   color: 'from-purple-500 to-pink-500',   mockup: 'themes' },
+  { id: 2, icon: ShieldOff, color: 'from-green-500 to-emerald-500', mockup: 'adblock' },
+  { id: 3, icon: Code,      color: 'from-blue-500 to-cyan-500',     mockup: 'css' },
+  { id: 4, icon: Eye,       color: 'from-orange-500 to-red-500',    mockup: 'privacy' },
+  { id: 5, icon: ImageIcon, color: 'from-teal-500 to-cyan-500',     mockup: 'wallpapers' },
+  { id: 6, icon: Type,      color: 'from-indigo-500 to-violet-500', mockup: 'fonts' },
 ]
+
+// Хелпер: переведённые title/description скриншота (с подстановкой чисел)
+function useScreenshotText() {
+  const { t } = useTranslation()
+  return (s) => ({
+    title: t(`screenshots.items.${s.mockup}.title`),
+    description: t(`screenshots.items.${s.mockup}.description`, { themes: config.stats.themes, fonts: config.stats.fonts }),
+  })
+}
 
 function AuroraEffect() {
   return (
@@ -735,6 +704,7 @@ function FontsMockup({ isActive }) {
 
 function ThumbnailCard({ screenshot, isActive, onSelect }) {
   const Icon = screenshot.icon
+  const { title, description } = useScreenshotText()(screenshot)
 
   return (
     <motion.button
@@ -755,10 +725,10 @@ function ThumbnailCard({ screenshot, isActive, onSelect }) {
         </div>
         <div className="min-w-0 flex-1">
           <div className="font-semibold text-gray-900 dark:text-white text-xs xl:text-sm truncate">
-            {screenshot.title}
+            {title}
           </div>
           <div className="text-[10px] xl:text-xs text-gray-500 dark:text-gray-400 truncate">
-            {screenshot.description}
+            {description}
           </div>
         </div>
       </div>
@@ -768,6 +738,8 @@ function ThumbnailCard({ screenshot, isActive, onSelect }) {
 
 // Рамка «браузер» с контентом мокапа. compact — мобильный вариант.
 function BrowserFrame({ screenshot, contentKey, compact, onZoom, onPrev, onNext }) {
+  const { t } = useTranslation()
+  const { title, description } = useScreenshotText()(screenshot)
   const Icon = screenshot.icon
   const enter = compact
     ? { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 } }
@@ -796,7 +768,7 @@ function BrowserFrame({ screenshot, contentKey, compact, onZoom, onPrev, onNext 
           <button
             onClick={onZoom}
             className={`hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors ${compact ? 'p-1 rounded-md' : 'p-1.5 rounded-lg'}`}
-            aria-label="Открыть на весь экран"
+            aria-label={t('screenshots.openFullscreen')}
           >
             <ZoomIn className={`text-gray-500 ${compact ? 'w-3.5 h-3.5' : 'w-4 h-4'}`} />
           </button>
@@ -817,10 +789,10 @@ function BrowserFrame({ screenshot, contentKey, compact, onZoom, onPrev, onNext 
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0 flex-1">
             <h3 className={`font-bold text-gray-900 dark:text-white ${compact ? 'text-sm' : ''}`}>
-              {screenshot.title}
+              {title}
             </h3>
             <p className={`text-gray-500 dark:text-gray-400 ${compact ? 'text-xs truncate' : 'text-sm'}`}>
-              {screenshot.description}
+              {description}
             </p>
           </div>
           <div className={`flex-shrink-0 bg-gradient-to-br ${screenshot.color} flex items-center justify-center ${compact ? 'w-8 h-8 rounded-lg' : 'w-10 h-10 rounded-xl'}`}>
@@ -835,14 +807,14 @@ function BrowserFrame({ screenshot, contentKey, compact, onZoom, onPrev, onNext 
           <button
             onClick={onPrev}
             className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/90 dark:bg-gray-800/90 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all z-10"
-            aria-label="Предыдущий скриншот"
+            aria-label={t('screenshots.prev')}
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={onNext}
             className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/90 dark:bg-gray-800/90 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all z-10"
-            aria-label="Следующий скриншот"
+            aria-label={t('screenshots.next')}
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -854,6 +826,7 @@ function BrowserFrame({ screenshot, contentKey, compact, onZoom, onPrev, onNext 
 
 // Индикатор-точки под превью. compact — мобильный вариант (без авто-прогресса).
 function ProgressDots({ compact, currentIndex, isAutoPlaying, onSelect }) {
+  const { t } = useTranslation()
   return (
     <div className={`flex justify-center ${compact ? 'gap-1.5 mt-4' : 'gap-2 mt-6'}`}>
       {screenshots.map((_, index) => {
@@ -864,7 +837,7 @@ function ProgressDots({ compact, currentIndex, isAutoPlaying, onSelect }) {
             onClick={() => onSelect(index)}
             className={`relative rounded-full overflow-hidden transition-all duration-150 ${compact ? 'h-1.5' : 'h-2'}`}
             style={{ width: active ? (compact ? 24 : 32) : (compact ? 6 : 8) }}
-            aria-label={`Перейти к скриншоту ${index + 1}`}
+            aria-label={t('screenshots.goTo', { n: index + 1 })}
           >
             <div className="absolute inset-0 bg-gray-300 dark:bg-gray-700" />
             {active && !compact && isAutoPlaying && (
@@ -886,6 +859,8 @@ function ProgressDots({ compact, currentIndex, isAutoPlaying, onSelect }) {
 }
 
 export default function Screenshots() {
+  const { t } = useTranslation()
+  const getText = useScreenshotText()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
@@ -955,13 +930,13 @@ export default function Screenshots() {
           className="text-center mb-8 sm:mb-12 lg:mb-16"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
-            Посмотрите{' '}
+            {t('screenshots.titleTop')}{' '}
             <span className="bg-gradient-to-r from-[#0077ff] to-cyan-400 bg-clip-text text-transparent">
-              VKify в действии
+              {t('screenshots.titleAccent')}
             </span>
           </h2>
           <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Интерактивные превью основных функций расширения
+            {t('screenshots.subtitle')}
           </p>
         </motion.div>
 
@@ -1058,7 +1033,7 @@ export default function Screenshots() {
 
           {/* Swipe hint */}
           <p className="text-center text-xs text-gray-400 mt-2">
-            ← Свайпайте для переключения →
+            {t('screenshots.swipeHint')}
           </p>
 
           {/* Mobile thumbnails */}
@@ -1076,7 +1051,7 @@ export default function Screenshots() {
                       : 'bg-gray-100 dark:bg-gray-800/50'
                     }
                   `}
-                  aria-label={screenshot.title}
+                  aria-label={getText(screenshot).title}
                 >
                   <div className={`w-7 h-7 rounded-md bg-gradient-to-br ${screenshot.color} flex items-center justify-center`}>
                     <Icon className="w-3.5 h-3.5 text-white" />
@@ -1104,7 +1079,7 @@ export default function Screenshots() {
             <button
               className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10"
               onClick={() => setIsLightboxOpen(false)}
-              aria-label="Закрыть"
+              aria-label={t('screenshots.close')}
             >
               <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </button>
@@ -1130,10 +1105,10 @@ export default function Screenshots() {
                 className="mt-4 sm:mt-6 text-center px-4"
               >
                 <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1 sm:mb-2">
-                  {currentScreenshot.title}
+                  {getText(currentScreenshot).title}
                 </h3>
                 <p className="text-white/60 text-sm sm:text-base max-w-md">
-                  {currentScreenshot.description}
+                  {getText(currentScreenshot).description}
                 </p>
               </motion.div>
 
@@ -1151,7 +1126,7 @@ export default function Screenshots() {
                         ? 'bg-white w-6' 
                         : 'bg-white/30 hover:bg-white/50 w-2'
                     }`}
-                    aria-label={`Перейти к скриншоту ${index + 1}`}
+                    aria-label={t('screenshots.goTo', { n: index + 1 })}
                   />
                 ))}
               </div>
@@ -1161,14 +1136,14 @@ export default function Screenshots() {
             <button
               onClick={(e) => { e.stopPropagation(); prev(); }}
               className="hidden sm:block absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-              aria-label="Предыдущий"
+              aria-label={t('screenshots.prev')}
             >
               <ChevronLeft className="w-6 h-6 text-white" />
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); next(); }}
               className="hidden sm:block absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-              aria-label="Следующий"
+              aria-label={t('screenshots.next')}
             >
               <ChevronRight className="w-6 h-6 text-white" />
             </button>

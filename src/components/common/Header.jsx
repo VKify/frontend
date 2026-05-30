@@ -47,6 +47,7 @@ function ProgressBar() {
 }
 
 function HeaderLogo({ isScrolled, isHomePage }) {
+  const { t } = useTranslation()
   const handleLogoClick = (e) => {
     if (isHomePage) {
       e.preventDefault()
@@ -80,7 +81,7 @@ function HeaderLogo({ isScrolled, isHomePage }) {
             ${isScrolled ? 'opacity-100' : 'opacity-0'}
           `}
         >
-          {config.app.tagline}
+          {t('header.tagline')}
         </span>
       </div>
     </Link>

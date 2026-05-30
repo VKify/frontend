@@ -58,7 +58,10 @@ export function LanguageProvider({ children }) {
       if (import.meta.env?.DEV) console.warn('[i18n] missing key:', key)
       return key
     }
-    return typeof val === 'string' ? interpolate(val, vars) : val
+    if (typeof val === 'string') return interpolate(val, vars)
+    // Интерполируем строки и внутри массивов (списки фич, буллеты шагов)
+    if (Array.isArray(val)) return val.map(v => (typeof v === 'string' ? interpolate(v, vars) : v))
+    return val
   }, [lang])
 
   const value = useMemo(() => ({ lang, setLang, t, supported: SUPPORTED_LANGS }), [lang, setLang, t])

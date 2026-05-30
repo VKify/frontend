@@ -2,6 +2,10 @@
 export const en = {
   langName: 'English',
 
+  seo: {
+    homeDescription: 'VKify — a powerful browser extension to customize VKontakte. Themes, ad blocking, privacy and 50+ features.',
+  },
+
   common: {
     install: 'Install',
     installFree: 'Install free',
@@ -19,6 +23,7 @@ export const en = {
   },
 
   header: {
+    tagline: 'Extension for VK',
     announcement: 'Version {version} is out with new features',
     menu: 'Menu',
     community: 'Community',
@@ -148,6 +153,16 @@ export const en = {
         features: ['{themes} themes and {fonts} fonts', 'Privacy and encryption', 'Download videos and stories'],
       },
     ],
+    video: {
+      soon: 'Soon',
+      title: 'Video in the works',
+      subtitle: "We're preparing a detailed video overview. A demo of all features will appear here soon!",
+      progress: 'Progress',
+      telegram: 'Follow updates on Telegram',
+      watchInAction: 'See {name} in action',
+      duration: '2 minutes • Feature overview',
+      close: 'Close video',
+    },
   },
 
   stats: {

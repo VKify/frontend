@@ -5,17 +5,20 @@ import { ArrowRight, Download, Chrome, Sparkles, Shield, Palette, Lock, Globe } 
 import Button from '../common/Button'
 import Hero3DCard from './Hero3DCard'
 import config from '../../config'
+import { useTranslation } from '../../i18n'
 import { getLatestVersion } from '../../data/changelog'
 import { scrollToElement } from '../../utils/scroll'
 
 const features = [
-  { Icon: Palette, label: 'Темы и обои', color: 'from-purple-500 to-pink-500' },
-  { Icon: Shield, label: 'Без рекламы', color: 'from-green-500 to-emerald-500' },
-  { Icon: Lock, label: 'Приватность', color: 'from-orange-500 to-red-500' },
-  { Icon: Download, label: 'Скачивание', color: 'from-blue-500 to-cyan-500' },
+  { Icon: Palette, id: 'themes', color: 'from-purple-500 to-pink-500' },
+  { Icon: Shield, id: 'adblock', color: 'from-green-500 to-emerald-500' },
+  { Icon: Lock, id: 'privacy', color: 'from-orange-500 to-red-500' },
+  { Icon: Download, id: 'download', color: 'from-blue-500 to-cyan-500' },
 ]
 
 export default function Hero() {
+  const { t } = useTranslation()
+
   // Получаем последнюю версию из changelog
   const latestVersion = useMemo(() => {
     const latest = getLatestVersion()
@@ -78,7 +81,7 @@ export default function Hero() {
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
                 </span>
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-[#0077ff] transition-colors">
-                  Версия {latestVersion} доступна
+                  {t('hero.versionAvailable', { version: latestVersion })}
                 </span>
                 <ArrowRight className="w-3 h-3 text-gray-400 group-hover:text-[#0077ff] group-hover:translate-x-0.5 transition-all" />
               </Link>
@@ -91,10 +94,10 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="mt-8 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight"
             >
-              <span className="text-gray-900 dark:text-white">Новый уровень</span>
+              <span className="text-gray-900 dark:text-white">{t('hero.titleTop')}</span>
               <br />
               <span className="bg-gradient-to-r from-[#0077ff] via-blue-500 to-cyan-400 bg-clip-text text-transparent">
-                ВКонтакте
+                {t('hero.titleAccent')}
               </span>
             </motion.h1>
 
@@ -105,8 +108,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-6 text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-xl mx-auto lg:mx-0"
             >
-              Темы и видео-обои, блокировка рекламы и трекеров, шифрование
-              переписки и скачивание медиа — {config.stats.features} функций в одном расширении. Бесплатно.
+              {t('hero.subtitle', { features: config.stats.features })}
             </motion.p>
 
             {/* Feature Pills */}
@@ -116,9 +118,9 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="mt-8 flex flex-wrap gap-2 justify-center lg:justify-start"
             >
-              {features.map(({ Icon, label, color }, i) => (
+              {features.map(({ Icon, id, color }, i) => (
                 <motion.div
-                  key={label}
+                  key={id}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.4 + i * 0.1 }}
@@ -128,7 +130,7 @@ export default function Hero() {
                   <div className={`w-5 h-5 rounded-md bg-gradient-to-br ${color} flex items-center justify-center`}>
                     <Icon className="w-3 h-3 text-white" />
                   </div>
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</span>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t(`hero.pills.${id}`)}</span>
                 </motion.div>
               ))}
             </motion.div>
@@ -148,7 +150,7 @@ export default function Hero() {
                 className="w-full sm:w-auto gap-2 group shadow-lg shadow-blue-500/25"
               >
                 <Chrome className="w-5 h-5" />
-                <span>Установить бесплатно</span>
+                <span>{t('common.installFree')}</span>
                 <Download className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
               </Button>
               
@@ -159,7 +161,7 @@ export default function Hero() {
                 className="w-full sm:w-auto gap-2"
               >
                 <Sparkles className="w-4 h-4" />
-                <span>Все возможности</span>
+                <span>{t('common.allFeatures')}</span>
               </Button>
             </motion.div>
 
@@ -171,7 +173,7 @@ export default function Hero() {
               className="mt-10 flex flex-wrap items-center gap-4 justify-center lg:justify-start"
             >
               <span className="text-sm text-gray-500 dark:text-gray-400">
-                Работает в:
+                {t('hero.worksIn')}
               </span>
 
               <div className="flex items-center gap-3">
@@ -241,7 +243,7 @@ export default function Hero() {
         transition={{ delay: 1.5 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
       >
-        <span className="text-xs font-medium">Узнать больше</span>
+        <span className="text-xs font-medium">{t('common.learnMore')}</span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}

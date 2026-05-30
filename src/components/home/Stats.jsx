@@ -3,40 +3,14 @@ import { useRef, useEffect, useState } from 'react'
 import { Sparkles, Palette, ShieldOff, Gift, Github, Heart, Zap } from 'lucide-react'
 import Section from '../common/Section'
 import config from '../../config'
+import { useTranslation } from '../../i18n'
 
+// Тексты (label/description) — из i18n: stats.items.<id>.*
 const stats = [
-  {
-    value: 50,
-    suffix: '+',
-    label: 'функций',
-    description: 'на каждый день',
-    icon: Sparkles,
-    color: 'from-blue-500 to-cyan-500'
-  },
-  {
-    value: 72,
-    suffix: '+',
-    label: 'тем оформления',
-    description: 'и видео-обои',
-    icon: Palette,
-    color: 'from-purple-500 to-pink-500'
-  },
-  {
-    value: 0,
-    suffix: '',
-    label: 'рекламы',
-    description: 'и никаких трекеров',
-    icon: ShieldOff,
-    color: 'from-green-500 to-emerald-500'
-  },
-  { 
-    value: 100, 
-    suffix: '%', 
-    label: 'бесплатно', 
-    description: 'без скрытых платежей',
-    icon: Gift,
-    color: 'from-orange-500 to-red-500' 
-  },
+  { id: 'features', value: 50,  suffix: '+', icon: Sparkles,  color: 'from-blue-500 to-cyan-500' },
+  { id: 'themes',   value: 72,  suffix: '+', icon: Palette,   color: 'from-purple-500 to-pink-500' },
+  { id: 'ads',      value: 0,   suffix: '',  icon: ShieldOff, color: 'from-green-500 to-emerald-500' },
+  { id: 'free',     value: 100, suffix: '%', icon: Gift,      color: 'from-orange-500 to-red-500' },
 ]
 
 function AnimatedNumber({ value, suffix }) {
@@ -74,6 +48,7 @@ function AnimatedNumber({ value, suffix }) {
 }
 
 export default function Stats() {
+  const { t } = useTranslation()
   return (
     <Section id="stats" variant="alternate" withGlow>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -85,10 +60,10 @@ export default function Stats() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            {config.app.name} в цифрах
+            {t('stats.title', { name: config.app.name })}
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-            Присоединяйтесь к тысячам пользователей, которые уже улучшили свой VK
+            {t('stats.subtitle')}
           </p>
         </motion.div>
 
@@ -127,11 +102,11 @@ export default function Stats() {
                   </div>
                   
                   <div className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 dark:text-white mb-0.5 sm:mb-1">
-                    {stat.label}
+                    {t(`stats.items.${stat.id}.label`)}
                   </div>
-                  
+
                   <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-tight">
-                    {stat.description}
+                    {t(`stats.items.${stat.id}.description`)}
                   </div>
                 </div>
               </div>
@@ -179,7 +154,7 @@ export default function Stats() {
           >
             <Github className="w-5 h-5 text-gray-700 dark:text-gray-300" />
             <span className="text-sm text-gray-600 dark:text-gray-400">
-              <span className="font-semibold text-gray-900 dark:text-white">Open Source</span> — код открыт
+              <span className="font-semibold text-gray-900 dark:text-white">{t('stats.openSourceName')}</span>{t('stats.openSourceText')}
             </span>
           </a>
           
@@ -187,7 +162,7 @@ export default function Stats() {
           <div className="flex items-center gap-3 px-5 py-3 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
             <Heart className="w-5 h-5 text-red-500 fill-red-500" />
             <span className="text-sm text-gray-600 dark:text-gray-400">
-              Сделано с <span className="font-semibold text-gray-900 dark:text-white">любовью</span> в России
+              {t('stats.madeWithPre')}<span className="font-semibold text-gray-900 dark:text-white">{t('stats.madeWithAccent')}</span>{t('stats.madeWithPost')}
             </span>
           </div>
           
@@ -195,7 +170,7 @@ export default function Stats() {
           <div className="flex items-center gap-3 px-5 py-3 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
             <Zap className="w-5 h-5 text-yellow-500" />
             <span className="text-sm text-gray-600 dark:text-gray-400">
-              <span className="font-semibold text-gray-900 dark:text-white">Регулярные</span> обновления
+              <span className="font-semibold text-gray-900 dark:text-white">{t('stats.updatesAccent')}</span>{t('stats.updatesText')}
             </span>
           </div>
         </motion.div>
