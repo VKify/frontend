@@ -10,8 +10,10 @@ import ExtensionHint from '../../components/common/ExtensionHint'
 import BackgroundPreview from './BackgroundPreview'
 import { PARAM_META, GROUPS, ParamGroup, ColorStrip, FontSample } from './ThemeParamTable'
 import InstallModal from './InstallModal'
+import { useTranslation } from '../../i18n'
 
 export default function ThemePreview() {
+    const { t } = useTranslation()
     const { encoded } = useParams()
     const [themeData, setThemeData] = useState(null)
     const [error,     setError]     = useState(false)
@@ -34,19 +36,19 @@ export default function ThemePreview() {
     if (error) {
         return (
             <div className="min-h-screen bg-white dark:bg-gray-950 flex items-center justify-center px-4">
-                <SEO title="Тема не найдена" />
+                <SEO title={t('themePreview.notFoundTitle')} />
                 <div className="text-center max-w-md">
                     <div className="w-16 h-16 rounded-2xl bg-red-100 dark:bg-red-950/50 flex items-center justify-center mx-auto mb-4">
                         <AlertCircle className="w-8 h-8 text-red-500" />
                     </div>
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Тема не найдена</h1>
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('themePreview.notFoundTitle')}</h1>
                     <p className="text-gray-500 dark:text-gray-400 mb-6">
-                        Ссылка некорректна или устарела. Попробуйте получить новую ссылку.
+                        {t('themePreview.notFoundText')}
                     </p>
                     <Link to="/themes"
                           className="inline-flex items-center gap-2 px-6 py-3 bg-[#0077ff] text-white font-semibold rounded-2xl hover:bg-blue-500 transition-colors">
                         <Palette className="w-4 h-4" />
-                        Смотреть темы
+                        {t('themePreview.seeThemes')}
                     </Link>
                 </div>
             </div>
@@ -68,8 +70,8 @@ export default function ThemePreview() {
         <div className="min-h-screen bg-white dark:bg-gray-950">
             {showInstallModal && <InstallModal onClose={closeInstallModal} />}
             <SEO
-                title={`Тема: ${meta.name}`}
-                description={meta.description || `Тема оформления VK от VKify. ${paramCount} параметров.`}
+                title={t('themePreview.seoTitle', { name: meta.name })}
+                description={meta.description || t('themePreview.seoDescription', { count: paramCount })}
                 url={`/theme/${encoded}`}
             />
 
@@ -81,7 +83,7 @@ export default function ThemePreview() {
                     <button
                         onClick={handleCopy}
                         className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
-                        title="Скопировать ссылку"
+                        title={t('detail.copyLink')}
                     >
                         {link.copied ? <Check className="w-4 h-4 text-green-500" /> : <ExternalLink className="w-4 h-4" />}
                     </button>
@@ -99,7 +101,7 @@ export default function ThemePreview() {
                             <div>
                                 <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 dark:bg-blue-950/50 text-[#0077ff] text-xs font-semibold rounded-full mb-3">
                                     <Palette className="w-3.5 h-3.5" />
-                                    Поделились темой
+                                    {t('themePreview.sharedBadge')}
                                 </span>
                                 <h1 className="text-3xl font-black text-gray-950 dark:text-white tracking-tight mb-2">
                                     {meta.name}
@@ -123,7 +125,7 @@ export default function ThemePreview() {
 
                             <div className="space-y-3">
                                 <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
-                                    Параметры · {paramCount}
+                                    {t('themePreview.paramsCount', { count: paramCount })}
                                 </p>
                                 {GROUPS.map(g => (
                                     <ParamGroup key={g.id} groupId={g.id} settings={settings} />
@@ -139,8 +141,8 @@ export default function ThemePreview() {
                                     className="flex items-center justify-center gap-2 w-full py-3 bg-[#0077ff] hover:bg-blue-500 text-white text-sm font-bold rounded-xl active:scale-[0.98] transition-all"
                                 >
                                     {applied
-                                        ? <><Check className="w-4 h-4" /> Применено!</>
-                                        : <><Zap className="w-4 h-4" /> Применить мгновенно</>
+                                        ? <><Check className="w-4 h-4" /> {t('detail.applied')}</>
+                                        : <><Zap className="w-4 h-4" /> {t('detail.apply')}</>
                                     }
                                 </button>
                                 <button
@@ -148,20 +150,20 @@ export default function ThemePreview() {
                                     className="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-sm font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 active:scale-[0.98] transition-all"
                                 >
                                     {link.copied
-                                        ? <><Check className="w-4 h-4 text-green-500" /> Скопировано!</>
-                                        : <><Copy className="w-4 h-4" /> Скопировать ссылку</>
+                                        ? <><Check className="w-4 h-4 text-green-500" /> {t('detail.copied')}</>
+                                        : <><Copy className="w-4 h-4" /> {t('detail.copyLink')}</>
                                     }
                                 </button>
                             </div>
 
                             <ExtensionHint
                                 detected={detected}
-                                connectedTail="Тема применится мгновенно — перезагрузка VK не нужна."
-                                disconnectedText="Установите расширение VKify, чтобы применять темы мгновенно — без лишних шагов."
+                                connectedTail={t('themeDetail.hintConnected')}
+                                disconnectedText={t('themeDetail.hintDisconnected')}
                             />
 
                             <div className="p-4 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl">
-                                <p className="text-xs text-gray-400 dark:text-gray-500 mb-2 font-medium">Ссылка на тему</p>
+                                <p className="text-xs text-gray-400 dark:text-gray-500 mb-2 font-medium">{t('themePreview.themeLink')}</p>
                                 <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 rounded-xl px-3 py-2 border border-gray-200 dark:border-gray-700">
                                     <span className="flex-1 min-w-0 text-[10px] font-mono text-gray-500 dark:text-gray-400 truncate">
                                         {shareUrl}
@@ -177,7 +179,7 @@ export default function ThemePreview() {
                                 className="flex items-center justify-center gap-2 py-2.5 text-sm text-gray-400 dark:text-gray-500 hover:text-[#0077ff] transition-colors"
                             >
                                 <ExternalLink className="w-3.5 h-3.5" />
-                                Смотреть все темы
+                                {t('themePreview.seeAllThemes')}
                             </Link>
                         </div>
                     </div>

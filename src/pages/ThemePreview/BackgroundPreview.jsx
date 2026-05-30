@@ -3,8 +3,10 @@ import { Image } from 'lucide-react'
 import VkLogo from '../../components/common/VkLogo'
 import { isDarkColor, adjustColor } from '../../utils/colors'
 import { detectBackgroundType, parseVideoUrl, platformLabel } from '../../utils/videoEmbed'
+import { useTranslation } from '../../i18n'
 
 function UnavailableBgNotice({ bg }) {
+    const { t } = useTranslation()
     return (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center"
              style={{ background: bg }}>
@@ -12,9 +14,9 @@ function UnavailableBgNotice({ bg }) {
                 <Image className="w-6 h-6 text-white/60" />
             </div>
             <div>
-                <p className="text-white/80 font-semibold text-sm">Фон из расширения</p>
+                <p className="text-white/80 font-semibold text-sm">{t('bgPreview.extBgTitle')}</p>
                 <p className="text-white/40 text-xs mt-1 max-w-xs">
-                    Файл хранится внутри расширения и недоступен на веб-странице
+                    {t('bgPreview.extBgText')}
                 </p>
             </div>
         </div>
@@ -22,6 +24,7 @@ function UnavailableBgNotice({ bg }) {
 }
 
 export default function BackgroundPreview({ settings }) {
+    const { t } = useTranslation()
     const videoRef = useRef(null)
     const [mediaLoaded,  setMediaLoaded]  = useState(false)
     const [mediaError,   setMediaError]   = useState(false)
@@ -85,9 +88,9 @@ export default function BackgroundPreview({ settings }) {
 
     const badgeLabel = bgType === 'embed' && parsed
         ? `▶ ${platformLabel(parsed.platform)}`
-        : bgType === 'video' ? '▶ Видео'
-        : bgType === 'image' ? '🖼 Изображение'
-        : bgType === 'web'   ? '✦ Веб-фон'
+        : bgType === 'video' ? t('bgPreview.badgeVideo')
+        : bgType === 'image' ? t('bgPreview.badgeImage')
+        : bgType === 'web'   ? t('bgPreview.badgeWeb')
         : null
 
     useEffect(() => {
@@ -112,7 +115,7 @@ export default function BackgroundPreview({ settings }) {
             {bgType === 'image' && !mediaError && (
                 <>
                     {!mediaLoaded && <div className="absolute inset-0 animate-pulse" style={{ background: adjustColor(bg, dark ? 18 : -10) }} />}
-                    <img src={src} alt="фон"
+                    <img src={src} alt={t('bgPreview.alt')}
                          onLoad={() => setMediaLoaded(true)} onError={() => setMediaError(true)}
                          className="absolute inset-0 w-full h-full"
                          style={mediaStyle(mediaLoaded)} />
@@ -143,7 +146,7 @@ export default function BackgroundPreview({ settings }) {
             {bgType === 'web' && (
                 <>
                     {!iframeLoaded && <div className="absolute inset-0 animate-pulse" style={{ background: adjustColor(bg, dark ? 18 : -10) }} />}
-                    <iframe src={src} title="фон" sandbox="allow-scripts" tabIndex={-1}
+                    <iframe src={src} title={t('bgPreview.alt')} sandbox="allow-scripts" tabIndex={-1}
                             onLoad={() => setIframeLoaded(true)}
                             className="absolute inset-0 w-full h-full border-0 pointer-events-none"
                             style={iframeStyle(iframeLoaded)} />
@@ -308,7 +311,7 @@ export default function BackgroundPreview({ settings }) {
                 <div className="absolute bottom-4 right-4 z-10">
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-green-500/80 text-white backdrop-blur-sm">
                         <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                        Воспроизводится
+                        {t('bgPreview.playing')}
                     </span>
                 </div>
             )}
