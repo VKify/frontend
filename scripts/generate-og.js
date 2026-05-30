@@ -6,7 +6,8 @@
  * Run:    node scripts/generate-og.js
  * Build:  automatically called by "npm run build" before vite build.
  *
- * Skips files that already exist — delete public/og/ to force full regen.
+ * Каждый запуск удаляет все существующие PNG в OUT_DIR и регенерирует
+ * их заново — чтобы шаблон всегда применялся ко всем темам.
  */
 
 import puppeteer from 'puppeteer'
