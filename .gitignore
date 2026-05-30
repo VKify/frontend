@@ -21,6 +21,7 @@ lerna-debug.log*
 # Редакторы и IDE
 .vscode/*
 !.vscode/extensions.json
+.claude/
 .idea
 .DS_Store
 *.suo
