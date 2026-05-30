@@ -4,8 +4,9 @@ import { Check, Copy, Palette, AlertCircle, ExternalLink, Zap } from 'lucide-rea
 import SEO from '../../components/common/SEO'
 import DetailNavbar from '../../components/common/DetailNavbar'
 import { decodeTheme } from '../../utils/themeShare'
-import { useExtension } from '../../hooks/useExtension'
-import config from '../../config'
+import { useApplyToVK } from '../../hooks/useApplyToVK'
+import { useCopyToClipboard } from '../../hooks/useCopyToClipboard'
+import ExtensionHint from '../../components/common/ExtensionHint'
 import BackgroundPreview from './BackgroundPreview'
 import { PARAM_META, GROUPS, ParamGroup, ColorStrip, FontSample } from './ThemeParamTable'
 import InstallModal from './InstallModal'
@@ -14,11 +15,9 @@ export default function ThemePreview() {
     const { encoded } = useParams()
     const [themeData, setThemeData] = useState(null)
     const [error,     setError]     = useState(false)
-    const [copied,    setCopied]    = useState(false)
-    const [applied,   setApplied]   = useState(false)
 
-    const { detected, saveSettings } = useExtension()
-    const [showInstallModal, setShowInstallModal] = useState(false)
+    const link = useCopyToClipboard()
+    const { detected, applied, apply, showInstallModal, closeInstallModal } = useApplyToVK()
 
     useEffect(() => {
         if (!encoded) { setError(true); return }
@@ -27,29 +26,10 @@ export default function ThemePreview() {
         setThemeData(decoded)
     }, [encoded])
 
-    useEffect(() => {
-        if (detected === false) setShowInstallModal(true)
-    }, [detected])
-
     const shareUrl = `${window.location.origin}/theme/${encoded}`
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(shareUrl).then(() => {
-            setCopied(true)
-            setTimeout(() => setCopied(false), 2000)
-        })
-    }
-
-    const handleApply = () => {
-        if (!themeData) return
-        if (detected) {
-            saveSettings(themeData.settings)
-            setApplied(true)
-            setTimeout(() => setApplied(false), 3000)
-            return
-        }
-        setShowInstallModal(true)
-    }
+    const handleCopy = () => link.copy(shareUrl)
+    const handleApply = () => apply(themeData?.settings)
 
     if (error) {
         return (
@@ -86,7 +66,7 @@ export default function ThemePreview() {
 
     return (
         <div className="min-h-screen bg-white dark:bg-gray-950">
-            {showInstallModal && <InstallModal onClose={() => setShowInstallModal(false)} />}
+            {showInstallModal && <InstallModal onClose={closeInstallModal} />}
             <SEO
                 title={`Тема: ${meta.name}`}
                 description={meta.description || `Тема оформления VK от VKify. ${paramCount} параметров.`}
@@ -103,7 +83,7 @@ export default function ThemePreview() {
                         className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
                         title="Скопировать ссылку"
                     >
-                        {copied ? <Check className="w-4 h-4 text-green-500" /> : <ExternalLink className="w-4 h-4" />}
+                        {link.copied ? <Check className="w-4 h-4 text-green-500" /> : <ExternalLink className="w-4 h-4" />}
                     </button>
                 }
             />
@@ -167,24 +147,18 @@ export default function ThemePreview() {
                                     onClick={handleCopy}
                                     className="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-sm font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 active:scale-[0.98] transition-all"
                                 >
-                                    {copied
+                                    {link.copied
                                         ? <><Check className="w-4 h-4 text-green-500" /> Скопировано!</>
                                         : <><Copy className="w-4 h-4" /> Скопировать ссылку</>
                                     }
                                 </button>
                             </div>
 
-                            <div className="p-4 bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/50 rounded-2xl">
-                                {detected ? (
-                                    <p className="text-xs text-blue-700 dark:text-blue-400 leading-relaxed">
-                                        <strong>Расширение подключено.</strong> Тема применится мгновенно — перезагрузка VK не нужна.
-                                    </p>
-                                ) : (
-                                    <p className="text-xs text-blue-700 dark:text-blue-400 leading-relaxed">
-                                        Установите расширение VKify, чтобы применять темы мгновенно — без лишних шагов.
-                                    </p>
-                                )}
-                            </div>
+                            <ExtensionHint
+                                detected={detected}
+                                connectedTail="Тема применится мгновенно — перезагрузка VK не нужна."
+                                disconnectedText="Установите расширение VKify, чтобы применять темы мгновенно — без лишних шагов."
+                            />
 
                             <div className="p-4 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl">
                                 <p className="text-xs text-gray-400 dark:text-gray-500 mb-2 font-medium">Ссылка на тему</p>
@@ -193,7 +167,7 @@ export default function ThemePreview() {
                                         {shareUrl}
                                     </span>
                                     <button onClick={handleCopy} className="shrink-0 text-[#0077ff] hover:text-blue-500 transition-colors">
-                                        {copied ? <Check className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5" />}
+                                        {link.copied ? <Check className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5" />}
                                     </button>
                                 </div>
                             </div>
