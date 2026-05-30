@@ -64,7 +64,7 @@ function AuroraEffect() {
         { left: '78%', color: 'rgba(16,185,129,0.40)',  delay: 1.1, w: 65 },
       ].map((ray, i) => (
         <motion.div
-          key={i}
+          key={`ray-${i}`}
           className="absolute top-0 blur-2xl rounded-full"
           style={{
             left: ray.left,
@@ -78,7 +78,7 @@ function AuroraEffect() {
       ))}
       {[...Array(18)].map((_, i) => (
         <motion.div
-          key={i}
+          key={`star-${i}`}
           className="absolute rounded-full bg-white"
           style={{ top: `${(i * 13 + 3) % 55}%`, left: `${(i * 19 + 7) % 92}%`, width: i % 4 === 0 ? 2 : 1, height: i % 4 === 0 ? 2 : 1 }}
           animate={{ opacity: [0.2, 1, 0.2] }}
