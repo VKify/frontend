@@ -10,21 +10,18 @@ import { Image as ImageIcon, Play, Globe, Search } from 'lucide-react'
 import SEO from '../components/common/SEO'
 import { pluralizeRu } from '../utils/colors'
 import { wallpapers, WALLPAPER_TYPES, CATEGORIES } from '../data/wallpapers'
+import { useTranslation } from '../i18n'
 
-const TYPE_FILTERS = [
-    { id: 'all',                   label: 'Все'         },
-    { id: WALLPAPER_TYPES.IMAGE,   label: 'Изображения' },
-    { id: WALLPAPER_TYPES.VIDEO,   label: 'Видео'       },
-    { id: WALLPAPER_TYPES.WEB,     label: 'Веб'         },
-]
+const TYPE_FILTERS = ['all', WALLPAPER_TYPES.IMAGE, WALLPAPER_TYPES.VIDEO, WALLPAPER_TYPES.WEB]
 
 const TYPE_BADGE = {
-    [WALLPAPER_TYPES.IMAGE]: { label: 'Изображение', icon: ImageIcon, color: 'bg-emerald-500/80' },
-    [WALLPAPER_TYPES.VIDEO]: { label: 'Видео',       icon: Play,       color: 'bg-violet-500/80'  },
-    [WALLPAPER_TYPES.WEB]:   { label: 'Веб',         icon: Globe,      color: 'bg-blue-500/80'    },
+    [WALLPAPER_TYPES.IMAGE]: { icon: ImageIcon, color: 'bg-emerald-500/80' },
+    [WALLPAPER_TYPES.VIDEO]: { icon: Play,       color: 'bg-violet-500/80'  },
+    [WALLPAPER_TYPES.WEB]:   { icon: Globe,      color: 'bg-blue-500/80'    },
 }
 
 function WallpaperCard({ wallpaper }) {
+    const { t } = useTranslation()
     const videoRef = useRef(null)
     const [hovered,  setHovered]  = useState(false)
     const [playing,  setPlaying]  = useState(false) // для touch-устройств
@@ -121,7 +118,7 @@ function WallpaperCard({ wallpaper }) {
                             >
                                 <Globe className="w-10 h-10 text-gray-600" />
                                 <span className="text-[10px] text-gray-600 font-medium tracking-wide">
-                                    Наведите для превью
+                                    {t('wallpapersPage.hoverPreview')}
                                 </span>
                             </div>
                         )}
@@ -148,7 +145,7 @@ function WallpaperCard({ wallpaper }) {
                                 transition-all duration-200 pointer-events-none">
                     <span className="px-3 py-1.5 bg-white/90 dark:bg-gray-950/90 text-gray-900 dark:text-white
                                      text-[11px] font-bold rounded-full shadow-lg tracking-widest uppercase">
-                        Открыть
+                        {t('wallpapersPage.open')}
                     </span>
                 </div>
 
@@ -156,7 +153,7 @@ function WallpaperCard({ wallpaper }) {
                 {isVideo && (
                     <button
                         onTouchEnd={handleTouchPlay}
-                        aria-label={playing ? 'Пауза' : 'Воспроизвести'}
+                        aria-label={playing ? t('wallpapersPage.pause') : t('wallpapersPage.play')}
                         className="absolute bottom-2.5 right-2.5 z-30 sm:hidden
                                    w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm
                                    flex items-center justify-center text-white"
@@ -174,7 +171,7 @@ function WallpaperCard({ wallpaper }) {
                         <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full
                                          text-[10px] font-semibold text-white backdrop-blur-sm ${badge.color}`}>
                             {BadgeIcon && <BadgeIcon className="w-2.5 h-2.5" />}
-                            {badge.label}
+                            {t(`wallpapersPage.typeBadge.${wallpaper.type}`)}
                         </span>
                     </div>
                 )}
@@ -185,7 +182,7 @@ function WallpaperCard({ wallpaper }) {
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full
                                          text-[10px] font-semibold text-white bg-blue-500/70 backdrop-blur-sm">
                             <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                            Живая анимация
+                            {t('wallpapersPage.liveAnimation')}
                         </span>
                     </div>
                 )}
@@ -210,6 +207,7 @@ function WallpaperCard({ wallpaper }) {
 }
 
 export default function Wallpapers() {
+    const { t, lang } = useTranslation()
     const [search,         setSearch]         = useState('')
     const [activeType,     setActiveType]     = useState('all')
     const [activeCategory, setActiveCategory] = useState('all')
@@ -244,8 +242,8 @@ export default function Wallpapers() {
     return (
         <div className="min-h-screen bg-white dark:bg-gray-950">
             <SEO
-                title="Обои для VK"
-                description="Коллекция живых обоев для VK — видеофоны, интерактивные веб-анимации и статичные фоны через расширение VKify."
+                title={t('wallpapersPage.seoTitle')}
+                description={t('wallpapersPage.seoDescription')}
                 url="/wallpapers"
             />
 
@@ -256,14 +254,16 @@ export default function Wallpapers() {
                     <div className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-widest
                                     text-blue-600 dark:text-blue-400 uppercase mb-3">
                         <ImageIcon className="w-3.5 h-3.5" />
-                        {wallpapers.length} {pluralizeRu(wallpapers.length, 'обой', 'обоя', 'обоев')} доступно
+                        {lang === 'ru'
+                            ? `${wallpapers.length} ${pluralizeRu(wallpapers.length, 'обой', 'обоя', 'обоев')} доступно`
+                            : t('wallpapersPage.count', { count: wallpapers.length })}
                     </div>
                     <h1 className="text-4xl sm:text-5xl font-black text-gray-950 dark:text-white leading-none tracking-tight mb-4">
-                        Обои<br />
-                        <span className="text-gray-400 dark:text-gray-600">для ВКонтакте</span>
+                        {t('wallpapersPage.titleTop')}<br />
+                        <span className="text-gray-400 dark:text-gray-600">{t('wallpapersPage.titleBottom')}</span>
                     </h1>
                     <p className="text-gray-500 dark:text-gray-400 max-w-lg">
-                        Выберите обои — и они применятся в VK автоматически через расширение.
+                        {t('wallpapersPage.subtitle')}
                     </p>
                 </div>
 
@@ -274,7 +274,7 @@ export default function Wallpapers() {
                         type="text"
                         value={search}
                         onChange={e => setSearch(e.target.value)}
-                        placeholder="Gargantua, nature, anime..."
+                        placeholder={t('wallpapersPage.searchPlaceholder')}
                         className="w-full pl-11 pr-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800
                                    rounded-xl text-gray-900 dark:text-white placeholder:text-gray-400
                                    focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/10 transition-all text-sm"
@@ -283,18 +283,18 @@ export default function Wallpapers() {
 
                 {/* Фильтр по типу */}
                 <div className="flex flex-wrap gap-2 mb-3">
-                    {TYPE_FILTERS.map(f => (
+                    {TYPE_FILTERS.map(id => (
                         <button
-                            key={f.id}
-                            onClick={() => handleTypeChange(f.id)}
-                            aria-pressed={activeType === f.id}
+                            key={id}
+                            onClick={() => handleTypeChange(id)}
+                            aria-pressed={activeType === id}
                             className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-150
-                                ${activeType === f.id
+                                ${activeType === id
                                     ? 'bg-gray-950 dark:bg-white text-white dark:text-gray-950 shadow-sm'
                                     : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
                                 }`}
                         >
-                            {f.label}
+                            {t(`wallpapersPage.typeFilters.${id}`)}
                         </button>
                     ))}
                 </div>
@@ -311,7 +311,7 @@ export default function Wallpapers() {
                                     : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
                                 }`}
                         >
-                            Все категории
+                            {t('wallpapersPage.allCategories')}
                         </button>
                         {availableCategories.map(cat => (
                             <button
@@ -324,7 +324,7 @@ export default function Wallpapers() {
                                         : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
                                     }`}
                             >
-                                {cat.emoji} {cat.label}
+                                {cat.emoji} {t(`wallpapersPage.categories.${cat.id}`)}
                             </button>
                         ))}
                     </div>
@@ -339,24 +339,20 @@ export default function Wallpapers() {
                     </div>
                 ) : (
                     <div className="py-20 text-center text-gray-400 dark:text-gray-600">
-                        <p className="text-lg mb-1">Ничего не найдено</p>
-                        <p className="text-sm">Попробуйте другой запрос, тип или категорию</p>
+                        <p className="text-lg mb-1">{t('wallpapersPage.notFoundTitle')}</p>
+                        <p className="text-sm">{t('wallpapersPage.notFoundHint')}</p>
                     </div>
                 )}
 
                 {/* Инструкция */}
                 <div className="mt-16 p-8 bg-gray-50 dark:bg-gray-900 rounded-3xl">
-                    <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-5">Как применить обои</h2>
+                    <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-5">{t('wallpapersPage.howTitle')}</h2>
                     <div className="grid sm:grid-cols-3 gap-6">
-                        {[
-                            { n: '1', title: 'Установите VKify',    desc: 'Расширение для Chrome, Edge или Firefox' },
-                            { n: '2', title: 'Выберите обои',        desc: 'Нажмите «Применить мгновенно» на странице обоев' },
-                            { n: '3', title: 'Готово',               desc: 'Обои применятся автоматически при открытии VK' },
-                        ].map(s => (
-                            <div key={s.n} className="flex gap-3">
+                        {t('wallpapersPage.steps').map((s, i) => (
+                            <div key={i} className="flex gap-3">
                                 <div className="w-7 h-7 rounded-full bg-gray-950 dark:bg-white text-white dark:text-gray-950
                                                 text-xs font-bold flex items-center justify-center flex-shrink-0">
-                                    {s.n}
+                                    {i + 1}
                                 </div>
                                 <div>
                                     <p className="font-semibold text-gray-900 dark:text-white text-sm">{s.title}</p>

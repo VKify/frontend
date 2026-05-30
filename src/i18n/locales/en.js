@@ -279,6 +279,33 @@ export const en = {
     },
   },
 
+  wallpapersPage: {
+    seoTitle: 'VK wallpapers',
+    seoDescription: 'A collection of live VK wallpapers — video backgrounds, interactive web animations and static backgrounds via the VKify extension.',
+    titleTop: 'Wallpapers',
+    titleBottom: 'for VKontakte',
+    subtitle: 'Pick a wallpaper — it applies in VK automatically through the extension.',
+    searchPlaceholder: 'Gargantua, nature, anime...',
+    allCategories: 'All categories',
+    open: 'Open',
+    liveAnimation: 'Live animation',
+    hoverPreview: 'Hover to preview',
+    play: 'Play',
+    pause: 'Pause',
+    notFoundTitle: 'Nothing found',
+    notFoundHint: 'Try another query, type or category',
+    howTitle: 'How to apply a wallpaper',
+    steps: [
+      { title: 'Install VKify', desc: 'Extension for Chrome, Edge or Firefox' },
+      { title: 'Pick a wallpaper', desc: 'Click “Apply instantly” on the wallpaper page' },
+      { title: 'Done', desc: 'The wallpaper applies automatically when you open VK' },
+    ],
+    typeFilters: { all: 'All', image: 'Images', video: 'Video', web: 'Web' },
+    typeBadge: { image: 'Image', video: 'Video', web: 'Web' },
+    categories: { nature: 'Nature', abstract: 'Abstract', cars: 'Cars', anime: 'Anime', games: 'Games', space: 'Space', city: 'City' },
+    count: '{count} wallpapers available',
+  },
+
   footer: {
     description: 'A browser extension: themes and video wallpapers, ad and tracker blocking, message encryption and media downloads for VKontakte',
     newsletterTitle: 'Stay up to date',

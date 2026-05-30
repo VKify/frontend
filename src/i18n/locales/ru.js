@@ -279,6 +279,33 @@ export const ru = {
     },
   },
 
+  wallpapersPage: {
+    seoTitle: 'Обои для VK',
+    seoDescription: 'Коллекция живых обоев для VK — видеофоны, интерактивные веб-анимации и статичные фоны через расширение VKify.',
+    titleTop: 'Обои',
+    titleBottom: 'для ВКонтакте',
+    subtitle: 'Выберите обои — и они применятся в VK автоматически через расширение.',
+    searchPlaceholder: 'Gargantua, nature, anime...',
+    allCategories: 'Все категории',
+    open: 'Открыть',
+    liveAnimation: 'Живая анимация',
+    hoverPreview: 'Наведите для превью',
+    play: 'Воспроизвести',
+    pause: 'Пауза',
+    notFoundTitle: 'Ничего не найдено',
+    notFoundHint: 'Попробуйте другой запрос, тип или категорию',
+    howTitle: 'Как применить обои',
+    steps: [
+      { title: 'Установите VKify', desc: 'Расширение для Chrome, Edge или Firefox' },
+      { title: 'Выберите обои', desc: 'Нажмите «Применить мгновенно» на странице обоев' },
+      { title: 'Готово', desc: 'Обои применятся автоматически при открытии VK' },
+    ],
+    typeFilters: { all: 'Все', image: 'Изображения', video: 'Видео', web: 'Веб' },
+    typeBadge: { image: 'Изображение', video: 'Видео', web: 'Веб' },
+    categories: { nature: 'Природа', abstract: 'Абстракция', cars: 'Автомобили', anime: 'Аниме', games: 'Игры', space: 'Космос', city: 'Город' },
+    count: '{count} обоев доступно',
+  },
+
   footer: {
     description: 'Расширение для браузера: темы и видео-обои, блокировка рекламы и трекеров, шифрование переписки и скачивание медиа из ВКонтакте',
     newsletterTitle: 'Будьте в курсе обновлений',
