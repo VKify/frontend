@@ -16,6 +16,7 @@ import { useApplyToVK } from '../hooks/useApplyToVK'
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard'
 import ExtensionHint from '../components/common/ExtensionHint'
 import InstallModal from './ThemePreview/InstallModal'
+import { useTranslation } from '../i18n'
 
 function MetaSkeleton() {
     return <span className="inline-block h-3.5 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
@@ -97,6 +98,7 @@ function weColorToHex(value) {
 }
 
 function PropertyRow({ prop }) {
+    const { t } = useTranslation()
     if (prop.type === 'slider') {
         const pct = Math.round(((prop.value - prop.min) / (prop.max - prop.min)) * 100)
         return (
@@ -127,7 +129,7 @@ function PropertyRow({ prop }) {
                         ? 'bg-green-500/15 text-green-600 dark:text-green-400'
                         : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
                     }`}>
-                    {prop.value ? 'Вкл' : 'Выкл'}
+                    {prop.value ? t('wallpaperDetail.propOn') : t('wallpaperDetail.propOff')}
                 </span>
             </div>
         )
@@ -150,7 +152,7 @@ function PropertyRow({ prop }) {
             <div className="flex justify-between items-center">
                 <span className="text-xs text-gray-500 dark:text-gray-400">{prop.text}</span>
                 <span className="text-xs font-mono font-semibold text-gray-900 dark:text-white">
-                    {prop.value || <span className="text-gray-400 dark:text-gray-600 font-normal italic">пусто</span>}
+                    {prop.value || <span className="text-gray-400 dark:text-gray-600 font-normal italic">{t('wallpaperDetail.propEmpty')}</span>}
                 </span>
             </div>
         )
@@ -175,13 +177,14 @@ function PropertyRow({ prop }) {
 }
 
 function WEPropertiesPanel({ properties, loading }) {
+    const { t } = useTranslation()
     return (
         <div className="p-5 bg-gray-50 dark:bg-gray-900 rounded-2xl">
             {/* Заголовок */}
             <div className="flex items-center gap-2 mb-4">
                 <Settings2 className="w-3.5 h-3.5 text-gray-400" />
                 <h3 className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
-                    Параметры Wallpaper Engine
+                    {t('wallpaperDetail.weTitle')}
                 </h3>
             </div>
 
@@ -218,7 +221,7 @@ function WEPropertiesPanel({ properties, loading }) {
                             border border-violet-100 dark:border-violet-900/50 rounded-xl">
                 <Sparkles className="w-3.5 h-3.5 text-violet-500 flex-shrink-0 mt-0.5" />
                 <p className="text-xs text-violet-700 dark:text-violet-400 leading-relaxed">
-                    <strong>Скоро в VKify:</strong> эти параметры можно будет переключать прямо через расширение — в реальном времени.
+                    <strong>{t('wallpaperDetail.weSoonLabel')}</strong> {t('wallpaperDetail.weSoonText')}
                 </p>
             </div>
         </div>
@@ -226,6 +229,7 @@ function WEPropertiesPanel({ properties, loading }) {
 }
 
 function PreviewBlock({ wallpaper }) {
+    const { t } = useTranslation()
     const videoRef = useRef(null)
     const [isPlaying,    setIsPlaying]    = useState(false)
     const [posterLoaded, setPosterLoaded] = useState(false)
@@ -251,14 +255,14 @@ function PreviewBlock({ wallpaper }) {
                     <div className="w-12 h-12 rounded-2xl bg-red-500/10 flex items-center justify-center">
                         <Sparkles className="w-6 h-6 text-red-400" />
                     </div>
-                    <p className="text-sm font-medium text-gray-400">Не удалось загрузить медиафайл</p>
+                    <p className="text-sm font-medium text-gray-400">{t('wallpaperDetail.loadError')}</p>
                     <a
                         href={wallpaper.src}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-xs text-blue-400 hover:underline"
                     >
-                        Открыть напрямую ↗
+                        {t('wallpaperDetail.openDirect')}
                     </a>
                 </div>
             )}
@@ -311,7 +315,7 @@ function PreviewBlock({ wallpaper }) {
 
                     <iframe
                         src={wallpaper.src}
-                        title={`${wallpaper.title} — живое превью`}
+                        title={t('wallpaperDetail.livePreview', { title: wallpaper.title })}
                         sandbox="allow-scripts"
                         scrolling="no"
                         loading="eager"
@@ -325,7 +329,7 @@ function PreviewBlock({ wallpaper }) {
                         <div className="absolute bottom-5 left-5 pointer-events-none">
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500/80 text-white backdrop-blur-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                Живая анимация
+                {t('wallpaperDetail.liveAnimation')}
               </span>
                         </div>
                     )}
@@ -351,7 +355,7 @@ function PreviewBlock({ wallpaper }) {
             {category && (
                 <div className="absolute top-5 left-5 pointer-events-none">
                     <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-black/50 text-white backdrop-blur-sm">
-                        {category.emoji} {category.label}
+                        {category.emoji} {t(`wallpapersPage.categories.${category.id}`)}
                     </span>
                 </div>
             )}
@@ -362,7 +366,7 @@ function PreviewBlock({ wallpaper }) {
           <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold backdrop-blur-sm transition-all
             ${isPlaying ? 'bg-green-500/80 text-white' : 'bg-black/50 text-white/60'}`}>
             <span className={`w-1.5 h-1.5 rounded-full ${isPlaying ? 'bg-white animate-pulse' : 'bg-white/40'}`} />
-              {isPlaying ? 'Воспроизводится' : 'Пауза'}
+              {isPlaying ? t('wallpaperDetail.playing') : t('wallpaperDetail.paused')}
           </span>
                 </div>
             )}
@@ -371,6 +375,7 @@ function PreviewBlock({ wallpaper }) {
 }
 
 export default function WallpaperDetail() {
+    const { t }      = useTranslation()
     const { id }     = useParams()
     const share = useCopyToClipboard()
     const { detected, applied, apply, showInstallModal, closeInstallModal } = useApplyToVK()
@@ -401,7 +406,7 @@ export default function WallpaperDetail() {
             loading:    videoMeta.loading,
         }
         : isWeb
-            ? { resolution: 'Адаптивный', format: 'HTML', size: '< 1 KB', duration: null, loading: false }
+            ? { resolution: t('wallpaperDetail.adaptive'), format: 'HTML', size: '< 1 KB', duration: null, loading: false }
             : {
                 resolution: imageMeta.resolution,
                 format:     detectFormat(wallpaper),
@@ -423,11 +428,11 @@ export default function WallpaperDetail() {
         return (
             <div className="min-h-screen pt-24 flex flex-col items-center justify-center bg-white dark:bg-gray-950">
                 <p className="text-6xl mb-4">🖼️</p>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Обои не найдены</h1>
-                <p className="text-gray-400 mb-6">Ссылка неверна или обои удалены</p>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('wallpaperDetail.notFoundTitle')}</h1>
+                <p className="text-gray-400 mb-6">{t('wallpaperDetail.notFoundHint')}</p>
                 <Link to="/wallpapers"
                       className="px-5 py-2.5 bg-gray-950 dark:bg-white text-white dark:text-gray-950 rounded-full text-sm font-semibold hover:opacity-80 transition-opacity">
-                    ← К обоям
+                    {t('wallpaperDetail.backToWallpapers')}
                 </Link>
             </div>
         )
@@ -436,7 +441,7 @@ export default function WallpaperDetail() {
     return (
         <div className="min-h-screen bg-white dark:bg-gray-950">
             {showInstallModal && <InstallModal onClose={closeInstallModal} />}
-            <SEO title={`${wallpaper.title} — Обои VKify`} description={wallpaper.description} url={`/wallpapers/${wallpaper.id}`} image={wallpaper.poster} />
+            <SEO title={t('wallpaperDetail.seoTitle', { title: wallpaper.title })} description={wallpaper.description} url={`/wallpapers/${wallpaper.id}`} image={wallpaper.poster} />
 
             <DetailNavbar backTo="/wallpapers" title={wallpaper.title} />
 
@@ -471,7 +476,7 @@ export default function WallpaperDetail() {
 
                             {similar.length > 0 && (
                                 <div>
-                                    <h2 className="text-base font-bold text-gray-900 dark:text-white mb-4">Похожие обои</h2>
+                                    <h2 className="text-base font-bold text-gray-900 dark:text-white mb-4">{t('wallpaperDetail.similar')}</h2>
                                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                         {similar.map(w => <SimilarCard key={w.id} wallpaper={w} />)}
                                     </div>
@@ -492,7 +497,7 @@ export default function WallpaperDetail() {
                                         className="flex items-center justify-center gap-2 w-full py-3 bg-gray-950 dark:bg-white text-white dark:text-gray-950 text-sm font-bold rounded-xl hover:opacity-90 active:scale-[0.98] transition-all"
                                     >
                                         <Download className="w-4 h-4" />
-                                        Скачать
+                                        {t('wallpaperDetail.download')}
                                         {displayMeta.size && !displayMeta.loading && (
                                             <span className="opacity-60">· {displayMeta.size}</span>
                                         )}
@@ -511,7 +516,7 @@ export default function WallpaperDetail() {
                                         className="flex items-center justify-center gap-2 w-full py-3 bg-gray-950 dark:bg-white text-white dark:text-gray-950 text-sm font-bold rounded-xl hover:opacity-90 active:scale-[0.98] transition-all"
                                     >
                                         <Globe className="w-4 h-4" />
-                                        Открыть во вкладке
+                                        {t('wallpaperDetail.openInTab')}
                                     </a>
                                 )}
 
@@ -520,8 +525,8 @@ export default function WallpaperDetail() {
                                     className="hidden lg:flex items-center justify-center gap-2 w-full py-3 bg-[#0077ff] hover:bg-blue-500 text-white text-sm font-bold rounded-xl active:scale-[0.98] transition-all"
                                 >
                                     {applied
-                                        ? <><Check className="w-4 h-4" /> Применено!</>
-                                        : <><Zap className="w-4 h-4" /> Применить мгновенно</>
+                                        ? <><Check className="w-4 h-4" /> {t('detail.applied')}</>
+                                        : <><Zap className="w-4 h-4" /> {t('detail.apply')}</>
                                     }
                                 </button>
 
@@ -531,8 +536,8 @@ export default function WallpaperDetail() {
                                     className="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-sm font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 active:scale-[0.98] transition-all"
                                 >
                                     {share.copied
-                                        ? <><Check className="w-4 h-4 text-green-500" /> Скопировано!</>
-                                        : <><Copy className="w-4 h-4" /> Скопировать ссылку</>
+                                        ? <><Check className="w-4 h-4 text-green-500" /> {t('detail.copied')}</>
+                                        : <><Copy className="w-4 h-4" /> {t('detail.copyLink')}</>
                                     }
                                 </button>
                             </div>
@@ -540,24 +545,24 @@ export default function WallpaperDetail() {
                             {/* Характеристики — с skeleton для загружаемых полей */}
                             <div className="p-5 bg-gray-50 dark:bg-gray-900 rounded-2xl">
                                 <h3 className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">
-                                    Характеристики
+                                    {t('wallpaperDetail.specs')}
                                 </h3>
-                                <InfoRow label="Разрешение" value={displayMeta.resolution} loading={displayMeta.loading && !displayMeta.resolution} />
-                                <InfoRow label="Формат"     value={displayMeta.format}     loading={false} />
-                                <InfoRow label="Размер"     value={displayMeta.size}       loading={displayMeta.loading && !displayMeta.size} />
+                                <InfoRow label={t('wallpaperDetail.specResolution')} value={displayMeta.resolution} loading={displayMeta.loading && !displayMeta.resolution} />
+                                <InfoRow label={t('wallpaperDetail.specFormat')}     value={displayMeta.format}     loading={false} />
+                                <InfoRow label={t('wallpaperDetail.specSize')}       value={displayMeta.size}       loading={displayMeta.loading && !displayMeta.size} />
                                 {(displayMeta.duration || isVideo) && (
-                                    <InfoRow label="Длительность" value={displayMeta.duration} loading={displayMeta.loading && !displayMeta.duration} />
+                                    <InfoRow label={t('wallpaperDetail.specDuration')} value={displayMeta.duration} loading={displayMeta.loading && !displayMeta.duration} />
                                 )}
                                 {category && (
-                                    <InfoRow label="Категория" value={`${category.emoji} ${category.label}`} loading={false} />
+                                    <InfoRow label={t('wallpaperDetail.specCategory')} value={`${category.emoji} ${t(`wallpapersPage.categories.${category.id}`)}`} loading={false} />
                                 )}
                             </div>
 
                             {/* Подсказка */}
                             <ExtensionHint
                                 detected={detected}
-                                connectedTail="Обои применятся мгновенно — перезагрузка VK не нужна."
-                                disconnectedText="Установите расширение VKify, чтобы применять обои мгновенно — без лишних шагов."
+                                connectedTail={t('wallpaperDetail.hintConnected')}
+                                disconnectedText={t('wallpaperDetail.hintDisconnected')}
                             />
                         </div>
 

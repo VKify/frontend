@@ -19,30 +19,7 @@ import { useApplyToVK } from '../hooks/useApplyToVK'
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard'
 import ExtensionHint from '../components/common/ExtensionHint'
 import InstallModal from './ThemePreview/InstallModal'
-
-// Читабельные названия параметров конфига.
-// Ключи синхронизированы с реальной схемой расширения
-// (см. vkify-extension/src/shared/constants/settings-schema.ts).
-const PARAM_LABELS = {
-    custom_theme_id:        'Пресет',
-    custom_theme:           'Цвет фона',
-    custom_accent:          'Акцентный цвет',
-    block_opacity:          'Прозрачность карточек',
-    extension_theme:        'Режим темы',
-    block_left_ads:         'Скрыть рекламу (колонка)',
-    block_feed_ads_api:     'Реклама в ленте — фильтр API',
-    block_feed_ads_dom:     'Реклама в ленте — фильтр DOM',
-    block_trackers:         'Блокировать трекеры',
-    compact_spacing:        'Компактный режим',
-    border_radius:          'Скругление',
-    content_width_enabled:  'Расширить контент',
-    content_width:          'Ширина контента',
-    page_offset_enabled:    'Смещение страницы',
-    page_offset_value:      'Величина смещения',
-    custom_font_id:         'Шрифт',
-    custom_font_value:      'CSS шрифта',
-    spy_online:             'Слежка за онлайном',
-}
+import { useTranslation } from '../i18n'
 
 // Похожие: та же категория, исключая текущую
 function getSimilar(theme, limit = 4) {
@@ -169,6 +146,7 @@ function ParamRow({ label, value, accent }) {
 }
 
 export default function ThemeDetail() {
+    const { t }     = useTranslation()
     const { id }    = useParams()
     const shareLink = useCopyToClipboard()
     const pageLink  = useCopyToClipboard()
@@ -192,11 +170,11 @@ export default function ThemeDetail() {
         return (
             <div className="min-h-screen pt-24 flex flex-col items-center justify-center bg-white dark:bg-gray-950">
                 <p className="text-6xl mb-4">🎨</p>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Тема не найдена</h1>
-                <p className="text-gray-400 mb-6">Возможно, ссылка устарела</p>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('themeDetail.notFoundTitle')}</h1>
+                <p className="text-gray-400 mb-6">{t('themeDetail.notFoundHint')}</p>
                 <Link to="/themes"
                       className="px-5 py-2.5 bg-gray-950 dark:bg-white text-white dark:text-gray-950 rounded-full text-sm font-semibold hover:opacity-80 transition-opacity">
-                    ← К темам
+                    {t('themeDetail.backToThemes')}
                 </Link>
             </div>
         )
@@ -206,7 +184,7 @@ export default function ThemeDetail() {
         <div className="min-h-screen bg-white dark:bg-gray-950">
             {showInstallModal && <InstallModal onClose={closeInstallModal} />}
             <SEO
-                title={`${theme.name} — Тема VKify`}
+                title={t('themeDetail.seoTitle', { name: theme.name })}
                 description={theme.description}
                 url={`/themes/${theme.id}`}
                 image={`/og/themes/${theme.id}.png`}
@@ -220,7 +198,7 @@ export default function ThemeDetail() {
                     <button
                         onClick={handleCopyUrl}
                         className="text-sm text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors flex items-center gap-1.5"
-                        title="Скопировать ссылку на страницу"
+                        title={t('detail.copyPageLink')}
                     >
                         {pageLink.copied ? <Check className="w-4 h-4 text-green-500" /> : <ExternalLink className="w-4 h-4" />}
                     </button>
@@ -256,7 +234,7 @@ export default function ThemeDetail() {
                             {/* Похожие */}
                             {similar.length > 0 && (
                                 <div>
-                                    <h2 className="text-base font-bold text-gray-900 dark:text-white mb-4">Похожие темы</h2>
+                                    <h2 className="text-base font-bold text-gray-900 dark:text-white mb-4">{t('themeDetail.similar')}</h2>
                                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                                         {similar.map(t => <SimilarThemeCard key={t.id} theme={t} />)}
                                     </div>
@@ -269,9 +247,9 @@ export default function ThemeDetail() {
                             {/* Цветовые пятна */}
                             <div className="flex gap-2 mb-2">
                                 {[
-                                    { color: theme.preview.bg,     label: 'Фон'    },
-                                    { color: theme.preview.card,   label: 'Карточки' },
-                                    { color: theme.preview.accent, label: 'Акцент'  },
+                                    { color: theme.preview.bg,     label: t('themeDetail.swatchBg')    },
+                                    { color: theme.preview.card,   label: t('themeDetail.swatchCard') },
+                                    { color: theme.preview.accent, label: t('themeDetail.swatchAccent')  },
                                 ].map(({ color, label }) => (
                                     <div key={label} className="flex-1 text-center">
                                         <div className="h-10 rounded-xl border border-black/10 dark:border-white/10 shadow-sm mb-1.5"
@@ -289,8 +267,8 @@ export default function ThemeDetail() {
                                     className="hidden lg:flex items-center justify-center gap-2 w-full py-3 bg-[#0077ff] hover:bg-blue-500 text-white text-sm font-bold rounded-xl active:scale-[0.98] transition-all"
                                 >
                                     {applied
-                                        ? <><Check className="w-4 h-4" /> Применено!</>
-                                        : <><Zap className="w-4 h-4" /> Применить мгновенно</>
+                                        ? <><Check className="w-4 h-4" /> {t('detail.applied')}</>
+                                        : <><Zap className="w-4 h-4" /> {t('detail.apply')}</>
                                     }
                                 </button>
 
@@ -299,20 +277,20 @@ export default function ThemeDetail() {
                                     className="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-sm font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 active:scale-[0.98] transition-all"
                                 >
                                     {shareLink.copied
-                                        ? <><Check className="w-4 h-4 text-green-500" /> Скопировано!</>
-                                        : <><Copy className="w-4 h-4" /> Скопировать ссылку</>}
+                                        ? <><Check className="w-4 h-4 text-green-500" /> {t('detail.copied')}</>
+                                        : <><Copy className="w-4 h-4" /> {t('detail.copyLink')}</>}
                                 </button>
                             </div>
 
                             {/* Параметры */}
                             <div className="p-5 bg-gray-50 dark:bg-gray-900 rounded-2xl">
                                 <h3 className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">
-                                    Параметры темы
+                                    {t('themeDetail.paramsTitle')}
                                 </h3>
                                 {Object.entries(theme.config).map(([key, value]) => (
                                     <ParamRow
                                         key={key}
-                                        label={PARAM_LABELS[key] ?? key.replace(/_/g, ' ')}
+                                        label={t(`paramLabels.${key}`)}
                                         value={String(value)}
                                         accent={typeof value === 'string' && value.startsWith('#')}
                                     />
@@ -322,7 +300,7 @@ export default function ThemeDetail() {
                             {/* URL ссылки на тему */}
                             {shareUrl && (
                                 <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl">
-                                    <p className="text-xs text-gray-400 dark:text-gray-500 mb-2 font-medium">Ссылка на тему</p>
+                                    <p className="text-xs text-gray-400 dark:text-gray-500 mb-2 font-medium">{t('themeDetail.themeLink')}</p>
                                     <div className="flex items-center gap-2 bg-white dark:bg-gray-800 rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-700">
                     <span className="flex-1 min-w-0 text-[10px] font-mono text-gray-500 dark:text-gray-400 truncate">
                       {shareUrl}
@@ -337,8 +315,8 @@ export default function ThemeDetail() {
                             {/* Подсказка */}
                             <ExtensionHint
                                 detected={detected}
-                                connectedTail="Тема применится мгновенно — перезагрузка VK не нужна."
-                                disconnectedText="Установите расширение VKify, чтобы применять темы мгновенно — без лишних шагов."
+                                connectedTail={t('themeDetail.hintConnected')}
+                                disconnectedText={t('themeDetail.hintDisconnected')}
                             />
                         </div>
                     </div>
