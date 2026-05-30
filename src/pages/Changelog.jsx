@@ -3,15 +3,17 @@ import { Filter, Sparkles, Bug, Zap } from 'lucide-react'
 import SEO from '../components/common/SEO'
 import VersionCard from '../components/changelog/VersionCard'
 import { changelog } from '../data/changelog'
+import { useTranslation } from '../i18n'
 
 const filters = [
-  { id: 'all', label: 'Все', icon: null },
-  { id: 'new', label: 'Новое', icon: Sparkles },
-  { id: 'fixed', label: 'Исправления', icon: Bug },
-  { id: 'improved', label: 'Улучшения', icon: Zap },
+  { id: 'all', icon: null },
+  { id: 'new', icon: Sparkles },
+  { id: 'fixed', icon: Bug },
+  { id: 'improved', icon: Zap },
 ]
 
 export default function Changelog() {
+  const { t } = useTranslation()
   const [activeFilter, setActiveFilter] = useState('all')
 
   const filteredChangelog = changelog.filter(version => {
@@ -25,22 +27,22 @@ export default function Changelog() {
   return (
     // Убрали motion.div - анимация теперь в AnimatedPage
     <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950">
-      <SEO 
-        title="История обновлений"
-        description="Следите за всеми обновлениями VKify — новые функции, исправления и улучшения."
+      <SEO
+        title={t('changelogPage.seoTitle')}
+        description={t('changelogPage.seoDescription')}
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            История{' '}
+            {t('changelogPage.titleTop')}{' '}
             <span className="bg-gradient-to-r from-[#0077ff] to-blue-400 bg-clip-text text-transparent">
-              обновлений
+              {t('changelogPage.titleAccent')}
             </span>
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Все изменения, исправления и новые функции VKify
+            {t('changelogPage.subtitle')}
           </p>
         </div>
 
@@ -59,7 +61,7 @@ export default function Changelog() {
               `}
             >
               {filter.icon && <filter.icon className="w-4 h-4" />}
-              {filter.label}
+              {t(`changelogPage.filters.${filter.id}`)}
             </button>
           ))}
         </div>
@@ -82,7 +84,7 @@ export default function Changelog() {
         {filteredChangelog.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-500 dark:text-gray-400">
-              Нет обновлений по выбранному фильтру
+              {t('changelogPage.empty')}
             </p>
           </div>
         )}

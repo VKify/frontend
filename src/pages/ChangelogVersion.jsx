@@ -5,8 +5,10 @@ import SEO from '../components/common/SEO'
 import Button from '../components/common/Button'
 import Badge from '../components/common/Badge'
 import { getVersionBySlug } from '../data/changelog'
+import { useTranslation } from '../i18n'
 
 export default function ChangelogVersion() {
+  const { t } = useTranslation()
   const { version } = useParams()
   const versionData = getVersionBySlug(version)
 
@@ -15,14 +17,14 @@ export default function ChangelogVersion() {
       <div className="min-h-screen pt-24 pb-16 flex items-center justify-center bg-white dark:bg-gray-950">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Версия не найдена
+            {t('changelogPage.versionNotFound')}
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Запрашиваемая версия "{version}" не существует
+            {t('changelogPage.versionNotFoundText', { version })}
           </p>
           <Button to="/changelog">
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Вернуться к списку
+            {t('changelogPage.backToList')}
           </Button>
         </div>
       </div>
@@ -32,7 +34,7 @@ export default function ChangelogVersion() {
   const { version: ver, date, title, changes } = versionData
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('ru-RU', {
+    return new Date(dateString).toLocaleDateString(t('changelogPage.locale'), {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
@@ -40,26 +42,26 @@ export default function ChangelogVersion() {
   }
 
   const sections = [
-    { 
-      key: 'new', 
-      title: 'Что нового', 
-      icon: Sparkles, 
+    {
+      key: 'new',
+      title: t('changelogPage.sectionNew'),
+      icon: Sparkles,
       iconColor: 'text-green-500',
       bgColor: 'bg-green-100 dark:bg-green-900/30',
       dotColor: 'bg-green-500',
     },
-    { 
-      key: 'fixed', 
-      title: 'Исправления', 
-      icon: Bug, 
+    {
+      key: 'fixed',
+      title: t('changelogPage.sectionFixed'),
+      icon: Bug,
       iconColor: 'text-red-500',
       bgColor: 'bg-red-100 dark:bg-red-900/30',
       dotColor: 'bg-red-500',
     },
-    { 
-      key: 'improved', 
-      title: 'Улучшения', 
-      icon: Zap, 
+    {
+      key: 'improved',
+      title: t('changelogPage.sectionImproved'),
+      icon: Zap,
       iconColor: 'text-blue-500',
       bgColor: 'bg-blue-100 dark:bg-blue-900/30',
       dotColor: 'bg-blue-500',
@@ -69,8 +71,8 @@ export default function ChangelogVersion() {
   return (
     <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950">
       <SEO
-        title={`Версия ${ver}`}
-        description={`${title} — обновление VKify v${ver}`}
+        title={t('changelogPage.versionSeoTitle', { version: ver })}
+        description={t('changelogPage.versionSeoDescription', { title, version: ver })}
         url={`/changelog/${ver}`}
       />
 
@@ -82,7 +84,7 @@ export default function ChangelogVersion() {
             className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-[#0077ff] dark:hover:text-[#0077ff] transition-colors group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Все обновления
+            {t('changelogPage.allUpdates')}
           </Link>
         </div>
 
@@ -146,13 +148,12 @@ export default function ChangelogVersion() {
           <div className="flex items-center gap-3 mb-4">
             <AlertTriangle className="w-5 h-5 text-yellow-600 dark:text-yellow-500" />
             <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-              Известные проблемы
+              {t('changelogPage.knownIssuesTitle')}
             </h3>
           </div>
           <p className="text-gray-600 dark:text-gray-400">
-            На данный момент известных проблем не обнаружено. Если вы столкнулись с багом, 
-            пожалуйста, сообщите нам через{' '}
-            <a 
+            {t('changelogPage.knownIssuesText')}
+            <a
               href="https://github.com/rianvy/vkify/issues" 
               target="_blank" 
               rel="noopener noreferrer"
@@ -167,7 +168,7 @@ export default function ChangelogVersion() {
         <div className="mt-12 flex justify-center">
           <Button to="/changelog" variant="secondary" className="gap-2">
             <ArrowLeft className="w-4 h-4" />
-            Назад к списку обновлений
+            {t('changelogPage.backToListLong')}
           </Button>
         </div>
       </div>

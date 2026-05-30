@@ -2,12 +2,14 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Calendar, Sparkles, Bug, Zap, ChevronRight } from 'lucide-react'
 import Badge from '../common/Badge'
+import { useTranslation } from '../../i18n'
 
 export default function VersionCard({ version, isLatest = false }) {
+  const { t } = useTranslation()
   const { version: ver, date, title, highlights, changes } = version
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('ru-RU', {
+    return new Date(dateString).toLocaleDateString(t('changelogPage.locale'), {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
@@ -31,7 +33,7 @@ export default function VersionCard({ version, isLatest = false }) {
             <div className="flex items-center gap-3 mb-2">
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white">v{ver}</h3>
               {isLatest && (
-                <Badge variant="new">Последняя</Badge>
+                <Badge variant="new">{t('changelogPage.latest')}</Badge>
               )}
             </div>
             <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm">
@@ -44,7 +46,7 @@ export default function VersionCard({ version, isLatest = false }) {
             to={`/changelog/${ver}`}
             className="flex items-center gap-1 text-[#0077ff] hover:underline text-sm font-medium group"
           >
-            Подробнее
+            {t('changelogPage.more')}
             <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -69,19 +71,19 @@ export default function VersionCard({ version, isLatest = false }) {
           {changes.new?.length > 0 && (
             <div className="flex items-center gap-2 text-sm">
               <Sparkles className="w-4 h-4 text-green-500" />
-              <span className="text-gray-600 dark:text-gray-400">{changes.new.length} новых</span>
+              <span className="text-gray-600 dark:text-gray-400">{t('changelogPage.countNew', { count: changes.new.length })}</span>
             </div>
           )}
           {changes.fixed?.length > 0 && (
             <div className="flex items-center gap-2 text-sm">
               <Bug className="w-4 h-4 text-red-500" />
-              <span className="text-gray-600 dark:text-gray-400">{changes.fixed.length} исправлений</span>
+              <span className="text-gray-600 dark:text-gray-400">{t('changelogPage.countFixed', { count: changes.fixed.length })}</span>
             </div>
           )}
           {changes.improved?.length > 0 && (
             <div className="flex items-center gap-2 text-sm">
               <Zap className="w-4 h-4 text-blue-500" />
-              <span className="text-gray-600 dark:text-gray-400">{changes.improved.length} улучшений</span>
+              <span className="text-gray-600 dark:text-gray-400">{t('changelogPage.countImproved', { count: changes.improved.length })}</span>
             </div>
           )}
         </div>
