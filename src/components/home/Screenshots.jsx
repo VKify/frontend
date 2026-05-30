@@ -48,7 +48,7 @@ const screenshots = [
   {
     id: 6,
     title: 'Выбор шрифта',
-    description: '16+ шрифтов для удобного и красивого чтения',
+    description: `${config.stats.fonts} шрифтов для комфортного чтения`,
     icon: Type,
     color: 'from-indigo-500 to-violet-500',
     mockup: 'fonts',

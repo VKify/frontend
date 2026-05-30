@@ -5,29 +5,29 @@ import Section from '../common/Section'
 import config from '../../config'
 
 const stats = [
-  { 
-    value: 50, 
-    suffix: '+', 
-    label: 'функций', 
-    description: 'для кастомизации',
+  {
+    value: 50,
+    suffix: '+',
+    label: 'функций',
+    description: 'на каждый день',
     icon: Sparkles,
-    color: 'from-blue-500 to-cyan-500' 
+    color: 'from-blue-500 to-cyan-500'
   },
   {
     value: 72,
     suffix: '+',
     label: 'тем оформления',
-    description: 'на любой вкус',
+    description: 'и видео-обои',
     icon: Palette,
     color: 'from-purple-500 to-pink-500'
   },
-  { 
-    value: 0, 
-    suffix: '', 
-    label: 'рекламы', 
-    description: 'полная блокировка',
+  {
+    value: 0,
+    suffix: '',
+    label: 'рекламы',
+    description: 'и никаких трекеров',
     icon: ShieldOff,
-    color: 'from-green-500 to-emerald-500' 
+    color: 'from-green-500 to-emerald-500'
   },
   { 
     value: 100, 

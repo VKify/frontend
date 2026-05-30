@@ -13,8 +13,8 @@ const stats = [
 ]
 
 const features = [
-  { icon: Palette, label: `${config.stats.themes} тем оформления` },
-  { icon: Shield, label: 'Блокировка рекламы' },
+  { icon: Palette, label: `${config.stats.themes} темы и обои` },
+  { icon: Shield, label: 'Без рекламы и трекеров' },
   { icon: Sparkles, label: `${config.stats.features} функций` },
 ]
 

@@ -3,16 +3,14 @@ import { useRef, useState, useEffect } from 'react'
 import {
   Palette,
   Shield,
-  EyeOff,
   Lock,
   Sparkles,
   Code2,
   Type,
-  Ghost,
   Activity,
   ImageIcon,
-  Brush,
-  Ban,
+  Download,
+  Eye,
 } from 'lucide-react'
 import Logo from '../common/Logo'
 import config from '../../config'
@@ -56,7 +54,7 @@ function TiltCard({ children }) {
   )
 }
 
-// Все функции для карточек
+// Плавающие карточки — реальные «вау»-функции
 const allFeatures = [
   {
     Icon: Palette,
@@ -71,26 +69,32 @@ const allFeatures = [
     color: 'from-green-500 to-emerald-500',
   },
   {
-    Icon: Ban,
-    label: 'Трекеры',
-    value: 'Блок',
-    color: 'from-red-500 to-rose-500',
+    Icon: Lock,
+    label: 'Шифрование',
+    value: 'E2E',
+    color: 'from-orange-500 to-red-500',
   },
   {
-    Icon: Lock,
-    label: 'Приватность',
-    value: '100%',
-    color: 'from-orange-500 to-red-500',
+    Icon: Download,
+    label: 'Скачивание',
+    value: '1080p',
+    color: 'from-indigo-500 to-violet-500',
+  },
+  {
+    Icon: Eye,
+    label: 'Кто читал',
+    value: 'Видно',
+    color: 'from-blue-500 to-cyan-500',
   },
   {
     Icon: Type,
     label: 'Шрифтов',
-    value: '16+',
+    value: config.stats.fonts,
     color: 'from-cyan-500 to-blue-500',
   },
   {
     Icon: ImageIcon,
-    label: 'Живые обои',
+    label: 'Видео-обои',
     value: 'Вкл',
     color: 'from-teal-500 to-emerald-500',
   },
@@ -98,7 +102,7 @@ const allFeatures = [
     Icon: Code2,
     label: 'CSS-редактор',
     value: 'Свой',
-    color: 'from-indigo-500 to-violet-500',
+    color: 'from-indigo-500 to-purple-500',
   },
   {
     Icon: Activity,
@@ -107,15 +111,9 @@ const allFeatures = [
     color: 'from-amber-500 to-orange-500',
   },
   {
-    Icon: Brush,
-    label: 'Скругления',
-    value: 'Любые',
-    color: 'from-pink-500 to-fuchsia-500',
-  },
-  {
     Icon: Sparkles,
-    label: 'Функций',
-    value: config.stats.features,
+    label: 'Поиск функций',
+    value: 'Cmd+K',
     color: 'from-yellow-500 to-orange-500',
   },
 ]

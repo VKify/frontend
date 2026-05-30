@@ -1,123 +1,90 @@
-import { 
-  Palette, 
-  ShieldCheck, 
-  EyeOff, 
-  Lock, 
-  Zap, 
-  Code2,
-  Brush,
-  Ban,
-  Ghost,
-  UserX,
-  Bot,
-  Sparkles
+import {
+  Palette,
+  ShieldCheck,
+  Lock,
+  Eye,
+  Download,
+  MessageSquare,
 } from 'lucide-react'
 import config from '../config'
 
+// Топ-функции для главной — только самое востребованное, по одной выгоде на блок.
 export const features = [
   {
-    id: 'customization',
+    id: 'appearance',
     icon: Palette,
-    title: 'Кастомизация',
-    description: 'Темы, цвета, фоны, скругления — сделайте VK уникальным',
+    title: 'Оформление под себя',
+    description: 'Сделайте VK своим: темы, видео-обои и собственный CSS.',
     color: 'from-purple-500 to-pink-500',
     details: [
-      `${config.stats.themes}+ готовых цветовых темы`,
-      'Настройка радиуса скругления',
-      'Живые обои и кастомные фоны',
-      '16+ шрифтов на выбор'
-    ]
+      `${config.stats.themes} темы и кастомные цвета`,
+      `${config.stats.fonts} шрифтов на выбор`,
+      'Обои: картинки и видео',
+      'CSS-редактор и компактный режим',
+    ],
   },
   {
     id: 'adblock',
     icon: ShieldCheck,
-    title: 'Блокировка рекламы',
-    description: 'Чистая лента без промо-постов и рекламных историй',
+    title: 'Ноль рекламы и слежки',
+    description: 'Чистая лента без промо — и никаких трекеров.',
     color: 'from-green-500 to-emerald-500',
     details: [
-      'Блокировка рекламы в ленте',
-      'Скрытие промо-историй',
-      'Удаление рекламы в боковой панели',
-      'Блокировка видео-рекламы'
-    ]
-  },
-  {
-    id: 'hiding',
-    icon: EyeOff,
-    title: 'Скрытие элементов',
-    description: 'Уберите всё лишнее — рекомендации, истории, статусы',
-    color: 'from-blue-500 to-cyan-500',
-    details: [
-      'Скрытие рекомендаций друзей',
-      'Отключение историй',
-      'Скрытие статусов онлайн',
-      'Удаление лишних блоков'
-    ]
+      'Два фильтра рекламы',
+      'Блокировка трекеров',
+      'Скрытие историй и баннеров',
+      'Свои списки блокировки',
+    ],
   },
   {
     id: 'privacy',
     icon: Lock,
-    title: 'Приватность',
-    description: 'Невидимка и блокировка прочтения сообщений',
+    title: 'Переписка только для вас',
+    description: 'E2E-шифрование и скрытие диалогов в один тап.',
     color: 'from-orange-500 to-red-500',
     details: [
-      'Режим невидимки',
-      'Блокировка галочек прочтения',
-      'Скрытие набора текста',
-      'Анонимный просмотр историй'
-    ]
+      'Шифрование сообщений (E2E)',
+      'Скрытие диалогов',
+      'Быстрое скрытие переписки',
+      'Размытие страницы',
+    ],
   },
   {
-    id: 'automation',
-    icon: Zap,
-    title: 'Автоматизация',
-    description: 'Авто-добавление друзей, автоответы и скрипты',
-    color: 'from-yellow-500 to-orange-500',
+    id: 'tracking',
+    icon: Eye,
+    title: 'Кто заходил и читал',
+    description: 'Видно, кто в сети, кто прочитал и кто печатает — с историей.',
+    color: 'from-blue-500 to-cyan-500',
     details: [
-      'Авто-принятие заявок в друзья',
-      'Пользовательские скрипты',
-      'Быстрые действия',
-      'Горячие клавиши'
-    ]
+      'Статусы: печатает, прочитал',
+      'Онлайн-мониторинг с историей',
+      'Уведомления о действиях',
+    ],
   },
   {
-    id: 'css-editor',
-    icon: Code2,
-    title: 'CSS-редактор',
-    description: 'Свои стили с подсветкой кода и живым превью',
-    color: 'from-indigo-500 to-purple-500',
+    id: 'media',
+    icon: Download,
+    title: 'Скачивай что угодно',
+    description: 'Видео, истории, фото и альбомы — прямо из VK.',
+    color: 'from-indigo-500 to-violet-500',
     details: [
-      'Редактор с подсветкой синтаксиса',
-      'Живое превью изменений',
-      'Импорт/экспорт стилей',
-      'Готовые сниппеты'
-    ]
-  }
-]
-
-export const featureCategories = [
-  {
-    id: 'appearance',
-    title: 'Внешний вид',
-    icon: Brush,
-    features: ['customization', 'css-editor']
+      'Видео до 1080p',
+      'Истории и фото',
+      'Целые альбомы',
+      'Горячие клавиши плеера',
+    ],
   },
   {
-    id: 'blocking',
-    title: 'Блокировка',
-    icon: Ban,
-    features: ['adblock', 'hiding']
+    id: 'messages',
+    icon: MessageSquare,
+    title: 'Сообщения под рукой',
+    description: 'Единый хаб, шаблоны и заметки — общайтесь быстрее.',
+    color: 'from-teal-500 to-cyan-500',
+    details: [
+      'Единый центр сообщений',
+      'Шаблоны сообщений',
+      'Заметки к диалогам',
+      'Экспорт переписки',
+    ],
   },
-  {
-    id: 'privacy',
-    title: 'Приватность',
-    icon: Ghost,
-    features: ['privacy']
-  },
-  {
-    id: 'productivity',
-    title: 'Продуктивность',
-    icon: Bot,
-    features: ['automation']
-  }
 ]

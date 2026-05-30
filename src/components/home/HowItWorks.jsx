@@ -25,7 +25,7 @@ const steps = [
     title: 'Настройте под себя',
     description: 'Выберите тему, включите нужные функции и наслаждайтесь',
     color: 'from-orange-500 to-red-500',
-    features: [`${config.stats.features} настроек`, `${config.stats.themes} тем оформления`, 'Гибкая кастомизация'],
+    features: [`${config.stats.themes} темы и ${config.stats.fonts} шрифтов`, 'Приватность и шифрование', 'Скачивание видео и историй'],
   },
 ]
 

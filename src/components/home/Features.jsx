@@ -4,6 +4,7 @@ import { useInView } from 'framer-motion'
 import { features } from '../../data/features'
 import { Sparkles } from 'lucide-react'
 import Section, { SectionHeader } from '../common/Section'
+import config from '../../config'
 
 export default function Features() {
   const ref = useRef(null)
@@ -13,12 +14,12 @@ export default function Features() {
     <Section id="features" variant="alternate" withGlow>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badge="Более 50 функций"
+          badge={`${config.stats.features} функций`}
           badgeIcon={Sparkles}
           badgeColor="blue"
-          title="Всё для"
-          titleHighlight="идеального VK"
-          description="Кастомизация, приватность и удобство в одном расширении. Настройте ВКонтакте под себя за несколько кликов."
+          title="Самое нужное —"
+          titleHighlight="в одном расширении"
+          description="Темы, приватность, скачивание медиа и контроль активности. Всё настраивается прямо во ВКонтакте — без лишних вкладок."
         />
 
         {/* Features Grid */}
@@ -82,7 +83,7 @@ export default function Features() {
           transition={{ delay: 0.5 }}
           className="mt-16 text-center text-gray-500 dark:text-gray-400"
         >
-          И это только начало — новые функции добавляются регулярно
+          А ещё поиск по функциям на <kbd className="px-1.5 py-0.5 rounded-md bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-xs font-mono text-gray-700 dark:text-gray-300">Cmd/Ctrl + K</kbd>, избранное и быстрые действия — новые функции добавляются регулярно
         </motion.p>
       </div>
     </Section>

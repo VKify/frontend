@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Download, Chrome, Sparkles, Shield, Palette, Zap, Play, Star, Globe } from 'lucide-react'
+import { ArrowRight, Download, Chrome, Sparkles, Shield, Palette, Lock, Globe } from 'lucide-react'
 import Button from '../common/Button'
 import Hero3DCard from './Hero3DCard'
 import config from '../../config'
@@ -9,10 +9,10 @@ import { getLatestVersion } from '../../data/changelog'
 import { scrollToElement } from '../../utils/scroll'
 
 const features = [
-  { Icon: Palette, label: 'Темы', color: 'from-purple-500 to-pink-500' },
-  { Icon: Shield, label: 'Приватность', color: 'from-green-500 to-emerald-500' },
-  { Icon: Zap, label: 'Скорость', color: 'from-yellow-500 to-orange-500' },
-  { Icon: Sparkles, label: 'Функции', color: 'from-blue-500 to-cyan-500' },
+  { Icon: Palette, label: 'Темы и обои', color: 'from-purple-500 to-pink-500' },
+  { Icon: Shield, label: 'Без рекламы', color: 'from-green-500 to-emerald-500' },
+  { Icon: Lock, label: 'Приватность', color: 'from-orange-500 to-red-500' },
+  { Icon: Download, label: 'Скачивание', color: 'from-blue-500 to-cyan-500' },
 ]
 
 export default function Hero() {
@@ -105,8 +105,8 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-6 text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-xl mx-auto lg:mx-0"
             >
-              Кастомизируйте VK под себя: уникальные темы, блокировка рекламы,
-              расширенная приватность и {config.stats.features} функций в одном расширении
+              Темы и видео-обои, блокировка рекламы и трекеров, шифрование
+              переписки и скачивание медиа — {config.stats.features} функций в одном расширении. Бесплатно.
             </motion.p>
 
             {/* Feature Pills */}
@@ -158,8 +158,8 @@ export default function Hero() {
                 size="lg"
                 className="w-full sm:w-auto gap-2"
               >
-                <Play className="w-4 h-4" />
-                <span>Смотреть демо</span>
+                <Sparkles className="w-4 h-4" />
+                <span>Все возможности</span>
               </Button>
             </motion.div>
 
