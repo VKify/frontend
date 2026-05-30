@@ -3,6 +3,20 @@ const HEADER_HEIGHT = 80
 const SCROLL_THRESHOLD = 50
 
 /**
+ * Фактическая высота навбара. Меряется вживую по элементу <nav> внутри
+ * <header>, поэтому корректна и на мобиле (h-16 = 64px), и на десктопе
+ * (h-20 = 80px). Баннер «Вышла версия…» — отдельный элемент НАД <nav> и
+ * при любом скролле схлопывается, поэтому в офсет не попадает: секция
+ * прилегает к навбару вплотную в обоих состояниях баннера.
+ * Фолбэк (SSR / нет хедера) — HEADER_HEIGHT.
+ */
+function getHeaderOffset() {
+  if (typeof document === 'undefined') return HEADER_HEIGHT
+  const nav = document.querySelector('header nav')
+  return nav ? Math.round(nav.getBoundingClientRect().height) : HEADER_HEIGHT
+}
+
+/**
  * Плавно скроллит к DOM-элементу с учётом фиксированного хедера.
  *
  * Если страница в самом верху (виден AnnouncementBar) — сначала мгновенно
@@ -36,7 +50,7 @@ function smoothScrollToElement(element, offset) {
  * @param {string} elementId - ID элемента для скролла
  * @param {number} offset - отступ сверху (по умолчанию высота хедера + 20px)
  */
-export function scrollToElement(elementId, offset = HEADER_HEIGHT + 20) {
+export function scrollToElement(elementId, offset = getHeaderOffset()) {
   smoothScrollToElement(document.getElementById(elementId), offset)
 }
 
@@ -46,7 +60,7 @@ export function scrollToElement(elementId, offset = HEADER_HEIGHT + 20) {
  * @param {HTMLElement} el - DOM элемент
  */
 export function scrollWithOffset(el) {
-  smoothScrollToElement(el, HEADER_HEIGHT + 20)
+  smoothScrollToElement(el, getHeaderOffset())
 }
 
 /**
