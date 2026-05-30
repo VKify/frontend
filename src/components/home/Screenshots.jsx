@@ -733,6 +733,39 @@ function FontsMockup({ isActive }) {
   )
 }
 
+function ThumbnailCard({ screenshot, isActive, onSelect }) {
+  const Icon = screenshot.icon
+
+  return (
+    <motion.button
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      onClick={onSelect}
+      className={`
+        relative w-full p-3 xl:p-4 rounded-xl xl:rounded-2xl text-left transition-all duration-300
+        ${isActive
+          ? 'bg-white dark:bg-gray-800 shadow-xl border-2 border-blue-500'
+          : 'bg-gray-100 dark:bg-gray-800/50 border-2 border-transparent hover:bg-white dark:hover:bg-gray-800'
+        }
+      `}
+    >
+      <div className="flex items-center gap-3">
+        <div className={`w-9 h-9 xl:w-10 xl:h-10 flex-shrink-0 rounded-lg xl:rounded-xl bg-gradient-to-br ${screenshot.color} flex items-center justify-center`}>
+          <Icon className="w-4 h-4 xl:w-5 xl:h-5 text-white" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="font-semibold text-gray-900 dark:text-white text-xs xl:text-sm truncate">
+            {screenshot.title}
+          </div>
+          <div className="text-[10px] xl:text-xs text-gray-500 dark:text-gray-400 truncate">
+            {screenshot.description}
+          </div>
+        </div>
+      </div>
+    </motion.button>
+  )
+}
+
 export default function Screenshots() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
@@ -787,42 +820,10 @@ export default function Screenshots() {
 
   const currentScreenshot = screenshots[currentIndex]
 
-  const ThumbnailCard = ({ screenshot, index }) => {
-    const isActive = index === currentIndex
-    const Icon = screenshot.icon
-    
-    return (
-      <motion.button
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        onClick={() => { 
-          setCurrentIndex(index)
-          setIsAutoPlaying(false)
-        }}
-        className={`
-          relative w-full p-3 xl:p-4 rounded-xl xl:rounded-2xl text-left transition-all duration-300
-          ${isActive 
-            ? 'bg-white dark:bg-gray-800 shadow-xl border-2 border-blue-500' 
-            : 'bg-gray-100 dark:bg-gray-800/50 border-2 border-transparent hover:bg-white dark:hover:bg-gray-800'
-          }
-        `}
-      >
-        <div className="flex items-center gap-3">
-          <div className={`w-9 h-9 xl:w-10 xl:h-10 flex-shrink-0 rounded-lg xl:rounded-xl bg-gradient-to-br ${screenshot.color} flex items-center justify-center`}>
-            <Icon className="w-4 h-4 xl:w-5 xl:h-5 text-white" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="font-semibold text-gray-900 dark:text-white text-xs xl:text-sm truncate">
-              {screenshot.title}
-            </div>
-            <div className="text-[10px] xl:text-xs text-gray-500 dark:text-gray-400 truncate">
-              {screenshot.description}
-            </div>
-          </div>
-        </div>
-      </motion.button>
-    )
-  }
+  const selectScreenshot = useCallback((index) => {
+    setCurrentIndex(index)
+    setIsAutoPlaying(false)
+  }, [])
 
   return (
     <Section id="screenshots" variant="default">
@@ -853,7 +854,8 @@ export default function Screenshots() {
       <ThumbnailCard
         key={screenshot.id}
         screenshot={screenshot}
-        index={index}
+        isActive={index === currentIndex}
+        onSelect={() => selectScreenshot(index)}
       />
     ))}
   </div>
@@ -959,10 +961,7 @@ export default function Screenshots() {
       {screenshots.map((_, index) => (
         <button
           key={index}
-          onClick={() => { 
-            setCurrentIndex(index)
-            setIsAutoPlaying(false)
-          }}
+          onClick={() => selectScreenshot(index)}
           className="relative h-2 rounded-full overflow-hidden transition-all duration-300"
           style={{ width: index === currentIndex ? 32 : 8 }}
           aria-label={`Перейти к скриншоту ${index + 1}`}
@@ -986,13 +985,17 @@ export default function Screenshots() {
 
   {/* Thumbnails - Right Side */}
   <div className="w-52 xl:w-64 flex-shrink-0 flex flex-col gap-3 xl:gap-4">
-    {screenshots.slice(Math.ceil(screenshots.length / 2)).map((screenshot, index) => (
-      <ThumbnailCard
-        key={screenshot.id}
-        screenshot={screenshot}
-        index={index + Math.ceil(screenshots.length / 2)}
-      />
-    ))}
+    {screenshots.slice(Math.ceil(screenshots.length / 2)).map((screenshot, index) => {
+      const realIndex = index + Math.ceil(screenshots.length / 2)
+      return (
+        <ThumbnailCard
+          key={screenshot.id}
+          screenshot={screenshot}
+          isActive={realIndex === currentIndex}
+          onSelect={() => selectScreenshot(realIndex)}
+        />
+      )
+    })}
   </div>
 </div>
 
@@ -1081,10 +1084,7 @@ export default function Screenshots() {
             {screenshots.map((_, index) => (
               <button
                 key={index}
-                onClick={() => { 
-                  setCurrentIndex(index)
-                  setIsAutoPlaying(false)
-                }}
+                onClick={() => selectScreenshot(index)}
                 className="relative h-1.5 rounded-full overflow-hidden transition-all duration-300"
                 style={{ width: index === currentIndex ? 24 : 6 }}
                 aria-label={`Перейти к скриншоту ${index + 1}`}
@@ -1109,10 +1109,7 @@ export default function Screenshots() {
               return (
                 <button
                   key={screenshot.id}
-                  onClick={() => { 
-                    setCurrentIndex(index)
-                    setIsAutoPlaying(false)
-                  }}
+                  onClick={() => selectScreenshot(index)}
                   className={`
                     flex-shrink-0 p-2.5 rounded-lg transition-all
                     ${index === currentIndex 
