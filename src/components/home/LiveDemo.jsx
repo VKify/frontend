@@ -198,7 +198,7 @@ function ThemesDemo() {
 
       <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/50 rounded-xl px-3 py-2">
         <Palette className="w-3.5 h-3.5 text-blue-500 shrink-0" />
-        <span>В расширении доступно <strong className="text-blue-600 dark:text-blue-400">72+ темы</strong> и полная ручная настройка цветов</span>
+        <span>В расширении доступно <strong className="text-blue-600 dark:text-blue-400">{config.stats.themes}+ темы</strong> и полная ручная настройка цветов</span>
       </div>
     </div>
   )

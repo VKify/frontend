@@ -25,7 +25,7 @@ const steps = [
     title: 'Настройте под себя',
     description: 'Выберите тему, включите нужные функции и наслаждайтесь',
     color: 'from-orange-500 to-red-500',
-    features: ['50+ настроек', '12 тем оформления', 'Гибкая кастомизация'],
+    features: [`${config.stats.features} настроек`, `${config.stats.themes} тем оформления`, 'Гибкая кастомизация'],
   },
 ]
 

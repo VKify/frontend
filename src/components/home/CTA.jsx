@@ -13,9 +13,9 @@ const stats = [
 ]
 
 const features = [
-  { icon: Palette, label: '72 тем оформления' },
+  { icon: Palette, label: `${config.stats.themes} тем оформления` },
   { icon: Shield, label: 'Блокировка рекламы' },
-  { icon: Sparkles, label: '50+ функций' },
+  { icon: Sparkles, label: `${config.stats.features} функций` },
 ]
 
 export default function CTA() {

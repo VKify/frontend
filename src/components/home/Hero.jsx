@@ -105,8 +105,8 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-6 text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-xl mx-auto lg:mx-0"
             >
-              Кастомизируйте VK под себя: уникальные темы, блокировка рекламы, 
-              расширенная приватность и 50+ функций в одном расширении
+              Кастомизируйте VK под себя: уникальные темы, блокировка рекламы,
+              расширенная приватность и {config.stats.features} функций в одном расширении
             </motion.p>
 
             {/* Feature Pills */}

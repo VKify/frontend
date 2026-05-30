@@ -2,12 +2,13 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, X, ZoomIn, Palette, ShieldOff, Code, Eye, ImageIcon, Type } from 'lucide-react'
 import Section from '../common/Section'
+import config from '../../config'
 
 const screenshots = [
   {
     id: 1,
     title: 'Настройки тем',
-    description: 'Выбирайте из 72+ готовых цветовых схем или создайте свою',
+    description: `Выбирайте из ${config.stats.themes}+ готовых цветовых схем или создайте свою`,
     icon: Palette,
     color: 'from-purple-500 to-pink-500',
     mockup: 'themes',

@@ -15,6 +15,7 @@ import {
   Ban,
 } from 'lucide-react'
 import Logo from '../common/Logo'
+import config from '../../config'
 
 // 3D Card с эффектом наклона
 function TiltCard({ children }) {
@@ -60,7 +61,7 @@ const allFeatures = [
   {
     Icon: Palette,
     label: 'Тем оформления',
-    value: '72+',
+    value: `${config.stats.themes}+`,
     color: 'from-purple-500 to-pink-500',
   },
   {
@@ -114,7 +115,7 @@ const allFeatures = [
   {
     Icon: Sparkles,
     label: 'Функций',
-    value: '50+',
+    value: config.stats.features,
     color: 'from-yellow-500 to-orange-500',
   },
 ]

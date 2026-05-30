@@ -12,6 +12,7 @@ import {
   Bot,
   Sparkles
 } from 'lucide-react'
+import config from '../config'
 
 export const features = [
   {
@@ -21,7 +22,7 @@ export const features = [
     description: 'Темы, цвета, фоны, скругления — сделайте VK уникальным',
     color: 'from-purple-500 to-pink-500',
     details: [
-      '72+ готовых цветовых темы',
+      `${config.stats.themes}+ готовых цветовых темы`,
       'Настройка радиуса скругления',
       'Живые обои и кастомные фоны',
       '16+ шрифтов на выбор'
