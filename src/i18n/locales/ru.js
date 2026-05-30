@@ -201,6 +201,25 @@ export const ru = {
       wallpapers: { title: 'Живые обои', description: 'Анимированные и статичные фоны прямо в интерфейсе VK' },
       fonts: { title: 'Выбор шрифта', description: '{fonts} шрифтов для комфортного чтения' },
     },
+    mockup: {
+      adblockHidden: '3 рекламных поста скрыто',
+      privacy: {
+        name: 'Алексей',
+        seen: 'был недавно',
+        incoming: 'Ты видел новость?',
+        outgoing: 'Да, интересно!',
+        typing: 'печатает...',
+        hidden: 'скрыто',
+        read: 'Прочтение',
+        typingLabel: 'Набор',
+      },
+      fonts: {
+        name: 'Александр Иванов',
+        time: 'сегодня в 12:30',
+        sample: 'Сделал VK красивее с VKify! Теперь всё выглядит именно так, как я хочу.',
+      },
+      wallpapers: { aurora: 'Сияние', sunset: 'Закат', cyber: 'Кибер', matrix: 'Матрица', space: 'Космос', waves: 'Волны' },
+    },
   },
 
   cta: {

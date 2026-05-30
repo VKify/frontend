@@ -18,6 +18,11 @@ export const SUPPORTED_LANGS = ['ru', 'en']
 export const DEFAULT_LANG = 'ru'
 const STORAGE_KEY = 'vkify-lang'
 
+// Самоназвание каждого языка (для меню выбора): { ru: 'Русский', en: 'English' }
+export const LANG_NAMES = Object.fromEntries(
+  SUPPORTED_LANGS.map((l) => [l, DICTS[l].langName])
+)
+
 const I18nContext = createContext(null)
 
 function detectInitialLang() {

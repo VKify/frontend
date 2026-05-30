@@ -204,7 +204,7 @@ function FooterLink({ item }) {
       className={baseClasses}
     >
       <span className="relative">
-        {item.name}
+        {label}
         {underline}
       </span>
     </Link>

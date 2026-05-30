@@ -340,15 +340,16 @@ function WavesEffect() {
 }
 
 const WALLPAPERS_DATA = [
-  { name: 'Сияние',  thumb: 'from-green-400 via-teal-500 to-blue-600',    bg: 'from-emerald-950 via-teal-900 to-blue-950',    Effect: AuroraEffect },
-  { name: 'Закат',   thumb: 'from-orange-400 via-pink-500 to-purple-600',  bg: 'from-orange-950 via-rose-950 to-purple-950',   Effect: SunsetEffect },
-  { name: 'Кибер',   thumb: 'from-violet-600 via-blue-600 to-cyan-400',    bg: 'from-indigo-950 via-blue-950 to-cyan-950',     Effect: CyberEffect  },
-  { name: 'Матрица', thumb: 'from-green-900 via-green-600 to-black',       bg: 'from-green-950 via-green-900 to-black',        Effect: MatrixEffect },
-  { name: 'Космос',  thumb: 'from-slate-900 via-indigo-950 to-slate-900',  bg: 'from-slate-950 via-indigo-950 to-slate-950',   Effect: SpaceEffect  },
-  { name: 'Волны',   thumb: 'from-sky-500 via-cyan-400 to-blue-600',       bg: 'from-sky-950 via-cyan-900 to-blue-950',        Effect: WavesEffect  },
+  { id: 'aurora', thumb: 'from-green-400 via-teal-500 to-blue-600',    bg: 'from-emerald-950 via-teal-900 to-blue-950',    Effect: AuroraEffect },
+  { id: 'sunset', thumb: 'from-orange-400 via-pink-500 to-purple-600',  bg: 'from-orange-950 via-rose-950 to-purple-950',   Effect: SunsetEffect },
+  { id: 'cyber',  thumb: 'from-violet-600 via-blue-600 to-cyan-400',    bg: 'from-indigo-950 via-blue-950 to-cyan-950',     Effect: CyberEffect  },
+  { id: 'matrix', thumb: 'from-green-900 via-green-600 to-black',       bg: 'from-green-950 via-green-900 to-black',        Effect: MatrixEffect },
+  { id: 'space',  thumb: 'from-slate-900 via-indigo-950 to-slate-900',  bg: 'from-slate-950 via-indigo-950 to-slate-950',   Effect: SpaceEffect  },
+  { id: 'waves',  thumb: 'from-sky-500 via-cyan-400 to-blue-600',       bg: 'from-sky-950 via-cyan-900 to-blue-950',        Effect: WavesEffect  },
 ]
 
 function WallpapersMockup({ isActive }) {
+  const { t } = useTranslation()
   const [active, setActive] = useState(0)
   const wp = WALLPAPERS_DATA[active]
   const Effect = wp.Effect
@@ -409,7 +410,7 @@ function WallpapersMockup({ isActive }) {
                   ? 'ring-2 ring-white shadow-lg shadow-white/30'
                   : 'opacity-55 hover:opacity-85'}`}
               style={{ width: i === active ? 52 : 28, height: i === active ? 36 : 24 }}
-              title={w.name}
+              title={t(`screenshots.mockup.wallpapers.${w.id}`)}
             >
               {i === active && (
                 <motion.div
@@ -428,8 +429,9 @@ function WallpapersMockup({ isActive }) {
 }
 
 function ScreenMockup({ type, isActive }) {
+  const { t } = useTranslation()
   const baseClasses = "w-full h-full"
-  
+
   if (type === 'themes') {
     return (
       <div className={baseClasses + " bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 p-4 sm:p-6"}>
@@ -495,7 +497,7 @@ function ScreenMockup({ type, isActive }) {
               className="flex items-center justify-center gap-2 py-2 text-green-500"
             >
               <ShieldOff className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="text-[10px] sm:text-xs font-medium">3 рекламных поста скрыто</span>
+              <span className="text-[10px] sm:text-xs font-medium">{t('screenshots.mockup.adblockHidden')}</span>
             </motion.div>
           </div>
         </div>
@@ -536,9 +538,9 @@ function ScreenMockup({ type, isActive }) {
         >
           <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex-shrink-0" />
           <div className="flex-1 min-w-0">
-            <div className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">Алексей</div>
+            <div className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">{t('screenshots.mockup.privacy.name')}</div>
             {/* Онлайн скрыт — показываем «был недавно» вместо зелёной точки */}
-            <div className="text-[10px] sm:text-xs text-gray-400">был недавно</div>
+            <div className="text-[10px] sm:text-xs text-gray-400">{t('screenshots.mockup.privacy.seen')}</div>
           </div>
           <div className="flex items-center gap-1 bg-orange-100 dark:bg-orange-900/30 rounded-lg px-2 py-1">
             <svg className="w-3 h-3 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
@@ -559,7 +561,7 @@ function ScreenMockup({ type, isActive }) {
           >
             <div className="w-6 h-6 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex-shrink-0" />
             <div className="bg-white dark:bg-gray-700 rounded-2xl rounded-bl-sm px-3 py-2 max-w-[65%]">
-              <p className="text-xs sm:text-sm text-gray-800 dark:text-white">Ты видел новость?</p>
+              <p className="text-xs sm:text-sm text-gray-800 dark:text-white">{t('screenshots.mockup.privacy.incoming')}</p>
             </div>
           </motion.div>
 
@@ -571,7 +573,7 @@ function ScreenMockup({ type, isActive }) {
             className="flex justify-end"
           >
             <div className="bg-[#0077ff] rounded-2xl rounded-br-sm px-3 py-2 max-w-[65%]">
-              <p className="text-xs sm:text-sm text-white">Да, интересно!</p>
+              <p className="text-xs sm:text-sm text-white">{t('screenshots.mockup.privacy.outgoing')}</p>
               <div className="flex items-center justify-end gap-1 mt-0.5">
                 <span className="text-[9px] text-blue-200">14:32</span>
                 {/* Галочка одна (доставлено), но не синяя (прочтение скрыто) */}
@@ -594,8 +596,8 @@ function ScreenMockup({ type, isActive }) {
                 <div key={i} className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-600" />
               ))}
             </div>
-            <span className="text-[10px] text-gray-400 line-through">печатает...</span>
-            <span className="text-[10px] text-orange-400 font-medium">скрыто</span>
+            <span className="text-[10px] text-gray-400 line-through">{t('screenshots.mockup.privacy.typing')}</span>
+            <span className="text-[10px] text-orange-400 font-medium">{t('screenshots.mockup.privacy.hidden')}</span>
           </motion.div>
         </div>
 
@@ -606,7 +608,7 @@ function ScreenMockup({ type, isActive }) {
           transition={{ delay: 0.45 }}
           className="grid grid-cols-3 gap-1.5"
         >
-          {['Прочтение', 'Набор'].map((label) => (
+          {[t('screenshots.mockup.privacy.read'), t('screenshots.mockup.privacy.typingLabel')].map((label) => (
             <div key={label} className="bg-orange-500/10 border border-orange-500/20 rounded-lg py-1 text-center">
               <span className="text-[9px] sm:text-[10px] text-orange-600 dark:text-orange-400 font-semibold">{label} ✓</span>
             </div>
@@ -637,6 +639,7 @@ const FONTS = [
 ]
 
 function FontsMockup({ isActive }) {
+  const { t } = useTranslation()
   const [activeFont, setActiveFont] = useState(0)
   const font = FONTS[activeFont]
 
@@ -656,13 +659,13 @@ function FontsMockup({ isActive }) {
             <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 flex-shrink-0" />
             <div>
               <div className="text-xs font-semibold text-gray-900 dark:text-white" style={{ fontFamily: font.family }}>
-                Александр Иванов
+                {t('screenshots.mockup.fonts.name')}
               </div>
-              <div className="text-[10px] text-gray-400">сегодня в 12:30</div>
+              <div className="text-[10px] text-gray-400">{t('screenshots.mockup.fonts.time')}</div>
             </div>
           </div>
           <p className="text-xs sm:text-sm text-gray-800 dark:text-gray-200 leading-relaxed" style={{ fontFamily: font.family }}>
-            Сделал VK красивее с VKify! Теперь всё выглядит именно так, как я хочу.
+            {t('screenshots.mockup.fonts.sample')}
           </p>
           <div className="mt-1.5 inline-block bg-indigo-100 dark:bg-indigo-900/30 rounded px-1.5 py-0.5">
             <span className="text-[9px] sm:text-[10px] text-indigo-600 dark:text-indigo-400 font-mono">{font.name}</span>

@@ -201,6 +201,25 @@ export const en = {
       wallpapers: { title: 'Live wallpapers', description: 'Animated and static backgrounds right in the VK interface' },
       fonts: { title: 'Font picker', description: '{fonts} fonts for comfortable reading' },
     },
+    mockup: {
+      adblockHidden: '3 ad posts hidden',
+      privacy: {
+        name: 'Alex',
+        seen: 'last seen recently',
+        incoming: 'Did you see the news?',
+        outgoing: 'Yeah, interesting!',
+        typing: 'typing...',
+        hidden: 'hidden',
+        read: 'Read receipts',
+        typingLabel: 'Typing',
+      },
+      fonts: {
+        name: 'Alexander Ivanov',
+        time: 'today at 12:30',
+        sample: 'Made VK prettier with VKify! Now everything looks exactly the way I want.',
+      },
+      wallpapers: { aurora: 'Aurora', sunset: 'Sunset', cyber: 'Cyber', matrix: 'Matrix', space: 'Space', waves: 'Waves' },
+    },
   },
 
   cta: {
