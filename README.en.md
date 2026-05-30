@@ -29,7 +29,7 @@
 
 | Path | Component | Description |
 |---|---|---|
-| `/` | `Home.jsx` | Landing — Hero, LiveDemo, Features, Screenshots, HowItWorks, Stats, CTA |
+| `/` | `Home.jsx` | Landing — Hero, Features, HowItWorks, Stats, Screenshots, CTA |
 | `/themes` | `Themes.jsx` | Theme catalog: search (useDeferredValue), 10-category filter, 4-column grid |
 | `/themes/:id` | `ThemeDetail.jsx` | Theme detail: VK UI preview, color palette, similar themes, og:image, InstallModal |
 | `/theme/:encoded` | `ThemePreview/` | Shared theme preview (base64url config), InstallModal when extension absent |
@@ -119,7 +119,6 @@ frontend/
 │   │   │   ├── Hero.jsx
 │   │   │   ├── Hero3DCard.jsx       # tilt effect on hover
 │   │   │   ├── HowItWorks.jsx
-│   │   │   ├── LiveDemo.jsx         # interactive theme preview
 │   │   │   ├── Screenshots.jsx
 │   │   │   └── Stats.jsx
 │   │   ├── changelog/

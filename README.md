@@ -29,7 +29,7 @@
 
 | Путь | Компонент | Описание |
 |---|---|---|
-| `/` | `Home.jsx` | Главная — Hero, LiveDemo, Features, Screenshots, HowItWorks, Stats, CTA |
+| `/` | `Home.jsx` | Главная — Hero, Features, HowItWorks, Stats, Screenshots, CTA |
 | `/themes` | `Themes.jsx` | Каталог тем: поиск (useDeferredValue), фильтр по 10 категориям, 4-колоночная сетка |
 | `/themes/:id` | `ThemeDetail.jsx` | Детальная страница: превью VK UI, палитра, похожие темы, og:image, InstallModal |
 | `/theme/:encoded` | `ThemePreview/` | Превью расшаренной темы (base64url config), InstallModal при отсутствии расширения |
@@ -119,7 +119,6 @@ frontend/
 │   │   │   ├── Hero.jsx
 │   │   │   ├── Hero3DCard.jsx       # tilt-эффект при наведении
 │   │   │   ├── HowItWorks.jsx
-│   │   │   ├── LiveDemo.jsx         # интерактивный превью тем
 │   │   │   ├── Screenshots.jsx
 │   │   │   └── Stats.jsx
 │   │   ├── changelog/

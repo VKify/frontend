@@ -1,6 +1,6 @@
 /**
  * Общие утилиты работы с цветом.
- * Используются в Themes, ThemeDetail, ThemePreview, LiveDemo.
+ * Используются в Themes, ThemeDetail, ThemePreview.
  */
 
 /** Определяет, является ли HEX-цвет тёмным */
