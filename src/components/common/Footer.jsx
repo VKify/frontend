@@ -16,7 +16,7 @@ import { socialIcons, socialHoverStyles } from './SocialIcons'
 import config from '../../config'
 import { useTranslation } from '../../i18n'
 import { getLatestVersion } from '../../data/changelog'
-import { scrollWithOffset } from '../../utils/scroll'
+import { scrollWithOffset, scrollToTop } from '../../utils/scroll'
 
 function AnimatedBackground() {
   return (
@@ -69,10 +69,6 @@ function ScrollToTopButton() {
     window.addEventListener('scroll', toggleVisibility)
     return () => window.removeEventListener('scroll', toggleVisibility)
   }, [])
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
 
   return (
     <AnimatePresence>

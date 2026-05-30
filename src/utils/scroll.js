@@ -64,6 +64,28 @@ export function scrollWithOffset(el) {
 }
 
 /**
+ * Плавный скролл в самый верх страницы.
+ *
+ * Плавная анимация иногда «не доезжает» пару пикселей до нуля
+ * (scroll-anchoring при догрузке контента / прерывание), поэтому после
+ * её завершения принудительно доводим позицию до 0.
+ */
+export function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+
+  const settle = () => {
+    if (window.scrollY !== 0) window.scrollTo({ top: 0 })
+  }
+
+  if ('onscrollend' in window) {
+    window.addEventListener('scrollend', settle, { once: true })
+  } else {
+    // Фолбэк для движков без scrollend
+    setTimeout(settle, 800)
+  }
+}
+
+/**
  * Получить текущую активную секцию из списка
  * @param {string[]} sectionIds - массив ID секций
  * @param {number} offset - отступ для расчёта

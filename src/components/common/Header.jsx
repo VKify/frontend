@@ -20,7 +20,7 @@ import config from '../../config'
 import { useTranslation } from '../../i18n'
 import { getLatestVersion } from '../../data/changelog'
 import { useExtension } from '../../hooks/useExtension'
-import { scrollWithOffset, getActiveSection } from '../../utils/scroll'
+import { scrollWithOffset, getActiveSection, scrollToTop } from '../../utils/scroll'
 
 const SCROLL_THRESHOLD = 50
 
@@ -51,7 +51,7 @@ function HeaderLogo({ isScrolled, isHomePage }) {
   const handleLogoClick = (e) => {
     if (isHomePage) {
       e.preventDefault()
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      scrollToTop()
     }
   }
 
