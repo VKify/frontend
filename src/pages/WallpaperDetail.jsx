@@ -84,6 +84,16 @@ function SimilarCard({ wallpaper }) {
     )
 }
 
+// WE хранит цвет как "r g b" в долях 0–1 → "#rrggbb"
+function weColorToHex(value) {
+    const parts = String(value).trim().split(/\s+/).map(Number)
+    if (parts.length !== 3 || parts.some(n => !isFinite(n))) return null
+    const hex = parts
+        .map(n => Math.round(Math.min(1, Math.max(0, n)) * 255).toString(16).padStart(2, '0'))
+        .join('')
+    return `#${hex}`
+}
+
 function PropertyRow({ prop }) {
     if (prop.type === 'slider') {
         const pct = Math.round(((prop.value - prop.min) / (prop.max - prop.min)) * 100)
@@ -140,6 +150,21 @@ function PropertyRow({ prop }) {
                 <span className="text-xs font-mono font-semibold text-gray-900 dark:text-white">
                     {prop.value || <span className="text-gray-400 dark:text-gray-600 font-normal italic">пусто</span>}
                 </span>
+            </div>
+        )
+    }
+
+    if (prop.type === 'color') {
+        const hex = weColorToHex(prop.value)
+        if (!hex) return null
+        return (
+            <div className="flex justify-between items-center">
+                <span className="text-xs text-gray-500 dark:text-gray-400">{prop.text}</span>
+                <div className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded border border-black/10 dark:border-white/15 shadow-sm inline-block"
+                          style={{ background: hex }} />
+                    <span className="text-xs font-mono font-semibold text-gray-900 dark:text-white">{hex}</span>
+                </div>
             </div>
         )
     }
