@@ -7,7 +7,6 @@
  * - Параметры конфигурации
  * - Похожие темы
  */
-import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Copy, Check, ExternalLink, Zap } from 'lucide-react'
 import SEO from '../components/common/SEO'
@@ -16,7 +15,9 @@ import VkLogo from '../components/common/VkLogo'
 import { isDarkColor } from '../utils/colors'
 import { themes } from '../data/themes'
 import { generateShareUrl } from '../utils/themeShare'
-import { useExtension } from '../hooks/useExtension'
+import { useApplyToVK } from '../hooks/useApplyToVK'
+import { useCopyToClipboard } from '../hooks/useCopyToClipboard'
+import ExtensionHint from '../components/common/ExtensionHint'
 import InstallModal from './ThemePreview/InstallModal'
 
 // Читабельные названия параметров конфига.
@@ -169,16 +170,9 @@ function ParamRow({ label, value, accent }) {
 
 export default function ThemeDetail() {
     const { id }    = useParams()
-    const [copied,          setCopied]          = useState(false)
-    const [urlCopied,       setUrlCopied]       = useState(false)
-    const [applied,         setApplied]         = useState(false)
-    const [showInstallModal, setShowInstallModal] = useState(false)
-
-    const { detected, saveSettings } = useExtension()
-
-    useEffect(() => {
-        if (detected === false) setShowInstallModal(true)
-    }, [detected])
+    const shareLink = useCopyToClipboard()
+    const pageLink  = useCopyToClipboard()
+    const { detected, applied, apply, showInstallModal, closeInstallModal } = useApplyToVK()
 
     const theme   = themes.find(t => t.id === id)
     const similar = theme ? getSimilar(theme) : []
@@ -189,31 +183,9 @@ export default function ThemeDetail() {
         tags: theme.tags,
     }) : null
 
-    const handleCopyLink = () => {
-        if (!shareUrl) return
-        navigator.clipboard.writeText(shareUrl).then(() => {
-            setCopied(true)
-            setTimeout(() => setCopied(false), 2000)
-        })
-    }
-
-    const handleCopyUrl = () => {
-        navigator.clipboard.writeText(window.location.href).then(() => {
-            setUrlCopied(true)
-            setTimeout(() => setUrlCopied(false), 2000)
-        })
-    }
-
-    const handleApplyInVK = () => {
-        if (!theme) return
-        if (detected) {
-            saveSettings(theme.config)
-            setApplied(true)
-            setTimeout(() => setApplied(false), 3000)
-            return
-        }
-        setShowInstallModal(true)
-    }
+    const handleCopyLink = () => shareUrl && shareLink.copy(shareUrl)
+    const handleCopyUrl  = () => pageLink.copy(window.location.href)
+    const handleApplyInVK = () => apply(theme?.config)
 
     // 404
     if (!theme) {
@@ -232,7 +204,7 @@ export default function ThemeDetail() {
 
     return (
         <div className="min-h-screen bg-white dark:bg-gray-950">
-            {showInstallModal && <InstallModal onClose={() => setShowInstallModal(false)} />}
+            {showInstallModal && <InstallModal onClose={closeInstallModal} />}
             <SEO
                 title={`${theme.name} — Тема VKify`}
                 description={theme.description}
@@ -250,7 +222,7 @@ export default function ThemeDetail() {
                         className="text-sm text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors flex items-center gap-1.5"
                         title="Скопировать ссылку на страницу"
                     >
-                        {urlCopied ? <Check className="w-4 h-4 text-green-500" /> : <ExternalLink className="w-4 h-4" />}
+                        {pageLink.copied ? <Check className="w-4 h-4 text-green-500" /> : <ExternalLink className="w-4 h-4" />}
                     </button>
                 }
             />
@@ -326,7 +298,7 @@ export default function ThemeDetail() {
                                     onClick={handleCopyLink}
                                     className="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-sm font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 active:scale-[0.98] transition-all"
                                 >
-                                    {copied
+                                    {shareLink.copied
                                         ? <><Check className="w-4 h-4 text-green-500" /> Скопировано!</>
                                         : <><Copy className="w-4 h-4" /> Скопировать ссылку</>}
                                 </button>
@@ -356,24 +328,18 @@ export default function ThemeDetail() {
                       {shareUrl}
                     </span>
                                         <button onClick={handleCopyLink} className="flex-shrink-0 text-blue-500 hover:text-blue-600 transition-colors">
-                                            {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                                            {shareLink.copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                                         </button>
                                     </div>
                                 </div>
                             )}
 
                             {/* Подсказка */}
-                            <div className="p-4 bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/50 rounded-2xl">
-                                {detected ? (
-                                    <p className="text-xs text-blue-700 dark:text-blue-400 leading-relaxed">
-                                        <strong>Расширение подключено.</strong> Тема применится мгновенно — перезагрузка VK не нужна.
-                                    </p>
-                                ) : (
-                                    <p className="text-xs text-blue-700 dark:text-blue-400 leading-relaxed">
-                                        Установите расширение VKify, чтобы применять темы мгновенно — без лишних шагов.
-                                    </p>
-                                )}
-                            </div>
+                            <ExtensionHint
+                                detected={detected}
+                                connectedTail="Тема применится мгновенно — перезагрузка VK не нужна."
+                                disconnectedText="Установите расширение VKify, чтобы применять темы мгновенно — без лишних шагов."
+                            />
                         </div>
                     </div>
                 </div>
