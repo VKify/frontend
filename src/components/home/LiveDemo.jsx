@@ -476,15 +476,21 @@ function PrivacyDemo() {
   const [typing,    setTyping]    = useState(false)
   const [showOnline,setShowOnline]= useState(true)
 
-  // Симулируем появление индикатора "печатает..."
+  // Симулируем появление индикатора "печатает..." — показываем на 2.5с
+  // каждые 4с. Оба таймера чистятся при размонтировании.
   useEffect(() => {
-    const interval = setInterval(() => {
+    let hideTimer
+    const showTyping = () => {
       setTyping(true)
-      const t = setTimeout(() => setTyping(false), 2500)
-      return () => clearTimeout(t)
-    }, 4000)
-    setTyping(true)
-    return () => clearInterval(interval)
+      clearTimeout(hideTimer)
+      hideTimer = setTimeout(() => setTyping(false), 2500)
+    }
+    showTyping()
+    const interval = setInterval(showTyping, 4000)
+    return () => {
+      clearInterval(interval)
+      clearTimeout(hideTimer)
+    }
   }, [])
 
   const theme   = THEMES[1] // GitHub Dark
