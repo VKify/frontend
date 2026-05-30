@@ -15,12 +15,7 @@ import DonateModal from './DonateModal'
 import { socialIcons, socialHoverStyles } from './SocialIcons'
 import config from '../../config'
 import { getLatestVersion } from '../../data/changelog'
-
-const scrollWithOffset = (el) => {
-  const yOffset = -80
-  const y = el.getBoundingClientRect().top + window.scrollY + yOffset
-  window.scrollTo({ top: y, behavior: 'smooth' })
-}
+import { scrollWithOffset } from '../../utils/scroll'
 
 function AnimatedBackground() {
   return (

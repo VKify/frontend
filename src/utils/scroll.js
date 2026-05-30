@@ -3,101 +3,50 @@ const HEADER_HEIGHT = 80
 const SCROLL_THRESHOLD = 50
 
 /**
- * Плавный скролл к элементу с учётом отступа для фиксированного хедера
+ * Плавно скроллит к DOM-элементу с учётом фиксированного хедера.
+ *
+ * Если страница в самом верху (виден AnnouncementBar) — сначала мгновенно
+ * уходим за порог, чтобы бар схлопнулся, и пересчитываем позицию уже после
+ * перерасчёта layout (двойной requestAnimationFrame).
+ *
+ * @param {HTMLElement|null} element - целевой элемент
+ * @param {number} offset - отступ сверху
+ */
+function smoothScrollToElement(element, offset) {
+  if (!element) return
+
+  const scrollToTarget = () => {
+    const elementTop = element.getBoundingClientRect().top + window.scrollY
+    const targetPosition = Math.max(0, elementTop - offset)
+    window.scrollTo({ top: targetPosition, behavior: 'smooth' })
+  }
+
+  if (window.scrollY < SCROLL_THRESHOLD) {
+    // Мгновенно проскроллим за порог, чтобы AnnouncementBar исчез,
+    // затем дождёмся перерасчёта layout перед плавным скроллом.
+    window.scrollTo({ top: SCROLL_THRESHOLD + 1, behavior: 'instant' })
+    requestAnimationFrame(() => requestAnimationFrame(scrollToTarget))
+  } else {
+    scrollToTarget()
+  }
+}
+
+/**
+ * Плавный скролл к элементу по id с учётом отступа для фиксированного хедера.
  * @param {string} elementId - ID элемента для скролла
  * @param {number} offset - отступ сверху (по умолчанию высота хедера + 20px)
  */
 export function scrollToElement(elementId, offset = HEADER_HEIGHT + 20) {
-  const element = document.getElementById(elementId)
-  if (!element) return
-
-  // Если мы в начале страницы, где виден AnnouncementBar
-  if (window.scrollY < SCROLL_THRESHOLD) {
-    // Мгновенно проскроллим за порог, чтобы AnnouncementBar исчез
-    window.scrollTo({ top: SCROLL_THRESHOLD + 1, behavior: 'instant' })
-    
-    // Небольшая задержка для перерасчёта layout после исчезновения AnnouncementBar
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        const elementTop = element.getBoundingClientRect().top + window.scrollY
-        const targetPosition = Math.max(0, elementTop - offset)
-        
-        window.scrollTo({ 
-          top: targetPosition, 
-          behavior: 'smooth' 
-        })
-      })
-    })
-  } else {
-    // Обычный плавный скролл
-    const elementTop = element.getBoundingClientRect().top + window.scrollY
-    const targetPosition = Math.max(0, elementTop - offset)
-    
-    window.scrollTo({ 
-      top: targetPosition, 
-      behavior: 'smooth' 
-    })
-  }
+  smoothScrollToElement(document.getElementById(elementId), offset)
 }
 
 /**
- * Функция для react-router-hash-link
- * Используется как scroll prop: <HashLink scroll={scrollWithOffset} />
+ * scroll-prop для react-router-hash-link.
+ * Используется как: <HashLink scroll={scrollWithOffset} />
  * @param {HTMLElement} el - DOM элемент
  */
 export function scrollWithOffset(el) {
-  if (!el) return
-
-  const offset = HEADER_HEIGHT + 20
-  
-  // Если мы в начале страницы, где виден AnnouncementBar
-  if (window.scrollY < SCROLL_THRESHOLD) {
-    // Мгновенно проскроллим за порог, чтобы AnnouncementBar исчез
-    window.scrollTo({ top: SCROLL_THRESHOLD + 1, behavior: 'instant' })
-    
-    // Небольшая задержка для перерасчёта layout после исчезновения AnnouncementBar
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        const elementTop = el.getBoundingClientRect().top + window.scrollY
-        const targetPosition = Math.max(0, elementTop - offset)
-        
-        window.scrollTo({ 
-          top: targetPosition, 
-          behavior: 'smooth' 
-        })
-      })
-    })
-  } else {
-    // Обычный плавный скролл
-    const elementTop = el.getBoundingClientRect().top + window.scrollY
-    const targetPosition = Math.max(0, elementTop - offset)
-    
-    window.scrollTo({ 
-      top: targetPosition, 
-      behavior: 'smooth' 
-    })
-  }
-}
-
-/**
- * Скролл наверх страницы
- */
-export function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
-
-/**
- * Проверка, виден ли элемент во viewport
- * @param {string} elementId - ID элемента
- * @param {number} offset - отступ для расчёта
- * @returns {boolean}
- */
-export function isElementInView(elementId, offset = 150) {
-  const element = document.getElementById(elementId)
-  if (!element) return false
-
-  const rect = element.getBoundingClientRect()
-  return rect.top <= offset && rect.bottom >= offset
+  smoothScrollToElement(el, HEADER_HEIGHT + 20)
 }
 
 /**
@@ -115,6 +64,6 @@ export function getActiveSection(sectionIds, offset = 150) {
       return sectionIds[i]
     }
   }
-  
+
   return null
 }
