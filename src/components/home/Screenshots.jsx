@@ -766,6 +766,125 @@ function ThumbnailCard({ screenshot, isActive, onSelect }) {
   )
 }
 
+// Рамка «браузер» с контентом мокапа. compact — мобильный вариант.
+function BrowserFrame({ screenshot, contentKey, compact, onZoom, onPrev, onNext }) {
+  const Icon = screenshot.icon
+  const enter = compact
+    ? { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 } }
+    : { initial: { opacity: 0, scale: 0.95 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 1.05 } }
+
+  return (
+    <div className={`relative overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 ${compact ? 'rounded-xl sm:rounded-2xl shadow-xl' : 'rounded-2xl shadow-2xl'}`}>
+      {/* Browser header */}
+      <div className={`flex items-center bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 ${compact ? 'px-3 py-2' : 'px-4 py-3'}`}>
+        <div className={`flex gap-1.5 flex-shrink-0 ${compact ? 'w-12' : 'w-14'}`}>
+          {['bg-red-500', 'bg-yellow-500', 'bg-green-500'].map(c => (
+            <div key={c} className={`rounded-full ${c} ${compact ? 'w-2.5 h-2.5' : 'w-3 h-3'}`} />
+          ))}
+        </div>
+
+        <div className="flex-1 flex justify-center">
+          <div className={`flex items-center bg-white dark:bg-gray-900 text-gray-500 ${compact ? 'gap-1.5 px-3 py-1 rounded-md text-xs' : 'gap-2 px-4 py-1.5 rounded-lg text-sm'}`}>
+            <div className={`rounded bg-green-500/20 flex items-center justify-center ${compact ? 'w-3 h-3' : 'w-4 h-4'}`}>
+              <div className={`rounded-full bg-green-500 ${compact ? 'w-1.5 h-1.5' : 'w-2 h-2'}`} />
+            </div>
+            <span>vk.com</span>
+          </div>
+        </div>
+
+        <div className={`flex-shrink-0 flex justify-end ${compact ? 'w-12' : 'w-14'}`}>
+          <button
+            onClick={onZoom}
+            className={`hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors ${compact ? 'p-1 rounded-md' : 'p-1.5 rounded-lg'}`}
+            aria-label="Открыть на весь экран"
+          >
+            <ZoomIn className={`text-gray-500 ${compact ? 'w-3.5 h-3.5' : 'w-4 h-4'}`} />
+          </button>
+        </div>
+      </div>
+
+      {/* Screenshot content */}
+      <div className="aspect-video relative overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div key={contentKey} {...enter} transition={{ duration: 0.3 }} className="absolute inset-0">
+            <ScreenMockup type={screenshot.mockup} isActive={true} />
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Caption bar */}
+      <div className={`bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700 ${compact ? 'px-4 py-3' : 'px-6 py-4'}`}>
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <h3 className={`font-bold text-gray-900 dark:text-white ${compact ? 'text-sm' : ''}`}>
+              {screenshot.title}
+            </h3>
+            <p className={`text-gray-500 dark:text-gray-400 ${compact ? 'text-xs truncate' : 'text-sm'}`}>
+              {screenshot.description}
+            </p>
+          </div>
+          <div className={`flex-shrink-0 bg-gradient-to-br ${screenshot.color} flex items-center justify-center ${compact ? 'w-8 h-8 rounded-lg' : 'w-10 h-10 rounded-xl'}`}>
+            <Icon className={`text-white ${compact ? 'w-4 h-4' : 'w-5 h-5'}`} />
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation buttons — только в десктопном варианте */}
+      {!compact && (
+        <>
+          <button
+            onClick={onPrev}
+            className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/90 dark:bg-gray-800/90 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all z-10"
+            aria-label="Предыдущий скриншот"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={onNext}
+            className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/90 dark:bg-gray-800/90 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all z-10"
+            aria-label="Следующий скриншот"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </>
+      )}
+    </div>
+  )
+}
+
+// Индикатор-точки под превью. compact — мобильный вариант (без авто-прогресса).
+function ProgressDots({ compact, currentIndex, isAutoPlaying, onSelect }) {
+  return (
+    <div className={`flex justify-center ${compact ? 'gap-1.5 mt-4' : 'gap-2 mt-6'}`}>
+      {screenshots.map((_, index) => {
+        const active = index === currentIndex
+        return (
+          <button
+            key={index}
+            onClick={() => onSelect(index)}
+            className={`relative rounded-full overflow-hidden transition-all duration-300 ${compact ? 'h-1.5' : 'h-2'}`}
+            style={{ width: active ? (compact ? 24 : 32) : (compact ? 6 : 8) }}
+            aria-label={`Перейти к скриншоту ${index + 1}`}
+          >
+            <div className="absolute inset-0 bg-gray-300 dark:bg-gray-700" />
+            {active && !compact && isAutoPlaying && (
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 5, ease: 'linear' }}
+                className="absolute inset-0 bg-blue-500 origin-left"
+              />
+            )}
+            {active && (compact || !isAutoPlaying) && (
+              <div className="absolute inset-0 bg-blue-500" />
+            )}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
 export default function Screenshots() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
@@ -874,113 +993,21 @@ export default function Screenshots() {
     >
       {/* Glow effect */}
       <div className={`absolute -inset-4 bg-gradient-to-r ${currentScreenshot.color} opacity-20 blur-3xl rounded-3xl transition-all duration-500`} />
-      
-      {/* Browser frame */}
-      <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
-        {/* Browser header */}
-        <div className="flex items-center px-4 py-3 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-          <div className="flex gap-1.5 w-14 flex-shrink-0">
-            <div className="w-3 h-3 rounded-full bg-red-500" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500" />
-            <div className="w-3 h-3 rounded-full bg-green-500" />
-          </div>
-          
-          <div className="flex-1 flex justify-center">
-            <div className="flex items-center gap-2 px-4 py-1.5 rounded-lg bg-white dark:bg-gray-900 text-sm text-gray-500">
-              <div className="w-4 h-4 rounded bg-green-500/20 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-green-500" />
-              </div>
-              <span>vk.com</span>
-            </div>
-          </div>
-          
-          <div className="w-14 flex-shrink-0 flex justify-end">
-            <button
-              onClick={() => setIsLightboxOpen(true)}
-              className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-              aria-label="Открыть на весь экран"
-            >
-              <ZoomIn className="w-4 h-4 text-gray-500" />
-            </button>
-          </div>
-        </div>
 
-        {/* Screenshot content */}
-        <div className="aspect-video relative overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="absolute inset-0"
-            >
-              <ScreenMockup type={currentScreenshot.mockup} isActive={true} />
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Caption bar */}
-        <div className="px-6 py-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between gap-3">
-            <div className="min-w-0 flex-1">
-              <h3 className="font-bold text-gray-900 dark:text-white">
-                {currentScreenshot.title}
-              </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {currentScreenshot.description}
-              </p>
-            </div>
-            <div className={`w-10 h-10 flex-shrink-0 rounded-xl bg-gradient-to-br ${currentScreenshot.color} flex items-center justify-center`}>
-              <currentScreenshot.icon className="w-5 h-5 text-white" />
-            </div>
-          </div>
-        </div>
-
-        {/* Navigation buttons - внутри карточки */}
-        <button
-          onClick={prev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/90 dark:bg-gray-800/90 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all z-10"
-          aria-label="Предыдущий скриншот"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button
-          onClick={next}
-          className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/90 dark:bg-gray-800/90 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all z-10"
-          aria-label="Следующий скриншот"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      </div>
+      <BrowserFrame
+        screenshot={currentScreenshot}
+        contentKey={currentIndex}
+        onZoom={() => setIsLightboxOpen(true)}
+        onPrev={prev}
+        onNext={next}
+      />
     </motion.div>
 
-    {/* Progress dots */}
-    <div className="flex justify-center gap-2 mt-6">
-      {screenshots.map((_, index) => (
-        <button
-          key={index}
-          onClick={() => selectScreenshot(index)}
-          className="relative h-2 rounded-full overflow-hidden transition-all duration-300"
-          style={{ width: index === currentIndex ? 32 : 8 }}
-          aria-label={`Перейти к скриншоту ${index + 1}`}
-        >
-          <div className="absolute inset-0 bg-gray-300 dark:bg-gray-700" />
-          {index === currentIndex && isAutoPlaying && (
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 5, ease: 'linear' }}
-              className="absolute inset-0 bg-blue-500 origin-left"
-            />
-          )}
-          {index === currentIndex && !isAutoPlaying && (
-            <div className="absolute inset-0 bg-blue-500" />
-          )}
-        </button>
-      ))}
-    </div>
+    <ProgressDots
+      currentIndex={currentIndex}
+      isAutoPlaying={isAutoPlaying}
+      onSelect={selectScreenshot}
+    />
   </div>
 
   {/* Thumbnails - Right Side */}
@@ -1013,89 +1040,21 @@ export default function Screenshots() {
           >
             {/* Glow effect */}
             <div className={`absolute -inset-2 bg-gradient-to-r ${currentScreenshot.color} opacity-20 blur-2xl rounded-2xl transition-all duration-500`} />
-            
-            {/* Browser frame */}
-            <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
-              {/* Browser header */}
-              <div className="flex items-center px-3 py-2 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                <div className="flex gap-1.5 w-12 flex-shrink-0">
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
-                </div>
-                
-                <div className="flex-1 flex justify-center">
-                  <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-white dark:bg-gray-900 text-xs text-gray-500">
-                    <div className="w-3 h-3 rounded bg-green-500/20 flex items-center justify-center">
-                      <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                    </div>
-                    <span>vk.com</span>
-                  </div>
-                </div>
-                
-                <div className="w-12 flex-shrink-0 flex justify-end">
-                  <button
-                    onClick={() => setIsLightboxOpen(true)}
-                    className="p-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                    aria-label="Открыть на весь экран"
-                  >
-                    <ZoomIn className="w-3.5 h-3.5 text-gray-500" />
-                  </button>
-                </div>
-              </div>
 
-              {/* Screenshot content */}
-              <div className="aspect-video relative overflow-hidden">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentIndex}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute inset-0"
-                  >
-                    <ScreenMockup type={currentScreenshot.mockup} isActive={true} />
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Caption bar */}
-              <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="min-w-0 flex-1">
-                    <h3 className="font-bold text-gray-900 dark:text-white text-sm">
-                      {currentScreenshot.title}
-                    </h3>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                      {currentScreenshot.description}
-                    </p>
-                  </div>
-                  <div className={`w-8 h-8 flex-shrink-0 rounded-lg bg-gradient-to-br ${currentScreenshot.color} flex items-center justify-center`}>
-                    <currentScreenshot.icon className="w-4 h-4 text-white" />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <BrowserFrame
+              compact
+              screenshot={currentScreenshot}
+              contentKey={currentIndex}
+              onZoom={() => setIsLightboxOpen(true)}
+            />
           </motion.div>
 
-          {/* Progress dots */}
-          <div className="flex justify-center gap-1.5 mt-4">
-            {screenshots.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => selectScreenshot(index)}
-                className="relative h-1.5 rounded-full overflow-hidden transition-all duration-300"
-                style={{ width: index === currentIndex ? 24 : 6 }}
-                aria-label={`Перейти к скриншоту ${index + 1}`}
-              >
-                <div className="absolute inset-0 bg-gray-300 dark:bg-gray-700" />
-                {index === currentIndex && (
-                  <div className="absolute inset-0 bg-blue-500" />
-                )}
-              </button>
-            ))}
-          </div>
+          <ProgressDots
+            compact
+            currentIndex={currentIndex}
+            isAutoPlaying={isAutoPlaying}
+            onSelect={selectScreenshot}
+          />
 
           {/* Swipe hint */}
           <p className="text-center text-xs text-gray-400 mt-2">
