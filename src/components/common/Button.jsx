@@ -28,7 +28,7 @@ const Button = forwardRef(({
   ...props 
 }, ref) => {
   const baseClasses = `
-    inline-flex items-center justify-center
+    inline-flex items-center justify-center whitespace-nowrap
     font-semibold rounded-xl
     transition-all duration-200
     disabled:opacity-50 disabled:cursor-not-allowed
