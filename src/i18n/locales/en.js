@@ -12,6 +12,26 @@ export const en = {
     allFeatures: 'All features',
     learnMore: 'Learn more',
     support: 'Support the project',
+    back: 'Back',
+  },
+
+  install: {
+    title: 'Install VKify',
+    subtitle: 'With the extension, themes apply instantly — no extra steps.',
+    benefits: [
+      'Themes apply in one click',
+      'Ad and tracker blocking',
+      'Privacy and automation',
+    ],
+    freeNote: 'Chrome, Edge, Opera · Free',
+  },
+
+  donate: {
+    title: 'Support VKify',
+    subtitle: 'Choose a convenient payment method',
+    secure: 'Secure payments',
+    cloudtips: { description: 'Russian Visa, MasterCard, MIR cards', badge: 'Russia' },
+    tribute: { description: 'International cards and crypto', badge: 'Worldwide' },
   },
 
   nav: {

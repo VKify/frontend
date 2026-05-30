@@ -1,29 +1,28 @@
 import { useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Heart, ChevronRight, Shield, CreditCard, Wallet } from 'lucide-react'
+import { useTranslation } from '../../i18n'
 
+// Описания и бейджи — из i18n: donate.<id>.*
 const donateOptions = [
   {
     id: 'cloudtips',
     title: 'CloudTips',
-    description: 'Российские карты Visa, MasterCard, МИР',
     href: 'https://pay.cloudtips.ru/p/b59e1765',
     icon: CreditCard,
     color: 'from-blue-500 to-cyan-500',
-    badge: 'Россия',
   },
   {
     id: 'tribute',
     title: 'Tribute',
-    description: 'Зарубежные карты и криптовалюта',
     href: 'https://t.me/tribute/app?startapp=dE4k',
     icon: Wallet,
     color: 'from-purple-500 to-pink-500',
-    badge: 'Весь мир',
   },
 ]
 
 export default function DonateModal({ isOpen, onClose }) {
+  const { t } = useTranslation()
   const handleClose = useCallback(() => {
     onClose()
   }, [onClose])
@@ -94,10 +93,10 @@ export default function DonateModal({ isOpen, onClose }) {
                   </div>
                   
                   <h2 className="text-xl font-bold text-white mb-1">
-                    Поддержать VKify
+                    {t('donate.title')}
                   </h2>
                   <p className="text-sm text-white/80">
-                    Выберите удобный способ оплаты
+                    {t('donate.subtitle')}
                   </p>
                 </div>
               </div>
@@ -124,11 +123,11 @@ export default function DonateModal({ isOpen, onClose }) {
                           {option.title}
                         </span>
                         <span className={`px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r ${option.color} text-white`}>
-                          {option.badge}
+                          {t(`donate.${option.id}.badge`)}
                         </span>
                       </div>
                       <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-                        {option.description}
+                        {t(`donate.${option.id}.description`)}
                       </p>
                     </div>
                     
@@ -138,7 +137,7 @@ export default function DonateModal({ isOpen, onClose }) {
 
                 <div className="flex items-center justify-center gap-2 pt-2 text-xs text-gray-400">
                   <Shield className="w-4 h-4" />
-                  <span>Безопасные платежи</span>
+                  <span>{t('donate.secure')}</span>
                 </div>
               </div>
             </motion.div>

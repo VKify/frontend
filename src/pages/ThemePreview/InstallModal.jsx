@@ -1,7 +1,9 @@
 import { X, Sparkles, Check, Download } from 'lucide-react'
 import config from '../../config'
+import { useTranslation } from '../../i18n'
 
 export default function InstallModal({ onClose }) {
+    const { t } = useTranslation()
     return (
         <div
             className="fixed inset-0 z-50 hidden md:flex items-center justify-center p-4"
@@ -25,18 +27,14 @@ export default function InstallModal({ onClose }) {
                     <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center mx-auto mb-4 shadow-lg">
                         <Sparkles className="w-8 h-8 text-white" />
                     </div>
-                    <h2 className="text-xl font-black text-white mb-1">Установите VKify</h2>
+                    <h2 className="text-xl font-black text-white mb-1">{t('install.title')}</h2>
                     <p className="text-sm text-white/80 leading-relaxed">
-                        С расширением темы применяются мгновенно — без лишних шагов.
+                        {t('install.subtitle')}
                     </p>
                 </div>
 
                 <div className="px-6 py-6 space-y-3">
-                    {[
-                        'Темы применяются в одно нажатие',
-                        'Блокировка рекламы и трекеров',
-                        'Приватность и автоматизация',
-                    ].map(text => (
+                    {t('install.benefits').map(text => (
                         <div key={text} className="flex items-center gap-3">
                             <div className="w-5 h-5 rounded-full bg-[#0077ff]/10 flex items-center justify-center shrink-0">
                                 <Check className="w-3 h-3 text-[#0077ff]" />
@@ -53,10 +51,10 @@ export default function InstallModal({ onClose }) {
                             text-white text-sm font-bold rounded-2xl transition-colors active:scale-[0.98]"
                     >
                         <Download className="w-4 h-4" />
-                        Установить бесплатно
+                        {t('common.installFree')}
                     </a>
                     <p className="text-center text-xs text-gray-400 dark:text-gray-500">
-                        Chrome, Edge, Opera · Бесплатно
+                        {t('install.freeNote')}
                     </p>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
+import { useTranslation } from '../../i18n'
 
 /**
  * Прогрессбар прокрутки страницы — копия логики из глобального Header.
@@ -38,6 +39,7 @@ function NavbarProgressBar() {
  */
 export default function DetailNavbar({ backTo, title, accent, actions }) {
     const navigate = useNavigate()
+    const { t } = useTranslation()
 
     return (
         <div
@@ -51,7 +53,7 @@ export default function DetailNavbar({ backTo, title, accent, actions }) {
                     hover:text-gray-900 dark:hover:text-white transition-colors"
             >
                 <ArrowLeft className="w-4 h-4" />
-                Назад
+                {t('common.back')}
             </button>
 
             <div className="mx-auto flex items-center gap-2 text-sm font-semibold
