@@ -29,7 +29,7 @@ function ThemeCard({ theme }) {
         <Link to={`/themes/${theme.id}`} className="group block">
             <div
                 className="relative rounded-2xl overflow-hidden border border-black/5 dark:border-white/5
-                           transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-2xl"
+                           transition-all duration-150 group-hover:-translate-y-1.5 group-hover:shadow-2xl"
                 style={{ background: theme.preview.bg, aspectRatio: '4/3' }}
             >
                 <VkMiniPreview
@@ -38,7 +38,7 @@ function ThemeCard({ theme }) {
                     accent={theme.preview.accent}
                 />
 
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-all duration-300 z-10" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-all duration-150 z-10" />
 
                 <div className="absolute inset-0 z-20 flex items-center justify-center
                                opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200">

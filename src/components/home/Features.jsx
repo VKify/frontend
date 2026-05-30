@@ -33,7 +33,7 @@ export default function Features() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative h-full p-6 lg:p-8 rounded-3xl bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 hover:shadow-xl hover:border-blue-200 dark:hover:border-blue-800 hover:scale-[1.02] transition-all duration-300"
+              className="group relative h-full p-6 lg:p-8 rounded-3xl bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 hover:shadow-xl hover:border-blue-200 dark:hover:border-blue-800 hover:scale-[1.02] transition-all duration-150"
             >
               {/* Icon */}
               <div className="mb-6">
@@ -41,7 +41,7 @@ export default function Features() {
                   w-14 h-14 rounded-2xl 
                   bg-gradient-to-br ${feature.color}
                   flex items-center justify-center
-                  shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300
+                  shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-transform duration-150
                 `}>
                   <feature.icon className="w-7 h-7 text-white" />
                 </div>

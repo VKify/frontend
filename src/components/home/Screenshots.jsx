@@ -435,7 +435,7 @@ function WallpapersMockup({ isActive }) {
               whileHover={{ scale: 1.12 }}
               whileTap={{ scale: 0.94 }}
               onClick={() => setActive(i)}
-              className={`rounded-lg sm:rounded-xl bg-gradient-to-br ${w.thumb} transition-all duration-300 relative overflow-hidden
+              className={`rounded-lg sm:rounded-xl bg-gradient-to-br ${w.thumb} transition-all duration-150 relative overflow-hidden
                 ${i === active
                   ? 'ring-2 ring-white shadow-lg shadow-white/30'
                   : 'opacity-55 hover:opacity-85'}`}
@@ -742,7 +742,7 @@ function ThumbnailCard({ screenshot, isActive, onSelect }) {
       whileTap={{ scale: 0.98 }}
       onClick={onSelect}
       className={`
-        relative w-full p-3 xl:p-4 rounded-xl xl:rounded-2xl text-left transition-all duration-300
+        relative w-full p-3 xl:p-4 rounded-xl xl:rounded-2xl text-left transition-all duration-150
         ${isActive
           ? 'bg-white dark:bg-gray-800 shadow-xl border-2 border-blue-500'
           : 'bg-gray-100 dark:bg-gray-800/50 border-2 border-transparent hover:bg-white dark:hover:bg-gray-800'
@@ -862,7 +862,7 @@ function ProgressDots({ compact, currentIndex, isAutoPlaying, onSelect }) {
           <button
             key={index}
             onClick={() => onSelect(index)}
-            className={`relative rounded-full overflow-hidden transition-all duration-300 ${compact ? 'h-1.5' : 'h-2'}`}
+            className={`relative rounded-full overflow-hidden transition-all duration-150 ${compact ? 'h-1.5' : 'h-2'}`}
             style={{ width: active ? (compact ? 24 : 32) : (compact ? 6 : 8) }}
             aria-label={`Перейти к скриншоту ${index + 1}`}
           >

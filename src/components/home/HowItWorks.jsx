@@ -58,7 +58,7 @@ export default function HowItWorks() {
               transition={{ delay: index * 0.2 }}
               className={`relative ${index === 2 ? 'sm:col-span-2 lg:col-span-1 sm:max-w-md sm:mx-auto lg:max-w-none' : ''}`}
             >
-              <div className="bg-white dark:bg-gray-950 rounded-2xl sm:rounded-3xl p-5 sm:p-6 lg:p-8 border border-gray-200 dark:border-gray-800 hover:shadow-xl hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300 h-full">
+              <div className="bg-white dark:bg-gray-950 rounded-2xl sm:rounded-3xl p-5 sm:p-6 lg:p-8 border border-gray-200 dark:border-gray-800 hover:shadow-xl hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-150 h-full">
                 {/* Icon with number */}
                 <div className="flex justify-center mb-4 sm:mb-6 lg:mb-8">
                   <div className="relative">

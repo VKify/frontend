@@ -61,19 +61,19 @@ function SimilarCard({ wallpaper }) {
                     src={wallpaper.poster}
                     alt={wallpaper.title}
                     loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 {isVideo && (
                     <video
                         ref={videoRef}
                         muted loop playsInline preload="none"
-                        className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                        className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none"
                     >
                         {wallpaper.srcWebm && <source src={wallpaper.srcWebm} type="video/webm" />}
                         <source src={wallpaper.src} type="video/mp4" />
                     </video>
                 )}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-150" />
             </div>
             <div className="p-3">
                 <p className="text-sm font-semibold text-gray-900 dark:text-white

@@ -120,14 +120,14 @@ function SocialIcon({ link, size = 'md' }) {
         rounded-xl bg-gray-100 dark:bg-gray-800/80 
         text-gray-500 dark:text-gray-400 
         hover:bg-gray-200 dark:hover:bg-gray-700
-        transition-all duration-300 
+        transition-all duration-150 
         flex items-center justify-center
         group relative overflow-hidden
         ${hoverStyle}
       `}
       aria-label={link.name}
     >
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-blue-500/10 to-purple-500/10" />
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-gradient-to-br from-blue-500/10 to-purple-500/10" />
       {IconComponent ? (
         <IconComponent className={`${iconSizes[size]} relative z-10 transition-transform group-hover:scale-110`} />
       ) : (
@@ -144,7 +144,7 @@ function FooterLink({ item }) {
     relative inline-flex items-center gap-1 text-sm 
     text-gray-600 dark:text-gray-400 
     hover:text-[#0077ff] dark:hover:text-[#0077ff] 
-    transition-colors duration-300
+    transition-colors duration-150
   `
 
   const underline = (
@@ -170,7 +170,7 @@ function FooterLink({ item }) {
           {item.name}
           {underline}
         </span>
-        <ExternalLink className="w-3 h-3 opacity-0 -translate-y-0.5 group-hover:opacity-50 group-hover:translate-y-0 transition-all duration-300" />
+        <ExternalLink className="w-3 h-3 opacity-0 -translate-y-0.5 group-hover:opacity-50 group-hover:translate-y-0 transition-all duration-150" />
       </a>
     )
   }
@@ -242,7 +242,7 @@ function DonateButton({ onClick }) {
       onMouseLeave={() => setIsHovered(false)}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className="relative inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-2xl font-medium shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 transition-all duration-300 overflow-hidden group"
+      className="relative inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-2xl font-medium shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 transition-all duration-150 overflow-hidden group"
     >
       <motion.div
         className="absolute inset-0 bg-gradient-to-r from-rose-500 to-pink-600"

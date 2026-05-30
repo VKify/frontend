@@ -67,7 +67,7 @@ body {
   }
   
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+    @apply transition-all duration-150 hover:shadow-xl hover:-translate-y-1;
   }
 }
 

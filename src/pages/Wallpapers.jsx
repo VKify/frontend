@@ -81,7 +81,7 @@ function WallpaperCard({ wallpaper }) {
                         src={wallpaper.poster || wallpaper.src}
                         alt={wallpaper.title}
                         loading="lazy"
-                        className={`absolute inset-0 w-full h-full object-cover transition-all duration-500
+                        className={`absolute inset-0 w-full h-full object-cover transition-all duration-300
                             group-hover:scale-105
                             ${isVideo ? (hovered ? 'opacity-0' : 'opacity-100') : ''}`}
                     />
@@ -93,7 +93,7 @@ function WallpaperCard({ wallpaper }) {
                         ref={videoRef}
                         muted loop playsInline preload="none"
                         className={`absolute inset-0 w-full h-full object-cover pointer-events-none
-                            transition-opacity duration-300
+                            transition-opacity duration-150
                             ${hovered ? 'opacity-100' : 'opacity-0'}`}
                     >
                         {wallpaper.srcWebm && <source src={wallpaper.srcWebm} type="video/webm" />}
@@ -110,13 +110,13 @@ function WallpaperCard({ wallpaper }) {
                                 src={wallpaper.poster}
                                 alt={wallpaper.title}
                                 loading="lazy"
-                                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 pointer-events-none z-10
+                                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-150 pointer-events-none z-10
                                     ${hovered ? 'opacity-0' : 'opacity-100'}`}
                             />
                         ) : (
                             <div
                                 className={`absolute inset-0 z-10 flex flex-col items-center justify-center gap-2
-                                            bg-gray-900 transition-opacity duration-300 pointer-events-none
+                                            bg-gray-900 transition-opacity duration-150 pointer-events-none
                                             ${hovered ? 'opacity-0' : 'opacity-100'}`}
                             >
                                 <Globe className="w-10 h-10 text-gray-600" />
@@ -140,7 +140,7 @@ function WallpaperCard({ wallpaper }) {
                 )}
 
                 {/* Затемнение при наведении */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-150 z-20" />
 
                 {/* Значок «Открыть» (hover на мышью) */}
                 <div className="absolute inset-0 z-30 flex items-center justify-center

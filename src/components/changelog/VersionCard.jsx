@@ -24,7 +24,7 @@ export default function VersionCard({ version, isLatest = false }) {
       {/* Timeline dot */}
       <div className="absolute left-0 top-8 w-4 h-4 rounded-full bg-[#0077ff] border-4 border-gray-50 dark:border-gray-950 -translate-x-1/2 hidden md:block z-10" />
       
-      <div className="md:ml-8 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:shadow-lg hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300">
+      <div className="md:ml-8 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:shadow-lg hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-150">
         {/* Header */}
         <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
           <div>

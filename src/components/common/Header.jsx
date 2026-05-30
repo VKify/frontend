@@ -59,7 +59,7 @@ function HeaderLogo({ isScrolled, isHomePage }) {
         whileTap={{ scale: 0.95 }}
         className="relative"
       >
-        <div className="absolute inset-0 bg-blue-500/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-blue-500/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
         <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-[#0077ff] to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/25">
           <Logo className="w-5 h-5 text-white" />
         </div>
@@ -427,7 +427,7 @@ export default function Header() {
   return (
     <>
       <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-150 ${
           isScrolled ? 'bg-white/90 dark:bg-gray-950/90 backdrop-blur-xl shadow-sm' : ''
         }`}
       >

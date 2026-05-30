@@ -59,7 +59,7 @@ function SimilarThemeCard({ theme }) {
         <Link to={`/themes/${theme.id}`} className="group block">
             <div
                 className="relative rounded-xl overflow-hidden h-24 border border-black/5 dark:border-white/5
-          transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-lg"
+          transition-all duration-150 group-hover:-translate-y-0.5 group-hover:shadow-lg"
                 style={{ background: theme.preview.bg }}
             >
                 <div className="absolute inset-2.5 flex flex-col gap-1">
@@ -72,7 +72,7 @@ function SimilarThemeCard({ theme }) {
                         <div className="h-0.5 w-3/5 rounded-full opacity-25" style={{ background: isDark ? '#fff' : '#111' }} />
                     </div>
                 </div>
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-all duration-300" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-all duration-150" />
             </div>
             <p className="mt-1.5 text-[11px] font-semibold text-gray-700 dark:text-gray-300
         group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors px-0.5 truncate">
