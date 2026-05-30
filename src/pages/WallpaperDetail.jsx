@@ -12,7 +12,9 @@ import DetailNavbar from '../components/common/DetailNavbar'
 import { getWallpaperById, getSimilarWallpapers, WALLPAPER_TYPES, CATEGORIES, detectFormat } from '../data/wallpapers'
 import { useVideoMeta, useImageMeta } from '../hooks/useVideoMeta'
 import { useWEProperties } from '../hooks/useWEProperties'
-import { useExtension } from '../hooks/useExtension'
+import { useApplyToVK } from '../hooks/useApplyToVK'
+import { useCopyToClipboard } from '../hooks/useCopyToClipboard'
+import ExtensionHint from '../components/common/ExtensionHint'
 import InstallModal from './ThemePreview/InstallModal'
 
 function MetaSkeleton() {
@@ -370,15 +372,8 @@ function PreviewBlock({ wallpaper }) {
 
 export default function WallpaperDetail() {
     const { id }     = useParams()
-    const [copied,           setCopied]           = useState(false)
-    const [applied,          setApplied]          = useState(false)
-    const [showInstallModal, setShowInstallModal] = useState(false)
-
-    const { detected, saveSettings } = useExtension()
-
-    useEffect(() => {
-        if (detected === false) setShowInstallModal(true)
-    }, [detected])
+    const share = useCopyToClipboard()
+    const { detected, applied, apply, showInstallModal, closeInstallModal } = useApplyToVK()
 
     const wallpaper = getWallpaperById(id)
     const similar   = wallpaper ? getSimilarWallpapers(wallpaper, 3) : []
@@ -419,23 +414,10 @@ export default function WallpaperDetail() {
         if (!wallpaper) return
         // Копируем страницу обоя. window.location.origin — корректен и в dev
         // (localhost), и в проде (vkify.ru); никакого хардкода домена.
-        const pageUrl = `${window.location.origin}/wallpapers/${wallpaper.id}`
-        navigator.clipboard.writeText(pageUrl).then(() => {
-            setCopied(true)
-            setTimeout(() => setCopied(false), 2000)
-        })
+        share.copy(`${window.location.origin}/wallpapers/${wallpaper.id}`)
     }
 
-    const handleApplyInVK = () => {
-        if (!wallpaper) return
-        if (detected) {
-            saveSettings(wallpaper.extensionConfig)
-            setApplied(true)
-            setTimeout(() => setApplied(false), 3000)
-            return
-        }
-        setShowInstallModal(true)
-    }
+    const handleApplyInVK = () => apply(wallpaper?.extensionConfig)
 
     if (!wallpaper) {
         return (
@@ -453,7 +435,7 @@ export default function WallpaperDetail() {
 
     return (
         <div className="min-h-screen bg-white dark:bg-gray-950">
-            {showInstallModal && <InstallModal onClose={() => setShowInstallModal(false)} />}
+            {showInstallModal && <InstallModal onClose={closeInstallModal} />}
             <SEO title={`${wallpaper.title} — Обои VKify`} description={wallpaper.description} url={`/wallpapers/${wallpaper.id}`} image={wallpaper.poster} />
 
             <DetailNavbar backTo="/wallpapers" title={wallpaper.title} />
@@ -548,7 +530,7 @@ export default function WallpaperDetail() {
                                     onClick={handleShare}
                                     className="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-sm font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 active:scale-[0.98] transition-all"
                                 >
-                                    {copied
+                                    {share.copied
                                         ? <><Check className="w-4 h-4 text-green-500" /> Скопировано!</>
                                         : <><Copy className="w-4 h-4" /> Скопировать ссылку</>
                                     }
@@ -572,17 +554,11 @@ export default function WallpaperDetail() {
                             </div>
 
                             {/* Подсказка */}
-                            <div className="p-4 bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/50 rounded-2xl">
-                                {detected ? (
-                                    <p className="text-xs text-blue-700 dark:text-blue-400 leading-relaxed">
-                                        <strong>Расширение подключено.</strong> Обои применятся мгновенно — перезагрузка VK не нужна.
-                                    </p>
-                                ) : (
-                                    <p className="text-xs text-blue-700 dark:text-blue-400 leading-relaxed">
-                                        Установите расширение VKify, чтобы применять обои мгновенно — без лишних шагов.
-                                    </p>
-                                )}
-                            </div>
+                            <ExtensionHint
+                                detected={detected}
+                                connectedTail="Обои применятся мгновенно — перезагрузка VK не нужна."
+                                disconnectedText="Установите расширение VKify, чтобы применять обои мгновенно — без лишних шагов."
+                            />
                         </div>
 
                     </div>
