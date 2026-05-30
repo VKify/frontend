@@ -255,6 +255,30 @@ export const en = {
     installNote: 'Free • No registration • Instant install',
   },
 
+  themesPage: {
+    seoTitle: 'VK themes',
+    seoDescription: 'Pick and apply VK themes via the VKify extension. Catppuccin, Dracula, Nord and more.',
+    count: '{count} themes available',
+    titleTop: 'Themes',
+    titleBottom: 'gallery',
+    subtitle: 'Pick a theme — it applies in VK automatically through the extension.',
+    searchPlaceholder: 'Catppuccin, nord, dark...',
+    all: 'All',
+    open: 'Open',
+    notFoundTitle: 'Nothing found',
+    notFoundHint: 'Try another query or category',
+    howTitle: 'How to apply a theme',
+    steps: [
+      { title: 'Install VKify', desc: 'Extension for Chrome, Firefox or Edge' },
+      { title: 'Pick a theme', desc: 'Click “Apply instantly” on the theme page' },
+      { title: 'Done', desc: 'The theme applies automatically when you open VK' },
+    ],
+    categories: {
+      all: 'All', classic: 'Classic', soft: 'Soft', amoled: 'AMOLED', colored: 'Colored',
+      neon: 'Neon', nature: 'Nature', minimal: 'Minimal', retro: 'Retro', warm: 'Warm', cool: 'Cool',
+    },
+  },
+
   footer: {
     description: 'A browser extension: themes and video wallpapers, ad and tracker blocking, message encryption and media downloads for VKontakte',
     newsletterTitle: 'Stay up to date',

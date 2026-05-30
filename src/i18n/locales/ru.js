@@ -255,6 +255,30 @@ export const ru = {
     installNote: 'Бесплатно • Без регистрации • Мгновенная установка',
   },
 
+  themesPage: {
+    seoTitle: 'Темы оформления VK',
+    seoDescription: 'Выбирайте и применяйте темы для VK через расширение VKify. Catppuccin, Dracula, Nord и другие.',
+    count: '{count} тем доступно',
+    titleTop: 'Темы',
+    titleBottom: 'оформления',
+    subtitle: 'Выберите тему — и она применится в VK автоматически через расширение.',
+    searchPlaceholder: 'Catppuccin, nord, dark...',
+    all: 'Все',
+    open: 'Открыть',
+    notFoundTitle: 'Ничего не найдено',
+    notFoundHint: 'Попробуйте другой запрос или категорию',
+    howTitle: 'Как применить тему',
+    steps: [
+      { title: 'Установите VKify', desc: 'Расширение для Chrome, Firefox или Edge' },
+      { title: 'Выберите тему', desc: 'Нажмите «Применить мгновенно» на странице темы' },
+      { title: 'Готово', desc: 'Тема применится автоматически при открытии VK' },
+    ],
+    categories: {
+      all: 'Все', classic: 'Классика', soft: 'Мягкие', amoled: 'AMOLED', colored: 'Цветные',
+      neon: 'Неоновые', nature: 'Природа', minimal: 'Минимализм', retro: 'Ретро', warm: 'Тёплые', cool: 'Холодные',
+    },
+  },
+
   footer: {
     description: 'Расширение для браузера: темы и видео-обои, блокировка рекламы и трекеров, шифрование переписки и скачивание медиа из ВКонтакте',
     newsletterTitle: 'Будьте в курсе обновлений',

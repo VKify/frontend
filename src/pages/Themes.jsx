@@ -11,6 +11,7 @@ import { Search, Palette } from 'lucide-react'
 import SEO from '../components/common/SEO'
 import VkMiniPreview from '../components/common/VkMiniPreview'
 import { themes, themeCategories } from '../data/themes'
+import { useTranslation } from '../i18n'
 
 function SkeletonCard() {
     return (
@@ -25,6 +26,7 @@ function SkeletonCard() {
 }
 
 function ThemeCard({ theme }) {
+    const { t } = useTranslation()
     return (
         <Link to={`/themes/${theme.id}`} className="group block">
             <div
@@ -44,7 +46,7 @@ function ThemeCard({ theme }) {
                                opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200">
                     <span className="px-4 py-1.5 bg-white/90 dark:bg-gray-950/90 text-gray-900 dark:text-white
                                      text-[11px] font-bold rounded-full shadow-lg tracking-widest uppercase select-none">
-                        Открыть
+                        {t('themesPage.open')}
                     </span>
                 </div>
             </div>
@@ -65,6 +67,7 @@ function ThemeCard({ theme }) {
 }
 
 export default function Themes() {
+    const { t } = useTranslation()
     const [search,         setSearch]         = useState('')
     const [activeCategory, setActiveCategory] = useState('all')
     const [isLoading] = useState(false)
@@ -85,8 +88,8 @@ export default function Themes() {
     return (
         <div className="min-h-screen bg-white dark:bg-gray-950">
             <SEO
-                title="Темы оформления VK"
-                description="Выбирайте и применяйте темы для VK через расширение VKify. Catppuccin, Dracula, Nord и другие."
+                title={t('themesPage.seoTitle')}
+                description={t('themesPage.seoDescription')}
                 url="/themes"
             />
 
@@ -96,14 +99,14 @@ export default function Themes() {
                 <div className="mb-10">
                     <div className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-widest text-blue-600 dark:text-blue-400 uppercase mb-3">
                         <Palette className="w-3.5 h-3.5" />
-                        {themes.length} тем доступно
+                        {t('themesPage.count', { count: themes.length })}
                     </div>
                     <h1 className="text-4xl sm:text-5xl font-black text-gray-950 dark:text-white leading-none tracking-tight mb-4">
-                        Темы<br />
-                        <span className="text-gray-400 dark:text-gray-600">оформления</span>
+                        {t('themesPage.titleTop')}<br />
+                        <span className="text-gray-400 dark:text-gray-600">{t('themesPage.titleBottom')}</span>
                     </h1>
                     <p className="text-gray-500 dark:text-gray-400 max-w-lg">
-                        Выберите тему — и она применится в VK автоматически через расширение.
+                        {t('themesPage.subtitle')}
                     </p>
                 </div>
 
@@ -114,7 +117,7 @@ export default function Themes() {
                         type="text"
                         value={search}
                         onChange={e => setSearch(e.target.value)}
-                        placeholder="Catppuccin, nord, dark..."
+                        placeholder={t('themesPage.searchPlaceholder')}
                         className="w-full pl-11 pr-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800
                                    rounded-xl text-gray-900 dark:text-white placeholder:text-gray-400
                                    focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/10 transition-all text-sm"
@@ -131,7 +134,7 @@ export default function Themes() {
                                 ? 'bg-gray-950 dark:bg-white text-white dark:text-gray-950 shadow-sm'
                                 : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'}`}
                     >
-                        Все
+                        {t('themesPage.all')}
                     </button>
                     {themeCategories.filter(c => c.id !== 'all').map(cat => (
                         <button
@@ -143,7 +146,7 @@ export default function Themes() {
                                     ? 'bg-gray-950 dark:bg-white text-white dark:text-gray-950 shadow-sm'
                                     : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'}`}
                         >
-                            {cat.name}
+                            {t(`themesPage.categories.${cat.id}`)}
                         </button>
                     ))}
                 </div>
@@ -159,24 +162,20 @@ export default function Themes() {
                     </div>
                 ) : (
                     <div className="py-20 text-center text-gray-400 dark:text-gray-600">
-                        <p className="text-lg mb-1">Ничего не найдено</p>
-                        <p className="text-sm">Попробуйте другой запрос или категорию</p>
+                        <p className="text-lg mb-1">{t('themesPage.notFoundTitle')}</p>
+                        <p className="text-sm">{t('themesPage.notFoundHint')}</p>
                     </div>
                 )}
 
                 {/* Инструкция */}
                 <div className="mt-16 p-8 bg-gray-50 dark:bg-gray-900 rounded-3xl">
-                    <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-5">Как применить тему</h2>
+                    <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-5">{t('themesPage.howTitle')}</h2>
                     <div className="grid sm:grid-cols-3 gap-6">
-                        {[
-                            { n: '1', title: 'Установите VKify', desc: 'Расширение для Chrome, Firefox или Edge' },
-                            { n: '2', title: 'Выберите тему',   desc: 'Нажмите «Применить мгновенно» на странице темы' },
-                            { n: '3', title: 'Готово',          desc: 'Тема применится автоматически при открытии VK' },
-                        ].map(s => (
-                            <div key={s.n} className="flex gap-3">
+                        {t('themesPage.steps').map((s, i) => (
+                            <div key={i} className="flex gap-3">
                                 <div className="w-7 h-7 rounded-full bg-gray-950 dark:bg-white text-white dark:text-gray-950
                                                 text-xs font-bold flex items-center justify-center flex-shrink-0">
-                                    {s.n}
+                                    {i + 1}
                                 </div>
                                 <div>
                                     <p className="font-semibold text-gray-900 dark:text-white text-sm">{s.title}</p>
