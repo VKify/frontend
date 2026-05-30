@@ -12,10 +12,12 @@ import {
   ArrowRight
 } from 'lucide-react'
 import ThemeToggle from './ThemeToggle'
+import LanguageSwitcher from './LanguageSwitcher'
 import Button from './Button'
 import Logo from './Logo'
 import { socialIcons } from './SocialIcons'
 import config from '../../config'
+import { useTranslation } from '../../i18n'
 import { getLatestVersion } from '../../data/changelog'
 import { useExtension } from '../../hooks/useExtension'
 import { scrollWithOffset, getActiveSection } from '../../utils/scroll'
@@ -86,6 +88,8 @@ function HeaderLogo({ isScrolled, isHomePage }) {
 }
 
 function NavItem({ item, isActive }) {
+  const { t } = useTranslation()
+  const label = item.labelKey ? t(item.labelKey) : item.name
   const baseClasses = `relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
     isActive
       ? 'text-white'
@@ -101,7 +105,7 @@ function NavItem({ item, isActive }) {
           transition={{ type: 'spring', stiffness: 500, damping: 35 }}
         />
       )}
-      <span className="relative z-10">{item.name}</span>
+      <span className="relative z-10">{label}</span>
     </>
   )
 
@@ -114,7 +118,7 @@ function NavItem({ item, isActive }) {
         className={baseClasses}
       >
         <span className="relative z-10 flex items-center gap-1">
-          {item.name}
+          {label}
           <ExternalLink className="w-3 h-3" />
         </span>
       </a>
@@ -137,6 +141,7 @@ function NavItem({ item, isActive }) {
 }
 
 function AnnouncementBar({ isVisible, latestVersion }) {
+  const { t } = useTranslation()
   return (
     <AnimatePresence>
       {isVisible && (
@@ -150,7 +155,7 @@ function AnnouncementBar({ isVisible, latestVersion }) {
           <div className="hidden lg:block bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 text-white text-center py-2 text-sm">
             <Link to="/changelog" className="inline-flex items-center gap-2 hover:underline group">
               <Sparkles className="w-4 h-4" />
-              <span>Вышла версия {latestVersion} с новыми функциями</span>
+              <span>{t('header.announcement', { version: latestVersion })}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -161,6 +166,7 @@ function AnnouncementBar({ isVisible, latestVersion }) {
 }
 
 function MenuButton({ isOpen, onClick }) {
+  const { t } = useTranslation()
   return (
     <motion.button
       onClick={onClick}
@@ -168,7 +174,7 @@ function MenuButton({ isOpen, onClick }) {
       className={`relative p-2.5 rounded-xl transition-colors duration-200 ${
         isOpen ? 'bg-gray-200 dark:bg-gray-700' : 'hover:bg-gray-100 dark:hover:bg-gray-800'
       }`}
-      aria-label="Меню"
+      aria-label={t('header.menu')}
     >
       <div className="w-5 h-5 relative flex flex-col justify-center items-center">
         <motion.span
@@ -192,6 +198,8 @@ function MenuButton({ isOpen, onClick }) {
 }
 
 function MobileNavItem({ item, isActive, onClick }) {
+  const { t } = useTranslation()
+  const label = item.labelKey ? t(item.labelKey) : item.name
   const baseClasses = `w-full flex items-center justify-between px-4 py-4 rounded-2xl text-base font-medium transition-colors ${
     isActive
       ? 'bg-blue-500/10 text-[#0077ff]'
@@ -200,7 +208,7 @@ function MobileNavItem({ item, isActive, onClick }) {
 
   const content = (
     <>
-      <span>{item.name}</span>
+      <span>{label}</span>
       {item.external ? (
         <ExternalLink className="w-4 h-4 text-gray-400" />
       ) : (
@@ -233,6 +241,7 @@ function MobileNavItem({ item, isActive, onClick }) {
 }
 
 function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, latestVersion }) {
+  const { t } = useTranslation()
   const checkIsActive = (item) => {
     if (item.isAnchor) {
       return activeSection === (item.sectionId || item.href.replace('/#', ''))
@@ -299,9 +308,12 @@ function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, late
                 </div>
 
                 <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-800">
-                  <p className="px-4 text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">
-                    Сообщество
-                  </p>
+                  <div className="flex items-center justify-between px-4 mb-3">
+                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      {t('header.community')}
+                    </p>
+                    <LanguageSwitcher />
+                  </div>
                   {config.social.map((link) => {
                     const IconComponent = socialIcons[link.name]
                     return (
@@ -335,12 +347,12 @@ function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, late
                   className="w-full gap-2 py-4"
                 >
                   <Download className="w-5 h-5" />
-                  Установить бесплатно
+                  {t('common.installFree')}
                 </Button>
 
                 <p className="mt-3 text-center text-xs text-gray-500">
                   <Zap className="w-3 h-3 inline mr-1" />
-                  Бесплатно • Chrome, Edge, Opera
+                  {t('header.freeBrowsers')}
                 </p>
               </div>
             </div>
@@ -356,6 +368,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
 
+  const { t } = useTranslation()
   const location = useLocation()
   const navigation = useMemo(() => config.navigation.main, [])
   const isHomePage = location.pathname === '/'
@@ -446,6 +459,7 @@ export default function Header() {
             </div>
 
             <div className="hidden lg:flex items-center gap-3">
+              <LanguageSwitcher />
               <ThemeToggle />
               <Button
                 href={config.links.chromeWebStore}
@@ -455,7 +469,7 @@ export default function Header() {
                 className="gap-2 shadow-lg shadow-blue-500/25"
               >
                 <Download className="w-4 h-4" />
-                <span>Установить</span>
+                <span>{t('common.install')}</span>
               </Button>
             </div>
 

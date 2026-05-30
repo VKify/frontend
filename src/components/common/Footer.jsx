@@ -14,6 +14,7 @@ import Logo from './Logo'
 import DonateModal from './DonateModal'
 import { socialIcons, socialHoverStyles } from './SocialIcons'
 import config from '../../config'
+import { useTranslation } from '../../i18n'
 import { getLatestVersion } from '../../data/changelog'
 import { scrollWithOffset } from '../../utils/scroll'
 
@@ -138,7 +139,9 @@ function SocialIcon({ link, size = 'md' }) {
 }
 
 function FooterLink({ item }) {
+  const { t } = useTranslation()
   const [isHovered, setIsHovered] = useState(false)
+  const label = item.labelKey ? t(item.labelKey) : item.name
 
   const baseClasses = `
     relative inline-flex items-center gap-1 text-sm 
@@ -167,7 +170,7 @@ function FooterLink({ item }) {
         className={`${baseClasses} group`}
       >
         <span className="relative">
-          {item.name}
+          {label}
           {underline}
         </span>
         <ExternalLink className="w-3 h-3 opacity-0 -translate-y-0.5 group-hover:opacity-50 group-hover:translate-y-0 transition-all duration-150" />
@@ -186,7 +189,7 @@ function FooterLink({ item }) {
         className={baseClasses}
       >
         <span className="relative">
-          {item.name}
+          {label}
           {underline}
         </span>
       </HashLink>
@@ -233,6 +236,7 @@ function LinkSection({ title, links }) {
 }
 
 function DonateButton({ onClick }) {
+  const { t } = useTranslation()
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -264,7 +268,7 @@ function DonateButton({ onClick }) {
       >
         <Heart className="w-5 h-5" fill={isHovered ? 'currentColor' : 'none'} />
       </motion.div>
-      <span className="relative z-10">Поддержать проект</span>
+      <span className="relative z-10">{t('common.support')}</span>
       
       <AnimatePresence>
         {isHovered && (
@@ -283,6 +287,7 @@ function DonateButton({ onClick }) {
 }
 
 function BrandSection({ onDonateClick, latestVersion }) {
+  const { t } = useTranslation()
   return (
     <div className="col-span-2">
       <div className="inline-flex items-center gap-3 mb-6 group">
@@ -314,7 +319,7 @@ function BrandSection({ onDonateClick, latestVersion }) {
       </div>
       
       <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed max-w-xs mb-6">
-        {config.app.description}
+        {t('footer.description')}
       </p>
 
       <div className="space-y-2 mb-6">
@@ -326,7 +331,7 @@ function BrandSection({ onDonateClick, latestVersion }) {
         </div>
         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
           <Clock className="w-4 h-4 text-[#0077ff]" />
-          <span>24/7 поддержка</span>
+          <span>{t('footer.support247')}</span>
         </div>
       </div>
 
@@ -342,6 +347,7 @@ function BrandSection({ onDonateClick, latestVersion }) {
 }
 
 function BottomBar({ currentYear, latestVersion }) {
+  const { t } = useTranslation()
   return (
     <div className="py-6 border-t border-gray-200/50 dark:border-gray-800/50">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -358,14 +364,14 @@ function BottomBar({ currentYear, latestVersion }) {
           </Link>
           <span className="hidden sm:block text-gray-300 dark:text-gray-700">•</span>
           <p className="text-sm text-gray-500 dark:text-gray-500 flex items-center gap-1">
-            Сделано с 
+            {t('footer.madeWithPre')}
             <motion.span
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1, repeat: Infinity, repeatDelay: 1 }}
             >
               <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />
             </motion.span>
-            в России
+            {t('footer.madeWithPost')}
           </p>
         </div>
         
@@ -388,6 +394,7 @@ function BottomBar({ currentYear, latestVersion }) {
 }
 
 export default function Footer() {
+  const { t } = useTranslation()
   const [isDonateOpen, setIsDonateOpen] = useState(false)
   const currentYear = useMemo(() => new Date().getFullYear(), [])
 
@@ -399,11 +406,11 @@ export default function Footer() {
   const { footer } = config.navigation
 
   const linkSections = useMemo(() => [
-    { title: 'Продукт', links: footer.product },
-    { title: 'Ресурсы', links: footer.resources },
-    { title: 'Сообщество', links: footer.community },
-    { title: 'Информация', links: footer.legal },
-  ], [footer])
+    { title: t('footer.sections.product'), links: footer.product },
+    { title: t('footer.sections.resources'), links: footer.resources },
+    { title: t('footer.sections.community'), links: footer.community },
+    { title: t('footer.sections.info'), links: footer.legal },
+  ], [footer, t])
 
   return (
     <>
@@ -420,10 +427,10 @@ export default function Footer() {
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="text-center md:text-left">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                  Будьте в курсе обновлений
+                  {t('footer.newsletterTitle')}
                 </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Подписывайтесь на наши социальные сети
+                  {t('footer.newsletterSubtitle')}
                 </p>
               </div>
               <div className="flex items-center gap-3">

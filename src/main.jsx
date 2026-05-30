@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import App from './App'
 import { ThemeProvider } from './context/ThemeContext'
+import { LanguageProvider } from './i18n'
 import ErrorBoundary from './components/common/ErrorBoundary'
 import './styles/index.css'
 
@@ -14,9 +15,11 @@ const app = (
     <ErrorBoundary>
       <HelmetProvider>
         <BrowserRouter>
-          <ThemeProvider>
-            <App />
-          </ThemeProvider>
+          <LanguageProvider>
+            <ThemeProvider>
+              <App />
+            </ThemeProvider>
+          </LanguageProvider>
         </BrowserRouter>
       </HelmetProvider>
     </ErrorBoundary>
