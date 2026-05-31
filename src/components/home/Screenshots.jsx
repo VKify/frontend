@@ -740,7 +740,8 @@ function ThumbnailCard({ screenshot, isActive, onSelect }) {
 }
 
 // Рамка «браузер» с контентом мокапа. compact — мобильный вариант.
-function BrowserFrame({ screenshot, contentKey, compact, onZoom, onPrev, onNext }) {
+// Стрелки prev/next рендерятся снаружи родителем — здесь их нет.
+function BrowserFrame({ screenshot, contentKey, compact, onZoom }) {
   const { t } = useTranslation()
   const { title, description } = useScreenshotText()(screenshot)
   const Icon = screenshot.icon
@@ -804,25 +805,6 @@ function BrowserFrame({ screenshot, contentKey, compact, onZoom, onPrev, onNext 
         </div>
       </div>
 
-      {/* Navigation buttons — только в десктопном варианте */}
-      {!compact && (
-        <>
-          <button
-            onClick={onPrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/90 dark:bg-gray-800/90 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all z-10"
-            aria-label={t('screenshots.prev')}
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={onNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/90 dark:bg-gray-800/90 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all z-10"
-            aria-label={t('screenshots.next')}
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </>
-      )}
     </div>
   )
 }
@@ -976,9 +958,24 @@ export default function Screenshots() {
         screenshot={currentScreenshot}
         contentKey={currentIndex}
         onZoom={() => setIsLightboxOpen(true)}
-        onPrev={prev}
-        onNext={next}
       />
+
+      {/* Стрелки навигации — снаружи рамки браузера (right-full/left-full
+          ставит границу кнопки на край рамки, mr/ml — отступ наружу). */}
+      <button
+        onClick={prev}
+        className="absolute right-full mr-3 xl:mr-5 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all z-20"
+        aria-label={t('screenshots.prev')}
+      >
+        <ChevronLeft className="w-5 h-5" />
+      </button>
+      <button
+        onClick={next}
+        className="absolute left-full ml-3 xl:ml-5 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all z-20"
+        aria-label={t('screenshots.next')}
+      >
+        <ChevronRight className="w-5 h-5" />
+      </button>
     </motion.div>
 
     <ProgressDots
