@@ -962,18 +962,19 @@ export default function Screenshots() {
               onZoom={() => setIsLightboxOpen(true)}
             />
 
-            {/* Стрелки prev/next — только на ПК. На тач-устройствах
-                навигация через свайпы. */}
+            {/* Стрелки prev/next — только на ПК, снаружи рамки превью
+                (right-full/left-full ставит границу кнопки на край рамки,
+                mr/ml — отступ наружу). На тач-устройствах их нет — свайпы. */}
             <button
               onClick={prev}
-              className="hidden lg:flex absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 items-center justify-center rounded-full bg-white/95 dark:bg-gray-800/95 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all"
+              className="hidden lg:flex absolute right-full mr-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 items-center justify-center rounded-full bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all"
               aria-label={t('screenshots.prev')}
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={next}
-              className="hidden lg:flex absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 items-center justify-center rounded-full bg-white/95 dark:bg-gray-800/95 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all"
+              className="hidden lg:flex absolute left-full ml-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 items-center justify-center rounded-full bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all"
               aria-label={t('screenshots.next')}
             >
               <ChevronRight className="w-5 h-5" />
