@@ -5,13 +5,15 @@ import Button from '../components/common/Button'
 import FeedbackForm from '../components/uninstall/FeedbackForm'
 import { TelegramIcon, VKIcon } from '../components/common/SocialIcons'
 import config from '../config'
+import { useTranslation } from '../i18n'
 
 export default function Uninstall() {
+  const { t } = useTranslation()
   return (
     <div className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-gray-950">
-      <SEO 
-        title="Жаль, что вы уходите"
-        description="Помогите нам стать лучше — расскажите, почему вы удалили VKify."
+      <SEO
+        title={t('uninstall.seoTitle')}
+        description={t('uninstall.seoDescription')}
       />
 
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,10 +34,10 @@ export default function Uninstall() {
           </motion.div>
           
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Жаль, что вы уходите 😢
+            {t('uninstall.title')}
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-            Мы постоянно работаем над улучшением VKify. Ваш отзыв поможет нам стать лучше.
+            {t('uninstall.subtitle')}
           </p>
         </motion.div>
 
@@ -57,10 +59,10 @@ export default function Uninstall() {
           className="text-center p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 mb-12 shadow-sm"
         >
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-            Может, дать ещё один шанс?
+            {t('uninstall.secondChanceTitle')}
           </h2>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Мы выпустили много обновлений — возможно, проблема уже решена!
+            {t('uninstall.secondChanceText')}
           </p>
           <Button
             href={config.links.chromeWebStore}
@@ -70,7 +72,7 @@ export default function Uninstall() {
             className="gap-2"
           >
             <RefreshCw className="w-5 h-5" />
-            Установить снова
+            {t('uninstall.installAgain')}
           </Button>
         </motion.div>
 
@@ -82,7 +84,7 @@ export default function Uninstall() {
           className="text-center"
         >
           <p className="text-gray-600 dark:text-gray-400 mb-4">
-            Есть вопросы или предложения? Свяжитесь с нами:
+            {t('uninstall.contactPrompt')}
           </p>
           <div className="flex items-center justify-center gap-4">
             <a
@@ -101,7 +103,7 @@ export default function Uninstall() {
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-[#0077ff]/10 text-gray-700 dark:text-gray-300 hover:text-[#0077ff] transition-colors"
             >
               <VKIcon className="w-5 h-5" />
-              ВКонтакте
+              VK
             </a>
           </div>
         </motion.div>

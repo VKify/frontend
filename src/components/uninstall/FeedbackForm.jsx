@@ -2,19 +2,26 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, CheckCircle, MessageSquare, AlertCircle, Loader2 } from 'lucide-react'
 import config from '../../config'
+import { useTranslation } from '../../i18n'
 
-const reasons = [
-  { id: 'interface',   label: 'Не понравился интерфейс' },
-  { id: 'broken',      label: 'Не работает нужная функция' },
-  { id: 'performance', label: 'Замедляет браузер' },
-  { id: 'alternative', label: 'Нашёл альтернативу' },
-  { id: 'temporary',   label: 'Временно не нужно' },
-  { id: 'other',       label: 'Другое' },
-]
+// Только id причин; подписи — из i18n: feedback.reasons.<id>
+const reasonIds = ['interface', 'broken', 'performance', 'alternative', 'temporary', 'other']
+
+// Шлём в Google Forms единый RU-вариант, чтобы аналитика не размывалась
+// по языку браузера пользователя.
+const REASON_LABELS_RU = {
+  interface:   'Не понравился интерфейс',
+  broken:      'Не работает нужная функция',
+  performance: 'Замедляет браузер',
+  alternative: 'Нашёл альтернативу',
+  temporary:   'Временно не нужно',
+  other:       'Другое',
+}
 
 const SUBMIT_URL = `https://docs.google.com/forms/d/${config.feedback.formId}/formResponse`
 
 export default function FeedbackForm() {
+  const { t } = useTranslation()
   const [selected,     setSelected]     = useState([])
   const [comment,      setComment]      = useState('')
   const [status,       setStatus]       = useState('idle') // idle | submitting | success | error
@@ -33,10 +40,10 @@ export default function FeedbackForm() {
       // Sentinel — обязательное служебное поле для чекбоксов Google Forms
       body.append(config.feedback.fields.reasons + '_sentinel', '')
 
-      // Каждая выбранная причина
+      // Каждая выбранная причина — отправляем RU-вариант, чтобы аналитика
+      // оставалась консистентной независимо от выбранного на сайте языка.
       selected.forEach(id => {
-        const reason = reasons.find(r => r.id === id)
-        if (reason) body.append(config.feedback.fields.reasons, reason.label)
+        body.append(config.feedback.fields.reasons, REASON_LABELS_RU[id] ?? id)
       })
 
       // Комментарий
@@ -66,9 +73,9 @@ export default function FeedbackForm() {
           flex items-center justify-center">
           <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
         </div>
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Спасибо за отзыв!</h3>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{t('feedback.successTitle')}</h3>
         <p className="text-gray-500 dark:text-gray-400 text-sm">
-          Ваше мнение поможет нам сделать VKify лучше
+          {t('feedback.successText')}
         </p>
       </motion.div>
     )
@@ -86,13 +93,13 @@ export default function FeedbackForm() {
           flex items-center justify-center">
           <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" />
         </div>
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Не удалось отправить</h3>
-        <p className="text-gray-500 dark:text-gray-400 text-sm mb-5">Проверьте интернет-соединение</p>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{t('feedback.errorTitle')}</h3>
+        <p className="text-gray-500 dark:text-gray-400 text-sm mb-5">{t('feedback.errorText')}</p>
         <button
           onClick={() => setStatus('idle')}
           className="px-5 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-sm font-semibold transition-colors"
         >
-          Попробовать снова
+          {t('feedback.errorRetry')}
         </button>
       </motion.div>
     )
@@ -111,21 +118,21 @@ export default function FeedbackForm() {
         </div>
         <div>
           <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-            Почему вы удалили расширение?
+            {t('feedback.title')}
           </h3>
           <p className="text-gray-500 dark:text-gray-400 text-sm">
-            Выберите одну или несколько причин
+            {t('feedback.subtitle')}
           </p>
         </div>
       </div>
 
       {/* Чекбоксы */}
       <div className="space-y-2.5 mb-5">
-        {reasons.map(reason => {
-          const checked = selected.includes(reason.id)
+        {reasonIds.map(id => {
+          const checked = selected.includes(id)
           return (
             <label
-              key={reason.id}
+              key={id}
               className={`flex items-center gap-3 p-3.5 rounded-xl border-2 cursor-pointer
                 transition-all duration-150
                 ${checked
@@ -150,9 +157,9 @@ export default function FeedbackForm() {
                 type="checkbox"
                 className="sr-only"
                 checked={checked}
-                onChange={() => toggle(reason.id)}
+                onChange={() => toggle(id)}
               />
-              <span className="font-medium text-gray-900 dark:text-white text-sm">{reason.label}</span>
+              <span className="font-medium text-gray-900 dark:text-white text-sm">{t(`feedback.reasons.${id}`)}</span>
             </label>
           )
         })}
@@ -169,8 +176,8 @@ export default function FeedbackForm() {
           >
             <div className="flex items-baseline justify-between mb-2">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Комментарий
-                <span className="ml-1.5 text-gray-400 dark:text-gray-500 font-normal">(необязательно)</span>
+                {t('feedback.commentLabel')}
+                <span className="ml-1.5 text-gray-400 dark:text-gray-500 font-normal">{t('feedback.commentOptional')}</span>
               </label>
               <span className={`text-xs tabular-nums ${comment.length >= 1800 ? 'text-red-400' : 'text-gray-400 dark:text-gray-500'}`}>
                 {comment.length}/2000
@@ -181,8 +188,8 @@ export default function FeedbackForm() {
               onChange={e => setComment(e.target.value)}
               placeholder={
                 selected.includes('other')
-                  ? 'Расскажите подробнее, что именно не устроило...'
-                  : 'Есть что добавить?'
+                  ? t('feedback.commentPlaceholderOther')
+                  : t('feedback.commentPlaceholder')
               }
               rows={3}
               maxLength={2000}
@@ -210,18 +217,18 @@ export default function FeedbackForm() {
         {status === 'submitting' ? (
           <>
             <Loader2 className="w-4 h-4 animate-spin" />
-            Отправка...
+            {t('feedback.submitting')}
           </>
         ) : (
           <>
             <Send className="w-4 h-4" />
-            Отправить отзыв
+            {t('feedback.submit')}
           </>
         )}
       </button>
 
       <p className="text-center text-[11px] text-gray-400 dark:text-gray-600 mt-3">
-        Ответы анонимны и хранятся в Google Sheets
+        {t('feedback.privacy')}
       </p>
     </form>
   )

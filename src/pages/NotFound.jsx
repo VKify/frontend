@@ -4,17 +4,7 @@ import { Home, ArrowLeft, Frown, RefreshCw, Sparkles, Palette, Image as ImageIco
 import { Link } from 'react-router-dom'
 import SEO from '../components/common/SEO'
 import Button from '../components/common/Button'
-
-// Забавные сообщения
-const funMessages = [
-  'Эта страница ушла за кофе ☕',
-  'Страница взяла отпуск 🏖️',
-  'Тут был только ветер... 🍃',
-  'Страница играет в прятки 🙈',
-  'Ой, кто-то удалил страницу 🗑️',
-  'Здесь могла быть ваша страница 📄',
-  '404 причины почему её тут нет 🤔',
-]
+import { useTranslation } from '../i18n'
 
 // Плавающие частицы
 function FloatingParticles() {
@@ -132,12 +122,15 @@ function AnimatedDigit({ digit, delay }) {
 }
 
 export default function NotFound() {
+  const { t } = useTranslation()
+  const funMessages = t('notFound.funMessages')
   const [funMessage, setFunMessage] = useState('')
   const [clickCount, setClickCount] = useState(0)
   const [showEasterEgg, setShowEasterEgg] = useState(false)
 
   useEffect(() => {
     setFunMessage(funMessages[Math.floor(Math.random() * funMessages.length)])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Easter egg после 5 кликов на 404
@@ -156,9 +149,9 @@ export default function NotFound() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 pt-20 pb-16 relative overflow-hidden">
-      <SEO 
-        title="Страница не найдена"
-        description="Запрашиваемая страница не существует"
+      <SEO
+        title={t('notFound.seoTitle')}
+        description={t('notFound.seoDescription')}
       />
 
       {/* Floating Particles */}
@@ -275,7 +268,7 @@ export default function NotFound() {
               whileTap={{ scale: 0.9 }}
               onClick={refreshMessage}
               className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              title="Другое сообщение"
+              title={t('notFound.refreshMessage')}
               type="button"
             >
               <RefreshCw className="w-4 h-4 text-gray-400" />
@@ -290,10 +283,10 @@ export default function NotFound() {
           transition={{ delay: 0.4 }}
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-            Страница не найдена
+            {t('notFound.title')}
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-lg mx-auto">
-            Страница, которую вы ищете, не существует, была перемещена или временно недоступна.
+            {t('notFound.text')}
           </p>
         </motion.div>
 
@@ -310,7 +303,7 @@ export default function NotFound() {
             className="w-full sm:w-auto gap-2 group"
           >
             <Home className="w-5 h-5 group-hover:scale-110 transition-transform" />
-            На главную
+            {t('notFound.home')}
           </Button>
           <Button
             onClick={() => window.history.back()}
@@ -319,7 +312,7 @@ export default function NotFound() {
             className="w-full sm:w-auto gap-2 group"
           >
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            Назад
+            {t('notFound.back')}
           </Button>
         </motion.div>
 
@@ -331,13 +324,13 @@ export default function NotFound() {
           className="mt-4"
         >
           <p className="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-widest mb-4">
-            Может, вы искали это?
+            {t('notFound.maybeYouLooked')}
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             {[
-              { to: '/themes',    icon: <Palette className="w-4 h-4" />,   label: 'Темы оформления' },
-              { to: '/wallpapers',icon: <ImageIcon className="w-4 h-4" />, label: 'Обои' },
-              { to: '/',          icon: <Home className="w-4 h-4" />,      label: 'Главная' },
+              { to: '/themes',    icon: <Palette className="w-4 h-4" />,   label: t('notFound.quickLinks.themes') },
+              { to: '/wallpapers',icon: <ImageIcon className="w-4 h-4" />, label: t('notFound.quickLinks.wallpapers') },
+              { to: '/',          icon: <Home className="w-4 h-4" />,      label: t('notFound.quickLinks.home') },
             ].map(({ to, icon, label }) => (
               <Link
                 key={to}
@@ -362,7 +355,7 @@ export default function NotFound() {
           transition={{ delay: 0.9 }}
           className="mt-10 text-xs text-gray-400 dark:text-gray-600"
         >
-          Такое бывает даже с лучшими из нас 🤷‍♂️
+          {t('notFound.footerNote')}
         </motion.p>
       </div>
     </div>
