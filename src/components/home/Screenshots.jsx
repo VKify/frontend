@@ -371,45 +371,44 @@ function WallpapersMockup({ isActive }) {
       </AnimatePresence>
 
       {/* VK-интерфейс поверх обоя */}
-      <div className="absolute inset-0 flex flex-col justify-between p-3 sm:p-4">
+      <div className="absolute inset-0 flex flex-col justify-between p-2 sm:p-4">
         {/* Навбар */}
-        <div className="flex items-center gap-2 bg-black/25 backdrop-blur-md rounded-xl px-3 py-2 border border-white/10 pointer-events-none">
-          <div className="w-5 h-5 rounded bg-[#0077ff] flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-bold text-[8px]">VK</span>
+        <div className="flex items-center gap-1.5 sm:gap-2 bg-black/25 backdrop-blur-md rounded-lg sm:rounded-xl px-2 sm:px-3 py-1 sm:py-2 border border-white/10 pointer-events-none">
+          <div className="w-4 h-4 sm:w-5 sm:h-5 rounded bg-[#0077ff] flex items-center justify-center flex-shrink-0">
+            <span className="text-white font-bold text-[7px] sm:text-[8px]">VK</span>
           </div>
-          <div className="flex-1 h-1.5 rounded bg-white/25" />
-          <div className="w-5 h-5 rounded-full bg-white/20" />
+          <div className="flex-1 h-1 sm:h-1.5 rounded bg-white/25" />
+          <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-white/20" />
         </div>
 
         {/* Пост */}
-        <div className="bg-white/15 backdrop-blur-xl rounded-2xl border border-white/25 p-3 sm:p-4 shadow-2xl pointer-events-none">
-          <div className="flex items-center gap-2 mb-2.5">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex-shrink-0" />
-            <div className="space-y-1 flex-1">
-              <div className="w-20 sm:w-24 h-1.5 rounded bg-white/75" />
-              <div className="w-14 h-1 rounded bg-white/45" />
+        <div className="bg-white/15 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-white/25 p-2 sm:p-4 shadow-2xl pointer-events-none">
+          <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2.5">
+            <div className="w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex-shrink-0" />
+            <div className="space-y-0.5 sm:space-y-1 flex-1 min-w-0">
+              <div className="w-16 sm:w-24 h-1 sm:h-1.5 rounded bg-white/75" />
+              <div className="w-10 sm:w-14 h-0.5 sm:h-1 rounded bg-white/45" />
             </div>
           </div>
-          <div className="space-y-1.5">
-            <div className="w-full h-1.5 rounded bg-white/50" />
-            <div className="w-4/5 h-1.5 rounded bg-white/40" />
-            <div className="w-3/5 h-1.5 rounded bg-white/30" />
+          <div className="space-y-1 sm:space-y-1.5">
+            <div className="w-full h-1 sm:h-1.5 rounded bg-white/50" />
+            <div className="w-4/5 h-1 sm:h-1.5 rounded bg-white/40" />
           </div>
         </div>
 
         {/* Выбор обоя */}
-        <div className="flex gap-1.5 justify-center">
+        <div className="flex gap-1 sm:gap-1.5 justify-center">
           {WALLPAPERS_DATA.map((w, i) => (
             <motion.button
               key={i}
               whileHover={{ scale: 1.12 }}
               whileTap={{ scale: 0.94 }}
               onClick={() => setActive(i)}
-              className={`rounded-lg sm:rounded-xl bg-gradient-to-br ${w.thumb} transition-all duration-150 relative overflow-hidden
+              className={`rounded-md sm:rounded-xl bg-gradient-to-br ${w.thumb} transition-all duration-150 relative overflow-hidden
                 ${i === active
                   ? 'ring-2 ring-white shadow-lg shadow-white/30'
                   : 'opacity-55 hover:opacity-85'}`}
-              style={{ width: i === active ? 52 : 28, height: i === active ? 36 : 24 }}
+              style={{ width: i === active ? 40 : 22, height: i === active ? 28 : 18 }}
               title={t(`screenshots.mockup.wallpapers.${w.id}`)}
             >
               {i === active && (
@@ -468,25 +467,25 @@ function ScreenMockup({ type, isActive }) {
               <div key={i} className="h-6 sm:h-8 bg-gray-100 dark:bg-gray-700 rounded-lg" />
             ))}
           </div>
-          <div className="flex-1 space-y-3 sm:space-y-4">
+          <div className="flex-1 space-y-2 sm:space-y-4">
             {[1, 2].map((i) => (
               <motion.div
                 key={i}
                 initial={false}
                 animate={isActive ? { x: [20, 0], opacity: [0, 1] } : { x: 0, opacity: 1 }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-white dark:bg-gray-800 rounded-xl p-3 sm:p-4 h-24 sm:h-32"
+                className="bg-white dark:bg-gray-800 rounded-lg sm:rounded-xl p-2 sm:p-4"
               >
-                <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex-shrink-0" />
-                  <div className="space-y-1 min-w-0">
-                    <div className="w-20 sm:w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded" />
-                    <div className="w-14 sm:w-16 h-2 bg-gray-100 dark:bg-gray-600 rounded" />
+                <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-3">
+                  <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex-shrink-0" />
+                  <div className="space-y-1 min-w-0 flex-1">
+                    <div className="w-16 sm:w-24 h-1.5 sm:h-2 bg-gray-200 dark:bg-gray-700 rounded" />
+                    <div className="w-10 sm:w-16 h-1.5 sm:h-2 bg-gray-100 dark:bg-gray-600 rounded" />
                   </div>
                 </div>
-                <div className="space-y-1.5 sm:space-y-2">
-                  <div className="w-full h-2 bg-gray-100 dark:bg-gray-700 rounded" />
-                  <div className="w-3/4 h-2 bg-gray-100 dark:bg-gray-700 rounded" />
+                <div className="space-y-1 sm:space-y-2">
+                  <div className="w-full h-1.5 sm:h-2 bg-gray-100 dark:bg-gray-700 rounded" />
+                  <div className="w-3/4 h-1.5 sm:h-2 bg-gray-100 dark:bg-gray-700 rounded" />
                 </div>
               </motion.div>
             ))}
@@ -529,14 +528,14 @@ function ScreenMockup({ type, isActive }) {
   if (type === 'privacy') {
     // Показываем реальный диалог VK с заблокированными галочками
     return (
-      <div className={baseClasses + " bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 p-4 sm:p-6 flex flex-col gap-3"}>
+      <div className={baseClasses + " bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 p-2.5 sm:p-6 flex flex-col gap-2 sm:gap-3"}>
         {/* Заголовок диалога */}
         <motion.div
           initial={false}
           animate={isActive ? { opacity: [0, 1], y: [-8, 0] } : { opacity: 1, y: 0 }}
-          className="flex items-center gap-2.5 bg-white dark:bg-gray-800 rounded-xl px-3 py-2.5 shadow-sm"
+          className="flex items-center gap-2 sm:gap-2.5 bg-white dark:bg-gray-800 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1.5 sm:py-2.5 shadow-sm"
         >
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex-shrink-0" />
+          <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <div className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">{t('screenshots.mockup.privacy.name')}</div>
             {/* Онлайн скрыт — показываем «был недавно» вместо зелёной точки */}
@@ -551,17 +550,17 @@ function ScreenMockup({ type, isActive }) {
         </motion.div>
 
         {/* Сообщения */}
-        <div className="flex-1 space-y-2">
+        <div className="flex-1 space-y-1.5 sm:space-y-2 min-h-0">
           {/* Входящее */}
           <motion.div
             initial={false}
             animate={isActive ? { opacity: [0, 1], x: [-12, 0] } : { opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}
-            className="flex gap-2 items-end"
+            className="flex gap-1.5 sm:gap-2 items-end"
           >
-            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex-shrink-0" />
-            <div className="bg-white dark:bg-gray-700 rounded-2xl rounded-bl-sm px-3 py-2 max-w-[65%]">
-              <p className="text-xs sm:text-sm text-gray-800 dark:text-white">{t('screenshots.mockup.privacy.incoming')}</p>
+            <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex-shrink-0" />
+            <div className="bg-white dark:bg-gray-700 rounded-2xl rounded-bl-sm px-2.5 sm:px-3 py-1 sm:py-2 max-w-[70%]">
+              <p className="text-[11px] sm:text-sm text-gray-800 dark:text-white">{t('screenshots.mockup.privacy.incoming')}</p>
             </div>
           </motion.div>
 
@@ -572,8 +571,8 @@ function ScreenMockup({ type, isActive }) {
             transition={{ delay: 0.2 }}
             className="flex justify-end"
           >
-            <div className="bg-[#0077ff] rounded-2xl rounded-br-sm px-3 py-2 max-w-[65%]">
-              <p className="text-xs sm:text-sm text-white">{t('screenshots.mockup.privacy.outgoing')}</p>
+            <div className="bg-[#0077ff] rounded-2xl rounded-br-sm px-2.5 sm:px-3 py-1 sm:py-2 max-w-[70%]">
+              <p className="text-[11px] sm:text-sm text-white">{t('screenshots.mockup.privacy.outgoing')}</p>
               <div className="flex items-center justify-end gap-1 mt-0.5">
                 <span className="text-[9px] text-blue-200">14:32</span>
                 {/* Галочка одна (доставлено), но не синяя (прочтение скрыто) */}
@@ -606,10 +605,10 @@ function ScreenMockup({ type, isActive }) {
           initial={false}
           animate={isActive ? { opacity: [0, 1], y: [8, 0] } : { opacity: 1, y: 0 }}
           transition={{ delay: 0.45 }}
-          className="grid grid-cols-3 gap-1.5"
+          className="grid grid-cols-2 gap-1.5"
         >
           {[t('screenshots.mockup.privacy.read'), t('screenshots.mockup.privacy.typingLabel')].map((label) => (
-            <div key={label} className="bg-orange-500/10 border border-orange-500/20 rounded-lg py-1 text-center">
+            <div key={label} className="bg-orange-500/10 border border-orange-500/20 rounded-lg py-0.5 sm:py-1 text-center">
               <span className="text-[9px] sm:text-[10px] text-orange-600 dark:text-orange-400 font-semibold">{label} ✓</span>
             </div>
           ))}
@@ -653,21 +652,21 @@ function FontsMockup({ isActive }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="flex-1 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-3 sm:p-4"
+          className="flex-1 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-2 sm:p-4 min-h-0"
         >
-          <div className="flex items-center gap-2 mb-2.5">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 flex-shrink-0" />
-            <div>
-              <div className="text-xs font-semibold text-gray-900 dark:text-white" style={{ fontFamily: font.family }}>
+          <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2.5">
+            <div className="w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 flex-shrink-0" />
+            <div className="min-w-0">
+              <div className="text-[11px] sm:text-xs font-semibold text-gray-900 dark:text-white truncate" style={{ fontFamily: font.family }}>
                 {t('screenshots.mockup.fonts.name')}
               </div>
-              <div className="text-[10px] text-gray-400">{t('screenshots.mockup.fonts.time')}</div>
+              <div className="text-[9px] sm:text-[10px] text-gray-400">{t('screenshots.mockup.fonts.time')}</div>
             </div>
           </div>
-          <p className="text-xs sm:text-sm text-gray-800 dark:text-gray-200 leading-relaxed" style={{ fontFamily: font.family }}>
+          <p className="text-[11px] sm:text-sm text-gray-800 dark:text-gray-200 leading-snug line-clamp-2 sm:line-clamp-none" style={{ fontFamily: font.family }}>
             {t('screenshots.mockup.fonts.sample')}
           </p>
-          <div className="mt-1.5 inline-block bg-indigo-100 dark:bg-indigo-900/30 rounded px-1.5 py-0.5">
+          <div className="mt-1 sm:mt-1.5 inline-block bg-indigo-100 dark:bg-indigo-900/30 rounded px-1.5 py-0.5">
             <span className="text-[9px] sm:text-[10px] text-indigo-600 dark:text-indigo-400 font-mono">{font.name}</span>
           </div>
         </motion.div>
@@ -682,18 +681,18 @@ function FontsMockup({ isActive }) {
             animate={isActive ? { opacity: [0, 1], x: [-10, 0] } : { opacity: 1, x: 0 }}
             transition={{ delay: i * 0.06 }}
             onClick={() => setActiveFont(i)}
-            className={`flex items-center justify-between px-3 py-1.5 sm:py-2 text-left transition-colors
+            className={`flex items-center justify-between px-2 sm:px-3 py-0.5 sm:py-2 text-left transition-colors
               ${i === activeFont ? 'bg-indigo-50 dark:bg-indigo-900/20' : 'hover:bg-gray-50 dark:hover:bg-gray-700/30'}`}
           >
             <span
-              className={`text-sm sm:text-base ${i === activeFont ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-700 dark:text-gray-300'}`}
+              className={`text-[11px] sm:text-base ${i === activeFont ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-700 dark:text-gray-300'}`}
               style={{ fontFamily: f.family }}
             >
               {f.name}
             </span>
             {i === activeFont && (
-              <div className="w-4 h-4 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0">
-                <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0">
+                <svg className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
               </div>
