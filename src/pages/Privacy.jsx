@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Shield, Database, Eye, Lock, Mail, Calendar } from 'lucide-react'
 import SEO from '../components/common/SEO'
+import { useTranslation } from '../i18n'
 
 const sections = [
   {
@@ -31,11 +32,12 @@ const sections = [
 ]
 
 export default function Privacy() {
+  const { t } = useTranslation()
   return (
     <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950">
-      <SEO 
-        title="Политика конфиденциальности"
-        description="Узнайте, как VKify защищает вашу конфиденциальность. Мы не собираем никаких данных."
+      <SEO
+        title={t('legal.privacy.seoTitle')}
+        description={t('legal.privacy.seoDescription')}
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,14 +51,14 @@ export default function Privacy() {
             <Shield className="w-8 h-8 text-[#0077ff]" />
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Политика{' '}
+            {t('legal.privacy.titleTop')}{' '}
             <span className="bg-gradient-to-r from-[#0077ff] to-blue-400 bg-clip-text text-transparent">
-              конфиденциальности
+              {t('legal.privacy.titleAccent')}
             </span>
           </h1>
           <div className="flex items-center justify-center gap-2 text-gray-500 dark:text-gray-400">
             <Calendar className="w-4 h-4" />
-            <span>Последнее обновление: 28 января 2026</span>
+            <span>{t('legal.privacy.lastUpdated')}</span>
           </div>
         </motion.div>
 
@@ -68,8 +70,7 @@ export default function Privacy() {
           className="p-6 rounded-2xl border-2 border-[#0077ff]/20 bg-[#0077ff]/5 mb-12"
         >
           <p className="text-lg text-center text-gray-700 dark:text-gray-300">
-            <strong className="text-gray-900 dark:text-white">Главное:</strong> VKify не собирает, не хранит и не передаёт 
-            никакие ваши данные. Ваша приватность — наш приоритет.
+            <strong className="text-gray-900 dark:text-white">{t('legal.privacy.keyLabel')}</strong> {t('legal.privacy.keyText')}
           </p>
         </motion.div>
 

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { FileText, CheckCircle, AlertCircle, Scale, Mail, Calendar } from 'lucide-react'
 import SEO from '../components/common/SEO'
+import { useTranslation } from '../i18n'
 
 const sections = [
   {
@@ -37,11 +38,12 @@ const sections = [
 ]
 
 export default function Terms() {
+  const { t } = useTranslation()
   return (
     <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950">
-      <SEO 
-        title="Условия использования"
-        description="Условия использования браузерного расширения VKify."
+      <SEO
+        title={t('legal.terms.seoTitle')}
+        description={t('legal.terms.seoDescription')}
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -55,14 +57,14 @@ export default function Terms() {
             <FileText className="w-8 h-8 text-[#0077ff]" />
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Условия{' '}
+            {t('legal.terms.titleTop')}{' '}
             <span className="bg-gradient-to-r from-[#0077ff] to-blue-400 bg-clip-text text-transparent">
-              использования
+              {t('legal.terms.titleAccent')}
             </span>
           </h1>
           <div className="flex items-center justify-center gap-2 text-gray-500 dark:text-gray-400">
             <Calendar className="w-4 h-4" />
-            <span>Последнее обновление: 28 января 2026</span>
+            <span>{t('legal.terms.lastUpdated')}</span>
           </div>
         </motion.div>
 
@@ -74,8 +76,7 @@ export default function Terms() {
           className="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 mb-12"
         >
           <p className="text-lg text-center text-gray-700 dark:text-gray-300">
-            Пожалуйста, внимательно прочитайте условия использования перед 
-            установкой и использованием расширения VKify.
+            {t('legal.terms.intro')}
           </p>
         </motion.div>
 

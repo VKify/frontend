@@ -506,6 +506,26 @@ export const en = {
     backToListLong: 'Back to the updates list',
   },
 
+  legal: {
+    privacy: {
+      seoTitle: 'Privacy policy',
+      seoDescription: "Learn how VKify protects your privacy. We don't collect any data.",
+      titleTop: 'Privacy',
+      titleAccent: 'policy',
+      lastUpdated: 'Last updated: January 28, 2026',
+      keyLabel: 'In short:',
+      keyText: "VKify doesn't collect, store or share any of your data. Your privacy is our priority.",
+    },
+    terms: {
+      seoTitle: 'Terms of use',
+      seoDescription: 'Terms of use of the VKify browser extension.',
+      titleTop: 'Terms',
+      titleAccent: 'of use',
+      lastUpdated: 'Last updated: January 28, 2026',
+      intro: 'Please read the terms of use carefully before installing and using the VKify extension.',
+    },
+  },
+
   bgPreview: {
     extBgTitle: 'Extension background',
     extBgText: 'The file is stored inside the extension and unavailable on a web page',
