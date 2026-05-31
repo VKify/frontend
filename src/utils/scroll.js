@@ -66,22 +66,37 @@ export function scrollWithOffset(el) {
 /**
  * Плавный скролл в самый верх страницы.
  *
- * Плавная анимация иногда «не доезжает» пару пикселей до нуля
- * (scroll-anchoring при догрузке контента / прерывание), поэтому после
- * её завершения принудительно доводим позицию до 0.
+ * Тонкость: когда позиция уходит ниже SCROLL_THRESHOLD (50px), в шапке
+ * раскрывается баннер «Вышла версия…» — это асинхронно (framer-motion
+ * height 0 → auto) и добавляет ~40px к layout уже ПОСЛЕ того, как
+ * плавная прокрутка завершилась. В итоге scrollY оставался положительным
+ * на высоту баннера.
+ *
+ * Решение: после scrollend в течение ~1 секунды принудительно дотягиваем
+ * позицию до 0 на каждом кадре — это покрывает анимацию появления баннера
+ * и любой другой layout-shift (загрузка изображений, lazy-секции).
  */
+const SETTLE_WINDOW_MS = 1000
+
 export function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 
   const settle = () => {
-    if (window.scrollY !== 0) window.scrollTo({ top: 0 })
+    const start = Date.now()
+    const tick = () => {
+      if (Date.now() - start > SETTLE_WINDOW_MS) return
+      if (window.scrollY !== 0) window.scrollTo({ top: 0 })
+      requestAnimationFrame(tick)
+    }
+    tick()
   }
 
   if ('onscrollend' in window) {
     window.addEventListener('scrollend', settle, { once: true })
   } else {
-    // Фолбэк для движков без scrollend
-    setTimeout(settle, 800)
+    // Фолбэк для движков без scrollend (старые Safari) — даём smooth-анимации
+    // время завершиться, затем включаем окно дотягивания.
+    setTimeout(settle, 600)
   }
 }
 
