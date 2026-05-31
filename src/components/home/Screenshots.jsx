@@ -666,8 +666,8 @@ function FontsMockup({ isActive }) {
           <p className="text-[11px] sm:text-sm text-gray-800 dark:text-gray-200 leading-snug line-clamp-2 sm:line-clamp-none" style={{ fontFamily: font.family }}>
             {t('screenshots.mockup.fonts.sample')}
           </p>
-          <div className="mt-1 sm:mt-1.5 inline-block bg-indigo-100 dark:bg-indigo-900/30 rounded px-1.5 py-0.5">
-            <span className="text-[9px] sm:text-[10px] text-indigo-600 dark:text-indigo-400 font-mono">{font.name}</span>
+          <div className="hidden sm:inline-block sm:mt-1.5 bg-indigo-100 dark:bg-indigo-900/30 rounded px-1.5 py-0.5">
+            <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-mono">{font.name}</span>
           </div>
         </motion.div>
       </AnimatePresence>
