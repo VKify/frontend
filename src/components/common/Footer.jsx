@@ -94,7 +94,7 @@ function ScrollToTopButton() {
 function SocialIcon({ link, size = 'md' }) {
   const IconComponent = socialIcons[link.name]
   const hoverStyle = socialHoverStyles[link.name] || ''
-  
+
   const sizeClasses = {
     sm: 'p-2 w-9 h-9',
     md: 'p-2.5 w-10 h-10',
@@ -106,19 +106,20 @@ function SocialIcon({ link, size = 'md' }) {
     lg: 'w-6 h-6',
   }
 
+  // Чистый CSS-hover вместо motion.a с whileHover — Framer Motion spring
+  // конфликтовал с CSS transition-all и оставлял «залипший» transform.
   return (
-    <motion.a
+    <a
       href={link.href}
       target="_blank"
       rel="noopener noreferrer"
-      whileHover={{ scale: 1.1, y: -2 }}
-      whileTap={{ scale: 0.95 }}
       className={`
-        ${sizeClasses[size]} 
-        rounded-xl bg-gray-100 dark:bg-gray-800/80 
-        text-gray-500 dark:text-gray-400 
+        ${sizeClasses[size]}
+        rounded-xl bg-gray-100 dark:bg-gray-800/80
+        text-gray-500 dark:text-gray-400
         hover:bg-gray-200 dark:hover:bg-gray-700
-        transition-all duration-150 
+        hover:scale-110 active:scale-95
+        transition-transform duration-150
         flex items-center justify-center
         group relative overflow-hidden
         ${hoverStyle}
@@ -127,11 +128,11 @@ function SocialIcon({ link, size = 'md' }) {
     >
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-gradient-to-br from-blue-500/10 to-purple-500/10" />
       {IconComponent ? (
-        <IconComponent className={`${iconSizes[size]} relative z-10 transition-transform group-hover:scale-110`} />
+        <IconComponent className={`${iconSizes[size]} relative z-10`} />
       ) : (
-        <ExternalLink className={`${iconSizes[size]} relative z-10 transition-transform group-hover:scale-110`} />
+        <ExternalLink className={`${iconSizes[size]} relative z-10`} />
       )}
-    </motion.a>
+    </a>
   )
 }
 
