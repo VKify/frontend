@@ -949,6 +949,8 @@ export default function Screenshots() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="relative"
+            onMouseEnter={() => setIsAutoPlaying(false)}
+            onMouseLeave={() => setIsAutoPlaying(true)}
           >
             {/* Glow effect */}
             <div className={`absolute -inset-2 bg-gradient-to-r ${currentScreenshot.color} opacity-20 blur-2xl rounded-2xl transition-all duration-500`} />
@@ -959,6 +961,23 @@ export default function Screenshots() {
               contentKey={currentIndex}
               onZoom={() => setIsLightboxOpen(true)}
             />
+
+            {/* Стрелки prev/next — только на ПК. На тач-устройствах
+                навигация через свайпы. */}
+            <button
+              onClick={prev}
+              className="hidden lg:flex absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 items-center justify-center rounded-full bg-white/95 dark:bg-gray-800/95 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all"
+              aria-label={t('screenshots.prev')}
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={next}
+              className="hidden lg:flex absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 items-center justify-center rounded-full bg-white/95 dark:bg-gray-800/95 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all"
+              aria-label={t('screenshots.next')}
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </motion.div>
 
           <ProgressDots
@@ -968,8 +987,8 @@ export default function Screenshots() {
             onSelect={selectScreenshot}
           />
 
-          {/* Swipe hint */}
-          <p className="text-center text-xs text-gray-400 mt-2">
+          {/* Подсказка свайпа — только на тач-устройствах */}
+          <p className="lg:hidden text-center text-xs text-gray-400 mt-2">
             {t('screenshots.swipeHint')}
           </p>
 
