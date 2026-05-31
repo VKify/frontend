@@ -13,6 +13,8 @@ export const ru = {
     learnMore: 'Узнать больше',
     support: 'Поддержать проект',
     back: 'Назад',
+    scrollTop: 'Наверх',
+    vkAria: 'ВКонтакте',
   },
 
   install: {

@@ -13,6 +13,8 @@ export const en = {
     learnMore: 'Learn more',
     support: 'Support the project',
     back: 'Back',
+    scrollTop: 'Scroll to top',
+    vkAria: 'VKontakte',
   },
 
   install: {

@@ -60,6 +60,7 @@ function AnimatedBackground() {
 }
 
 function ScrollToTopButton() {
+  const { t } = useTranslation()
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -81,7 +82,7 @@ function ScrollToTopButton() {
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 z-10 p-3 bg-[#0077ff] text-white rounded-full shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-shadow"
-          aria-label="Наверх"
+          aria-label={t('common.scrollTop')}
         >
           <ArrowUp className="w-5 h-5" />
         </motion.button>

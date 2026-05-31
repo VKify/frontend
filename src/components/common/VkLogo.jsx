@@ -1,8 +1,11 @@
+import { useTranslation } from '../../i18n'
+
 /**
  * Официальный логотип ВКонтакте.
  * Цвет фона квадрата подстраивается под акцентный цвет темы.
  */
 export default function VkLogo({ accent = '#0077ff', size = 24, className = '' }) {
+    const { t } = useTranslation()
     return (
         <svg
             width={size}
@@ -12,7 +15,7 @@ export default function VkLogo({ accent = '#0077ff', size = 24, className = '' }
             xmlns="http://www.w3.org/2000/svg"
             className={className}
             style={{ flexShrink: 0 }}
-            aria-label="ВКонтакте"
+            aria-label={t('common.vkAria')}
             role="img"
         >
             <path
