@@ -714,6 +714,9 @@ function ThumbnailCard({ screenshot, isActive, onSelect }) {
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       onClick={onSelect}
+      // Нативный tooltip — показывает полный текст для редких случаев,
+      // когда line-clamp-2 всё-таки обрезает (~57+ символов на lg).
+      title={`${title} — ${description}`}
       className={`
         relative w-full p-3 xl:p-4 rounded-xl xl:rounded-2xl text-left transition-all duration-150
         ${isActive
@@ -927,9 +930,11 @@ export default function Screenshots() {
           </p>
         </motion.div>
 
-{/* Desktop Layout. gap большой — нужно место под стрелки prev/next,
+{/* Desktop Layout. max-w-6xl + mx-auto центрирует группу относительно
+    viewport (родитель max-w-7xl шире и при широком окне колонки уехали
+    бы к краям). gap большой — нужно место под стрелки prev/next,
     которые позиционируются снаружи рамки браузера. */}
-<div className="hidden lg:flex gap-16 xl:gap-20 items-center">
+<div className="hidden lg:flex gap-16 xl:gap-20 items-center max-w-6xl mx-auto">
   {/* Thumbnails - Left Side */}
   <div className="w-52 xl:w-64 flex-shrink-0 flex flex-col gap-3 xl:gap-4">
     {screenshots.slice(0, Math.ceil(screenshots.length / 2)).map((screenshot, index) => (
