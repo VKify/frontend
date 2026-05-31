@@ -733,9 +733,10 @@ function ThumbnailCard({ screenshot, isActive, onSelect }) {
           <div className="font-semibold text-gray-900 dark:text-white text-xs xl:text-sm truncate">
             {title}
           </div>
-          {/* line-clamp-2 — описание во 2 строки целиком (EN-тексты длиннее RU,
-              «truncate» обрезал их в одну строку с «…»). */}
-          <div className="text-[10px] xl:text-xs text-gray-500 dark:text-gray-400 leading-snug line-clamp-2">
+          {/* line-clamp-2 — описание максимум 2 строки. min-h ≈ 2 строки
+              фиксирует высоту всех 6 карточек, чтобы колонки не «прыгали»
+              из-за коротких/длинных описаний (EN vs RU). */}
+          <div className="text-[10px] xl:text-xs text-gray-500 dark:text-gray-400 leading-snug line-clamp-2 min-h-[2.5em]">
             {description}
           </div>
         </div>
@@ -800,7 +801,10 @@ function BrowserFrame({ screenshot, contentKey, compact, onZoom }) {
             <h3 className={`font-bold text-gray-900 dark:text-white ${compact ? 'text-sm' : ''}`}>
               {title}
             </h3>
-            <p className={`text-gray-500 dark:text-gray-400 ${compact ? 'text-xs truncate' : 'text-sm'}`}>
+            {/* truncate (1 строка) — чтобы caption-бар не менял высоту
+                между скриншотами (длина описаний разная). Полный текст
+                остаётся видимым на тумб-карточках сбоку. */}
+            <p className={`text-gray-500 dark:text-gray-400 truncate ${compact ? 'text-xs' : 'text-sm'}`}>
               {description}
             </p>
           </div>
@@ -930,11 +934,11 @@ export default function Screenshots() {
           </p>
         </motion.div>
 
-{/* Desktop Layout. max-w-6xl + mx-auto центрирует группу относительно
-    viewport (родитель max-w-7xl шире и при широком окне колонки уехали
-    бы к краям). gap большой — нужно место под стрелки prev/next,
-    которые позиционируются снаружи рамки браузера. */}
-<div className="hidden lg:flex gap-16 xl:gap-20 items-center max-w-6xl mx-auto">
+{/* Desktop Layout. max-w-5xl + mx-auto центрирует группу относительно
+    viewport — это 1024px, влезает в любой lg+ viewport с воздухом по
+    бокам. gap большой — нужно место под стрелки prev/next, которые
+    позиционируются снаружи рамки браузера. */}
+<div className="hidden lg:flex gap-12 xl:gap-16 items-center max-w-5xl mx-auto">
   {/* Thumbnails - Left Side */}
   <div className="w-52 xl:w-64 flex-shrink-0 flex flex-col gap-3 xl:gap-4">
     {screenshots.slice(0, Math.ceil(screenshots.length / 2)).map((screenshot, index) => (
