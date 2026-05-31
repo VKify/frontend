@@ -3,42 +3,12 @@ import { FileText, CheckCircle, AlertCircle, Scale, Mail, Calendar } from 'lucid
 import SEO from '../components/common/SEO'
 import { useTranslation } from '../i18n'
 
-const sections = [
-  {
-    icon: FileText,
-    title: 'Описание сервиса',
-    content: `VKify — это бесплатное браузерное расширение для кастомизации социальной сети ВКонтакте. Расширение предоставляет возможности изменения внешнего вида, блокировки рекламы и дополнительные функции для улучшения пользовательского опыта.`,
-  },
-  {
-    icon: CheckCircle,
-    title: 'Правила использования',
-    items: [
-      'Использовать расширение только в личных целях',
-      'Не нарушать правила использования сайта vk.com',
-      'Не использовать расширение для спама или вредоносных действий',
-      'Не пытаться обойти системы безопасности ВКонтакте',
-      'Не распространять модифицированные версии расширения',
-    ],
-  },
-  {
-    icon: AlertCircle,
-    title: 'Ограничение ответственности',
-    content: `VKify предоставляется "как есть" без каких-либо гарантий. Мы не несём ответственности за любые изменения в работе ВКонтакте, временную недоступность функций, любые последствия использования расширения или действия администрации ВКонтакте в отношении вашего аккаунта. Используйте расширение на свой страх и риск.`,
-  },
-  {
-    icon: Scale,
-    title: 'Изменения в соглашении',
-    content: `Мы оставляем за собой право изменять условия данного соглашения в любое время. Продолжая использовать расширение после внесения изменений, вы соглашаетесь с новыми условиями. Рекомендуем периодически проверять эту страницу.`,
-  },
-  {
-    icon: Mail,
-    title: 'Контактная информация',
-    content: `По всем вопросам, связанным с использованием VKify, вы можете обратиться к нам через Telegram (@vkify), ВКонтакте (vk.com/vkify) или GitHub (github.com/VKify/). Мы стараемся отвечать на все обращения в течение 24-48 часов.`,
-  },
-]
+// Только иконки; тексты — из i18n: legal.terms.sections[i]
+const sectionIcons = [FileText, CheckCircle, AlertCircle, Scale, Mail]
 
 export default function Terms() {
   const { t } = useTranslation()
+  const sections = t('legal.terms.sections')
   return (
     <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950">
       <SEO
@@ -82,41 +52,44 @@ export default function Terms() {
 
         {/* Sections */}
         <div className="space-y-6">
-          {sections.map((section, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * (index + 2) }}
-              className="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:shadow-md transition-shadow"
-            >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#0077ff]/10 flex items-center justify-center flex-shrink-0">
-                  <section.icon className="w-6 h-6 text-[#0077ff]" />
+          {sections.map((section, index) => {
+            const Icon = sectionIcons[index]
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * (index + 2) }}
+                className="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#0077ff]/10 flex items-center justify-center flex-shrink-0">
+                    {Icon && <Icon className="w-6 h-6 text-[#0077ff]" />}
+                  </div>
+                  <div className="flex-1">
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                      {section.title}
+                    </h2>
+                    {section.content && (
+                      <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {section.content}
+                      </p>
+                    )}
+                    {section.items && (
+                      <ul className="space-y-2">
+                        {section.items.map((item, i) => (
+                          <li key={i} className="flex items-start gap-3">
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#0077ff] mt-2 flex-shrink-0" />
+                            <span className="text-gray-600 dark:text-gray-400">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                    {section.title}
-                  </h2>
-                  {section.content && (
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                      {section.content}
-                    </p>
-                  )}
-                  {section.items && (
-                    <ul className="space-y-2">
-                      {section.items.map((item, i) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#0077ff] mt-2 flex-shrink-0" />
-                          <span className="text-gray-600 dark:text-gray-400">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            )
+          })}
         </div>
 
         {/* Footer Note */}
@@ -127,8 +100,7 @@ export default function Terms() {
           className="mt-12 text-center text-gray-500 dark:text-gray-400"
         >
           <p>
-            Если у вас есть вопросы относительно данных условий, пожалуйста, 
-            свяжитесь с нами перед использованием расширения.
+            {t('legal.terms.footerNote')}
           </p>
         </motion.div>
       </div>

@@ -517,6 +517,28 @@ export const en = {
       lastUpdated: 'Last updated: January 28, 2026',
       keyLabel: 'In short:',
       keyText: "VKify doesn't collect, store or share any of your data. Your privacy is our priority.",
+      sections: [
+        {
+          title: 'What data we collect',
+          content: 'VKify does not collect or share any personal data. We follow a “zero data collection” principle. All extension settings are stored exclusively on your device, in your browser.',
+        },
+        {
+          title: 'How we use data',
+          content: 'Since we do not collect data, there is nothing for us to use. The extension works fully offline. All your preferences, theme settings and other configurations stay on your device.',
+        },
+        {
+          title: 'Data storage',
+          content: 'All data is stored locally in your browser storage (chrome.storage.local). This means your settings are accessible only to you and never leave your device. When you uninstall the extension, all data is removed with it.',
+        },
+        {
+          title: 'Third-party services',
+          content: 'VKify does not use third-party analytics, ad networks or trackers. We do not integrate with any external platforms that could collect information about you.',
+        },
+        {
+          title: 'Contacts for questions',
+          content: 'If you have any questions about privacy or how the extension works, you can reach us via Telegram (@vkify) or our VK community. We are always happy to help.',
+        },
+      ],
     },
     terms: {
       seoTitle: 'Terms of use',
@@ -525,6 +547,35 @@ export const en = {
       titleAccent: 'of use',
       lastUpdated: 'Last updated: January 28, 2026',
       intro: 'Please read the terms of use carefully before installing and using the VKify extension.',
+      footerNote: 'If you have any questions about these terms, please contact us before using the extension.',
+      sections: [
+        {
+          title: 'Service description',
+          content: 'VKify is a free browser extension for customizing the VKontakte social network. The extension lets you change the appearance, block ads and adds extra features to improve your experience.',
+        },
+        {
+          title: 'Rules of use',
+          items: [
+            'Use the extension for personal purposes only',
+            'Do not violate the vk.com terms of service',
+            'Do not use the extension for spam or malicious actions',
+            'Do not attempt to bypass VKontakte security systems',
+            'Do not distribute modified versions of the extension',
+          ],
+        },
+        {
+          title: 'Limitation of liability',
+          content: 'VKify is provided “as is” without any warranties. We are not responsible for any changes in how VKontakte works, temporary unavailability of features, any consequences of using the extension or actions taken by VKontakte administration regarding your account. Use the extension at your own risk.',
+        },
+        {
+          title: 'Changes to the agreement',
+          content: 'We reserve the right to change these terms at any time. By continuing to use the extension after changes are made, you agree to the updated terms. We recommend checking this page periodically.',
+        },
+        {
+          title: 'Contact information',
+          content: 'For any questions related to VKify, you can reach us via Telegram (@vkify), VKontakte (vk.com/vkify) or GitHub (github.com/VKify/). We try to respond to all requests within 24–48 hours.',
+        },
+      ],
     },
   },
 
