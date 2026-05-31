@@ -925,8 +925,9 @@ export default function Screenshots() {
           </p>
         </motion.div>
 
-{/* Desktop Layout */}
-<div className="hidden lg:flex gap-6 xl:gap-8 items-center">
+{/* Desktop Layout. gap большой — нужно место под стрелки prev/next,
+    которые позиционируются снаружи рамки браузера. */}
+<div className="hidden lg:flex gap-16 xl:gap-20 items-center">
   {/* Thumbnails - Left Side */}
   <div className="w-52 xl:w-64 flex-shrink-0 flex flex-col gap-3 xl:gap-4">
     {screenshots.slice(0, Math.ceil(screenshots.length / 2)).map((screenshot, index) => (
