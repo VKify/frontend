@@ -722,7 +722,7 @@ function ThumbnailCard({ screenshot, isActive, onSelect }) {
         }
       `}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-start gap-3">
         <div className={`w-9 h-9 xl:w-10 xl:h-10 flex-shrink-0 rounded-lg xl:rounded-xl bg-gradient-to-br ${screenshot.color} flex items-center justify-center`}>
           <Icon className="w-4 h-4 xl:w-5 xl:h-5 text-white" />
         </div>
@@ -730,7 +730,9 @@ function ThumbnailCard({ screenshot, isActive, onSelect }) {
           <div className="font-semibold text-gray-900 dark:text-white text-xs xl:text-sm truncate">
             {title}
           </div>
-          <div className="text-[10px] xl:text-xs text-gray-500 dark:text-gray-400 truncate">
+          {/* line-clamp-2 — описание во 2 строки целиком (EN-тексты длиннее RU,
+              «truncate» обрезал их в одну строку с «…»). */}
+          <div className="text-[10px] xl:text-xs text-gray-500 dark:text-gray-400 leading-snug line-clamp-2">
             {description}
           </div>
         </div>
