@@ -934,88 +934,13 @@ export default function Screenshots() {
           </p>
         </motion.div>
 
-{/* Desktop Layout. max-w-5xl + mx-auto центрирует группу относительно
-    viewport — это 1024px, влезает в любой lg+ viewport с воздухом по
-    бокам. gap большой — нужно место под стрелки prev/next, которые
-    позиционируются снаружи рамки браузера. */}
-<div className="hidden lg:flex gap-12 xl:gap-16 items-center max-w-5xl mx-auto">
-  {/* Thumbnails - Left Side */}
-  <div className="w-52 xl:w-64 flex-shrink-0 flex flex-col gap-3 xl:gap-4">
-    {screenshots.slice(0, Math.ceil(screenshots.length / 2)).map((screenshot, index) => (
-      <ThumbnailCard
-        key={screenshot.id}
-        screenshot={screenshot}
-        isActive={index === currentIndex}
-        onSelect={() => selectScreenshot(index)}
-      />
-    ))}
-  </div>
-
-  {/* Main Preview - Center (занимает всё оставшееся место) */}
-  <div 
-    className="flex-1 min-w-0"
-    onMouseEnter={() => setIsAutoPlaying(false)}
-    onMouseLeave={() => setIsAutoPlaying(true)}
-  >
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="relative"
-    >
-      {/* Glow effect */}
-      <div className={`absolute -inset-4 bg-gradient-to-r ${currentScreenshot.color} opacity-20 blur-3xl rounded-3xl transition-all duration-500`} />
-
-      <BrowserFrame
-        screenshot={currentScreenshot}
-        contentKey={currentIndex}
-        onZoom={() => setIsLightboxOpen(true)}
-      />
-
-      {/* Стрелки навигации — снаружи рамки браузера (right-full/left-full
-          ставит границу кнопки на край рамки, mr/ml — отступ наружу). */}
-      <button
-        onClick={prev}
-        className="absolute right-full mr-3 xl:mr-5 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all z-20"
-        aria-label={t('screenshots.prev')}
-      >
-        <ChevronLeft className="w-5 h-5" />
-      </button>
-      <button
-        onClick={next}
-        className="absolute left-full ml-3 xl:ml-5 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-blue-500 hover:scale-110 transition-all z-20"
-        aria-label={t('screenshots.next')}
-      >
-        <ChevronRight className="w-5 h-5" />
-      </button>
-    </motion.div>
-
-    <ProgressDots
-      currentIndex={currentIndex}
-      isAutoPlaying={isAutoPlaying}
-      onSelect={selectScreenshot}
-    />
-  </div>
-
-  {/* Thumbnails - Right Side */}
-  <div className="w-52 xl:w-64 flex-shrink-0 flex flex-col gap-3 xl:gap-4">
-    {screenshots.slice(Math.ceil(screenshots.length / 2)).map((screenshot, index) => {
-      const realIndex = index + Math.ceil(screenshots.length / 2)
-      return (
-        <ThumbnailCard
-          key={screenshot.id}
-          screenshot={screenshot}
-          isActive={realIndex === currentIndex}
-          onSelect={() => selectScreenshot(realIndex)}
-        />
-      )
-    })}
-  </div>
-</div>
-
-        {/* Mobile/Tablet Layout */}
-        <div 
-          className="lg:hidden"
+        {/* Единый компактный layout на всех размерах — рамка превью +
+            точки + горизонтальный ряд миниатюр. Раньше был отдельный
+            десктоп-вариант с колонками тумбов по бокам, но он плохо
+            масштабировался (прыгающая высота, центрирование, стрелки
+            наружу). Компактный вариант проще и стабильнее. */}
+        <div
+          className="max-w-3xl mx-auto"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
