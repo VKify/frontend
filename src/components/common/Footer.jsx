@@ -373,16 +373,8 @@ function BottomBar({ currentYear, latestVersion }) {
         </div>
         
         <div className="hidden lg:flex items-center gap-1.5">
-          {config.social.map((link, index) => (
-            <motion.div
-              key={link.name}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <SocialIcon link={link} size="sm" />
-            </motion.div>
+          {config.social.map((link) => (
+            <SocialIcon key={link.name} link={link} size="sm" />
           ))}
         </div>
       </div>
@@ -431,16 +423,8 @@ export default function Footer() {
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                {config.social.map((link, index) => (
-                  <motion.div
-                    key={link.name}
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1, type: 'spring' }}
-                  >
-                    <SocialIcon link={link} size="lg" />
-                  </motion.div>
+                {config.social.map((link) => (
+                  <SocialIcon key={link.name} link={link} size="lg" />
                 ))}
               </div>
             </div>

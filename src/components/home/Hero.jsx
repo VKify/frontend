@@ -115,15 +115,12 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.25 }}
               className="mt-8 flex flex-wrap gap-2 justify-center lg:justify-start"
             >
-              {features.map(({ Icon, id, color }, i) => (
+              {features.map(({ Icon, id, color }) => (
                 <motion.div
                   key={id}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.4 + i * 0.1 }}
                   whileHover={{ scale: 1.05 }}
                   className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 cursor-default"
                 >
