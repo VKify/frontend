@@ -94,7 +94,7 @@ export const en = {
     titleAccent: 'in one extension',
     description: 'Themes, privacy, media downloads and activity tracking. Everything is configured right inside VK — no extra tabs.',
     bottomPre: 'Plus a feature search on ',
-    bottomPost: ', favorites and quick actions — new features added regularly',
+    bottomPost: ', player control hotkeys, favorites and quick actions — new features added regularly',
     cards: {
       appearance: {
         title: 'Make it yours',
@@ -142,7 +142,7 @@ export const en = {
           'Video up to 1080p',
           'Stories and photos',
           'Whole albums',
-          'Player hotkeys',
+          'Choose video quality',
         ],
       },
       messages: {
@@ -239,6 +239,8 @@ export const en = {
         hidden: 'hidden',
         read: 'Read receipts',
         typingLabel: 'Typing',
+        online: 'Online',
+        onlineHidden: 'Online hidden',
       },
       fonts: {
         name: 'Alexander Ivanov',
