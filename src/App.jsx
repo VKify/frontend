@@ -11,6 +11,8 @@ const Welcome = lazy(() => import('./pages/Welcome'))
 const Uninstall = lazy(() => import('./pages/Uninstall'))
 const Changelog = lazy(() => import('./pages/Changelog'))
 const ChangelogVersion = lazy(() => import('./pages/ChangelogVersion'))
+const News = lazy(() => import('./pages/News'))
+const NewsPost = lazy(() => import('./pages/NewsPost'))
 const Privacy = lazy(() => import('./pages/Privacy'))
 const Terms = lazy(() => import('./pages/Terms'))
 const NotFound = lazy(() => import('./pages/NotFound'))
@@ -34,6 +36,8 @@ function App() {
                         <Route path="/uninstall" element={<Uninstall />} />
                         <Route path="/changelog" element={<Changelog />} />
                         <Route path="/changelog/:version" element={<ChangelogVersion />} />
+                        <Route path="/news" element={<News />} />
+                        <Route path="/news/:slug" element={<NewsPost />} />
                         <Route path="/privacy" element={<Privacy />} />
                         <Route path="/terms" element={<Terms />} />
                         <Route path="/themes" element={<Themes />} />

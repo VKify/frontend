@@ -1,8 +1,10 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Download, Chrome, Sparkles, Shield, Palette, Lock, Globe } from 'lucide-react'
+import { ArrowRight, Download, Sparkles, Shield, Palette, Lock } from 'lucide-react'
 import Button from '../common/Button'
+import BrowserLogo from '../common/BrowserLogo'
+import { ChromeIcon } from '../common/BrowserIcons'
 import Hero3DCard from './Hero3DCard'
 import config from '../../config'
 import { useTranslation } from '../../i18n'
@@ -146,7 +148,7 @@ export default function Hero() {
                 size="lg"
                 className="w-full sm:w-auto gap-2 group shadow-lg shadow-blue-500/25"
               >
-                <Chrome className="w-5 h-5" />
+                <ChromeIcon className="w-5 h-5" />
                 <span>{t('common.installFree')}</span>
                 <Download className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
               </Button>
@@ -173,33 +175,60 @@ export default function Hero() {
                 {t('hero.worksIn')}
               </span>
 
-              <div className="flex items-center gap-3">
-                {/* Chrome */}
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg
-                  bg-yellow-100 text-yellow-800
-                  dark:bg-yellow-500/20 dark:text-yellow-300
-                  text-sm">
-                  <Globe className="w-4 h-4" />
+              <div className="flex flex-wrap items-center gap-2">
+                {/* Chrome — кликабельно, ведёт в Chrome Web Store */}
+                <a
+                  href={config.links.chromeWebStore}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl
+                    bg-white dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700
+                    text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm
+                    hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md hover:-translate-y-0.5
+                    transition-all duration-150"
+                >
+                  <BrowserLogo name="chrome" className="w-5 h-5" />
                   <span>Chrome</span>
-                </div>
+                </a>
+
+                {/* Firefox — новинка, ведёт в Firefox Add-ons */}
+                <a
+                  href={config.links.firefoxAddons}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl
+                    bg-white dark:bg-gray-800/80 border border-orange-300/70 dark:border-orange-500/40
+                    text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm
+                    hover:border-orange-400 dark:hover:border-orange-500/70 hover:shadow-md hover:-translate-y-0.5
+                    transition-all duration-150"
+                >
+                  <BrowserLogo name="firefox" className="w-5 h-5" />
+                  <span>Firefox</span>
+                  <span className="absolute -top-2 -right-1.5 px-1.5 py-0.5 rounded-full bg-orange-500 text-white text-[9px] font-bold leading-none shadow">
+                    {t('hero.newBadge')}
+                  </span>
+                </a>
 
                 {/* Edge */}
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg
-                  bg-blue-100 text-blue-800
-                  dark:bg-blue-500/20 dark:text-blue-300
-                  text-sm">
-                  <Globe className="w-4 h-4" />
+                <div className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl
+                  bg-white dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700
+                  text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm">
+                  <BrowserLogo name="edge" className="w-5 h-5" />
                   <span>Edge</span>
                 </div>
 
                 {/* Opera */}
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg
-                  bg-red-100 text-red-800
-                  dark:bg-red-500/20 dark:text-red-300
-                  text-sm">
-                  <Globe className="w-4 h-4" />
+                <div className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl
+                  bg-white dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700
+                  text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm">
+                  <BrowserLogo name="opera" className="w-5 h-5" />
                   <span>Opera</span>
                 </div>
+
+                {/* Любой браузер на Chromium */}
+                <span className="text-xs text-gray-400 dark:text-gray-500 px-1">
+                  {t('hero.chromiumNote')}
+                </span>
               </div>
             </motion.div>
 

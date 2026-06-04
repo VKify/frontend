@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Download, Heart, ExternalLink, Chrome, Star, Users, Zap, Palette, Shield, Sparkles } from 'lucide-react'
+import { Download, Heart, ExternalLink, Star, Users, Zap, Palette, Shield, Sparkles } from 'lucide-react'
 import DonateModal from '../common/DonateModal'
+import { ChromeIcon, FirefoxIcon } from '../common/BrowserIcons'
 import Logo from '../common/Logo'
 import { TelegramIcon, VKIcon } from '../common/SocialIcons'
 import config from '../../config'
@@ -152,26 +153,46 @@ export default function CTA() {
                 transition={{ delay: 0.5 }}
                 className="flex flex-col items-center gap-6"
               >
-                <motion.a
-                  href={config.links.chromeWebStore}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-[#0077ff] font-bold text-lg rounded-2xl shadow-2xl hover:shadow-white/25 transition-all duration-150"
-                >
-                  <div className="absolute inset-0 rounded-2xl overflow-hidden">
-                    <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-blue-100 to-transparent transition-transform duration-500" />
-                  </div>
-                  
-                  <Chrome className="w-6 h-6" />
-                  <span>{t('cta.installChrome')}</span>
-                  <ExternalLink className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
-                </motion.a>
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                  <motion.a
+                    href={config.links.chromeWebStore}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-[#0077ff] font-bold text-lg rounded-2xl shadow-2xl hover:shadow-white/25 transition-all duration-150"
+                  >
+                    <div className="absolute inset-0 rounded-2xl overflow-hidden">
+                      <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-blue-100 to-transparent transition-transform duration-500" />
+                    </div>
 
-                <p className="text-white/60 text-sm">
-                  {t('cta.installNote')}
-                </p>
+                    <ChromeIcon className="w-6 h-6" />
+                    <span>{t('cta.installChrome')}</span>
+                    <ExternalLink className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
+                  </motion.a>
+
+                  <motion.a
+                    href={config.links.firefoxAddons}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="group inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/10 backdrop-blur-sm text-white font-bold text-lg rounded-2xl border border-white/30 hover:bg-white/20 hover:border-white/50 transition-all duration-150"
+                  >
+                    <FirefoxIcon className="w-6 h-6" />
+                    <span>{t('cta.installFirefox')}</span>
+                    <ExternalLink className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
+                  </motion.a>
+                </div>
+
+                <div className="text-center space-y-1">
+                  <p className="text-white/60 text-sm">
+                    {t('cta.installNote')}
+                  </p>
+                  <p className="text-white/40 text-xs">
+                    {t('cta.browsersNote')}
+                  </p>
+                </div>
               </motion.div>
 
               {/* Secondary actions */}

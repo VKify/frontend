@@ -9,6 +9,8 @@ export const ru = {
   common: {
     install: 'Установить',
     installFree: 'Установить бесплатно',
+    installChrome: 'Установить для Chrome',
+    installFirefox: 'Установить для Firefox',
     allFeatures: 'Все возможности',
     learnMore: 'Узнать больше',
     support: 'Поддержать проект',
@@ -25,7 +27,7 @@ export const ru = {
       'Блокировка рекламы и трекеров',
       'Приватность и автоматизация',
     ],
-    freeNote: 'Chrome, Edge, Opera · Бесплатно',
+    freeNote: 'Chrome, Firefox, Edge, Opera · Бесплатно',
   },
 
   donate: {
@@ -41,6 +43,7 @@ export const ru = {
     howItWorks: 'Как это работает',
     stats: 'Статистика',
     screenshots: 'Скриншоты',
+    news: 'Новости',
     download: 'Скачать',
   },
 
@@ -49,7 +52,7 @@ export const ru = {
     announcement: 'Вышла версия {version} с новыми функциями',
     menu: 'Меню',
     community: 'Сообщество',
-    freeBrowsers: 'Бесплатно • Chrome, Edge, Opera',
+    freeBrowsers: 'Бесплатно • Chrome, Firefox, Edge, Opera',
     language: 'Язык',
   },
 
@@ -59,6 +62,8 @@ export const ru = {
     titleAccent: 'ВКонтакте',
     subtitle: 'Темы и видео-обои, блокировка рекламы и трекеров, шифрование переписки и скачивание медиа — {features} функций в одном расширении. Бесплатно.',
     worksIn: 'Работает в:',
+    newBadge: 'Новинка',
+    chromiumNote: 'и любой браузер на Chromium',
     pills: {
       themes: 'Темы и обои',
       adblock: 'Без рекламы',
@@ -161,8 +166,8 @@ export const ru = {
     steps: [
       {
         title: 'Установите расширение',
-        description: 'Добавьте VKify в браузер из Chrome Web Store бесплатно',
-        features: ['Бесплатно навсегда', 'Без регистрации', 'Автообновления'],
+        description: 'Добавьте VKify бесплатно из Chrome Web Store или Firefox Add-ons',
+        features: ['Chrome, Firefox, Edge, Opera', 'Без регистрации', 'Автообновления'],
       },
       {
         title: 'Откройте VK',
@@ -254,7 +259,9 @@ export const ru = {
       features: '{features} функций',
     },
     installChrome: 'Установить для Chrome',
+    installFirefox: 'Установить для Firefox',
     installNote: 'Бесплатно • Без регистрации • Мгновенная установка',
+    browsersNote: 'Edge, Opera и любой браузер на Chromium — из Chrome Web Store',
   },
 
   themesPage: {
@@ -508,6 +515,38 @@ export const ru = {
     backToListLong: 'Назад к списку обновлений',
   },
 
+  newsPage: {
+    seoTitle: 'Новости',
+    seoDescription: 'Новости и анонсы VKify — новые функции, поддержка браузеров и обновления расширения для ВКонтакте.',
+    titleTop: 'Новости',
+    titleAccent: 'VKify',
+    subtitle: 'Анонсы, релизы и всё важное о расширении',
+    empty: 'Пока нет новостей',
+    locale: 'ru-RU',
+    searchPlaceholder: 'Поиск по новостям…',
+    allCategory: 'Все',
+    found: '{count} из {total}',
+    searchEmptyTitle: 'Ничего не найдено',
+    searchEmptyHint: 'Попробуйте изменить запрос или категорию',
+    resetFilters: 'Сбросить фильтры',
+    featured: 'Главное',
+    latest: 'Свежее',
+    readMore: 'Читать',
+    readTime: '{count} мин чтения',
+    backToList: 'Все новости',
+    allNews: 'Все новости',
+    relatedTitle: 'Другие новости',
+    notFoundTitle: 'Новость не найдена',
+    notFoundText: 'Запрашиваемая новость не существует или была удалена',
+    postSeoTitle: '{title}',
+    postSeoDescription: '{excerpt}',
+    categories: {
+      release: 'Релиз',
+      feature: 'Новая функция',
+      announcement: 'Анонс',
+    },
+  },
+
   legal: {
     privacy: {
       seoTitle: 'Политика конфиденциальности',
@@ -657,8 +696,10 @@ export const ru = {
       install: 'Как установить',
       themes: 'Темы оформления',
       wallpapers: 'Коллекция обоев',
+      news: 'Новости',
       changelog: 'Обновления',
       chromeStore: 'Chrome Web Store',
+      firefoxStore: 'Firefox Add-ons',
       sourceCode: 'Исходный код',
       reportBug: 'Сообщить о баге',
       telegram: 'Telegram канал',

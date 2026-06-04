@@ -9,6 +9,8 @@ export const en = {
   common: {
     install: 'Install',
     installFree: 'Install free',
+    installChrome: 'Install for Chrome',
+    installFirefox: 'Install for Firefox',
     allFeatures: 'All features',
     learnMore: 'Learn more',
     support: 'Support the project',
@@ -25,7 +27,7 @@ export const en = {
       'Ad and tracker blocking',
       'Privacy and automation',
     ],
-    freeNote: 'Chrome, Edge, Opera · Free',
+    freeNote: 'Chrome, Firefox, Edge, Opera · Free',
   },
 
   donate: {
@@ -41,6 +43,7 @@ export const en = {
     howItWorks: 'How it works',
     stats: 'Stats',
     screenshots: 'Screenshots',
+    news: 'News',
     download: 'Download',
   },
 
@@ -49,7 +52,7 @@ export const en = {
     announcement: 'Version {version} is out with new features',
     menu: 'Menu',
     community: 'Community',
-    freeBrowsers: 'Free • Chrome, Edge, Opera',
+    freeBrowsers: 'Free • Chrome, Firefox, Edge, Opera',
     language: 'Language',
   },
 
@@ -59,6 +62,8 @@ export const en = {
     titleAccent: 'VKontakte',
     subtitle: 'Themes and video wallpapers, ad and tracker blocking, message encryption and media downloads — {features} features in one extension. Free.',
     worksIn: 'Works in:',
+    newBadge: 'New',
+    chromiumNote: 'and any Chromium-based browser',
     pills: {
       themes: 'Themes & wallpapers',
       adblock: 'No ads',
@@ -161,8 +166,8 @@ export const en = {
     steps: [
       {
         title: 'Install the extension',
-        description: 'Add VKify to your browser from the Chrome Web Store for free',
-        features: ['Free forever', 'No registration', 'Auto-updates'],
+        description: 'Add VKify for free from the Chrome Web Store or Firefox Add-ons',
+        features: ['Chrome, Firefox, Edge, Opera', 'No registration', 'Auto-updates'],
       },
       {
         title: 'Open VK',
@@ -254,7 +259,9 @@ export const en = {
       features: '{features} features',
     },
     installChrome: 'Install for Chrome',
+    installFirefox: 'Install for Firefox',
     installNote: 'Free • No registration • Instant install',
+    browsersNote: 'Edge, Opera and any Chromium browser — from the Chrome Web Store',
   },
 
   themesPage: {
@@ -508,6 +515,38 @@ export const en = {
     backToListLong: 'Back to the updates list',
   },
 
+  newsPage: {
+    seoTitle: 'News',
+    seoDescription: 'VKify news and announcements — new features, browser support and updates to the VKontakte extension.',
+    titleTop: 'VKify',
+    titleAccent: 'news',
+    subtitle: 'Announcements, releases and everything that matters about the extension',
+    empty: 'No news yet',
+    locale: 'en-US',
+    searchPlaceholder: 'Search news…',
+    allCategory: 'All',
+    found: '{count} of {total}',
+    searchEmptyTitle: 'Nothing found',
+    searchEmptyHint: 'Try a different query or category',
+    resetFilters: 'Reset filters',
+    featured: 'Featured',
+    latest: 'Fresh',
+    readMore: 'Read',
+    readTime: '{count} min read',
+    backToList: 'All news',
+    allNews: 'All news',
+    relatedTitle: 'More news',
+    notFoundTitle: 'Article not found',
+    notFoundText: 'The requested article does not exist or has been removed',
+    postSeoTitle: '{title}',
+    postSeoDescription: '{excerpt}',
+    categories: {
+      release: 'Release',
+      feature: 'New feature',
+      announcement: 'Announcement',
+    },
+  },
+
   legal: {
     privacy: {
       seoTitle: 'Privacy policy',
@@ -657,8 +696,10 @@ export const en = {
       install: 'How to install',
       themes: 'Themes',
       wallpapers: 'Wallpaper collection',
+      news: 'News',
       changelog: 'Changelog',
       chromeStore: 'Chrome Web Store',
+      firefoxStore: 'Firefox Add-ons',
       sourceCode: 'Source code',
       reportBug: 'Report a bug',
       telegram: 'Telegram channel',

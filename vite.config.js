@@ -3,15 +3,18 @@ import react from '@vitejs/plugin-react'
 import prerender from '@prerenderer/rollup-plugin'
 import { themeIds }     from './src/data/themes.js'
 import { wallpaperIds } from './src/data/wallpapers.js'
+import { newsSlugs }    from './src/data/news.js'
 
 const routes = [
   // Static pages
   '/', '/welcome', '/uninstall', '/changelog', '/privacy', '/terms',
-  '/themes', '/wallpapers',
+  '/themes', '/wallpapers', '/news',
   // Dynamic theme pages
   ...themeIds.map(id => `/themes/${id}`),
   // Dynamic wallpaper pages
   ...wallpaperIds.map(id => `/wallpapers/${id}`),
+  // News posts
+  ...newsSlugs.map(slug => `/news/${slug}`),
 ]
 
 export default defineConfig({

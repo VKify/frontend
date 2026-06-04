@@ -15,7 +15,7 @@
   ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
   ![Framer Motion](https://img.shields.io/badge/Framer_Motion-10-FF0055?style=flat-square&logo=framer&logoColor=white)
   ![i18n](https://img.shields.io/badge/i18n-ru%20·%20en-0077FF?style=flat-square)
-  ![Routes](https://img.shields.io/badge/prerendered-83_routes-34A853?style=flat-square)
+  ![Routes](https://img.shields.io/badge/prerendered-85_routes-34A853?style=flat-square)
 
   [Русская версия →](README.md)
 
@@ -38,6 +38,8 @@
 | `/wallpapers/:id` | `WallpaperDetail.jsx` | Video/image/iframe, auto-extracted metadata, error fallback, InstallModal |
 | `/changelog` | `Changelog.jsx` | Update history |
 | `/changelog/:version` | `ChangelogVersion.jsx` | Specific version detail |
+| `/news` | `News.jsx` | News & announcements (bilingual posts from `src/data/news.js`) |
+| `/news/:slug` | `NewsPost.jsx` | News article: cover, content blocks, CTA, related posts |
 | `/welcome` | `Welcome.jsx` | Post-install page: extension status, theme picker, quick settings |
 | `/uninstall` | `Uninstall.jsx` | Post-uninstall page with feedback form (Google Forms, no-cors) |
 | `/privacy` | `Privacy.jsx` | Privacy policy |
@@ -56,7 +58,7 @@
 │  hydrateRoot ──► hydrate prerendered HTML                          │
 │  LanguageProvider ──► ru / en, switcher in the header              │
 │                                                                    │
-│  Prerender: 83 routes                                              │
+│  Prerender: 85 routes                                              │
 │    8 static + 72 themes (/themes/:id) + 3 wallpapers (/wallpapers) │
 │    Puppeteer → static HTML for search engines                      │
 └────────────────────────────────────────────────────────────────────┘
@@ -164,7 +166,8 @@ frontend/
 │   │   ├── themes.js                # 72 themes, 10 categories (themes/themeCategories/themeIds)
 │   │   ├── wallpapers.js            # 3 wallpapers (IMAGE/VIDEO/WEB), 7 categories
 │   │   ├── features.js              # structural data of top features (id+icon+color)
-│   │   └── changelog.js             # 5 versions
+│   │   ├── changelog.js             # 5 versions
+│   │   └── news.js                  # bilingual news (slug + translations[lang])
 │   │
 │   ├── hooks/
 │   │   ├── useExtension.js          # postMessage bridge; { detected, version, settings, saveSettings }
@@ -189,7 +192,7 @@ frontend/
 │   ├── App.jsx                      # router + lazy imports
 │   └── main.jsx                     # hydrateRoot / createRoot + ErrorBoundary + LanguageProvider
 │
-├── vite.config.js                   # Build + prerender of 83 routes
+├── vite.config.js                   # Build + prerender of 85 routes
 ├── tailwind.config.js
 ├── postcss.config.js
 └── package.json
@@ -302,13 +305,15 @@ The route list is built dynamically from data at build time:
 // vite.config.js
 import { themeIds }     from './src/data/themes.js'     // 72 IDs
 import { wallpaperIds } from './src/data/wallpapers.js' // 3 IDs
+import { newsSlugs }    from './src/data/news.js'       // 1 slug
 
 const routes = [
   '/', '/welcome', '/uninstall', '/changelog',
-  '/privacy', '/terms', '/themes', '/wallpapers',     // 8 static
+  '/privacy', '/terms', '/themes', '/wallpapers', '/news', // 9 static
   ...themeIds.map(id => `/themes/${id}`),             // 72 routes
   ...wallpaperIds.map(id => `/wallpapers/${id}`),     // 3 routes
-]  // total: 83 routes
+  ...newsSlugs.map(slug => `/news/${slug}`),          // 1 route
+]  // total: 85 routes
 ```
 
 Every theme page gets a unique `og:image`:

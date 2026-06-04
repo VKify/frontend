@@ -17,6 +17,7 @@ export const config = {
   // Внешние ссылки
   links: {
     chromeWebStore: 'https://chromewebstore.google.com/detail/vkify/lofggenkgbpdmmplnbgfplnpfjhgljla',
+    firefoxAddons: 'https://addons.mozilla.org/ru/firefox/addon/vkify/',
     github: 'https://github.com/VKify',
     githubIssues: 'https://github.com/VKify/vkify-extension/issues',
     githubDiscussions: 'https://github.com/VKify/vkify-extension/discussions',
@@ -40,10 +41,12 @@ export const config = {
         { name: 'Как установить', labelKey: 'footer.links.install', href: '/#how-it-works', isAnchor: true },
         { name: 'Темы оформления', labelKey: 'footer.links.themes', href: '/themes' },
         { name: 'Коллекция обоев', labelKey: 'footer.links.wallpapers', href: '/wallpapers' },
+        { name: 'Новости', labelKey: 'footer.links.news', href: '/news' },
         { name: 'Обновления', labelKey: 'footer.links.changelog', href: '/changelog' },
       ],
       resources: [
         { name: 'Chrome Web Store', labelKey: 'footer.links.chromeStore', href: 'https://chromewebstore.google.com/detail/vkify/lofggenkgbpdmmplnbgfplnpfjhgljla', external: true },
+        { name: 'Firefox Add-ons', labelKey: 'footer.links.firefoxStore', href: 'https://addons.mozilla.org/ru/firefox/addon/vkify/', external: true },
         { name: 'Исходный код', labelKey: 'footer.links.sourceCode', href: 'https://github.com/VKify/vkify-extension', external: true },
         { name: 'Сообщить о баге', labelKey: 'footer.links.reportBug', href: 'https://github.com/VKify/vkify-extension/issues', external: true },
       ],
@@ -103,7 +106,7 @@ export const config = {
   seo: {
     title: 'VKify — Улучшите свой ВКонтакте',
     description: 'Бесплатное расширение для VK: 72 темы и видео-обои, блокировка рекламы и трекеров, E2E-шифрование переписки, скачивание видео и историй. 50+ функций.',
-    keywords: 'vk, вконтакте, расширение, темы, блокировка рекламы, приватность, шифрование, скачать видео вк, скачать истории',
+    keywords: 'vk, вконтакте, расширение, расширение для firefox, расширение для chrome, темы, блокировка рекламы, приватность, шифрование, скачать видео вк, скачать истории',
   },
 
   // Стили (цвета темы)
