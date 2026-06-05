@@ -617,8 +617,8 @@ function ScreenMockup({ type, isActive }) {
           className="grid grid-cols-3 gap-1.5"
         >
           {[t('screenshots.mockup.privacy.read'), t('screenshots.mockup.privacy.typingLabel'), t('screenshots.mockup.privacy.online')].map((label) => (
-            <div key={label} className="bg-orange-500/10 border border-orange-500/20 rounded-lg py-0.5 sm:py-1 text-center">
-              <span className="text-[9px] sm:text-[10px] text-orange-600 dark:text-orange-400 font-semibold">{label} ✓</span>
+            <div key={label} className="bg-orange-500/10 border border-orange-500/20 rounded-lg py-0.5 sm:py-1 px-1 flex items-center justify-center">
+              <span className="text-[9px] sm:text-[10px] text-orange-600 dark:text-orange-400 font-semibold text-center leading-tight">{label} ✓</span>
             </div>
           ))}
         </motion.div>

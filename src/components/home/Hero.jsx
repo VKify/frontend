@@ -142,7 +142,7 @@ export default function Hero() {
               className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
             >
               <InstallButton
-                size="lg"
+                size="md"
                 label={t('common.installFree')}
                 className="w-full sm:w-auto"
               />
@@ -150,7 +150,7 @@ export default function Hero() {
               <Button
                 onClick={handleScrollToFeatures}
                 variant="secondary"
-                size="lg"
+                size="md"
                 className="w-full sm:w-auto gap-2"
               >
                 <Sparkles className="w-4 h-4" />
