@@ -28,6 +28,12 @@ export const en = {
       'Privacy and automation',
     ],
     freeNote: 'Chrome, Firefox, Edge, Opera · Free',
+    chooseBrowser: 'Choose browser',
+    chromiumHint: 'Edge, Opera and any Chromium-based browser — from the Chrome Web Store',
+    for: {
+      chrome: 'Install for Chrome',
+      firefox: 'Install for Firefox',
+    },
   },
 
   donate: {

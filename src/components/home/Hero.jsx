@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Download, Sparkles, Shield, Palette, Lock } from 'lucide-react'
 import Button from '../common/Button'
 import BrowserLogo from '../common/BrowserLogo'
-import { ChromeIcon } from '../common/BrowserIcons'
+import InstallButton from '../common/InstallButton'
 import Hero3DCard from './Hero3DCard'
 import config from '../../config'
 import { useTranslation } from '../../i18n'
@@ -141,18 +141,12 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
             >
-              <Button
-                href={config.links.chromeWebStore}
-                target="_blank"
-                rel="noopener noreferrer"
+              <InstallButton
                 size="lg"
-                className="w-full sm:w-auto gap-2 group shadow-lg shadow-blue-500/25"
-              >
-                <ChromeIcon className="w-5 h-5" />
-                <span>{t('common.installFree')}</span>
-                <Download className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
-              </Button>
-              
+                label={t('common.installFree')}
+                className="w-full sm:w-auto"
+              />
+
               <Button
                 onClick={handleScrollToFeatures}
                 variant="secondary"

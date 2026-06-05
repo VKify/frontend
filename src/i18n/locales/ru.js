@@ -28,6 +28,12 @@ export const ru = {
       'Приватность и автоматизация',
     ],
     freeNote: 'Chrome, Firefox, Edge, Opera · Бесплатно',
+    chooseBrowser: 'Выбрать браузер',
+    chromiumHint: 'Edge, Opera и любой браузер на Chromium — из Chrome Web Store',
+    for: {
+      chrome: 'Установить для Chrome',
+      firefox: 'Установить для Firefox',
+    },
   },
 
   donate: {

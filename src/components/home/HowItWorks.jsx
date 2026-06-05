@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Download, MousePointerClick, Settings, Play, CheckCircle2, ArrowRight, X,  Film, Bell } from 'lucide-react'
-import Button from '../common/Button'
+import InstallButton from '../common/InstallButton'
 import Section, { SectionHeader } from '../common/Section'
 import config from '../../config'
 import { useTranslation } from '../../i18n'
@@ -280,16 +280,7 @@ export default function HowItWorks() {
           viewport={{ once: true }}
           className="mt-12 text-center"
         >
-          <Button
-            href={config.links.chromeWebStore}
-            target="_blank"
-            rel="noopener noreferrer"
-            size="lg"
-            className="shadow-lg shadow-blue-500/25"
-          >
-            <Download className="w-5 h-5 mr-2" />
-            {t('common.installFree')}
-          </Button>
+          <InstallButton size="lg" label={t('common.installFree')} />
         </motion.div>
       </div>
     </Section>

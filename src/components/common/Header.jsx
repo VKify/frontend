@@ -2,18 +2,17 @@ import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link'
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
-import { 
-  Download, 
-  ChevronRight, 
-  Sparkles, 
-  ExternalLink, 
+import {
+  ChevronRight,
+  Sparkles,
+  ExternalLink,
   X,
   Zap,
   ArrowRight
 } from 'lucide-react'
 import ThemeToggle from './ThemeToggle'
 import LanguageSwitcher from './LanguageSwitcher'
-import Button from './Button'
+import InstallButton from './InstallButton'
 import Logo from './Logo'
 import { socialIcons } from './SocialIcons'
 import config from '../../config'
@@ -341,15 +340,7 @@ function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, late
               </div>
 
               <div className="p-4 border-t border-gray-200 dark:border-gray-800">
-                <Button
-                  href={config.links.chromeWebStore}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full gap-2 py-4"
-                >
-                  <Download className="w-5 h-5" />
-                  {t('common.installFree')}
-                </Button>
+                <InstallButton block dropUp label={t('common.installFree')} />
 
                 <p className="mt-3 text-center text-xs text-gray-500">
                   <Zap className="w-3 h-3 inline mr-1" />
@@ -462,16 +453,7 @@ export default function Header() {
             <div className="hidden lg:flex items-center gap-3">
               <LanguageSwitcher />
               <ThemeToggle />
-              <Button
-                href={config.links.chromeWebStore}
-                target="_blank"
-                rel="noopener noreferrer"
-                size="sm"
-                className="gap-2 shadow-lg shadow-blue-500/25"
-              >
-                <Download className="w-4 h-4" />
-                <span>{t('common.install')}</span>
-              </Button>
+              <InstallButton size="sm" label={t('common.install')} />
             </div>
 
             <div className="flex lg:hidden items-center gap-2">
