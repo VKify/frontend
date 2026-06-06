@@ -86,10 +86,22 @@ const TABS = [
   { label: 'Статьи', icon: 'tabArticles' },
 ]
 
-export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpacity = 1, className = '' }) {
+export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpacity = 1, settings = {}, className = '' }) {
   const p = useMemo(() => buildPalette({ bg, accent, blockOpacity }), [bg, accent, blockOpacity])
 
-  const block = { background: p.card, borderRadius: 12, border: `1px solid ${p.cardBorder}` }
+  // ── Настройки интерфейса (для пользовательских тем) ──
+  const compactMenu    = !!settings.minimalistic_sidebar   // только иконки в меню
+  const menuBg         = !!settings.sidebar_with_background // меню в блоке с обводкой
+  const collapseSearch = !!settings.collapse_search        // поиск — только значок
+  const compactSpacing = !!settings.compact_spacing        // слитые блоки
+  const radius = settings.border_radius != null && settings.border_radius !== ''
+    ? Math.max(0, Number(settings.border_radius)) : 12
+  const maxW = settings.content_width_enabled && Number(settings.content_width) > 0
+    ? Number(settings.content_width) : 1180
+  const gap = compactSpacing ? 2 : 12        // вертикальный зазор между блоками
+  const bodyGap = compactSpacing ? 8 : 16    // сайдбар ↔ контент
+
+  const block = { background: p.card, borderRadius: radius, border: `1px solid ${p.cardBorder}` }
   const btnField = {
     background: p.field, color: p.text, borderRadius: 8,
     display: 'flex', alignItems: 'center', gap: 6,
@@ -118,20 +130,24 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
       <div style={{ height: 48, background: p.card, borderBottom: `1px solid ${p.sep}` }}>
         <div style={{
           display: 'flex', alignItems: 'center', gap: 12,
-          maxWidth: 1180, margin: '0 auto', padding: '0 16px', height: 48,
+          maxWidth: maxW, margin: '0 auto', padding: '0 16px', height: 48,
         }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
           <VkLogo accent={p.accent} size={26} />
           <span className="hidden sm:inline" style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-0.01em' }}>ВКонтакте</span>
         </div>
 
-        <div className="hidden sm:flex" style={{
-          alignItems: 'center', gap: 8, background: p.field, borderRadius: 8,
-          padding: '0 12px', height: 32, width: 200, color: p.text3,
-        }}>
-          <Search size={16} />
-          <span style={{ fontSize: 13 }}>Поиск</span>
-        </div>
+        {collapseSearch ? (
+          <Search size={20} style={{ color: p.text2 }} />
+        ) : (
+          <div className="hidden sm:flex" style={{
+            alignItems: 'center', gap: 8, background: p.field, borderRadius: 8,
+            padding: '0 12px', height: 32, width: 200, color: p.text3,
+          }}>
+            <Search size={16} />
+            <span style={{ fontSize: 13 }}>Поиск</span>
+          </div>
+        )}
 
         {/* Уведомления — между поиском и плеером */}
         <VkIcon id="notification" size={22} color={p.text2} viewBox="0 0 24 24" />
@@ -154,30 +170,36 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
       </div>
 
       {/* ── Body — контент по центру ── */}
-      <div style={{ maxWidth: 1180, margin: '0 auto' }}>
-      <div style={{ display: 'flex', gap: 16, padding: 16, alignItems: 'flex-start' }}>
+      <div style={{ maxWidth: maxW, margin: '0 auto' }}>
+      <div style={{ display: 'flex', gap: bodyGap, padding: 16, alignItems: 'flex-start' }}>
 
-        {/* Sidebar — реальные иконки VK */}
-        <div className="hidden md:flex" style={{ flexDirection: 'column', gap: 1, width: 168, flexShrink: 0 }}>
+        {/* Sidebar — реальные иконки VK (компактное меню / меню с фоном) */}
+        <div className="hidden md:flex" style={{
+          flexDirection: 'column', gap: 1, flexShrink: 0,
+          width: compactMenu ? 52 : 168,
+          ...(menuBg ? { background: p.card, border: `1px solid ${p.cardBorder}`, borderRadius: radius, padding: 8 } : {}),
+        }}>
           {NAV.map((item, i) =>
             item.sep ? (
-              <div key={`sep-${i}`} style={{ height: 1, background: p.sep, margin: '7px 10px' }} />
+              <div key={`sep-${i}`} style={{ height: 1, background: p.sep, margin: compactMenu ? '7px 8px' : '7px 10px' }} />
             ) : (
               <div key={item.id} style={{
-                display: 'flex', alignItems: 'center', gap: 12, padding: '7px 10px', borderRadius: 8,
+                display: 'flex', alignItems: 'center',
+                justifyContent: compactMenu ? 'center' : 'flex-start',
+                gap: compactMenu ? 0 : 12, padding: compactMenu ? '9px 0' : '7px 10px', borderRadius: 8,
                 fontSize: 13.5, fontWeight: 500,
                 background: item.active ? p.field : 'transparent',
                 color: item.active ? p.accent : p.text,
               }}>
                 <VkIcon id={item.id} size={20} color={p.accent} />
-                <span>{item.label}</span>
+                {!compactMenu && <span>{item.label}</span>}
               </div>
             )
           )}
         </div>
 
         {/* Content area */}
-        <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: gap }}>
 
           {/* ── Профиль (полная ширина) ── */}
           <div style={{ ...block, position: 'relative', overflow: 'hidden' }}>
@@ -229,10 +251,10 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
           </div>
 
           {/* ── Колонки под профилем ── */}
-          <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+          <div style={{ display: 'flex', gap: gap, alignItems: 'flex-start' }}>
 
             {/* Левая: вкладки + музыка + пост */}
-            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: gap }}>
 
               <div style={block}>
                 {/* Вкладки — иконка + текст, активная как пилюля */}
@@ -302,7 +324,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
             </div>
 
             {/* Правая: друзья + подписки */}
-            <div className="hidden lg:flex" style={{ flexDirection: 'column', gap: 12, width: 252, flexShrink: 0 }}>
+            <div className="hidden lg:flex" style={{ flexDirection: 'column', gap: gap, width: 252, flexShrink: 0 }}>
               {/* Друзья */}
               <div style={{ ...block, padding: 14 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>

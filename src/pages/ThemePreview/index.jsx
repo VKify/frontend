@@ -99,6 +99,7 @@ export default function ThemePreview() {
                         accent={settings.custom_accent || '#0077ff'}
                         blockOpacity={settings.block_opacity ?? 1}
                         wallpaper={<WallpaperLayer settings={settings} />}
+                        settings={settings}
                     />
                 </div>
 
