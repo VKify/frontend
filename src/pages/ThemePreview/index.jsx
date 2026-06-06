@@ -7,7 +7,8 @@ import { decodeTheme } from '../../utils/themeShare'
 import { useApplyToVK } from '../../hooks/useApplyToVK'
 import { useCopyToClipboard } from '../../hooks/useCopyToClipboard'
 import ExtensionHint from '../../components/common/ExtensionHint'
-import BackgroundPreview from './BackgroundPreview'
+import VkMockup from '../../components/common/VkMockup'
+import WallpaperLayer from '../../components/common/WallpaperLayer'
 import { PARAM_META, GROUPS, ParamGroup, ColorStrip, FontSample } from './ThemeParamTable'
 import InstallModal from './InstallModal'
 import { useTranslation } from '../../i18n'
@@ -91,7 +92,15 @@ export default function ThemePreview() {
             />
 
             <div className="pt-16">
-                <BackgroundPreview settings={settings} />
+                {/* Реалистичный превью интерфейса VK в цветах темы + обои фоном */}
+                <div className="w-full overflow-hidden border-y border-black/5 dark:border-white/10">
+                    <VkMockup
+                        bg={settings.custom_theme || '#0d1117'}
+                        accent={settings.custom_accent || '#0077ff'}
+                        blockOpacity={settings.block_opacity ?? 1}
+                        wallpaper={<WallpaperLayer settings={settings} />}
+                    />
+                </div>
 
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
                     <div className="grid lg:grid-cols-3 gap-10">

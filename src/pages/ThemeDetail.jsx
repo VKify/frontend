@@ -12,6 +12,7 @@ import { Copy, Check, ExternalLink, Zap } from 'lucide-react'
 import SEO from '../components/common/SEO'
 import DetailNavbar from '../components/common/DetailNavbar'
 import VkLogo from '../components/common/VkLogo'
+import VkMockup from '../components/common/VkMockup'
 import { isDarkColor } from '../utils/colors'
 import { themes } from '../data/themes'
 import { generateShareUrl } from '../utils/themeShare'
@@ -59,73 +60,14 @@ function SimilarThemeCard({ theme }) {
     )
 }
 
-// Большой превью VK-интерфейса
+// Большой превью VK-интерфейса — достоверная имитация ВКонтакте в цветах темы
 function BigPreview({ theme }) {
-    const isDark = isDarkColor(theme.preview.bg)
-    const textOpacity = isDark ? '#ffffff' : '#000000'
-
     return (
-        <div
-            className="w-full rounded-none sm:rounded-2xl overflow-hidden"
-            style={{ background: theme.preview.bg, minHeight: 280 }}
-        >
-            {/* Имитация топбара VK */}
-            <div
-                className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2.5 sm:py-3 border-b"
-                style={{ background: theme.preview.card, borderColor: theme.preview.accent + '22' }}
-            >
-                <VkLogo accent={theme.preview.accent} size={28} />
-                <div className="flex-1 flex items-center gap-3">
-                    {[60, 44, 52].map((w, i) => (
-                        <div key={i} className="h-1.5 rounded-full" style={{ width: w, background: i === 0 ? theme.preview.accent : textOpacity, opacity: i === 0 ? 0.6 : 0.18 }} />
-                    ))}
-                </div>
-                <div className="h-2 w-12 rounded-full opacity-20" style={{ background: textOpacity }} />
-                <div className="h-2 w-8 rounded-full opacity-20" style={{ background: textOpacity }} />
-            </div>
-
-            {/* Имитация контента */}
-            <div className="flex gap-4 p-3 sm:p-5">
-                {/* Сайдбар (desktop) */}
-                <div className="hidden sm:flex flex-col gap-2 w-40">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                        <div key={i} className="flex items-center gap-2 px-2 py-1.5 rounded-lg"
-                             style={{ background: i === 0 ? theme.preview.accent + '22' : 'transparent' }}>
-                            <div className="w-4 h-4 rounded-sm opacity-40" style={{ background: textOpacity }} />
-                            <div className="flex-1 h-1.5 rounded-full opacity-30" style={{ background: textOpacity }} />
-                        </div>
-                    ))}
-                </div>
-
-                {/* Лента */}
-                <div className="flex-1 space-y-3">
-                    {Array.from({ length: 3 }).map((_, i) => (
-                        <div key={i} className="rounded-xl p-3 space-y-2" style={{ background: theme.preview.card }}>
-                            <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-full" style={{ background: theme.preview.accent + (i === 0 ? 'cc' : '66') }} />
-                                <div className="space-y-1">
-                                    <div className="h-1.5 w-20 rounded-full opacity-60" style={{ background: textOpacity }} />
-                                    <div className="h-1 w-12 rounded-full opacity-30" style={{ background: textOpacity }} />
-                                </div>
-                            </div>
-                            <div className="space-y-1.5">
-                                <div className="h-1.5 rounded-full opacity-40" style={{ background: textOpacity }} />
-                                <div className="h-1.5 w-4/5 rounded-full opacity-30" style={{ background: textOpacity }} />
-                                {i === 0 && <div className="h-1.5 w-3/5 rounded-full opacity-20" style={{ background: textOpacity }} />}
-                            </div>
-                            {/* Лайк/репост */}
-                            <div className="flex gap-3 pt-1">
-                                {[1, 2, 3].map(j => (
-                                    <div key={j} className="flex items-center gap-1">
-                                        <div className="w-3 h-3 rounded-sm opacity-30" style={{ background: textOpacity }} />
-                                        <div className="h-1 w-5 rounded-full opacity-20" style={{ background: textOpacity }} />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
+        <div className="w-full overflow-hidden border-y border-black/5 dark:border-white/10">
+            <VkMockup
+                bg={theme.preview.bg}
+                accent={theme.preview.accent}
+            />
         </div>
     )
 }
