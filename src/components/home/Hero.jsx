@@ -1,14 +1,10 @@
-import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
 import { ArrowRight, Download, Sparkles, Shield, Palette, Lock } from 'lucide-react'
 import Button from '../common/Button'
-import BrowserLogo from '../common/BrowserLogo'
 import InstallButton from '../common/InstallButton'
 import Hero3DCard from './Hero3DCard'
 import config from '../../config'
 import { useTranslation } from '../../i18n'
-import { getLatestVersion } from '../../data/changelog'
 import { scrollToElement } from '../../utils/scroll'
 
 const features = [
@@ -20,12 +16,6 @@ const features = [
 
 export default function Hero() {
   const { t } = useTranslation()
-
-  // Получаем последнюю версию из changelog
-  const latestVersion = useMemo(() => {
-    const latest = getLatestVersion()
-    return latest?.version || '1.0.0'
-  }, [])
 
   const handleScrollToFeatures = () => {
     scrollToElement('features')
@@ -68,39 +58,17 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Column - Content */}
           <div className="text-center lg:text-left">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Link 
-                to="/changelog"
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-colors group"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-                </span>
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-[#0077ff] transition-colors">
-                  {t('hero.versionAvailable', { version: latestVersion })}
-                </span>
-                <ArrowRight className="w-3 h-3 text-gray-400 group-hover:text-[#0077ff] group-hover:translate-x-0.5 transition-all" />
-              </Link>
-            </motion.div>
-
             {/* Main Heading */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="mt-8 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight"
+              className="font-display font-black leading-[0.95] tracking-tight text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-gray-900 dark:text-white"
             >
-              <span className="text-gray-900 dark:text-white">{t('hero.titleTop')}</span>
-              <br />
-              <span className="bg-gradient-to-r from-[#0077ff] via-blue-500 to-cyan-400 bg-clip-text text-transparent">
-                {t('hero.titleAccent')}
-              </span>
+              {t('hero.h.make')}{' '}
+              <span className="font-serif font-bold italic">{t('hero.h.your')}</span>{' '}
+              {t('hero.h.vk')}{' '}
+              <span className="text-[#0077ff]">{t('hero.h.quiet')}</span>
             </motion.h1>
 
             {/* Description */}
@@ -156,74 +124,6 @@ export default function Hero() {
                 <Sparkles className="w-4 h-4" />
                 <span>{t('common.allFeatures')}</span>
               </Button>
-            </motion.div>
-
-            {/* Supported Browsers */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="mt-10 flex flex-wrap items-center gap-4 justify-center lg:justify-start"
-            >
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                {t('hero.worksIn')}
-              </span>
-
-              <div className="flex flex-wrap items-center gap-2">
-                {/* Chrome — кликабельно, ведёт в Chrome Web Store */}
-                <a
-                  href={config.links.chromeWebStore}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl
-                    bg-white dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700
-                    text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm
-                    hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md hover:-translate-y-0.5
-                    transition-all duration-150"
-                >
-                  <BrowserLogo name="chrome" className="w-5 h-5" />
-                  <span>Chrome</span>
-                </a>
-
-                {/* Firefox — новинка, ведёт в Firefox Add-ons */}
-                <a
-                  href={config.links.firefoxAddons}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl
-                    bg-white dark:bg-gray-800/80 border border-orange-300/70 dark:border-orange-500/40
-                    text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm
-                    hover:border-orange-400 dark:hover:border-orange-500/70 hover:shadow-md hover:-translate-y-0.5
-                    transition-all duration-150"
-                >
-                  <BrowserLogo name="firefox" className="w-5 h-5" />
-                  <span>Firefox</span>
-                  <span className="absolute -top-2 -right-1.5 px-1.5 py-0.5 rounded-full bg-orange-500 text-white text-[9px] font-bold leading-none shadow">
-                    {t('hero.newBadge')}
-                  </span>
-                </a>
-
-                {/* Edge */}
-                <div className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl
-                  bg-white dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700
-                  text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm">
-                  <BrowserLogo name="edge" className="w-5 h-5" />
-                  <span>Edge</span>
-                </div>
-
-                {/* Opera */}
-                <div className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl
-                  bg-white dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700
-                  text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm">
-                  <BrowserLogo name="opera" className="w-5 h-5" />
-                  <span>Opera</span>
-                </div>
-
-                {/* Любой браузер на Chromium */}
-                <span className="text-xs text-gray-400 dark:text-gray-500 px-1">
-                  {t('hero.chromiumNote')}
-                </span>
-              </div>
             </motion.div>
 
             {/* Social Proof - раскомментировать когда будет больше пользователей

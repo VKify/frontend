@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Download, Heart, ExternalLink, Star, Users, Zap, Palette, Shield, Sparkles } from 'lucide-react'
+import { Download, Heart, ExternalLink, Star, Users, Zap, Palette, Shield, Sparkles, Code2, EyeOff, ShieldCheck, Lock } from 'lucide-react'
 import DonateModal from '../common/DonateModal'
 import { ChromeIcon, FirefoxIcon } from '../common/BrowserIcons'
 import Logo from '../common/Logo'
@@ -19,6 +19,15 @@ const features = [
   { icon: Palette, id: 'themes' },
   { icon: Shield, id: 'adblock' },
   { icon: Sparkles, id: 'features' },
+]
+
+// Триггеры доверия — снимают возражение «безопасно ли ставить расширение
+// с доступом к VK». Тексты — из i18n: cta.trust.<id>
+const trustSignals = [
+  { icon: Code2, id: 'openSource' },
+  { icon: EyeOff, id: 'noData' },
+  { icon: ShieldCheck, id: 'local' },
+  { icon: Lock, id: 'encrypted' },
 ]
 
 export default function CTA() {
@@ -121,6 +130,22 @@ export default function CTA() {
                     <feature.icon className="w-4 h-4 text-cyan-300" />
                     <span>{t(`cta.pills.${feature.id}`, { themes: config.stats.themes, features: config.stats.features })}</span>
                   </motion.div>
+                ))}
+              </motion.div>
+
+              {/* Trust signals — снимаем возражение «безопасно ли это» прямо перед установкой */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.35 }}
+                className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 mb-10"
+              >
+                {trustSignals.map((signal) => (
+                  <div key={signal.id} className="flex items-center gap-2 text-white/85 text-sm font-medium">
+                    <signal.icon className="w-4 h-4 text-cyan-300 shrink-0" />
+                    <span>{t(`cta.trust.${signal.id}`)}</span>
+                  </div>
                 ))}
               </motion.div>
 

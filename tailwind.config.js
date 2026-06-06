@@ -20,6 +20,8 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'SF Pro Display', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        display: ['Onest', 'Inter', 'SF Pro Display', '-apple-system', 'sans-serif'],
+        serif: ['"Playfair Display"', 'Georgia', 'Times New Roman', 'serif'],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
@@ -27,8 +29,13 @@ export default {
         'pulse-slow': 'pulse 4s ease-in-out infinite',
         'gradient': 'gradient 8s ease infinite',
         'fade-in-up': 'fadeInUp 0.6s ease-out',
+        'marquee': 'marquee 36s linear infinite',
       },
       keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-20px)' },

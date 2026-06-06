@@ -123,6 +123,22 @@ body {
   background-color: rgba(0, 119, 255, 0.3);
 }
 
+/* ─── Слайдер браузеров (бесконечная лента) ────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 24s linear infinite;
+  will-change: transform;
+}
+
+/* Пауза при наведении на ленту */
+.marquee-viewport:hover .marquee-track {
+  animation-play-state: paused;
+}
+
 /* ─── prefers-reduced-motion ───────────────────────────────────────────────── */
 /*
  * Пользователи с настройкой «уменьшить движение» получают

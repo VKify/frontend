@@ -8,6 +8,10 @@ const sources = {
   firefox: '/browsers/firefox.svg',
   edge: '/browsers/edge.svg',
   opera: '/browsers/opera.svg',
+  brave: '/browsers/brave.svg',
+  vivaldi: '/browsers/vivaldi.svg',
+  yandex: '/browsers/yandex.svg',
+  arc: '/browsers/arc.svg',
 }
 
 const labels = {
@@ -15,6 +19,10 @@ const labels = {
   firefox: 'Mozilla Firefox',
   edge: 'Microsoft Edge',
   opera: 'Opera',
+  brave: 'Brave',
+  vivaldi: 'Vivaldi',
+  yandex: 'Yandex Browser',
+  arc: 'Arc',
 }
 
 export default function BrowserLogo({ name, className = 'w-4 h-4' }) {

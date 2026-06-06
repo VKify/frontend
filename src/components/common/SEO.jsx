@@ -1,12 +1,13 @@
 import { Helmet } from 'react-helmet-async'
 import config from '../../config'
 
-export default function SEO({ 
-  title, 
-  description, 
+export default function SEO({
+  title,
+  description,
   image,
   url,
-  type = 'website'
+  type = 'website',
+  appSchema = false
 }) {
   const siteTitle = config.app.name
   const siteUrl = config.app.url
@@ -24,9 +25,30 @@ export default function SEO({
     ? (image.startsWith('http') ? image : `${siteUrl}${image}`)
     : defaultImage
 
-  const finalUrl = url 
+  const finalUrl = url
     ? (url.startsWith('http') ? url : `${siteUrl}${url}`)
     : siteUrl
+
+  // JSON-LD для главной: расширение как SoftwareApplication.
+  // aggregateRating намеренно НЕ добавляем, пока нет реального рейтинга из
+  // сторов — Google пессимизирует выдуманные оценки. Добавить вместе с
+  // подключением реальных отзывов (см. пункт «социальные доказательства»).
+  const appLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: siteTitle,
+    applicationCategory: 'BrowserApplication',
+    operatingSystem: 'Chrome, Firefox, Edge, Opera',
+    description: finalDescription,
+    url: siteUrl,
+    image: defaultImage,
+    inLanguage: 'ru-RU',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'RUB',
+    },
+  }
 
   return (
     <Helmet>
@@ -62,6 +84,13 @@ export default function SEO({
       {/* Theme Color */}
       <meta name="theme-color" content="#0077ff" />
       <meta name="msapplication-TileColor" content="#0077ff" />
+
+      {/* Structured data — расширение как приложение (rich snippet в выдаче) */}
+      {appSchema && (
+        <script type="application/ld+json">
+          {JSON.stringify(appLd)}
+        </script>
+      )}
     </Helmet>
   )
 }

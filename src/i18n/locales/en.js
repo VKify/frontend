@@ -64,9 +64,13 @@ export const en = {
 
   hero: {
     versionAvailable: 'Version {version} available',
-    titleTop: 'A new level of',
-    titleAccent: 'VKontakte',
-    subtitle: 'Themes and video wallpapers, ad and tracker blocking, message encryption and media downloads — {features} features in one extension. Free.',
+    h: {
+      make: 'Make',
+      your: 'your',
+      vk: 'VKontakte',
+      quiet: 'quieter.',
+    },
+    subtitle: 'No promo posts, no “people you may know”, no stories you never opened. Just your feed, your themes, and silence.',
     worksIn: 'Works in:',
     newBadge: 'New',
     chromiumNote: 'and any Chromium-based browser',
@@ -76,6 +80,16 @@ export const en = {
       privacy: 'Privacy',
       download: 'Downloads',
     },
+  },
+
+  browsers: {
+    badge: 'Compatibility',
+    title: 'Works in your',
+    titleHighlight: 'browser',
+    subtitle: 'Install VKify in your favorite browser — Chrome, Firefox, Edge, Opera or any Chromium-based one.',
+    newBadge: 'New',
+    chromiumNote: 'Edge, Opera and any Chromium browser install from the Chrome Web Store.',
+    install: 'Install',
   },
 
   hero3d: {
@@ -200,7 +214,7 @@ export const en = {
 
   stats: {
     title: '{name} by the numbers',
-    subtitle: 'Join thousands of users who have already upgraded their VK',
+    subtitle: 'Everything you need to make VKontakte more convenient, beautiful and private',
     items: {
       features: { label: 'features', description: 'for every day' },
       themes: { label: 'themes', description: 'and video wallpapers' },
@@ -260,7 +274,7 @@ export const en = {
   cta: {
     titleTop: 'Ready to transform',
     titleAccent: 'VKontakte?',
-    subtitle: 'Join thousands of users who have already made their VK more convenient, beautiful and private',
+    subtitle: 'Install VKify in a minute and make your VKontakte more convenient, beautiful and private',
     pills: {
       themes: '{themes} themes & wallpapers',
       adblock: 'No ads or trackers',
@@ -270,6 +284,45 @@ export const en = {
     installFirefox: 'Install for Firefox',
     installNote: 'Free • No registration • Instant install',
     browsersNote: 'Edge, Opera and any Chromium browser — from the Chrome Web Store',
+    trust: {
+      openSource: 'Open source',
+      noData: 'No data collected',
+      local: 'Runs locally',
+      encrypted: 'E2E encryption',
+    },
+  },
+
+  faq: {
+    badge: 'Q&A',
+    title: 'Frequently asked',
+    titleHighlight: 'questions',
+    subtitle: 'The essentials — price, safety and setup',
+    items: [
+      {
+        q: 'Is VKify really free?',
+        a: 'Yes, completely. Every feature is available with no payments, subscriptions or hidden fees. VKify is an open-source project.',
+      },
+      {
+        q: 'Is it safe? What data do you collect?',
+        a: 'None. VKify does not collect, store or transmit your data — all settings stay locally in your browser. The source code is open on GitHub, so anyone can verify how the extension works.',
+      },
+      {
+        q: 'Which browsers are supported?',
+        a: 'Chrome, Firefox, Edge, Opera and any Chromium-based browser. Chromium browsers install from the Chrome Web Store, Firefox from Firefox Add-ons.',
+      },
+      {
+        q: 'Do I need an account or registration?',
+        a: 'No. Install the extension, open vk.com — everything works right away, with no registration or complex setup.',
+      },
+      {
+        q: 'Can my VKontakte account get banned?',
+        a: 'VKify only changes how VK looks in your browser and does not interfere with the site. Still, use the extension for personal purposes and at your own risk.',
+      },
+      {
+        q: 'How do I uninstall it?',
+        a: 'Remove it via your browser’s extensions manager — all local VKify settings are deleted automatically along with it.',
+      },
+    ],
   },
 
   themesPage: {
