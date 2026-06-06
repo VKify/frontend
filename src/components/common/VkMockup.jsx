@@ -9,7 +9,7 @@
 import { useMemo } from 'react'
 import {
   Search, SkipBack, Play, SkipForward, Pencil, ChevronRight,
-  ChevronDown, Plus, Lock, Smile, List,
+  ChevronDown, Plus, Lock, Smile, List, Settings, ChevronUp, MessageCircle, UserPlus,
 } from 'lucide-react'
 import { isDarkColor } from '../../utils/colors'
 import { VkIcon } from './vkMenuIcons'
@@ -103,10 +103,17 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
   const gap = compactSpacing ? 0 : 12        // зазор между блоками (0 = слитые)
   const bodyGap = compactSpacing ? 0 : 16    // сайдбар ↔ контент
 
-  // TODO: доделать визуализацию остальных настроек темы —
-  //   hide_stories, hide_recommendations, hide_friends_suggestions, hide_emoji_status,
-  //   hide_mini_chat, hide_scroll_top, hide_menu_settings, fixed_sidebar, page_offset и др.
-  //   Для них нужен режим ленты / доп. элементы, которых нет на странице профиля.
+  // Видимость элементов по настройкам hide_* (true = показывать)
+  const showStories     = !settings.hide_stories
+  const showFriendSug   = !settings.hide_friends_suggestions
+  const showRecommend   = !settings.hide_recommendations
+  const showEmojiStatus = !settings.hide_emoji_status
+  const showMiniChat    = !settings.hide_mini_chat
+  const showScrollTop   = !settings.hide_scroll_top
+  const showMenuGear    = !settings.hide_menu_settings
+  // Смещение страницы (page_offset_value) — сдвигает контент по горизонтали
+  const pageOffset = settings.page_offset_enabled ? Number(settings.page_offset_value || 0) : 0
+  // fixed_sidebar — фиксация меню при скролле; в статичном превью не визуализируется
 
   const block = { background: p.card, borderRadius: radius, border: `1px solid ${p.cardBorder}` }
   const btnField = {
@@ -132,7 +139,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
         <div style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden' }}>{wallpaper}</div>
       )}
 
-      <div style={{ position: 'relative', zIndex: 1 }}>
+      <div style={{ position: 'relative', zIndex: 1, transform: pageOffset ? `translateX(${pageOffset}px)` : undefined }}>
       {/* ── Top bar — полоса на всю ширину, контент по центру ── */}
       <div style={{ height: 48, background: p.card, borderBottom: `1px solid ${p.sep}` }}>
         <div style={{
@@ -200,6 +207,9 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
               }}>
                 <VkIcon id={item.id} size={20} color={p.accent} />
                 {!compactMenu && <span>{item.label}</span>}
+                {!compactMenu && item.active && showMenuGear && (
+                  <Settings size={14} style={{ marginLeft: 'auto', color: p.text3 }} />
+                )}
               </div>
             )
           )}
@@ -207,6 +217,18 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
 
         {/* Content area */}
         <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: gap }}>
+
+          {/* Истории (hide_stories) */}
+          {showStories && (
+            <div style={{ ...block, padding: 12, display: 'flex', gap: 10, overflow: 'hidden' }}>
+              {[0, 1, 2, 3, 4, 5].map((i) => (
+                <div key={i} style={{
+                  width: 58, height: 58, borderRadius: '50%', flexShrink: 0, background: p.skel,
+                  boxShadow: i === 0 ? `0 0 0 2px ${p.bg}, 0 0 0 4px ${p.accent}` : 'none',
+                }} />
+              ))}
+            </div>
+          )}
 
           {/* ── Профиль (полная ширина) ── */}
           <div style={{ ...block, position: 'relative', overflow: 'hidden' }}>
@@ -243,7 +265,10 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
               padding: '14px 20px 16px', paddingLeft: 124, minHeight: 56,
             }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 9, minWidth: 0 }}>
-                <Sk w={140} h={15} c={p.skel} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                  <Sk w={140} h={15} c={p.skel} />
+                  {showEmojiStatus && <span style={{ fontSize: 15, lineHeight: 1 }}>😎</span>}
+                </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                   <Sk w={120} h={9} c={withAlpha(p.accent, 0.55)} />
                   <ChevronRight size={13} style={{ color: p.accent }} />
@@ -348,6 +373,24 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                 </div>
               </div>
 
+              {/* Возможные друзья (hide_friends_suggestions) */}
+              {showFriendSug && (
+                <div style={{ ...block, padding: 14 }}>
+                  <span style={{ fontSize: 14, fontWeight: 700, display: 'block', marginBottom: 12 }}>Возможные друзья</span>
+                  <div style={{ display: 'flex', gap: 14 }}>
+                    {[3, 4, 5].map((i) => (
+                      <div key={i} style={{ textAlign: 'center', flex: 1, minWidth: 0 }}>
+                        <div style={{ width: 56, height: 56, borderRadius: '50%', background: p.skel, margin: '0 auto' }} />
+                        <Sk w={'76%'} h={8} c={p.skel2} style={{ margin: '9px auto 8px' }} />
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, color: p.accent, fontSize: 11, fontWeight: 600 }}>
+                          <UserPlus size={13} /> Добавить
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Подписки */}
               <div style={{ ...block, padding: 14 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
@@ -364,12 +407,44 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                   </div>
                 ))}
               </div>
+
+              {/* Рекомендации (hide_recommendations) */}
+              {showRecommend && (
+                <div style={{ ...block, padding: 14 }}>
+                  <span style={{ fontSize: 14, fontWeight: 700, display: 'block', marginBottom: 8 }}>Рекомендации</span>
+                  {[0, 1, 2].map((i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 11, padding: '8px 0' }}>
+                      <div style={{ width: 40, height: 40, borderRadius: 10, background: p.skel, flexShrink: 0 }} />
+                      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 7 }}>
+                        <Sk w={'70%'} h={9} c={p.skel} />
+                        <Sk w={'90%'} h={8} c={p.skel2} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
       </div>
       </div>
+
+      {/* Плавающие кнопки: наверх (hide_scroll_top) + мини-чат (hide_mini_chat) */}
+      {(showScrollTop || showMiniChat) && (
+        <div style={{ position: 'absolute', right: 16, bottom: 16, zIndex: 2, display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center' }}>
+          {showScrollTop && (
+            <div style={{ width: 40, height: 40, borderRadius: '50%', background: p.card, border: `1px solid ${p.cardBorder}`, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}>
+              <ChevronUp size={20} style={{ color: p.text2 }} />
+            </div>
+          )}
+          {showMiniChat && (
+            <div style={{ width: 48, height: 48, borderRadius: '50%', background: p.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 14px rgba(0,0,0,0.35)' }}>
+              <MessageCircle size={22} style={{ color: p.onAccent }} fill={p.onAccent} />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }
