@@ -130,7 +130,9 @@ body {
 }
 
 .marquee-track {
-  animation: marquee 24s linear infinite;
+  /* 4 копии в ленте, translateX(-50%) = сдвиг на 2 копии; 48s сохраняет
+     прежний темп (~65 px/s) при вдвое большей дистанции. */
+  animation: marquee 48s linear infinite;
   will-change: transform;
 }
 

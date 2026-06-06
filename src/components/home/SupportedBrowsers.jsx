@@ -24,7 +24,7 @@ function BrowserItem({ browser, newLabel }) {
       href={browser.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group/item flex items-center gap-3 shrink-0 px-5 py-2.5 rounded-2xl hover:bg-gray-100/80 dark:hover:bg-white/[0.06] transition-colors duration-200"
+      className="group/item flex items-center gap-3 shrink-0 mr-6 sm:mr-10 px-5 py-2.5 rounded-2xl hover:bg-gray-100/80 dark:hover:bg-white/[0.06] transition-colors duration-200"
     >
       <BrowserLogo
         name={browser.logo}
@@ -44,8 +44,11 @@ function BrowserItem({ browser, newLabel }) {
 
 export default function SupportedBrowsers() {
   const { t } = useTranslation()
-  // Дублируем список для бесшовной прокрутки (translateX -50%).
-  const loop = [...browsers, ...browsers]
+  // Дублируем список для бесшовной прокрутки. translateX(-50%) сдвигает на
+  // ПОЛОВИНУ трека, поэтому повторяющийся блок = 2 копии. Берём 4 копии,
+  // чтобы этот блок (≈2 набора) был заведомо шире любого экрана и в ленте
+  // не появлялось пустого «хвоста».
+  const loop = [...browsers, ...browsers, ...browsers, ...browsers]
 
   return (
     <Section id="browsers" variant="default" className="!py-20 md:!py-28">
@@ -72,7 +75,7 @@ export default function SupportedBrowsers() {
         <div className="pointer-events-none absolute left-0 inset-y-0 w-16 sm:w-40 z-10 bg-gradient-to-r from-white dark:from-gray-950 to-transparent" />
         <div className="pointer-events-none absolute right-0 inset-y-0 w-16 sm:w-40 z-10 bg-gradient-to-l from-white dark:from-gray-950 to-transparent" />
 
-        <div className="marquee-track flex w-max gap-6 sm:gap-10">
+        <div className="marquee-track flex w-max">
           {loop.map((browser, index) => (
             <BrowserItem
               key={`${browser.name}-${index}`}
