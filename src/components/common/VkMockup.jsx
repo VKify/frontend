@@ -94,12 +94,19 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
   const menuBg         = !!settings.sidebar_with_background // меню в блоке с обводкой
   const collapseSearch = !!settings.collapse_search        // поиск — только значок
   const compactSpacing = !!settings.compact_spacing        // слитые блоки
-  const radius = settings.border_radius != null && settings.border_radius !== ''
-    ? Math.max(0, Number(settings.border_radius)) : 12
+  // Компактный режим: блоки слитые — без скругления и без зазоров
+  const radius = compactSpacing
+    ? 0
+    : (settings.border_radius != null && settings.border_radius !== '' ? Math.max(0, Number(settings.border_radius)) : 12)
   const maxW = settings.content_width_enabled && Number(settings.content_width) > 0
     ? Number(settings.content_width) : 1180
-  const gap = compactSpacing ? 2 : 12        // вертикальный зазор между блоками
-  const bodyGap = compactSpacing ? 8 : 16    // сайдбар ↔ контент
+  const gap = compactSpacing ? 0 : 12        // зазор между блоками (0 = слитые)
+  const bodyGap = compactSpacing ? 0 : 16    // сайдбар ↔ контент
+
+  // TODO: доделать визуализацию остальных настроек темы —
+  //   hide_stories, hide_recommendations, hide_friends_suggestions, hide_emoji_status,
+  //   hide_mini_chat, hide_scroll_top, hide_menu_settings, fixed_sidebar, page_offset и др.
+  //   Для них нужен режим ленты / доп. элементы, которых нет на странице профиля.
 
   const block = { background: p.card, borderRadius: radius, border: `1px solid ${p.cardBorder}` }
   const btnField = {
@@ -129,7 +136,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
       {/* ── Top bar — полоса на всю ширину, контент по центру ── */}
       <div style={{ height: 48, background: p.card, borderBottom: `1px solid ${p.sep}` }}>
         <div style={{
-          display: 'flex', alignItems: 'center', gap: 12,
+          display: 'flex', alignItems: 'center', gap: 26,
           maxWidth: maxW, margin: '0 auto', padding: '0 16px', height: 48,
         }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
