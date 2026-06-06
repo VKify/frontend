@@ -8,7 +8,7 @@
  */
 import { useMemo } from 'react'
 import {
-  Bell, Search, SkipBack, Play, SkipForward, Pencil, ChevronRight,
+  Search, SkipBack, Play, SkipForward, Pencil, ChevronRight,
   ChevronDown, Plus, Lock, Smile, List,
 } from 'lucide-react'
 import { isDarkColor } from '../../utils/colors'
@@ -133,6 +133,9 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
           <span style={{ fontSize: 13 }}>Поиск</span>
         </div>
 
+        {/* Уведомления — между поиском и плеером */}
+        <VkIcon id="notification" size={22} color={p.text2} viewBox="0 0 24 24" />
+
         {/* mini-player — простые иконки, как в реальном VK */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginLeft: 4 }}>
           <SkipBack size={17} style={{ color: p.text2 }} />
@@ -145,7 +148,6 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
         </div>
 
         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 14 }}>
-          <Bell size={18} style={{ color: p.text2 }} />
           <div style={{ width: 30, height: 30, borderRadius: '50%', background: p.skel }} />
         </div>
         </div>
