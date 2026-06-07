@@ -700,6 +700,10 @@ export const ru = {
     themeLink: 'Ссылка на тему',
     seeAllThemes: 'Смотреть все темы',
     customName: 'Пользовательская тема',
+    edit: 'Изменить',
+    editDone: 'Готово',
+    editHint: 'Меняйте значения — превью и ссылка обновятся',
+    resetEdits: 'Сбросить',
   },
 
   paramMeta: {

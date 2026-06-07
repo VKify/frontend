@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Check, Copy, Palette, AlertCircle, ExternalLink, Zap } from 'lucide-react'
+import { Check, Copy, Palette, AlertCircle, ExternalLink, Zap, SlidersHorizontal, RotateCcw } from 'lucide-react'
 import SEO from '../../components/common/SEO'
 import DetailNavbar from '../../components/common/DetailNavbar'
-import { decodeTheme } from '../../utils/themeShare'
+import { decodeTheme, encodeTheme } from '../../utils/themeShare'
 import { useApplyToVK } from '../../hooks/useApplyToVK'
 import { useCopyToClipboard } from '../../hooks/useCopyToClipboard'
 import ExtensionHint from '../../components/common/ExtensionHint'
@@ -18,6 +18,8 @@ export default function ThemePreview() {
     const { encoded } = useParams()
     const [themeData, setThemeData] = useState(null)
     const [error,     setError]     = useState(false)
+    const [editing,   setEditing]   = useState(false)
+    const originalRef = useRef(null)   // исходные настройки для сброса
 
     const link = useCopyToClipboard()
     const { detected, applied, apply, showInstallModal, closeInstallModal } = useApplyToVK()
@@ -26,10 +28,28 @@ export default function ThemePreview() {
         if (!encoded) { setError(true); return }
         const decoded = decodeTheme(encoded)
         if (!decoded)  { setError(true); return }
+        originalRef.current = decoded.settings
         setThemeData(decoded)
     }, [encoded])
 
-    const shareUrl = `${window.location.origin}/theme/${encoded}`
+    // Перекодируем текущие (возможно изменённые) настройки — для ссылки/применения
+    const liveEncoded = useMemo(
+        () => (themeData ? (encodeTheme(themeData.settings, themeData.meta) || encoded) : encoded),
+        [themeData, encoded]
+    )
+    const shareUrl = `${window.location.origin}/theme/${liveEncoded}`
+
+    // Держим адресную строку в синхроне с правками (без перезагрузки роутера)
+    useEffect(() => {
+        if (themeData && liveEncoded && liveEncoded !== encoded) {
+            window.history.replaceState(null, '', `/theme/${liveEncoded}`)
+        }
+    }, [liveEncoded, encoded, themeData])
+
+    const updateSetting = (key, val) =>
+        setThemeData(prev => ({ ...prev, settings: { ...prev.settings, [key]: val } }))
+    const resetEdits = () =>
+        setThemeData(prev => ({ ...prev, settings: originalRef.current }))
 
     const handleCopy = () => link.copy(shareUrl)
     const handleApply = () => apply(themeData?.settings)
@@ -134,11 +154,40 @@ export default function ThemePreview() {
                             <FontSample settings={settings} />
 
                             <div className="space-y-3">
-                                <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
-                                    {t('themePreview.paramsCount', { count: paramCount })}
-                                </p>
+                                <div className="flex items-center gap-3">
+                                    <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                                        {t('themePreview.paramsCount', { count: paramCount })}
+                                    </p>
+                                    <div className="ml-auto flex items-center gap-2">
+                                        {editing && (
+                                            <button
+                                                onClick={resetEdits}
+                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 rounded-lg transition-colors"
+                                            >
+                                                <RotateCcw className="w-3.5 h-3.5" />
+                                                {t('themePreview.resetEdits')}
+                                            </button>
+                                        )}
+                                        <button
+                                            onClick={() => setEditing(e => !e)}
+                                            className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${
+                                                editing
+                                                    ? 'bg-[#0077ff] text-white hover:bg-blue-500'
+                                                    : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                                            }`}
+                                        >
+                                            {editing
+                                                ? <><Check className="w-3.5 h-3.5" /> {t('themePreview.editDone')}</>
+                                                : <><SlidersHorizontal className="w-3.5 h-3.5" /> {t('themePreview.edit')}</>
+                                            }
+                                        </button>
+                                    </div>
+                                </div>
+                                {editing && (
+                                    <p className="text-xs text-gray-400 dark:text-gray-500">{t('themePreview.editHint')}</p>
+                                )}
                                 {GROUPS.map(g => (
-                                    <ParamGroup key={g.id} groupId={g.id} settings={settings} />
+                                    <ParamGroup key={g.id} groupId={g.id} settings={settings} onChange={editing ? updateSetting : undefined} />
                                 ))}
                             </div>
                         </div>
