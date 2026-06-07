@@ -107,7 +107,93 @@ function formatValue(key, raw, t) {
     }
 }
 
-function ParamRow({ paramKey, value }) {
+// Диапазоны слайдеров для числовых типов (min, max, step)
+const SLIDER_RANGE = {
+    opacity: [0, 1, 0.05],
+    percent: [0, 200, 1],
+    deg:     [0, 360, 1],
+    scale:   [50, 200, 1],
+    speed:   [10, 400, 5],
+}
+// Диапазоны для px-параметров (у каждого свой масштаб)
+const PX_RANGE = {
+    block_opacity:         [0, 1, 0.05],
+    glass_blur:            [0, 40, 1],
+    theme_radius:          [0, 30, 1],
+    border_radius:         [0, 30, 1],
+    content_width:         [800, 1800, 10],
+    page_offset_value:     [0, 100, 1],
+    custom_font_size:      [10, 28, 1],
+    custom_letter_spacing: [-3, 10, 0.5],
+    background_blur:       [0, 40, 1],
+}
+
+// Редактор одного параметра — тип контрола зависит от meta.type
+function ParamEditor({ paramKey, value, meta, onChange }) {
+    const { t } = useTranslation()
+    const type = meta?.type
+
+    if (type === 'bool') {
+        const on = !!value
+        return (
+            <button
+                type="button"
+                onClick={() => onChange(paramKey, !on)}
+                className={`relative w-10 h-6 rounded-full transition-colors shrink-0 ${on ? 'bg-[#0077ff]' : 'bg-gray-300 dark:bg-gray-700'}`}
+                aria-pressed={on}
+            >
+                <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${on ? 'translate-x-4' : ''}`} />
+            </button>
+        )
+    }
+
+    if (type === 'color' && typeof value === 'string') {
+        return (
+            <div className="flex items-center gap-2 shrink-0">
+                <input
+                    type="color"
+                    value={/^#[0-9a-f]{6}$/i.test(value) ? value : '#000000'}
+                    onChange={e => onChange(paramKey, e.target.value)}
+                    className="w-7 h-7 rounded-lg border border-black/10 dark:border-white/10 bg-transparent cursor-pointer p-0"
+                />
+                <span className="text-xs font-mono text-gray-900 dark:text-white uppercase w-16">{String(value).toUpperCase()}</span>
+            </div>
+        )
+    }
+
+    // Числовые слайдеры
+    const range = PX_RANGE[paramKey] || SLIDER_RANGE[type]
+    if (range) {
+        const [min, max, step] = range
+        const num = Number(value)
+        return (
+            <div className="flex items-center gap-2.5 shrink-0">
+                <input
+                    type="range"
+                    min={min} max={max} step={step}
+                    value={Number.isFinite(num) ? num : min}
+                    onChange={e => onChange(paramKey, Number(e.target.value))}
+                    className="w-28 accent-[#0077ff] cursor-pointer"
+                />
+                <span className="text-xs font-mono text-gray-900 dark:text-white w-14 text-right">
+                    {formatValue(paramKey, value, t)}
+                </span>
+            </div>
+        )
+    }
+
+    // Остальное — текстовое поле
+    return (
+        <input
+            type="text"
+            value={value ?? ''}
+            onChange={e => onChange(paramKey, e.target.value)}
+            className="text-sm font-mono text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-2 py-1 w-40 min-w-0"
+        />
+    )
+}
+
+function ParamRow({ paramKey, value, onChange }) {
     const { t } = useTranslation()
     const meta = PARAM_META[paramKey]
     if (meta?.hidden) return null
@@ -120,25 +206,29 @@ function ParamRow({ paramKey, value }) {
     return (
         <div className="flex items-center justify-between py-2.5 border-b border-gray-100 dark:border-gray-800/80 last:border-0 gap-4">
             <span className="text-sm text-gray-500 dark:text-gray-400 shrink-0">{label}</span>
-            <div className="flex items-center gap-2 min-w-0">
-                {isColor && (
-                    <div className="w-4 h-4 rounded border border-black/10 dark:border-white/10 shadow-sm shrink-0"
-                         style={{ background: value }} />
-                )}
-                <span className={[
-                    'text-sm font-medium truncate',
-                    isBool && value  ? 'text-green-600 dark:text-green-400' : '',
-                    isBool && !value ? 'text-gray-400 dark:text-gray-600'   : '',
-                    !isBool          ? 'font-mono text-gray-900 dark:text-white' : '',
-                ].join(' ')}>
-                    {display}
-                </span>
-            </div>
+            {onChange ? (
+                <ParamEditor paramKey={paramKey} value={value} meta={meta} onChange={onChange} />
+            ) : (
+                <div className="flex items-center gap-2 min-w-0">
+                    {isColor && (
+                        <div className="w-4 h-4 rounded border border-black/10 dark:border-white/10 shadow-sm shrink-0"
+                             style={{ background: value }} />
+                    )}
+                    <span className={[
+                        'text-sm font-medium truncate',
+                        isBool && value  ? 'text-green-600 dark:text-green-400' : '',
+                        isBool && !value ? 'text-gray-400 dark:text-gray-600'   : '',
+                        !isBool          ? 'font-mono text-gray-900 dark:text-white' : '',
+                    ].join(' ')}>
+                        {display}
+                    </span>
+                </div>
+            )}
         </div>
     )
 }
 
-export function ParamGroup({ groupId, settings }) {
+export function ParamGroup({ groupId, settings, onChange }) {
     const { t } = useTranslation()
     const group = GROUPS.find(g => g.id === groupId)
     if (!group) return null
@@ -162,7 +252,7 @@ export function ParamGroup({ groupId, settings }) {
             </div>
             <div className="px-4">
                 {entries.map(([key, value]) => (
-                    <ParamRow key={key} paramKey={key} value={value} />
+                    <ParamRow key={key} paramKey={key} value={value} onChange={onChange} />
                 ))}
             </div>
         </div>

@@ -700,6 +700,10 @@ export const en = {
     themeLink: 'Theme link',
     seeAllThemes: 'See all themes',
     customName: 'Custom theme',
+    edit: 'Edit',
+    editDone: 'Done',
+    editHint: 'Change values — preview and link update live',
+    resetEdits: 'Reset',
   },
 
   paramMeta: {
