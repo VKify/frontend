@@ -157,12 +157,12 @@ export const en = {
       },
       media: {
         title: 'Download anything',
-        description: 'Videos, stories, photos and albums — straight from VK.',
+        description: 'Videos, stories, photos, music and albums — straight from VK.',
         details: [
           'Video up to 1080p',
           'Stories and photos',
           'Whole albums',
-          'Choose video quality',
+          'Music and tracks as MP3',
         ],
       },
       messages: {
@@ -245,7 +245,7 @@ export const en = {
       adblock: { title: 'Ad blocking', description: 'A clean feed without promo posts, stories and recommendations' },
       css: { title: 'CSS editor', description: 'Full customization freedom with syntax highlighting' },
       privacy: { title: 'Invisible mode', description: 'Hide your online status, views and typing' },
-      wallpapers: { title: 'Live wallpapers', description: 'Animated and static backgrounds right in the VK interface' },
+      media: { title: 'Media downloads', description: 'Videos, clips, stories, photos, music and chat export — straight from VK' },
       fonts: { title: 'Font picker', description: '{fonts} fonts for comfortable reading' },
     },
     mockup: {
@@ -267,7 +267,14 @@ export const en = {
         time: 'today at 12:30',
         sample: 'Made VK prettier with VKify! Now everything looks exactly the way I want.',
       },
-      wallpapers: { aurora: 'Aurora', sunset: 'Sunset', cyber: 'Cyber', matrix: 'Matrix', space: 'Space', waves: 'Waves' },
+      media: {
+        video:   { title: 'Video download',   desc: 'vk.com & vkvideo.ru, quality picker' },
+        stories: { title: 'Stories download', desc: 'Save stories in one click' },
+        clips:   { title: 'Clips download',   desc: 'Button next to the like' },
+        photos:  { title: 'Photos & albums',  desc: 'Whole album as a ZIP archive' },
+        music:   { title: 'Music as MP3',     desc: 'Tracks and full albums' },
+        dialog:  { title: 'Chat export',      desc: 'Conversation as JSON, TXT, HTML or ZIP' },
+      },
     },
   },
 

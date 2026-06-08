@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight, X, ZoomIn, Palette, ShieldOff, Code, Eye, ImageIcon, Type } from 'lucide-react'
+import { ChevronLeft, ChevronRight, X, ZoomIn, Palette, ShieldOff, Code, Eye, Type, Download, Check } from 'lucide-react'
 import Section from '../common/Section'
+import { VK_ICONS } from '../common/vkMenuIcons'
 import config from '../../config'
 import { useTranslation } from '../../i18n'
 
@@ -11,7 +12,7 @@ const screenshots = [
   { id: 2, icon: ShieldOff, color: 'from-green-500 to-emerald-500', mockup: 'adblock' },
   { id: 3, icon: Code,      color: 'from-blue-500 to-cyan-500',     mockup: 'css' },
   { id: 4, icon: Eye,       color: 'from-orange-500 to-red-500',    mockup: 'privacy' },
-  { id: 5, icon: ImageIcon, color: 'from-teal-500 to-cyan-500',     mockup: 'wallpapers' },
+  { id: 5, icon: Download,  color: 'from-teal-500 to-cyan-500',     mockup: 'media' },
   { id: 6, icon: Type,      color: 'from-indigo-500 to-violet-500', mockup: 'fonts' },
 ]
 
@@ -24,405 +25,86 @@ function useScreenshotText() {
   })
 }
 
-function AuroraEffect() {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {[
-        { left: '8%',  color: 'rgba(52,211,153,0.55)',  delay: 0,   w: 70 },
-        { left: '30%', color: 'rgba(6,182,212,0.45)',   delay: 0.7, w: 55 },
-        { left: '55%', color: 'rgba(59,130,246,0.50)',  delay: 0.3, w: 90 },
-        { left: '78%', color: 'rgba(16,185,129,0.40)',  delay: 1.1, w: 65 },
-      ].map((ray, i) => (
-        <motion.div
-          key={`ray-${i}`}
-          className="absolute top-0 blur-2xl rounded-full"
-          style={{
-            left: ray.left,
-            width: ray.w,
-            height: '70%',
-            background: `linear-gradient(180deg, ${ray.color}, transparent)`,
-          }}
-          animate={{ scaleY: [1, 1.4, 0.85, 1.2, 1], x: [-6, 6, -9, 4, -6], opacity: [0.6, 1, 0.65, 0.9, 0.6] }}
-          transition={{ duration: 3 + i * 0.6, repeat: Infinity, delay: ray.delay, ease: 'easeInOut' }}
-        />
-      ))}
-      {[...Array(18)].map((_, i) => (
-        <motion.div
-          key={`star-${i}`}
-          className="absolute rounded-full bg-white"
-          style={{ top: `${(i * 13 + 3) % 55}%`, left: `${(i * 19 + 7) % 92}%`, width: i % 4 === 0 ? 2 : 1, height: i % 4 === 0 ? 2 : 1 }}
-          animate={{ opacity: [0.2, 1, 0.2] }}
-          transition={{ duration: 1.5 + (i % 3) * 0.6, repeat: Infinity, delay: i * 0.15 }}
-        />
-      ))}
-    </div>
-  )
-}
-
-function SunsetEffect() {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      <motion.div
-        className="absolute top-[15%] left-[30%] w-28 h-28 rounded-full blur-3xl bg-orange-400/60"
-        animate={{ scale: [1, 1.4, 1], x: [-10, 12, -10], opacity: [0.6, 1, 0.6] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="absolute top-[35%] right-[20%] w-24 h-24 rounded-full blur-3xl bg-pink-500/55"
-        animate={{ scale: [1.2, 0.85, 1.2], y: [-10, 10, -10] }}
-        transition={{ duration: 3.5, repeat: Infinity, delay: 0.6, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="absolute bottom-[20%] left-[15%] w-20 h-20 rounded-full blur-3xl bg-purple-600/45"
-        animate={{ scale: [0.9, 1.3, 0.9], x: [6, -8, 6] }}
-        transition={{ duration: 5, repeat: Infinity, delay: 1.2, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-purple-900/50 to-transparent"
-        animate={{ opacity: [0.5, 0.8, 0.5] }}
-        transition={{ duration: 3, repeat: Infinity }}
-      />
-    </div>
-  )
-}
-
-function CyberEffect() {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {/* Сетка */}
-      <div
-        className="absolute inset-0 opacity-[0.13]"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(34,211,238,0.7) 1px, transparent 1px),' +
-            'linear-gradient(90deg, rgba(34,211,238,0.7) 1px, transparent 1px)',
-          backgroundSize: '18px 18px',
-        }}
-      />
-
-      {/* Сканирующая линия */}
-      <motion.div
-        className="absolute left-0 right-0 h-[2px]"
-        style={{
-          background: 'linear-gradient(90deg, transparent 0%, rgba(34,211,238,0.9) 50%, transparent 100%)',
-          boxShadow: '0 0 10px rgba(34,211,238,0.7), 0 0 20px rgba(34,211,238,0.3)',
-        }}
-        animate={{ top: ['0%', '100%'] }}
-        transition={{ duration: 2.2, repeat: Infinity, ease: 'linear' }}
-      />
-
-      {/* HUD-уголки */}
-      {[
-        'top-2 left-2 border-l-2 border-t-2',
-        'top-2 right-2 border-r-2 border-t-2',
-        'bottom-2 left-2 border-l-2 border-b-2',
-        'bottom-2 right-2 border-r-2 border-b-2',
-      ].map((cls, i) => (
-        <div key={i} className={`absolute w-4 h-4 sm:w-5 sm:h-5 border-cyan-400/80 ${cls}`} />
-      ))}
-
-      {/* Данные слева */}
-      <motion.div
-        className="absolute top-[22%] left-3 font-mono text-cyan-400 space-y-0.5 opacity-80"
-        style={{ fontSize: '7px' }}
-        animate={{ opacity: [0.65, 1, 0.65] }}
-        transition={{ duration: 1.8, repeat: Infinity }}
-      >
-        <div>SYS: ONLINE</div>
-        <div>ENC: AES-256</div>
-        <motion.div
-          style={{ color: '#a78bfa' }}
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 0.85, repeat: Infinity }}
-        >
-          VPN: ACTIVE
-        </motion.div>
-      </motion.div>
-
-      {/* Данные справа */}
-      <motion.div
-        className="absolute bottom-[22%] right-3 font-mono text-violet-400 text-right space-y-0.5 opacity-70"
-        style={{ fontSize: '7px' }}
-        animate={{ opacity: [0.5, 0.9, 0.5] }}
-        transition={{ duration: 2.2, repeat: Infinity, delay: 0.6 }}
-      >
-        <div>CPU: 4%</div>
-        <div>MEM: 128MB</div>
-        <div className="text-cyan-400">PRIV: 100%</div>
-      </motion.div>
-
-      {/* Центральный вращающийся HUD */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <motion.div
-          className="w-10 h-10 sm:w-14 sm:h-14 border border-cyan-400/55 rotate-45"
-          animate={{ rotate: [45, 405] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
-        />
-        <motion.div
-          className="absolute inset-2 border border-violet-400/45 rotate-45"
-          animate={{ rotate: [45, -315] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-        />
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-cyan-300"
-          animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.6, 1] }}
-          transition={{ duration: 1, repeat: Infinity }}
-          style={{ boxShadow: '0 0 8px rgba(34,211,238,1)' }}
-        />
-      </div>
-
-      {/* Вертикальные импульсы */}
-      {[22, 55, 80].map((left, i) => (
-        <motion.div
-          key={i}
-          className="absolute top-0 bottom-0 w-px"
-          style={{
-            left: `${left}%`,
-            background: `linear-gradient(180deg, transparent, rgba(${i === 1 ? '139,92,246' : '34,211,238'},0.45), transparent)`,
-          }}
-          animate={{ scaleY: [0, 1, 0], opacity: [0, 0.7, 0] }}
-          transition={{ duration: 1.5 + i * 0.45, repeat: Infinity, delay: i * 0.65, ease: 'easeInOut' }}
-        />
-      ))}
-    </div>
-  )
-}
-
-const MATRIX_CHARS = '10ァアイウエオカキクケコサシスセタチツテナニランダム01'
-const MATRIX_COLS  = 10
-const MATRIX_ROWS  = 9
-
-function MatrixEffect() {
-  // Скорость каждой колонки фиксируется один раз (только клиент — useRef не SSR)
-  const speeds = useRef(
-    Array.from({ length: MATRIX_COLS }, (_, i) => 110 + i * 22 + Math.floor(Math.random() * 80))
-  )
-
-  // Детерминированное начальное состояние — без Math.random() во избежание hydration mismatch
-  const [cols, setCols] = useState(() =>
-    Array.from({ length: MATRIX_COLS }, (_, i) => ({
-      head: -(i % 6) - 1,  // staggered, deterministic
-      chars: Array.from({ length: MATRIX_ROWS }, (_, j) =>
-        MATRIX_CHARS[(i * MATRIX_ROWS + j) % MATRIX_CHARS.length]
-      ),
-    }))
-  )
-
-  useEffect(() => {
-    const timers = speeds.current.map((speed, colIdx) =>
-      setInterval(() => {
-        setCols(prev =>
-          prev.map((col, i) => {
-            if (i !== colIdx) return col
-            // Когда хвост полностью ушёл за экран — рестарт с рандомной задержкой
-            const nextHead = col.head >= MATRIX_ROWS + 4
-              ? -Math.floor(Math.random() * 5)
-              : col.head + 1
-            return {
-              head: nextHead,
-              // Символы в колонке немного меняются — эффект «живых» знаков
-              chars: col.chars.map(ch =>
-                Math.random() < 0.1
-                  ? MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)]
-                  : ch
-              ),
-            }
-          })
-        )
-      }, speed)
-    )
-    return () => timers.forEach(clearInterval)
-  }, []) // deps пустые — speeds.current стабилен
-
-  return (
-    <div className="absolute inset-0 overflow-hidden bg-black p-1.5">
-      <div
-        className="grid h-full"
-        style={{ gridTemplateColumns: `repeat(${MATRIX_COLS}, 1fr)` }}
-      >
-        {cols.map((col, colIdx) => (
-          <div key={colIdx} className="flex flex-col">
-            {col.chars.map((char, rowIdx) => {
-              // dist < 0 — голова ещё не дошла до этой строки
-              const dist = col.head - rowIdx
-              const isHead  = dist === 0
-              // Длина «хвоста» — 5 символов, экспоненциальное затухание
-              const opacity = isHead
-                ? 1
-                : dist > 0 && dist < 6
-                  ? Math.pow(1 - dist / 6, 1.4)
-                  : 0
-
-              return (
-                <div
-                  key={rowIdx}
-                  className="flex-1 text-center font-mono select-none"
-                  style={{
-                    fontSize: '9px',
-                    lineHeight: 1.5,
-                    opacity,
-                    color: isHead ? '#f0fff4' : '#4ade80',
-                    textShadow: isHead
-                      ? '0 0 6px #fff, 0 0 14px #4ade80, 0 0 22px #16a34a'
-                      : opacity > 0.45
-                      ? '0 0 5px #22c55e'
-                      : 'none',
-                  }}
-                >
-                  {opacity > 0 ? char : ' '}
-                </div>
-              )
-            })}
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function SpaceEffect() {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {[...Array(35)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full bg-white"
-          style={{
-            top: `${(i * 17 + 3) % 95}%`,
-            left: `${(i * 23 + 7) % 95}%`,
-            width: i % 6 === 0 ? 2.5 : i % 3 === 0 ? 1.5 : 1,
-            height: i % 6 === 0 ? 2.5 : i % 3 === 0 ? 1.5 : 1,
-          }}
-          animate={{ opacity: [0.1, 1, 0.1], scale: i % 5 === 0 ? [1, 1.8, 1] : 1 }}
-          transition={{ duration: 1.2 + (i % 4) * 0.4, repeat: Infinity, delay: i * 0.08 }}
-        />
-      ))}
-      <motion.div
-        className="absolute top-[30%] left-[45%] w-20 h-14 rounded-full blur-3xl bg-indigo-500/30"
-        animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="absolute bottom-[25%] right-[30%] w-14 h-14 rounded-full blur-2xl bg-violet-600/25"
-        animate={{ scale: [1.2, 0.8, 1.2], opacity: [0.25, 0.5, 0.25] }}
-        transition={{ duration: 4, repeat: Infinity, delay: 1.5, ease: 'easeInOut' }}
-      />
-    </div>
-  )
-}
-
-function WavesEffect() {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {[0, 1, 2].map((i) => (
-        <motion.div
-          key={i}
-          className="absolute w-[130%] -left-[15%]"
-          style={{ bottom: `${10 + i * 14}%`, height: 50 }}
-          animate={{ x: ['0%', '-8%', '0%'] }}
-          transition={{ duration: 3 + i * 0.7, repeat: Infinity, delay: i * 0.5, ease: 'easeInOut' }}
-        >
-          <svg viewBox="0 0 400 50" preserveAspectRatio="none" className="w-full h-full">
-            <path
-              d={`M0,25 C50,${10 + i * 5} 100,${40 - i * 5} 150,25 C200,${10 + i * 5} 250,${40 - i * 5} 300,25 C350,${10 + i * 5} 400,${40 - i * 5} 400,25 L400,50 L0,50 Z`}
-              fill={`rgba(${i === 0 ? '56,189,248' : i === 1 ? '14,165,233' : '2,132,199'},${0.35 - i * 0.08})`}
-            />
-          </svg>
-        </motion.div>
-      ))}
-      <motion.div
-        className="absolute top-[20%] left-[40%] w-24 h-12 rounded-full blur-3xl bg-cyan-300/25"
-        animate={{ x: [-15, 15, -15], opacity: [0.25, 0.5, 0.25] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-      />
-    </div>
-  )
-}
-
-const WALLPAPERS_DATA = [
-  { id: 'aurora', thumb: 'from-green-400 via-teal-500 to-blue-600',    bg: 'from-emerald-950 via-teal-900 to-blue-950',    Effect: AuroraEffect },
-  { id: 'sunset', thumb: 'from-orange-400 via-pink-500 to-purple-600',  bg: 'from-orange-950 via-rose-950 to-purple-950',   Effect: SunsetEffect },
-  { id: 'cyber',  thumb: 'from-violet-600 via-blue-600 to-cyan-400',    bg: 'from-indigo-950 via-blue-950 to-cyan-950',     Effect: CyberEffect  },
-  { id: 'matrix', thumb: 'from-green-900 via-green-600 to-black',       bg: 'from-green-950 via-green-900 to-black',        Effect: MatrixEffect },
-  { id: 'space',  thumb: 'from-slate-900 via-indigo-950 to-slate-900',  bg: 'from-slate-950 via-indigo-950 to-slate-950',   Effect: SpaceEffect  },
-  { id: 'waves',  thumb: 'from-sky-500 via-cyan-400 to-blue-600',       bg: 'from-sky-950 via-cyan-900 to-blue-950',        Effect: WavesEffect  },
+// Функции загрузки медиа — то, что показано на слайде «Загрузка медиа».
+// Каждая строка имитирует пункт настроек VKify с включённым тумблером,
+// иконки — настоящие иконки меню ВКонтакте (VK_ICONS), подобранные по смыслу.
+const MEDIA_ITEMS = [
+  { id: 'video',   icon: 'video' },      // видео
+  { id: 'stories', icon: 'photo' },      // истории
+  { id: 'clips',   icon: 'clips' },      // клипы
+  { id: 'photos',  icon: 'tabAlbums' },  // фото и альбомы
+  { id: 'music',   icon: 'music' },      // музыка
+  { id: 'dialog',  icon: 'messenger' },  // экспорт диалога
 ]
 
-function WallpapersMockup({ isActive }) {
+function MediaMockup({ isActive }) {
   const { t } = useTranslation()
-  const [active, setActive] = useState(0)
-  const wp = WALLPAPERS_DATA[active]
-  const Effect = wp.Effect
 
   return (
-    <div className="w-full h-full relative overflow-hidden">
-      {/* Живой обой */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={active}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.45 }}
-          className={`absolute inset-0 bg-gradient-to-br ${wp.bg}`}
-        >
-          <Effect />
-        </motion.div>
-      </AnimatePresence>
+    <div className="w-full h-full bg-gradient-to-b from-[#0d1117] to-[#161b22] p-1.5 sm:p-2.5 flex flex-col gap-1 sm:gap-1.5 overflow-hidden">
 
-      {/* VK-интерфейс поверх обоя */}
-      <div className="absolute inset-0 flex flex-col justify-between p-2 sm:p-4">
-        {/* Навбар */}
-        <div className="flex items-center gap-1.5 sm:gap-2 bg-black/25 backdrop-blur-md rounded-lg sm:rounded-xl px-2 sm:px-3 py-1 sm:py-2 border border-white/10 pointer-events-none">
-          <div className="w-4 h-4 sm:w-5 sm:h-5 rounded bg-[#0077ff] flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-bold text-[7px] sm:text-[8px]">VK</span>
-          </div>
-          <div className="flex-1 h-1 sm:h-1.5 rounded bg-white/25" />
-          <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-white/20" />
+      {/* ── Заголовок панели ── */}
+      <motion.div
+        initial={false}
+        animate={isActive ? { opacity: [0, 1], y: [-6, 0] } : { opacity: 1, y: 0 }}
+        className="flex-shrink-0 flex items-center gap-2 sm:gap-2.5 bg-gradient-to-r from-teal-500/20 to-cyan-500/5 border border-teal-500/20 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1.5 sm:py-2"
+      >
+        <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-md sm:rounded-lg bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-teal-500/30">
+          <Download className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
         </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-[10px] sm:text-xs font-bold text-white/90 leading-none truncate">
+            {t('screenshots.items.media.title')}
+          </div>
+          <div className="hidden sm:block text-[9px] text-teal-400/80 mt-0.5 leading-none">VKify</div>
+        </div>
+        <div className="flex-shrink-0 flex items-center gap-1">
+          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-teal-400 shadow-sm shadow-teal-400/50" />
+          <span className="hidden sm:inline text-[9px] text-teal-400 font-semibold">6 ON</span>
+        </div>
+      </motion.div>
 
-        {/* Пост */}
-        <div className="bg-white/15 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-white/25 p-2 sm:p-4 shadow-2xl pointer-events-none">
-          <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2.5">
-            <div className="w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex-shrink-0" />
-            <div className="space-y-0.5 sm:space-y-1 flex-1 min-w-0">
-              <div className="w-16 sm:w-24 h-1 sm:h-1.5 rounded bg-white/75" />
-              <div className="w-10 sm:w-14 h-0.5 sm:h-1 rounded bg-white/45" />
+      {/* ── Список функций ── */}
+      {MEDIA_ITEMS.map((item, i) => (
+        <motion.div
+          key={item.id}
+          initial={false}
+          animate={isActive ? { opacity: [0, 1], x: [14, 0] } : { opacity: 1, x: 0 }}
+          transition={{ delay: 0.08 + i * 0.07 }}
+          className="flex items-center gap-1.5 sm:gap-2.5 flex-1 min-h-0 bg-white/[0.04] rounded-lg sm:rounded-xl px-1.5 sm:px-3 border border-white/[0.06]"
+        >
+          {/* Иконка */}
+          <div className="w-5 h-5 sm:w-8 sm:h-8 rounded-md sm:rounded-lg bg-teal-500/10 border border-teal-500/10 flex items-center justify-center flex-shrink-0">
+            <svg viewBox="0 0 20 20" fill="none" className="w-2.5 h-2.5 sm:w-[18px] sm:h-[18px] text-teal-400">
+              {VK_ICONS[item.icon]}
+            </svg>
+          </div>
+
+          {/* Текст */}
+          <div className="flex-1 min-w-0">
+            <div className="text-[9px] sm:text-[11px] font-semibold text-white/80 truncate leading-tight">
+              {t(`screenshots.mockup.media.${item.id}.title`)}
+            </div>
+            <div className="hidden sm:block text-[8px] text-white/40 truncate leading-tight mt-0.5">
+              {t(`screenshots.mockup.media.${item.id}.desc`)}
             </div>
           </div>
-          <div className="space-y-1 sm:space-y-1.5">
-            <div className="w-full h-1 sm:h-1.5 rounded bg-white/50" />
-            <div className="w-4/5 h-1 sm:h-1.5 rounded bg-white/40" />
-          </div>
-        </div>
 
-        {/* Выбор обоя */}
-        <div className="flex gap-1 sm:gap-1.5 justify-center">
-          {WALLPAPERS_DATA.map((w, i) => (
-            <motion.button
-              key={i}
-              whileHover={{ scale: 1.12 }}
-              whileTap={{ scale: 0.94 }}
-              onClick={() => setActive(i)}
-              className={`rounded-md sm:rounded-xl bg-gradient-to-br ${w.thumb} transition-all duration-150 relative overflow-hidden
-                ${i === active
-                  ? 'ring-2 ring-white shadow-lg shadow-white/30'
-                  : 'opacity-55 hover:opacity-85'}`}
-              style={{ width: i === active ? 40 : 22, height: i === active ? 28 : 18 }}
-              title={t(`screenshots.mockup.wallpapers.${w.id}`)}
-            >
-              {i === active && (
-                <motion.div
-                  layoutId="activeThumbDot"
-                  className="absolute inset-0 flex items-end justify-center pb-0.5"
-                >
-                  <div className="w-1 h-1 rounded-full bg-white/90 shadow" />
-                </motion.div>
-              )}
-            </motion.button>
-          ))}
-        </div>
-      </div>
+          {/* HD-badge только для видео */}
+          {i === 0 && (
+            <span className="hidden sm:inline-flex items-center text-[8px] font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-1.5 py-0.5 rounded-md flex-shrink-0">
+              HD
+            </span>
+          )}
+
+          {/* Тумблер «включено» */}
+          <div className="flex-shrink-0 w-7 h-[18px] sm:w-10 sm:h-[22px] rounded-full bg-teal-500 shadow-sm shadow-teal-500/40 flex items-center justify-end px-[3px]">
+            <div className="w-3 h-3 sm:w-[14px] sm:h-[14px] rounded-full bg-white flex items-center justify-center shadow-sm">
+              <Check className="w-1.5 h-1.5 sm:w-2.5 sm:h-2.5 text-teal-600" strokeWidth={3.5} />
+            </div>
+          </div>
+        </motion.div>
+      ))}
     </div>
   )
 }
@@ -626,8 +308,8 @@ function ScreenMockup({ type, isActive }) {
     )
   }
 
-  if (type === 'wallpapers') {
-    return <WallpapersMockup isActive={isActive} />
+  if (type === 'media') {
+    return <MediaMockup isActive={isActive} />
   }
 
   if (type === 'fonts') {

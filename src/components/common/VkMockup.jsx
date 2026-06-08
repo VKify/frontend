@@ -169,6 +169,10 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
   const bpMd = SIM_W >= 768
   const bpLg = SIM_W >= 1024
 
+  // На узких фреймах (телефон < 480 px) боковая панель при zoom ~0.4 нечитаема
+  // и занимает место, мешая контенту — скрываем её принудительно.
+  const effectiveBpMd = frameW > 0 && frameW < 480 ? false : bpMd
+
   // Ширина макета не может превышать виртуальный экран
   const effContentW = Math.min(contentW, SIM_W)
   // Смещение по природе сдвигает контент частично за край. Ограничиваем так,
@@ -268,7 +272,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
               <SkipBack size={17} style={{ color: p.text2 }} />
               <Play size={17} style={{ color: p.text }} fill={p.text} />
               <SkipForward size={17} style={{ color: p.text2 }} />
-              {bpMd && (
+              {effectiveBpMd && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 4 }}>
                   <Sk w={70} h={8} c={p.skel} />
                   <Sk w={110} h={8} c={p.skel2} />
@@ -293,7 +297,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
           <div style={{ display: 'flex', gap: bodyGap, padding: 16, alignItems: 'flex-start' }}>
 
             {/* Sidebar */}
-            {bpMd && (
+            {effectiveBpMd && (
             <div style={{
               display: 'flex', flexDirection: 'column', gap: 1, flexShrink: 0,
               width: compactMenu ? 52 : 168,
