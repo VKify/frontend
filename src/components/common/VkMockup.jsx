@@ -153,9 +153,21 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
 
   // ── Виртуальный «монитор»: рендерим макет в фиксированной ширине и масштабируем
   //    (zoom) под реальную ширину превью. Так разница ширины контента и смещения
-  //    видна на любом окне, даже узком (где иначе всё упиралось бы в край экрана). ──
-  const SIM_W = Math.max(frameW || 1900, 1900)
+  //    видна на любом окне, даже узком (где иначе всё упиралось бы в край экрана).
+  //    На десктопе/планшете берём 1900px. На телефоне такой зум (~0.2) делает макет
+  //    нечитаемо мелким, поэтому рендерим в более узком виртуальном экране (зум ~0.4). ──
+  const VIRTUAL_W = 1900
+  const SIM_W = frameW >= 700
+    ? Math.max(frameW, VIRTUAL_W)
+    : Math.max(Math.round((frameW || 375) * 2.4), 760)
   const zoom = frameW > 0 ? frameW / SIM_W : 1
+
+  // Внутренние брейкпоинты макета считаем от ширины виртуального экрана (SIM_W),
+  // а не от вьюпорта страницы — иначе на телефоне прятались бы блоки, которые
+  // на самом деле отрисованы в широком (760–1900px) виртуальном окне.
+  const bpSm = SIM_W >= 640
+  const bpMd = SIM_W >= 768
+  const bpLg = SIM_W >= 1024
 
   // Ширина макета не может превышать виртуальный экран
   const effContentW = Math.min(contentW, SIM_W)
@@ -233,14 +245,14 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
               <VkLogo accent={p.accent} size={26} />
-              <span className="hidden sm:inline" style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-0.01em' }}>ВКонтакте</span>
+              {bpSm && <span style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-0.01em' }}>ВКонтакте</span>}
             </div>
 
-            {collapseSearch ? (
+            {collapseSearch || !bpSm ? (
               <Search size={20} style={{ color: p.text2 }} />
             ) : (
-              <div className="hidden sm:flex" style={{
-                alignItems: 'center', gap: 8, background: p.field, borderRadius: 8,
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: 8, background: p.field, borderRadius: 8,
                 padding: '0 12px', height: 32, width: 200, color: p.text3,
               }}>
                 <Search size={16} />
@@ -256,10 +268,12 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
               <SkipBack size={17} style={{ color: p.text2 }} />
               <Play size={17} style={{ color: p.text }} fill={p.text} />
               <SkipForward size={17} style={{ color: p.text2 }} />
-              <div className="hidden md:flex" style={{ alignItems: 'center', gap: 6, marginLeft: 4 }}>
-                <Sk w={70} h={8} c={p.skel} />
-                <Sk w={110} h={8} c={p.skel2} />
-              </div>
+              {bpMd && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 4 }}>
+                  <Sk w={70} h={8} c={p.skel} />
+                  <Sk w={110} h={8} c={p.skel2} />
+                </div>
+              )}
             </div>
 
             {/* Аватар пользователя */}
@@ -279,8 +293,9 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
           <div style={{ display: 'flex', gap: bodyGap, padding: 16, alignItems: 'flex-start' }}>
 
             {/* Sidebar */}
-            <div className="hidden md:flex" style={{
-              flexDirection: 'column', gap: 1, flexShrink: 0,
+            {bpMd && (
+            <div style={{
+              display: 'flex', flexDirection: 'column', gap: 1, flexShrink: 0,
               width: compactMenu ? 52 : 168,
               ...(menuBg ? { background: p.card, border: `1px solid ${p.cardBorder}`, borderRadius: radius, padding: 8, ...glassStyle } : {}),
             }}>
@@ -302,6 +317,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                 )
               )}
             </div>
+            )}
 
             {/* Content area */}
             <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: gap }}>
@@ -310,7 +326,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
               <div style={{ ...block, position: 'relative', overflow: 'hidden' }}>
                 <div style={{ height: 150, position: 'relative', background: p.cover }}>
                   <div style={{ ...btnField, position: 'absolute', top: 12, right: 12 }}>
-                    <Pencil size={13} /> <span className="hidden sm:inline">Изменить обложку</span>
+                    <Pencil size={13} /> {bpSm && <span>Изменить обложку</span>}
                   </div>
                 </div>
 
@@ -348,11 +364,13 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                       <ChevronRight size={13} style={{ color: p.accent }} />
                     </div>
                   </div>
-                  <div className="hidden sm:flex" style={{ alignItems: 'center', gap: 8, flexShrink: 0 }}>
+                  {bpSm && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
                     <div style={btnAccent}>Редактировать профиль</div>
                     <div style={{ ...btnAccent, padding: 8 }}><VkIcon id="stats" size={17} color={p.accent} /></div>
                     <div style={{ ...btnAccent, padding: '8px 10px' }}>Ещё <ChevronDown size={13} /></div>
                   </div>
+                  )}
                 </div>
               </div>
 
@@ -379,7 +397,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                     </div>
 
                     <div style={{ padding: 16 }}>
-                      <div className="flex flex-col sm:flex-row" style={{ gap: 16 }}>
+                      <div style={{ display: 'flex', flexDirection: bpSm ? 'row' : 'column', gap: 16 }}>
                         <div style={{ flexShrink: 0 }}>
                           <div style={{
                             width: 116, height: 116, borderRadius: 10, background: p.skel2,
@@ -390,7 +408,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                           <Sk w={92} h={11} c={p.skel} style={{ marginTop: 9 }} />
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2" style={{ flex: 1, minWidth: 0, gap: '6px 18px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: bpSm ? '1fr 1fr' : '1fr', flex: 1, minWidth: 0, gap: '6px 18px' }}>
                           {Array.from({ length: 4 }).map((_, i) => (
                             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 11, padding: '6px 4px' }}>
                               <div style={{ width: 36, height: 36, borderRadius: 7, background: p.skel2, flexShrink: 0 }} />
@@ -426,7 +444,8 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                 </div>
 
                 {/* Правая: друзья + подписки */}
-                <div className="hidden lg:flex" style={{ flexDirection: 'column', gap: gap, width: 252, flexShrink: 0 }}>
+                {bpLg && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: gap, width: 252, flexShrink: 0 }}>
                   {/* Друзья */}
                   <div style={{ ...block, padding: 14 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
@@ -460,6 +479,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                     ))}
                   </div>
                 </div>
+                )}
               </div>
             </div>
           </div>

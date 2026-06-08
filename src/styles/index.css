@@ -99,6 +99,15 @@ body {
   .border-theme {
     border-color: var(--border-color);
   }
+
+  /* Скрыть полосу прокрутки (для горизонтальных списков-чипсов) */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 ::-webkit-scrollbar {

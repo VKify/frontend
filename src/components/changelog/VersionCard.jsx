@@ -24,9 +24,9 @@ export default function VersionCard({ version, isLatest = false }) {
       className="relative"
     >
       {/* Timeline dot */}
-      <div className="absolute left-0 top-8 w-4 h-4 rounded-full bg-[#0077ff] border-4 border-gray-50 dark:border-gray-950 -translate-x-1/2 hidden md:block z-10" />
-      
-      <div className="md:ml-8 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:shadow-lg hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-150">
+      <div className={`absolute left-[7px] top-7 w-4 h-4 rounded-full border-4 border-white dark:border-gray-950 -translate-x-1/2 hidden md:block z-10 ${isLatest ? 'bg-[#0077ff] ring-4 ring-[#0077ff]/20' : 'bg-gray-300 dark:bg-gray-700'}`} />
+
+      <div className={`md:ml-8 p-5 sm:p-6 rounded-2xl border bg-white dark:bg-gray-900/60 hover:shadow-lg hover:shadow-blue-500/[0.06] hover:-translate-y-0.5 transition-all duration-200 ${isLatest ? 'border-[#0077ff]/30 dark:border-[#0077ff]/30' : 'border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700'}`}>
         {/* Header */}
         <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
           <div>
@@ -54,15 +54,17 @@ export default function VersionCard({ version, isLatest = false }) {
         {/* Title */}
         <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">{title}</h4>
 
-        {/* Highlights */}
-        <div className="flex flex-wrap gap-2 mb-4">
+        {/* Highlights — это полноразмерные тезисы, поэтому не «таблетки» (rounded-full
+            на многострочном тексте выглядит криво), а аккуратные блоки с маркером */}
+        <div className="flex flex-col gap-2 mb-4">
           {highlights.map((highlight, i) => (
-            <span
+            <div
               key={i}
-              className="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm"
+              className="flex items-start gap-2.5 px-3.5 py-2.5 rounded-xl bg-gray-50 dark:bg-gray-800/60 text-gray-700 dark:text-gray-300 text-sm leading-snug"
             >
-              {highlight}
-            </span>
+              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#0077ff] flex-shrink-0" />
+              <span>{highlight}</span>
+            </div>
           ))}
         </div>
 

@@ -47,29 +47,34 @@ export default function News() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-gray-950">
+    <div className="relative min-h-screen overflow-hidden pt-24 pb-20 bg-white dark:bg-gray-950">
       <SEO
         title={t('newsPage.seoTitle')}
         description={t('newsPage.seoDescription')}
         url="/news"
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Декоративный градиент за шапкой */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[420px] overflow-hidden">
+        <div className="absolute left-1/2 top-[-140px] h-[360px] w-[760px] max-w-[130vw] -translate-x-1/2 rounded-full bg-[#0077ff]/15 blur-[120px] dark:bg-[#0077ff]/25" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-10">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="text-center mb-8 sm:mb-10">
+          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-white mb-4">
             {t('newsPage.titleTop')}{' '}
             <span className="bg-gradient-to-r from-[#0077ff] to-blue-400 bg-clip-text text-transparent">
               {t('newsPage.titleAccent')}
             </span>
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             {t('newsPage.subtitle')}
           </p>
         </div>
 
         {/* Toolbar: поиск + фильтр категорий */}
-        <div className="flex flex-col lg:flex-row lg:items-center gap-4 mb-10">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-4 mb-6">
           {/* Search */}
           <div className="relative w-full lg:max-w-sm">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
@@ -91,39 +96,48 @@ export default function News() {
             )}
           </div>
 
-          {/* Category chips */}
-          <div className="flex flex-wrap items-center gap-2 lg:ml-auto">
-            {categories.map((cat) => {
-              const active = category === cat.id
-              const label =
-                cat.id === 'all'
-                  ? t('newsPage.allCategory')
-                  : t(`newsPage.categories.${cat.id}`)
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => setCategory(cat.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-150 ${
-                    active
-                      ? 'bg-[#0077ff] text-white shadow-lg shadow-blue-500/25'
-                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-                  }`}
-                >
-                  {label}
-                  <span
-                    className={`text-xs px-1.5 py-0.5 rounded-full ${
+          {/* Category chips — горизонтальная прокрутка на узких экранах вместо переноса */}
+          <div className="-mx-4 px-4 lg:mx-0 lg:px-0 lg:ml-auto overflow-x-auto scrollbar-hide">
+            <div className="flex items-center gap-2 w-max lg:w-auto lg:flex-wrap lg:justify-end">
+              {categories.map((cat) => {
+                const active = category === cat.id
+                const label =
+                  cat.id === 'all'
+                    ? t('newsPage.allCategory')
+                    : t(`newsPage.categories.${cat.id}`)
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setCategory(cat.id)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap flex-shrink-0 transition-all duration-150 ${
                       active
-                        ? 'bg-white/25'
-                        : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
+                        ? 'bg-[#0077ff] text-white shadow-lg shadow-blue-500/25'
+                        : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                     }`}
                   >
-                    {cat.count}
-                  </span>
-                </button>
-              )
-            })}
+                    {label}
+                    <span
+                      className={`text-xs px-1.5 py-0.5 rounded-full ${
+                        active
+                          ? 'bg-white/25'
+                          : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
+                      }`}
+                    >
+                      {cat.count}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
           </div>
         </div>
+
+        {/* Счётчик результатов при активном фильтре/поиске */}
+        {!isDefaultView && filtered.length > 0 && (
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+            {t('newsPage.found', { count: filtered.length, total: news.length })}
+          </p>
+        )}
 
         {/* Results */}
         {filtered.length > 0 ? (
@@ -131,11 +145,18 @@ export default function News() {
             {featured && <NewsCard post={featured} featured isLatest />}
 
             {rest.length > 0 && (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {rest.map((post) => (
-                  <NewsCard key={post.slug} post={post} />
-                ))}
-              </div>
+              <>
+                {hasFeatured && (
+                  <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 pt-2">
+                    {t('newsPage.latest')}
+                  </h2>
+                )}
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {rest.map((post) => (
+                    <NewsCard key={post.slug} post={post} />
+                  ))}
+                </div>
+              </>
             )}
           </div>
         ) : (
