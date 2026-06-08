@@ -41,70 +41,71 @@ function MediaMockup({ isActive }) {
   const { t } = useTranslation()
 
   return (
-    <div className="w-full h-full bg-gradient-to-b from-[#0d1117] to-[#161b22] p-1.5 sm:p-2.5 flex flex-col gap-1 sm:gap-1.5 overflow-hidden">
+    <div className="w-full h-full bg-gradient-to-b from-[#0d1117] to-[#161b22] p-2 sm:p-2.5 flex flex-col gap-2 sm:gap-1.5 overflow-hidden">
 
       {/* ── Заголовок панели ── */}
       <motion.div
         initial={false}
         animate={isActive ? { opacity: [0, 1], y: [-6, 0] } : { opacity: 1, y: 0 }}
-        className="flex-shrink-0 flex items-center gap-2 sm:gap-2.5 bg-gradient-to-r from-teal-500/20 to-cyan-500/5 border border-teal-500/20 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1.5 sm:py-2"
+        className="flex-shrink-0 flex items-center gap-2 sm:gap-2.5 bg-gradient-to-r from-teal-500/20 to-cyan-500/5 border border-teal-500/20 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-1.5 sm:py-2"
       >
         <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-md sm:rounded-lg bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-teal-500/30">
-          <Download className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+          <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[10px] sm:text-xs font-bold text-white/90 leading-none truncate">
+          <div className="text-[11px] sm:text-sm font-bold text-white/90 leading-none truncate">
             {t('screenshots.items.media.title')}
           </div>
-          <div className="hidden sm:block text-[9px] text-teal-400/80 mt-0.5 leading-none">VKify</div>
+          <div className="text-[9px] sm:text-[11px] text-teal-400/80 mt-1 leading-none">VKify</div>
         </div>
-        <div className="flex-shrink-0 flex items-center gap-1">
-          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-teal-400 shadow-sm shadow-teal-400/50" />
-          <span className="hidden sm:inline text-[9px] text-teal-400 font-semibold">6 ON</span>
+        <div className="flex-shrink-0 flex items-center gap-1.5 bg-teal-500/10 border border-teal-500/20 rounded-full px-2 py-1">
+          <div className="w-1.5 h-1.5 rounded-full bg-teal-400 shadow-sm shadow-teal-400/50" />
+          <span className="text-[9px] text-teal-400 font-bold leading-none">6 ON</span>
         </div>
       </motion.div>
 
-      {/* ── Список функций ── */}
-      {MEDIA_ITEMS.map((item, i) => (
-        <motion.div
-          key={item.id}
-          initial={false}
-          animate={isActive ? { opacity: [0, 1], x: [14, 0] } : { opacity: 1, x: 0 }}
-          transition={{ delay: 0.08 + i * 0.07 }}
-          className="flex items-center gap-1.5 sm:gap-2.5 flex-1 min-h-0 bg-white/[0.04] rounded-lg sm:rounded-xl px-1.5 sm:px-3 border border-white/[0.06]"
-        >
-          {/* Иконка */}
-          <div className="w-5 h-5 sm:w-8 sm:h-8 rounded-md sm:rounded-lg bg-teal-500/10 border border-teal-500/10 flex items-center justify-center flex-shrink-0">
-            <svg viewBox="0 0 20 20" fill="none" className="w-2.5 h-2.5 sm:w-[18px] sm:h-[18px] text-teal-400">
-              {VK_ICONS[item.icon]}
-            </svg>
-          </div>
-
-          {/* Текст */}
-          <div className="flex-1 min-w-0">
-            <div className="text-[9px] sm:text-[11px] font-semibold text-white/80 truncate leading-tight">
-              {t(`screenshots.mockup.media.${item.id}.title`)}
+      {/* ── Мобайл: чистые плитки 3×2 · ПК (sm+): вертикальный список ── */}
+      <div className="flex-1 min-h-0 grid grid-cols-3 grid-rows-2 gap-2 sm:flex sm:flex-col sm:gap-1.5">
+        {MEDIA_ITEMS.map((item, i) => (
+          <motion.div
+            key={item.id}
+            initial={false}
+            animate={isActive ? { opacity: [0, 1], scale: [0.92, 1] } : { opacity: 1, scale: 1 }}
+            transition={{ delay: 0.08 + i * 0.06 }}
+            className="relative flex flex-col items-center justify-center text-center gap-1.5 rounded-xl bg-white/[0.03] border border-white/[0.07] p-2
+                       sm:flex-row sm:justify-start sm:text-left sm:gap-3 sm:flex-1 sm:p-0 sm:px-3 sm:bg-white/[0.04]"
+          >
+            {/* Статус «включено»: галочка в углу на мобайле */}
+            <div className="absolute top-1.5 right-1.5 sm:hidden w-3.5 h-3.5 rounded-full bg-teal-500 flex items-center justify-center shadow-sm shadow-teal-500/40">
+              <Check className="w-2 h-2 text-white" strokeWidth={4} />
             </div>
-            <div className="hidden sm:block text-[8px] text-white/40 truncate leading-tight mt-0.5">
-              {t(`screenshots.mockup.media.${item.id}.desc`)}
-            </div>
-          </div>
 
-          {/* HD-badge только для видео */}
-          {i === 0 && (
-            <span className="hidden sm:inline-flex items-center text-[8px] font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-1.5 py-0.5 rounded-md flex-shrink-0">
-              HD
-            </span>
-          )}
-
-          {/* Тумблер «включено» */}
-          <div className="flex-shrink-0 w-7 h-[18px] sm:w-10 sm:h-[22px] rounded-full bg-teal-500 shadow-sm shadow-teal-500/40 flex items-center justify-end px-[3px]">
-            <div className="w-3 h-3 sm:w-[14px] sm:h-[14px] rounded-full bg-white flex items-center justify-center shadow-sm">
-              <Check className="w-1.5 h-1.5 sm:w-2.5 sm:h-2.5 text-teal-600" strokeWidth={3.5} />
+            {/* Иконка */}
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-teal-500/[0.12] border border-teal-500/15 flex items-center justify-center flex-shrink-0">
+              <svg viewBox="0 0 20 20" fill="none" className="w-[18px] h-[18px] sm:w-5 sm:h-5 text-teal-400">
+                {VK_ICONS[item.icon]}
+              </svg>
             </div>
-          </div>
-        </motion.div>
-      ))}
+
+            {/* Текст */}
+            <div className="w-full min-w-0 sm:flex-1">
+              <div className="text-[9px] sm:text-[13px] font-medium sm:font-semibold text-white/85 truncate leading-tight">
+                {t(`screenshots.mockup.media.${item.id}.title`)}
+              </div>
+              <div className="hidden sm:block text-[8px] sm:text-[10px] text-white/40 truncate leading-tight mt-0.5">
+                {t(`screenshots.mockup.media.${item.id}.desc`)}
+              </div>
+            </div>
+
+            {/* Тумблер «включено» — только в списке (ПК) */}
+            <div className="hidden sm:flex flex-shrink-0 w-9 h-5 rounded-full bg-teal-500 shadow-sm shadow-teal-500/40 items-center justify-end px-[3px]">
+              <div className="w-3.5 h-3.5 rounded-full bg-white flex items-center justify-center shadow-sm">
+                <Check className="w-2.5 h-2.5 text-teal-600" strokeWidth={3.5} />
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
     </div>
   )
 }

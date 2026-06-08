@@ -151,16 +151,18 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
     return () => ro.disconnect()
   }, [])
 
-  // ── Виртуальный «монитор»: рендерим макет в фиксированной ширине и масштабируем
-  //    (zoom) под реальную ширину превью. Так разница ширины контента и смещения
-  //    видна на любом окне, даже узком (где иначе всё упиралось бы в край экрана).
-  //    На десктопе/планшете берём 1900px. На телефоне такой зум (~0.2) делает макет
-  //    нечитаемо мелким, поэтому рендерим в более узком виртуальном экране (зум ~0.4). ──
+  // ── Адаптация ──
+  //  Десктоп-превью (широкий контейнер): рендерим полноценный desktop-макет VK
+  //  в виртуальном экране 1900px и масштабируем (zoom) под контейнер. Так в узком
+  //  превью виден весь рабочий стол — сайдбар, мини-плеер — и разница content_width
+  //  / page_offset.
+  //  Телефон/узкий контейнер: НЕ масштабируем. Отдаём реальную ширину самому макету,
+  //  и его собственные брейкпоинты (bpSm/bpMd/bpLg) дают нативный компактный вид
+  //  с нормальным размером текста — как настоящий мобильный VK, без «зум-костыля».
   const VIRTUAL_W = 1900
-  const SIM_W = frameW >= 700
-    ? Math.max(frameW, VIRTUAL_W)
-    : Math.max(Math.round((frameW || 375) * 2.4), 760)
-  const zoom = frameW > 0 ? frameW / SIM_W : 1
+  const isWidePreview = frameW >= 700
+  const SIM_W = isWidePreview ? Math.max(frameW, VIRTUAL_W) : (frameW || 375)
+  const zoom = isWidePreview && frameW > 0 ? frameW / SIM_W : 1
 
   // Внутренние брейкпоинты макета считаем от ширины виртуального экрана (SIM_W),
   // а не от вьюпорта страницы — иначе на телефоне прятались бы блоки, которые
@@ -168,10 +170,6 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
   const bpSm = SIM_W >= 640
   const bpMd = SIM_W >= 768
   const bpLg = SIM_W >= 1024
-
-  // На узких фреймах (телефон < 480 px) боковая панель при zoom ~0.4 нечитаема
-  // и занимает место, мешая контенту — скрываем её принудительно.
-  const effectiveBpMd = frameW > 0 && frameW < 480 ? false : bpMd
 
   // Ширина макета не может превышать виртуальный экран
   const effContentW = Math.min(contentW, SIM_W)
@@ -272,7 +270,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
               <SkipBack size={17} style={{ color: p.text2 }} />
               <Play size={17} style={{ color: p.text }} fill={p.text} />
               <SkipForward size={17} style={{ color: p.text2 }} />
-              {effectiveBpMd && (
+              {bpMd && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 4 }}>
                   <Sk w={70} h={8} c={p.skel} />
                   <Sk w={110} h={8} c={p.skel2} />
@@ -297,7 +295,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
           <div style={{ display: 'flex', gap: bodyGap, padding: 16, alignItems: 'flex-start' }}>
 
             {/* Sidebar */}
-            {effectiveBpMd && (
+            {bpMd && (
             <div style={{
               display: 'flex', flexDirection: 'column', gap: 1, flexShrink: 0,
               width: compactMenu ? 52 : 168,
