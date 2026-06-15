@@ -22,6 +22,7 @@ export const PARAM_META = {
     block_opacity:              { group: 'colors',     type: 'opacity' },
     glass_blur:                 { group: 'colors',     type: 'px' },
     theme_radius:               { group: 'colors',     type: 'px' },
+    block_depth:                { group: 'colors',     type: 'bool' },
     custom_font_id:             { group: 'font' },
     custom_font_value:          { group: 'font',       hidden: true },
     custom_font_size:           { group: 'font',       type: 'px' },
@@ -31,7 +32,8 @@ export const PARAM_META = {
     custom_font_style:          { group: 'font' },
     custom_text_decoration:     { group: 'font' },
     custom_text_transform:      { group: 'font' },
-    border_radius:              { group: 'shape',      type: 'px' },
+    border_radius:              { group: 'shape',      type: 'percent' },
+    avatar_radius_shape:        { group: 'shape',      type: 'shape' },
     content_width_enabled:      { group: 'shape',      type: 'bool' },
     content_width:              { group: 'shape',      type: 'px' },
     compact_spacing:            { group: 'modes',      type: 'bool' },
@@ -67,12 +69,18 @@ export const PARAM_META = {
     sidebar_with_background:    { group: 'modes',      type: 'bool' },
     collapse_search:            { group: 'modes',      type: 'bool' },
     hide_stories:               { group: 'elements',   type: 'bool' },
+    hide_post_box:              { group: 'elements',   type: 'bool' },
+    hide_post_comments:         { group: 'elements',   type: 'bool' },
     hide_recommendations:       { group: 'elements',   type: 'bool' },
     hide_friends_suggestions:   { group: 'elements',   type: 'bool' },
     hide_emoji_status:          { group: 'elements',   type: 'bool' },
     hide_mini_chat:             { group: 'elements',   type: 'bool' },
     hide_scroll_top:            { group: 'elements',   type: 'bool' },
     hide_menu_settings:         { group: 'elements',   type: 'bool' },
+    hide_menu_counters:         { group: 'elements',   type: 'bool' },
+    hide_audio_ads:             { group: 'elements',   type: 'bool' },
+    hide_recent_groups:         { group: 'elements',   type: 'bool' },
+    hide_recommended_channels:  { group: 'elements',   type: 'bool' },
     hide_auth_popup:            { group: 'elements',   type: 'bool' },
 }
 
@@ -96,6 +104,7 @@ function formatValue(key, raw, t) {
         case 'color':   return String(raw).toUpperCase()
         case 'bool':    return raw ? t('paramMeta.enabled') : t('paramMeta.disabled')
         case 'bgtype':  return t(`paramMeta.bgTypes.${raw}`)
+        case 'shape':   return t(`paramMeta.shapes.${raw}`)
         case 'url': {
             const s = String(raw)
             if (/^chrome-extension:|^moz-extension:/i.test(s)) return t('paramMeta.extFile')
@@ -119,8 +128,8 @@ const SLIDER_RANGE = {
 const PX_RANGE = {
     block_opacity:         [0, 1, 0.05],
     glass_blur:            [0, 40, 1],
-    theme_radius:          [0, 30, 1],
-    border_radius:         [0, 30, 1],
+    theme_radius:          [0, 24, 1],
+    border_radius:         [0, 50, 5],
     content_width:         [800, 1800, 10],
     page_offset_value:     [0, 100, 1],
     custom_font_size:      [10, 28, 1],
@@ -144,6 +153,21 @@ function ParamEditor({ paramKey, value, meta, onChange }) {
             >
                 <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${on ? 'translate-x-4' : ''}`} />
             </button>
+        )
+    }
+
+    if (type === 'shape') {
+        const shapes = ['', 'drop', 'leaf', 'petal', 'blob']
+        return (
+            <select
+                value={shapes.includes(value) ? value : ''}
+                onChange={e => onChange(paramKey, e.target.value)}
+                className="text-sm font-medium text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-2 py-1 shrink-0 cursor-pointer"
+            >
+                {shapes.map(s => (
+                    <option key={s || 'custom'} value={s}>{t(`paramMeta.shapes.${s || 'none'}`)}</option>
+                ))}
+            </select>
         )
     }
 

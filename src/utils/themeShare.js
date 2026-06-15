@@ -20,6 +20,7 @@ const THEME_PARAMS = [
     'block_opacity',
     'glass_blur',
     'theme_radius',
+    'block_depth',
 
     // Шрифт
     'custom_font_id',
@@ -34,6 +35,7 @@ const THEME_PARAMS = [
 
     // Скругление, ширина, смещение
     'border_radius',
+    'avatar_radius_shape',
     'content_width',
     'content_width_enabled',
     'compact_spacing',
@@ -78,12 +80,18 @@ const THEME_PARAMS = [
 
     // Скрытые элементы (вкладка «Элементы»)
     'hide_stories',
+    'hide_post_box',
+    'hide_post_comments',
     'hide_recommendations',
     'hide_friends_suggestions',
     'hide_emoji_status',
     'hide_mini_chat',
     'hide_scroll_top',
     'hide_menu_settings',
+    'hide_menu_counters',
+    'hide_audio_ads',
+    'hide_recent_groups',
+    'hide_recommended_channels',
     'hide_auth_popup',
 ];
 
@@ -96,6 +104,7 @@ const DEFAULTS = {
     block_opacity:             1,
     glass_blur:                0,
     theme_radius:              0,
+    block_depth:               false,
 
     // custom_font_size = 0 означает «по умолчанию браузера»
     custom_font_size:          0,
@@ -145,12 +154,18 @@ const DEFAULTS = {
     filter_low_brightness:     false,
 
     hide_stories:              false,
+    hide_post_box:             false,
+    hide_post_comments:        false,
     hide_recommendations:      false,
     hide_friends_suggestions:  false,
     hide_emoji_status:         false,
     hide_mini_chat:            false,
     hide_scroll_top:           false,
     hide_menu_settings:        false,
+    hide_menu_counters:        false,
+    hide_audio_ads:            false,
+    hide_recent_groups:        false,
+    hide_recommended_channels: false,
     hide_auth_popup:           false,
 };
 
@@ -164,6 +179,7 @@ const KEY_MAP = {
     block_opacity:             'bo',
     glass_blur:                'gb',
     theme_radius:              'tr',
+    block_depth:               'bd',
 
     // Шрифт
     custom_font_id:            'fi',
@@ -178,6 +194,7 @@ const KEY_MAP = {
 
     // Layout
     border_radius:             'br',
+    avatar_radius_shape:       'av',
     content_width:             'cw',
     content_width_enabled:     'cwe',
     compact_spacing:           'cp',
@@ -222,12 +239,18 @@ const KEY_MAP = {
 
     // Скрытые элементы
     hide_stories:              'hs',
+    hide_post_box:             'hpb',
+    hide_post_comments:        'hpc',
     hide_recommendations:      'hd',
     hide_friends_suggestions:  'hf',
     hide_emoji_status:         'he',
     hide_mini_chat:            'hm',
     hide_scroll_top:           'ht',
     hide_menu_settings:        'hg',
+    hide_menu_counters:        'hmc',
+    hide_audio_ads:            'haa',
+    hide_recent_groups:        'hrg',
+    hide_recommended_channels: 'hrc',
     hide_auth_popup:           'ha',
 };
 

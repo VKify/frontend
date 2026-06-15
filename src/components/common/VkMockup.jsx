@@ -17,6 +17,44 @@ function withAlpha(hex, a) {
   return `rgba(${r},${g},${b},${a})`
 }
 
+function hexToHsl(hex) {
+  const h = (hex || '#000000').replace('#', '')
+  const r = parseInt(h.slice(0, 2), 16) / 255
+  const g = parseInt(h.slice(2, 4), 16) / 255
+  const b = parseInt(h.slice(4, 6), 16) / 255
+  const max = Math.max(r, g, b), min = Math.min(r, g, b)
+  let hue = 0, sat = 0
+  const lig = (max + min) / 2
+  if (max !== min) {
+    const d = max - min
+    sat = lig > 0.5 ? d / (2 - max - min) : d / (max + min)
+    if (max === r) hue = ((g - b) / d + (g < b ? 6 : 0)) / 6
+    else if (max === g) hue = ((b - r) / d + 2) / 6
+    else hue = ((r - g) / d + 4) / 6
+  }
+  return { h: Math.round(hue * 360), s: Math.round(sat * 100), l: Math.round(lig * 100) }
+}
+
+// Фон страницы при включённой «Глубине блоков» (block_depth). По умолчанию
+// глубины НЕТ — фон совпадает с карточками (плоско). Когда тогл включён,
+// расширение переводит --background_page на n00 — темнее карточек, и блоки
+// читаются приподнятыми. dir = тёмная тема ? +1 : −1. Без теней.
+function depthPageBg(hex) {
+  const { h, s, l } = hexToHsl(hex)
+  const dir = l < 50 ? 1 : -1
+  const pl = Math.max(0, Math.min(100, l - dir * 10))
+  return `hsl(${h}, ${s}%, ${pl}%)`
+}
+
+// Фигурные пресеты аватарок — синхронизировано с SHAPE_RADIUS расширения
+// (content/features/appearance/theme/border-radius.ts) и AVATAR_SHAPES попапа.
+const AVATAR_SHAPES = {
+  drop:  '0 50% 50% 50%',
+  leaf:  '0 50% 0 50%',
+  petal: '50% 0 50% 0',
+  blob:  '30% 70% 70% 30% / 30% 30% 70% 70%',
+}
+
 function buildPalette({ bg, accent, blockOpacity = 1 }) {
   const dark = isDarkColor(bg)
   const op = Math.max(0, Math.min(1, blockOpacity))
@@ -118,10 +156,24 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
   const menuBg         = !!settings.sidebar_with_background
   const collapseSearch = !!settings.collapse_search
   const compactSpacing = !!settings.compact_spacing
+  // Скрытые элементы, у которых есть аналог в макете
+  const hidePostBox = !!settings.hide_post_box
 
-  const radius = compactSpacing
+  // Скругление блоков (карточек) — theme_radius (px). 0/не задано → нативный
+  // вид VK (~12px). Компактный режим обнуляет.
+  const blockRadius = compactSpacing
     ? 0
-    : (settings.border_radius != null && settings.border_radius !== '' ? Math.max(0, Number(settings.border_radius)) : 12)
+    : (settings.theme_radius != null && Number(settings.theme_radius) > 0 ? Number(settings.theme_radius) : 12)
+
+  // Скругление аватарок — border_radius (%) + фигурный пресет avatar_radius_shape.
+  // 50% — нативные круглые аватарки VK; фигура (если задана) имеет приоритет.
+  const avatarShape = settings.avatar_radius_shape || ''
+  const avatarPercent = settings.border_radius != null && settings.border_radius !== ''
+    ? Math.max(0, Number(settings.border_radius)) : 50
+  const avatarRadius = AVATAR_SHAPES[avatarShape] || `${avatarPercent}%`
+
+  // Глубина блоков (block_depth): затемняем фон страницы и добавляем тень карточкам.
+  const depth = !!settings.block_depth
   // Ширина контента — растягивает весь макет (шапку + тело), как в реальном VK
   // (расширение применяет width к #page_header, #page_layout, #footer_wrap).
   const DEFAULT_W = 1180
@@ -196,9 +248,13 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
     !/^(?:chrome|moz)-extension:/i.test(String(settings.custom_background))
   const showTransparencyBg = blockOpacity < 1 && !hasRealWallpaper
 
+  // По умолчанию фон = карточкам (плоско, глубины нет). Только при block_depth
+  // фон становится темнее карточек. Карточки (p.card) и тени не трогаем.
+  const pageBg = depth ? depthPageBg(bg) : p.bg
+
   const block = {
     background: p.card,
-    borderRadius: radius,
+    borderRadius: blockRadius,
     border: `1px solid ${p.cardBorder}`,
     ...glassStyle,
   }
@@ -216,7 +272,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
       className={`select-none ${className}`}
       style={{
         position: 'relative',
-        backgroundColor: p.bg,
+        backgroundColor: pageBg,
         // Когда блоки полупрозрачны и нет обоев — акцентный градиент «за» интерфейсом
         backgroundImage: showTransparencyBg
           ? `radial-gradient(ellipse at 25% 60%, ${withAlpha(accent, 0.45)} 0%, transparent 55%), radial-gradient(ellipse at 75% 25%, ${withAlpha(accent, 0.25)} 0%, transparent 50%)`
@@ -229,7 +285,10 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
       }}
     >
       {/* Слой обоев — под интерфейсом */}
-      {wallpaper && (
+      {/* Слой обоев рисуем ТОЛЬКО при реальных обоях. Без них WallpaperLayer
+          залил бы всё сплошным цветом темы и перекрыл бы pageBg (в т.ч. эффект
+          глубины) — поэтому фон отдаём самому макету через backgroundColor. */}
+      {wallpaper && hasRealWallpaper && (
         <div style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden' }}>{wallpaper}</div>
       )}
 
@@ -245,9 +304,16 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
             maxWidth: contentW, margin: '0 auto', padding: '0 16px', height: 48,
             ...shiftStyle,
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 9,
+              // Компактное меню: логотип сжимается до значка и центрируется над
+              // колонкой узкого сайдбара (ширина = ширина сайдбара 52px), как в ВК.
+              ...(compactMenu && bpMd ? { width: 52, justifyContent: 'center', gap: 0 } : {}),
+            }}>
               <VkLogo accent={p.accent} size={26} />
-              {bpSm && <span style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-0.01em' }}>ВКонтакте</span>}
+              {!compactMenu && bpSm && (
+                <span style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-0.01em' }}>ВКонтакте</span>
+              )}
             </div>
 
             {collapseSearch || !bpSm ? (
@@ -281,7 +347,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
             {/* Аватар пользователя */}
             <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 14 }}>
               <div style={{
-                width: 30, height: 30, borderRadius: '50%', background: p.accent,
+                width: 30, height: 30, borderRadius: avatarRadius, background: p.accent,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 <Logo color={p.onAccent} className="w-4 h-auto" />
@@ -299,7 +365,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
             <div style={{
               display: 'flex', flexDirection: 'column', gap: 1, flexShrink: 0,
               width: compactMenu ? 52 : 168,
-              ...(menuBg ? { background: p.card, border: `1px solid ${p.cardBorder}`, borderRadius: radius, padding: 8, ...glassStyle } : {}),
+              ...(menuBg ? { background: p.card, border: `1px solid ${p.cardBorder}`, borderRadius: blockRadius, padding: 8, ...glassStyle } : {}),
             }}>
               {NAV.map((item, i) =>
                 item.sep ? (
@@ -335,7 +401,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                 {/* Аватар = логотип проекта */}
                 <div style={{ position: 'absolute', left: 20, top: 106, width: 88, height: 88 }}>
                   <div style={{
-                    width: 88, height: 88, borderRadius: '50%', background: p.accent,
+                    width: 88, height: 88, borderRadius: avatarRadius, background: p.accent,
                     border: `4px solid ${p.card}`,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                   }}>
@@ -433,7 +499,8 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                     </div>
                   </div>
 
-                  {/* Создать пост */}
+                  {/* Создать пост (скрывается тоглом hide_post_box) */}
+                  {!hidePostBox && (
                   <div style={{ ...block, padding: '15px 16px', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: p.accent, fontSize: 14, fontWeight: 600 }}>
                       <Plus size={18} /> Создать пост
@@ -443,6 +510,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                       <List size={19} />
                     </div>
                   </div>
+                  )}
                 </div>
 
                 {/* Правая: друзья + подписки */}
@@ -457,7 +525,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                     <div style={{ display: 'flex', gap: 14 }}>
                       {[0, 1, 2].map((i) => (
                         <div key={i} style={{ textAlign: 'center', flex: 1, minWidth: 0 }}>
-                          <div style={{ width: 56, height: 56, borderRadius: '50%', background: p.skel, margin: '0 auto' }} />
+                          <div style={{ width: 56, height: 56, borderRadius: avatarRadius, background: p.skel, margin: '0 auto' }} />
                           <Sk w={'76%'} h={8} c={p.skel2} style={{ margin: '9px auto 0' }} />
                         </div>
                       ))}
@@ -472,7 +540,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                     </div>
                     {Array.from({ length: 4 }).map((_, i) => (
                       <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 11, padding: '8px 0' }}>
-                        <div style={{ width: 40, height: 40, borderRadius: '50%', background: p.skel, flexShrink: 0 }} />
+                        <div style={{ width: 40, height: 40, borderRadius: avatarRadius, background: p.skel, flexShrink: 0 }} />
                         <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 7 }}>
                           <Sk w={'70%'} h={9} c={p.skel} />
                           <Sk w={'90%'} h={8} c={p.skel2} />

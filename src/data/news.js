@@ -12,6 +12,112 @@
 
 export const news = [
   {
+    slug: 'music-download',
+    date: '2026-06-15',
+    category: 'feature',
+    accent: 'purple',
+    emoji: '🎵',
+    cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
+    translations: {
+      ru: {
+        title: 'Скачивание музыки из ВКонтакте — прямо в MP3',
+        excerpt:
+          'VKify научился сохранять музыку из ВК в MP3: отдельный трек, целый альбом или всю библиотеку разом — с обложкой, тегами и текстом песни. Всё видно в новом центре загрузок.',
+        readTime: 2,
+        blocks: [
+          {
+            type: 'p',
+            text: 'Главное в этом обновлении — **скачивание музыки**. Рядом с каждым треком появилась кнопка: нажали — получили MP3. Работает и в классических списках, и в новом плеере ВКонтакте.',
+          },
+          {
+            type: 'h2',
+            text: 'Трек, альбом или вся библиотека',
+          },
+          {
+            type: 'p',
+            text: 'Одной кнопкой можно забрать не только отдельную песню. Откройте альбом или свою страницу с аудиозаписями — и VKify соберёт всё в ZIP. Большие библиотеки бьются на части, чтобы не упереться в память браузера.',
+          },
+          {
+            type: 'p',
+            text: 'В файлы сразу прописываются ID3-теги: обложка, исполнитель, название. Если для трека находится текст на Genius, он тоже уходит в метаданные.',
+          },
+          {
+            type: 'h2',
+            text: 'Центр загрузок',
+          },
+          {
+            type: 'p',
+            text: 'Все скачивания теперь собраны в одной плавающей панели. В ней видно каждую задачу с прогрессом — не только музыку, но и видео, клипы, истории, фото и экспорт диалогов.',
+          },
+          {
+            type: 'ul',
+            items: [
+              'Панель не пропадает при переходах по сайту: начали качать альбом, ушли в ленту — скачивание продолжается',
+              'Завершённые задачи убираются сами',
+              'Карточку можно перетащить за шапку, и она запомнит, где вы её оставили',
+            ],
+          },
+          {
+            type: 'quote',
+            text: 'Любимый плейлист теперь живёт не только в ленте рекомендаций, но и у вас на диске.',
+          },
+          {
+            type: 'p',
+            text: 'Музыка тянется тем же путём, что и плеер ВК, расшифровывается на лету и кодируется в MP3 прямо в браузере. Скачивание работает и в Chrome, и в Firefox.',
+          },
+        ],
+      },
+      en: {
+        title: 'Download music from VKontakte — straight to MP3',
+        excerpt:
+          'VKify can now save VK music as MP3: a single track, a whole album, or your entire library at once — with cover art, tags, and lyrics. Everything shows up in the new download center.',
+        readTime: 2,
+        blocks: [
+          {
+            type: 'p',
+            text: 'The headline of this update is **music downloads**. Every track now has a button next to it: click it, get an MP3. It works both in the classic lists and in the new VKontakte player.',
+          },
+          {
+            type: 'h2',
+            text: 'A track, an album, or your whole library',
+          },
+          {
+            type: 'p',
+            text: 'One button grabs more than a single song. Open an album or your own audio page, and VKify packs everything into a ZIP. Large libraries are split into parts so the browser doesn’t run out of memory.',
+          },
+          {
+            type: 'p',
+            text: 'Files get ID3 tags right away: cover, artist, title. If lyrics are found on Genius, they go into the metadata too.',
+          },
+          {
+            type: 'h2',
+            text: 'Download center',
+          },
+          {
+            type: 'p',
+            text: 'All downloads now live in a single floating panel that shows each job with its progress — not just music, but also videos, clips, stories, photos, and dialog exports.',
+          },
+          {
+            type: 'ul',
+            items: [
+              'The panel survives in-page navigation: start an album, head to the feed, and the download keeps going',
+              'Finished jobs clear themselves',
+              'Drag the card by its header and it remembers where you left it',
+            ],
+          },
+          {
+            type: 'quote',
+            text: 'Your favorite playlist now lives on your own drive, not just in the recommendations feed.',
+          },
+          {
+            type: 'p',
+            text: 'Music is fetched the same way the VK player loads it, decrypted on the fly, and encoded to MP3 right in the browser. Downloads already work in both Chrome and Firefox.',
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: 'firefox-support',
     date: '2026-06-04',
     category: 'release',
