@@ -12,6 +12,136 @@
 
 export const news = [
   {
+    slug: 'center-hub-and-autoplay',
+    date: '2026-06-22',
+    category: 'feature',
+    accent: 'green',
+    emoji: '🎛️',
+    cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
+    translations: {
+      ru: {
+        title: 'Музыка не глохнет после перезагрузки, а скачивалки — в одном «Центре»',
+        excerpt:
+          'Трек продолжает играть с той же секунды после обновления страницы. Все скачивалки переехали в раздел «Центр», тяжёлые вкладки разложены на подстраницы, а лишние пункты левого меню ВК можно спрятать.',
+        readTime: 2,
+        blocks: [
+          {
+            type: 'p',
+            text: 'Самое заметное в обновлении — **музыка больше не обрывается на перезагрузке**. Раньше любое обновление вкладки роняло трек на полуслове. Теперь VKify запоминает, что играло, и подхватывает с той же секунды.',
+          },
+          {
+            type: 'p',
+            text: 'Браузеры не любят, когда звук включается сам, — это защита от назойливых сайтов. Бороться с этим мы не стали: если автозапуск заблокирован, хватит одного клика по странице, и музыка пойдёт дальше с нужного места.',
+          },
+          {
+            type: 'h2',
+            text: 'Все скачивания — в разделе «Центр»',
+          },
+          {
+            type: 'p',
+            text: 'Видео, клипы, фото, музыку и истории мы свели в один хаб. Больше не нужно искать кнопку загрузки по разным углам расширения — всё под одной крышей и разложено по разделам так же, как в самом ВКонтакте.',
+          },
+          {
+            type: 'p',
+            text: 'На странице аудиозаписей появилась кнопка «Загрузить несколько»: выбираете пачку MP3 со своего компьютера, и они заливаются в ВКонтакте по очереди, с паузами между файлами, чтобы не упереться во флуд-контроль.',
+          },
+          {
+            type: 'p',
+            text: 'А вот скачивание теперь можно оборвать на полпути. Передумали в середине большой закачки — повторный клик остановит её и упакует то, что уже успело загрузиться. Свернёте центр загрузок — фоновое скачивание не прервётся.',
+          },
+          {
+            type: 'h2',
+            text: 'Тяжёлые вкладки стали подстраницами',
+          },
+          {
+            type: 'p',
+            text: 'Самые перегруженные вкладки расширения разложены на отдельные подстраницы — как разделы внутри ВК. Открыли что-то вглубь, вернулись назад — и страница осталась там, где вы её листали, а не прыгнула в начало.',
+          },
+          {
+            type: 'p',
+            text: 'Заодно пересобрали «Оформление»: макет, поиск, внешний вид и профили теперь лежат там, где их и ищешь, а сброс настроек стал один на всю вкладку.',
+          },
+          {
+            type: 'h2',
+            text: 'Левое меню — под себя',
+          },
+          {
+            type: 'p',
+            text: 'Появилась настройка, которая прячет пункты левого меню ВКонтакте. Не заходите в «Игры» или «Звонки»? Уберите их из бокового меню, и список станет короче.',
+          },
+          {
+            type: 'quote',
+            text: 'Чем меньше лишнего на экране, тем быстрее находишь нужное.',
+          },
+          {
+            type: 'p',
+            text: 'Подтянулись и заметки к диалогам: записи группируются по дням, у авторов появились аватарки, а каждая заметка ведёт прямо к своему сообщению. Плюс пара починок — подсказки ВК больше не съезжают по странице, а реклама в музыке снова скрыта: ВК поменял разметку, мы обновили селекторы.',
+          },
+        ],
+      },
+      en: {
+        title: 'Music keeps playing after a reload, and downloads moved into one “Center”',
+        excerpt:
+          'Your track resumes from the same second after the page reloads. Every downloader now lives in the “Center” section, heavy tabs are split into subpages, and you can hide the menu items you never use.',
+        readTime: 2,
+        blocks: [
+          {
+            type: 'p',
+            text: 'The big one in this update: **music no longer cuts off on reload**. A tab refresh used to kill the track mid-note. Now VKify remembers what was playing and picks up from the same second.',
+          },
+          {
+            type: 'p',
+            text: 'Browsers don’t like sound that starts on its own — it’s a guard against pushy sites. We don’t fight it: if autoplay is blocked, one click anywhere on the page is enough, and the music continues from where it left off.',
+          },
+          {
+            type: 'h2',
+            text: 'Every download lives in “Center”',
+          },
+          {
+            type: 'p',
+            text: 'Videos, clips, photos, music, and stories now sit in a single hub. No more hunting for a download button in different corners of the extension — it’s all under one roof, sorted into sections the same way VKontakte itself is.',
+          },
+          {
+            type: 'p',
+            text: 'The audio page got an “Upload several” button: pick a batch of MP3s from your computer and they upload to VKontakte one by one, with pauses between files so you don’t hit flood control.',
+          },
+          {
+            type: 'p',
+            text: 'Downloads, on the other hand, can now be stopped midway. Change your mind during a big download? A second click halts it and zips up whatever already came through. Collapse the download center and the job keeps running in the background.',
+          },
+          {
+            type: 'h2',
+            text: 'Heavy tabs became subpages',
+          },
+          {
+            type: 'p',
+            text: 'The most crowded tabs are now broken into separate subpages, like sections inside VK. Open something deeper, go back, and the page stays where you were scrolling instead of jumping to the top.',
+          },
+          {
+            type: 'p',
+            text: 'We also rebuilt “Appearance” along the way: layout, search, look, and profiles now sit where you’d expect them, and a single reset covers the whole tab.',
+          },
+          {
+            type: 'h2',
+            text: 'The left menu, your way',
+          },
+          {
+            type: 'p',
+            text: 'There’s a new setting that hides items in the VKontakte left menu. Never open “Games” or “Calls”? Drop them from the sidebar and the list gets shorter.',
+          },
+          {
+            type: 'quote',
+            text: 'The less clutter on screen, the faster you find what you came for.',
+          },
+          {
+            type: 'p',
+            text: 'Dialog notes got some love too: entries group by day, authors now have avatars, and each note links straight to its message. Plus a couple of fixes — VK tooltips no longer drift across the page, and music ads are hidden again after VK changed its markup and we updated the selectors.',
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: 'music-download',
     date: '2026-06-15',
     category: 'feature',
