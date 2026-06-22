@@ -1,6 +1,7 @@
 import SEO from '../components/common/SEO'
 import Hero from '../components/home/Hero'
 import Features from '../components/home/Features'
+import WhatsNew from '../components/home/WhatsNew'
 import HowItWorks from '../components/home/HowItWorks'
 import SupportedBrowsers from '../components/home/SupportedBrowsers'
 import Stats from '../components/home/Stats'
@@ -21,6 +22,7 @@ export default function Home() {
       <Hero />
       <SupportedBrowsers />
       <Features />
+      <WhatsNew />
       <HowItWorks />
       <Stats />
       <Screenshots />

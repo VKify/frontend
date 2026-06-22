@@ -178,6 +178,33 @@ export const en = {
     },
   },
 
+  whatsNew: {
+    badge: 'Fresh updates',
+    titleTop: "What's new",
+    titleAccent: 'in VKify',
+    description: 'The highlights from the last two updates — music downloads, a download center, and a look that no longer flickers.',
+    versionTag: 'In {version}',
+    allNews: 'All news and updates',
+    cards: {
+      musicDownload: {
+        title: 'Music as MP3',
+        description: 'Save a track, an album, or your whole library — with cover art, tags, and lyrics.',
+      },
+      profiles: {
+        title: 'Appearance profiles',
+        description: 'Bundle a theme, font, wallpaper, and filters under your own name and switch with one click.',
+      },
+      autoplay: {
+        title: 'Music autoplay',
+        description: 'After a page reload the player resumes from the same second — and if the browser blocks it, one click is enough.',
+      },
+      centerHub: {
+        title: 'The “Center” section',
+        description: 'Every downloader lives in one place, and heavy tabs are split into tidy subpages.',
+      },
+    },
+  },
+
   howItWorks: {
     badge: 'Quick start',
     titleTop: 'Three steps to',
