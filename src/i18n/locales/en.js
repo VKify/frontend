@@ -655,6 +655,7 @@ export const en = {
     quickAccessLabel: 'Quick access.',
     mediaShot: 'Interface screenshot',
     mediaGif: 'Demo (GIF)',
+    vkMenuCaption: 'VK left menu — struck-through items are off',
   },
 
   legal: {

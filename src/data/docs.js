@@ -14,7 +14,7 @@
 
 const viewDocs = {
   slug: 'view',
-  heroIcon: 'eye',
+  heroIcon: 'palette',
   ru: {
     nav: 'Вид',
     title: 'Вкладка «Вид»',
@@ -32,7 +32,7 @@ const viewDocs = {
   features: [
     {
       anchor: 'display_mode',
-      emoji: '📐',
+      icon: 'layout',
       media: [
         { type: 'screenshot', file: 'display-mode.png' },
         { type: 'gif', file: 'widescreen.gif' },
@@ -64,7 +64,7 @@ const viewDocs = {
     },
     {
       anchor: 'custom_theme',
-      emoji: '🎨',
+      icon: 'palette',
       media: [
         { type: 'screenshot', file: 'theme.png' },
         { type: 'gif', file: 'theme-apply.gif' },
@@ -92,7 +92,7 @@ const viewDocs = {
     },
     {
       anchor: 'custom_accent',
-      emoji: '💧',
+      icon: 'drops',
       media: [{ type: 'screenshot', file: 'accent.png' }],
       ru: {
         title: 'Акцентный цвет',
@@ -115,7 +115,7 @@ const viewDocs = {
     },
     {
       anchor: 'custom_font',
-      emoji: '🔤',
+      icon: 'text',
       media: [{ type: 'screenshot', file: 'font.png' }],
       ru: {
         title: 'Шрифт',
@@ -140,7 +140,7 @@ const viewDocs = {
     },
     {
       anchor: 'visual_filters',
-      emoji: '🌗',
+      icon: 'filter',
       media: [{ type: 'screenshot', file: 'filters.png' }],
       ru: {
         title: 'Визуальные фильтры',
@@ -163,7 +163,7 @@ const viewDocs = {
     },
     {
       anchor: 'custom_background',
-      emoji: '🖼️',
+      icon: 'picture',
       media: [
         { type: 'screenshot', file: 'background.png' },
         { type: 'gif', file: 'background-video.gif' },
@@ -191,7 +191,7 @@ const viewDocs = {
     },
     {
       anchor: 'appearance_profiles',
-      emoji: '🔖',
+      icon: 'bookmark',
       media: [{ type: 'screenshot', file: 'profiles.png' }],
       ru: {
         title: 'Мои профили',
@@ -216,7 +216,7 @@ const viewDocs = {
     },
     {
       anchor: 'share_theme',
-      emoji: '🔗',
+      icon: 'share',
       media: [{ type: 'screenshot', file: 'share.png' }],
       ru: {
         title: 'Поделиться темой',
@@ -244,7 +244,7 @@ const viewDocs = {
 
 const hidingDocs = {
   slug: 'hiding',
-  heroIcon: 'eyeOff',
+  heroIcon: 'hide',
   ru: {
     nav: 'Скрытие',
     title: 'Вкладка «Скрытие»',
@@ -264,7 +264,7 @@ const hidingDocs = {
   features: [
     {
       anchor: 'profile',
-      emoji: '👤',
+      icon: 'profile',
       media: [{ type: 'screenshot', file: 'profile.png' }],
       ru: {
         title: 'Профиль',
@@ -289,7 +289,7 @@ const hidingDocs = {
     },
     {
       anchor: 'feed',
-      emoji: '📰',
+      icon: 'feed',
       media: [{ type: 'screenshot', file: 'feed.png' }],
       ru: {
         title: 'Лента',
@@ -314,7 +314,7 @@ const hidingDocs = {
     },
     {
       anchor: 'messenger',
-      emoji: '💬',
+      icon: 'message',
       media: [{ type: 'screenshot', file: 'messenger.png' }],
       ru: {
         title: 'Мессенджер',
@@ -335,7 +335,7 @@ const hidingDocs = {
     },
     {
       anchor: 'friends',
-      emoji: '🫂',
+      icon: 'users',
       media: [{ type: 'screenshot', file: 'friends.png' }],
       ru: {
         title: 'Друзья',
@@ -356,7 +356,7 @@ const hidingDocs = {
     },
     {
       anchor: 'communities',
-      emoji: '👥',
+      icon: 'users3',
       media: [{ type: 'screenshot', file: 'communities.png' }],
       ru: {
         title: 'Сообщества',
@@ -377,7 +377,7 @@ const hidingDocs = {
     },
     {
       anchor: 'music',
-      emoji: '🎵',
+      icon: 'music',
       media: [{ type: 'screenshot', file: 'music.png' }],
       ru: {
         title: 'Музыка',
@@ -398,11 +398,9 @@ const hidingDocs = {
     },
     {
       anchor: 'menu',
-      emoji: '☰',
-      media: [
-        { type: 'screenshot', file: 'menu.png' },
-        { type: 'gif', file: 'menu-items.gif' },
-      ],
+      icon: 'menu',
+      widget: 'vkMenu',
+      media: [{ type: 'screenshot', file: 'menu.png' }],
       ru: {
         title: 'Меню',
         lead: 'Управляет левым меню ВКонтакте.',
@@ -426,7 +424,7 @@ const hidingDocs = {
     },
     {
       anchor: 'global',
-      emoji: '🌐',
+      icon: 'globe',
       media: [{ type: 'screenshot', file: 'global.png' }],
       ru: {
         title: 'Глобально',
@@ -460,11 +458,11 @@ export const DOCS = [viewDocs, hidingDocs]
 // в переключателе неактивными чипами с пометкой «Позже», без отдельных страниц
 // и без пререндера. Порядок и подписи — как в самом расширении (constants/tabs).
 export const COMING_SOON = [
-  { slug: 'center',    heroIcon: 'layoutRows', ru: { nav: 'Центр' },       en: { nav: 'Center' } },
+  { slug: 'center',    heroIcon: 'download',   ru: { nav: 'Центр' },       en: { nav: 'Center' } },
   { slug: 'notes',     heroIcon: 'bookmark',   ru: { nav: 'Заметки' },     en: { nav: 'Notes' } },
   { slug: 'privacy',   heroIcon: 'shield',     ru: { nav: 'Приватность' }, en: { nav: 'Privacy' } },
   { slug: 'onlinespy', heroIcon: 'activity',   ru: { nav: 'Слежка' },      en: { nav: 'Tracking' } },
-  { slug: 'scripts',   heroIcon: 'zap',        ru: { nav: 'Скрипты' },     en: { nav: 'Scripts' } },
+  { slug: 'scripts',   heroIcon: 'flash',      ru: { nav: 'Скрипты' },     en: { nav: 'Scripts' } },
   { slug: 'ads',       heroIcon: 'ban',        ru: { nav: 'Реклама' },     en: { nav: 'Ads' } },
   { slug: 'css',       heroIcon: 'code',       ru: { nav: 'CSS' },         en: { nav: 'CSS' } },
   { slug: 'more',      heroIcon: 'settings',   ru: { nav: 'Ещё' },         en: { nav: 'More' } },

@@ -1,18 +1,11 @@
 import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import {
-  Eye, EyeOff, Command, Image as ImageIcon, Film, Link as LinkIcon,
-  LayoutGrid, Bookmark, Shield, Activity, Zap, Ban, Code, Settings,
-} from 'lucide-react'
+import { EyeOff, Command, Image as ImageIcon, Film, Link as LinkIcon } from 'lucide-react'
 import SEO from '../components/common/SEO'
+import { VkIcon, VkMenuMock } from '../components/docs/vkIcons'
 import { DOCS, COMING_SOON, getDocBySlug } from '../data/docs'
 import { useTranslation } from '../i18n'
-
-const HERO_ICONS = {
-  eye: Eye, eyeOff: EyeOff, layoutRows: LayoutGrid, bookmark: Bookmark,
-  shield: Shield, activity: Activity, zap: Zap, ban: Ban, code: Code, settings: Settings,
-}
 
 // Инлайн-разметка: **жирный** и `код`
 function renderRich(text) {
@@ -74,7 +67,6 @@ export default function Docs() {
   const { slug } = useParams()
   const doc = getDocBySlug(slug)
   const meta = doc[lang] || doc.ru
-  const HeroIcon = HERO_ICONS[doc.heroIcon] || Eye
   const features = doc.features
 
   return (
@@ -90,7 +82,6 @@ export default function Docs() {
         {/* Мобильный переключатель секций (горизонтальная лента) */}
         <div className="lg:hidden -mx-4 px-4 mb-8 flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
           {DOCS.map((d) => {
-            const Icon = HERO_ICONS[d.heroIcon] || Eye
             const active = d.slug === doc.slug
             return (
               <Link
@@ -102,24 +93,21 @@ export default function Docs() {
                     : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300'
                 }`}
               >
-                <Icon className="w-4 h-4" />
+                <VkIcon name={d.heroIcon} size={18} />
                 {(d[lang] || d.ru).nav}
               </Link>
             )
           })}
-          {COMING_SOON.map((d) => {
-            const Icon = HERO_ICONS[d.heroIcon] || Eye
-            return (
-              <span
-                key={d.slug}
-                title={t('docsPage.soonHint')}
-                className="flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium bg-gray-50 dark:bg-gray-900 text-gray-400 dark:text-gray-600 border border-dashed border-gray-200 dark:border-gray-700"
-              >
-                <Icon className="w-4 h-4" />
-                {(d[lang] || d.ru).nav}
-              </span>
-            )
-          })}
+          {COMING_SOON.map((d) => (
+            <span
+              key={d.slug}
+              title={t('docsPage.soonHint')}
+              className="flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium bg-gray-50 dark:bg-gray-900 text-gray-400 dark:text-gray-600 border border-dashed border-gray-200 dark:border-gray-700"
+            >
+              <VkIcon name={d.heroIcon} size={18} />
+              {(d[lang] || d.ru).nav}
+            </span>
+          ))}
         </div>
 
         <div className="lg:grid lg:grid-cols-[240px_1fr] lg:gap-12 lg:items-start">
@@ -131,7 +119,6 @@ export default function Docs() {
             </p>
             <nav className="space-y-1">
               {DOCS.map((d) => {
-                const Icon = HERO_ICONS[d.heroIcon] || Eye
                 const active = d.slug === doc.slug
                 return (
                   <Link
@@ -144,27 +131,24 @@ export default function Docs() {
                         : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                     }`}
                   >
-                    <Icon className="w-4 h-4 flex-shrink-0" />
+                    <VkIcon name={d.heroIcon} size={18} className="flex-shrink-0" />
                     {(d[lang] || d.ru).nav}
                   </Link>
                 )
               })}
-              {COMING_SOON.map((d) => {
-                const Icon = HERO_ICONS[d.heroIcon] || Eye
-                return (
-                  <span
-                    key={d.slug}
-                    title={t('docsPage.soonHint')}
-                    className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-gray-400 dark:text-gray-600 cursor-default select-none"
-                  >
-                    <Icon className="w-4 h-4 flex-shrink-0" />
-                    <span className="flex-1">{(d[lang] || d.ru).nav}</span>
-                    <span className="px-1.5 py-0.5 rounded-md bg-gray-100 dark:bg-gray-800 text-[10px] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
-                      {t('docsPage.soon')}
-                    </span>
+              {COMING_SOON.map((d) => (
+                <span
+                  key={d.slug}
+                  title={t('docsPage.soonHint')}
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-gray-400 dark:text-gray-600 cursor-default select-none"
+                >
+                  <VkIcon name={d.heroIcon} size={18} className="flex-shrink-0" />
+                  <span className="flex-1">{(d[lang] || d.ru).nav}</span>
+                  <span className="px-1.5 py-0.5 rounded-md bg-gray-100 dark:bg-gray-800 text-[10px] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                    {t('docsPage.soon')}
                   </span>
-                )
-              })}
+                </span>
+              ))}
             </nav>
 
             {/* Оглавление активной секции */}
@@ -179,7 +163,7 @@ export default function Docs() {
                     href={`#${f.anchor}`}
                     className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:text-[#0077ff] hover:bg-[#0077ff]/5 transition-colors"
                   >
-                    <span aria-hidden>{f.emoji}</span>
+                    <VkIcon name={f.icon} size={16} className="flex-shrink-0 text-gray-400 dark:text-gray-500" />
                     {(f[lang] || f.ru).title}
                   </a>
                 ))}
@@ -195,8 +179,8 @@ export default function Docs() {
               animate={{ opacity: 1, y: 0 }}
               className="mb-10"
             >
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0077ff] to-blue-400 shadow-xl shadow-blue-500/25 mb-5">
-                <HeroIcon className="w-7 h-7 text-white" />
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0077ff] to-blue-400 shadow-xl shadow-blue-500/25 mb-5 text-white">
+                <VkIcon name={doc.heroIcon} size={28} />
               </div>
               <p className="text-sm font-semibold uppercase tracking-wider text-[#0077ff] mb-2">
                 {t('docsPage.kicker')}
@@ -245,8 +229,8 @@ export default function Docs() {
                     className="scroll-mt-24"
                   >
                     <a href={`#${f.anchor}`} className="group inline-flex items-center gap-3 mb-3">
-                      <span className="flex items-center justify-center w-11 h-11 rounded-2xl bg-gray-100 dark:bg-gray-800 text-2xl">
-                        {f.emoji}
+                      <span className="flex items-center justify-center w-11 h-11 rounded-2xl bg-[#0077ff]/10 text-[#0077ff]">
+                        <VkIcon name={f.icon} size={24} />
                       </span>
                       <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                         {tr.title}
@@ -287,9 +271,12 @@ export default function Docs() {
                       </ul>
                     )}
 
-                    {f.media?.length > 0 && (
+                    {(f.media?.length > 0 || f.widget === 'vkMenu') && (
                       <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                        {f.media.map((m, i) => (
+                        {f.widget === 'vkMenu' && (
+                          <VkMenuMock caption={t('docsPage.vkMenuCaption')} />
+                        )}
+                        {f.media?.map((m, i) => (
                           <DocMedia key={i} slug={doc.slug} item={m} t={t} />
                         ))}
                       </div>

@@ -655,6 +655,7 @@ export const ru = {
     quickAccessLabel: 'Быстрый доступ.',
     mediaShot: 'Скриншот интерфейса',
     mediaGif: 'Демонстрация (GIF)',
+    vkMenuCaption: 'Левое меню ВК — зачёркнутые пункты выключены',
   },
 
   legal: {
