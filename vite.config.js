@@ -4,11 +4,14 @@ import prerender from '@prerenderer/rollup-plugin'
 import { themeIds }     from './src/data/themes.js'
 import { wallpaperIds } from './src/data/wallpapers.js'
 import { newsSlugs }    from './src/data/news.js'
+import { docsSlugs }    from './src/data/docs.js'
 
 const routes = [
   // Static pages
   '/', '/welcome', '/uninstall', '/changelog', '/privacy', '/terms',
-  '/themes', '/wallpapers', '/news',
+  '/themes', '/wallpapers', '/news', '/docs',
+  // Docs sections
+  ...docsSlugs.map(slug => `/docs/${slug}`),
   // Dynamic theme pages
   ...themeIds.map(id => `/themes/${id}`),
   // Dynamic wallpaper pages

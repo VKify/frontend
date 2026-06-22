@@ -13,6 +13,7 @@ const Changelog = lazy(() => import('./pages/Changelog'))
 const ChangelogVersion = lazy(() => import('./pages/ChangelogVersion'))
 const News = lazy(() => import('./pages/News'))
 const NewsPost = lazy(() => import('./pages/NewsPost'))
+const Docs = lazy(() => import('./pages/Docs'))
 const Privacy = lazy(() => import('./pages/Privacy'))
 const Terms = lazy(() => import('./pages/Terms'))
 const NotFound = lazy(() => import('./pages/NotFound'))
@@ -38,6 +39,8 @@ function App() {
                         <Route path="/changelog/:version" element={<ChangelogVersion />} />
                         <Route path="/news" element={<News />} />
                         <Route path="/news/:slug" element={<NewsPost />} />
+                        <Route path="/docs" element={<Docs />} />
+                        <Route path="/docs/:slug" element={<Docs />} />
                         <Route path="/privacy" element={<Privacy />} />
                         <Route path="/terms" element={<Terms />} />
                         <Route path="/themes" element={<Themes />} />

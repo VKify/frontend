@@ -41,6 +41,7 @@ export const config = {
         { name: 'Как установить', labelKey: 'footer.links.install', href: '/#how-it-works', isAnchor: true },
         { name: 'Темы оформления', labelKey: 'footer.links.themes', href: '/themes' },
         { name: 'Коллекция обоев', labelKey: 'footer.links.wallpapers', href: '/wallpapers' },
+        { name: 'Документация', labelKey: 'footer.links.docs', href: '/docs' },
         { name: 'Новости', labelKey: 'footer.links.news', href: '/news' },
         { name: 'Обновления', labelKey: 'footer.links.changelog', href: '/changelog' },
       ],

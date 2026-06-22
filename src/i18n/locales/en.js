@@ -642,6 +642,21 @@ export const en = {
     },
   },
 
+  docsPage: {
+    kicker: 'Documentation',
+    quickTitle: 'Quick access to any feature',
+    quickPre: 'Inside the extension press ',
+    quickPost: ' and start typing a name — search opens the feature and highlights it. The section anchors on this page match the extension’s features.',
+    onThisPage: 'On this page',
+    howItWorks: 'How it works',
+    whatHides: 'What it hides',
+    soon: 'Soon',
+    soonHint: 'Documentation for this section is coming later',
+    quickAccessLabel: 'Quick access.',
+    mediaShot: 'Interface screenshot',
+    mediaGif: 'Demo (GIF)',
+  },
+
   legal: {
     privacy: {
       seoTitle: 'Privacy policy',
@@ -801,6 +816,7 @@ export const en = {
       install: 'How to install',
       themes: 'Themes',
       wallpapers: 'Wallpaper collection',
+      docs: 'Documentation',
       news: 'News',
       changelog: 'Changelog',
       chromeStore: 'Chrome Web Store',
