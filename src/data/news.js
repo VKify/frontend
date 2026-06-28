@@ -12,6 +12,88 @@
 
 export const news = [
   {
+    slug: 'equalizer',
+    date: '2026-06-28',
+    category: 'feature',
+    accent: 'blue',
+    emoji: '🎚️',
+    cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
+    translations: {
+      ru: {
+        title: 'Эквалайзер для музыки ВК — 10 полос, пресеты и панель прямо на странице',
+        excerpt:
+          'Теперь можно подкрутить бас или высокие прямо в плеере ВКонтакте: 10 полос, преамп, готовые и свои пресеты. Звук меняется на лету. А ещё в релизе — дашборд производительности и перестановка колонок.',
+        readTime: 2,
+        blocks: [
+          {
+            type: 'p',
+            text: 'Главное в обновлении — **эквалайзер для музыки ВКонтакте**. Десять полос от 31 Гц до 16 кГц, отдельный преамп и готовые пресеты: Bass Boost, Rock, Vocal и другие. Не нравится ни один — соберите свой и сохраните под любым именем.',
+          },
+          {
+            type: 'p',
+            text: 'Работает на Web Audio API: двигаете ползунок — и слышите разницу сразу, трек перезапускать не нужно. Кнопка вызова стоит в самом плеере, рядом с привычными.',
+          },
+          {
+            type: 'p',
+            text: 'Сам эквалайзер живёт в плавающей панели. Её можно перетащить в удобный угол и свернуть в узкий бар — там остаётся только быстрый выбор пресета. Куда поставили и свернули ли — запомнится: после перезагрузки страницы панель вернётся на место.',
+          },
+          {
+            type: 'h2',
+            text: 'Что ещё в релизе',
+          },
+          {
+            type: 'p',
+            text: 'Появился **дашборд производительности**: видно, сколько работают функции расширения, с разбивкой по нагрузке и разделам. Рядом — «Проводник фич» и небольшой плавающий монитор поверх страницы, если хочется держать цифры перед глазами.',
+          },
+          {
+            type: 'p',
+            text: 'Колонки на странице профиля и в сообществах теперь можно поменять местами — раньше так умел только мессенджер. А правую колонку в ленте и на профиле можно и вовсе спрятать.',
+          },
+          {
+            type: 'quote',
+            text: 'Под капотом — большая пересборка: расширение стало быстрее и устойчивее, а попап больше не моргает на каждом фоновом обновлении.',
+          },
+        ],
+      },
+      en: {
+        title: 'An equalizer for VK music — 10 bands, presets and an on-page panel',
+        excerpt:
+          'You can now tweak the bass or treble right in the VKontakte player: 10 bands, a preamp, built-in and custom presets. The sound changes on the fly. The release also brings a performance dashboard and column swapping.',
+        readTime: 2,
+        blocks: [
+          {
+            type: 'p',
+            text: 'The headline of this update is an **equalizer for VKontakte music**. Ten bands from 31 Hz to 16 kHz, a separate preamp, and ready-made presets: Bass Boost, Rock, Vocal and more. Like none of them? Build your own and save it under any name.',
+          },
+          {
+            type: 'p',
+            text: 'It runs on the Web Audio API: move a slider and you hear the difference immediately — no need to restart the track. The button sits right in the player, next to the usual ones.',
+          },
+          {
+            type: 'p',
+            text: 'The equalizer lives in a floating panel. Drag it to a convenient corner and collapse it into a slim bar that keeps just a quick preset picker. Where you put it and whether you collapsed it are remembered: after a page reload the panel comes back to the same spot.',
+          },
+          {
+            type: 'h2',
+            text: 'What else is in the release',
+          },
+          {
+            type: 'p',
+            text: 'There’s a new **performance dashboard**: it shows how hard the extension’s features are working, grouped by load and by section. Next to it sit a Feature Explorer and a small floating monitor over the page, if you like to keep the numbers in view.',
+          },
+          {
+            type: 'p',
+            text: 'You can now swap the columns on profile and community pages — until now only the messenger could do that. And the right column in the feed and on profiles can be hidden entirely.',
+          },
+          {
+            type: 'quote',
+            text: 'Under the hood: a big rebuild that makes the extension faster and steadier, and the popup no longer flickers on every background update.',
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: 'center-hub-and-autoplay',
     date: '2026-06-22',
     category: 'feature',
