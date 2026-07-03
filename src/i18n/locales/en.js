@@ -182,25 +182,25 @@ export const en = {
     badge: 'Fresh updates',
     titleTop: "What's new",
     titleAccent: 'in VKify',
-    description: 'The highlights from the last two updates — music downloads, a download center, and a look that no longer flickers.',
+    description: 'The highlights from the latest updates — a music equalizer, a load monitor, and settings that no longer jump around.',
     versionTag: 'In {version}',
     allNews: 'All news and updates',
     cards: {
-      musicDownload: {
-        title: 'Music as MP3',
-        description: 'Save a track, an album, or your whole library — with cover art, tags, and lyrics.',
+      equalizer: {
+        title: 'Music equalizer',
+        description: 'Ten bands, a preamp, and presets right in the VK player — the sound changes on the fly.',
       },
-      profiles: {
-        title: 'Appearance profiles',
-        description: 'Bundle a theme, font, wallpaper, and filters under your own name and switch with one click.',
+      perfDashboard: {
+        title: 'Load monitor',
+        description: 'See how hard each feature works, broken down by section, with a mini widget on the page.',
       },
-      autoplay: {
-        title: 'Music autoplay',
-        description: 'After a page reload the player resumes from the same second — and if the browser blocks it, one click is enough.',
+      columnsSwap: {
+        title: 'Swap the columns',
+        description: 'Swap columns on profiles and communities, or hide the right one entirely.',
       },
-      centerHub: {
-        title: 'The “Center” section',
-        description: 'Every downloader lives in one place, and heavy tabs are split into tidy subpages.',
+      smoothNav: {
+        title: 'Navigation without jumps',
+        description: 'The menu and the content scroll separately: a section opens from the top and the list stays put.',
       },
     },
   },

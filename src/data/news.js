@@ -12,6 +12,104 @@
 
 export const news = [
   {
+    slug: 'color-picker-and-polish',
+    date: '2026-07-03',
+    category: 'release',
+    accent: 'green',
+    emoji: '🎨',
+    cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
+    translations: {
+      ru: {
+        title: 'Свой выбор цвета, живой предпросмотр и навигация, которая не прыгает',
+        excerpt:
+          'Обновление 1.7.1 про удобство мелочей: собственный выбор цвета вместо системного окна, ширина и смещение меняются прямо во время перетаскивания ползунка, видео скачивается и из модального плеера, а настройки больше не дёргаются при переходах.',
+        readTime: 2,
+        blocks: [
+          {
+            type: 'p',
+            text: 'Обновление **1.7.1** — про мелочи, из-за которых расширением приятнее пользоваться каждый день.',
+          },
+          {
+            type: 'h2',
+            text: 'Свой выбор цвета',
+          },
+          {
+            type: 'p',
+            text: 'Раньше цвет темы, акцента и фона выбирался через системное окно браузера — в каждом браузере своё и не всегда удобное. Теперь это наш собственный пикер: выглядит одинаково в Chrome, Firefox и Opera, открывается поверх интерфейса и не обрезается краем попапа. Цвет на странице подхватывается плавно, без рывков.',
+          },
+          {
+            type: 'h2',
+            text: 'Видно сразу, что настраиваешь',
+          },
+          {
+            type: 'p',
+            text: 'Ширину и смещение контента теперь видно вживую: страница ВК подстраивается прямо во время перетаскивания ползунка, а не после того, как вы его отпустили. Так проще поймать нужное значение с первого раза.',
+          },
+          {
+            type: 'p',
+            text: 'Заодно переделали переходы между разделами настроек. Меню слева и содержимое справа — две отдельные колонки со своим скроллом, как в самом ВК. Открываете раздел: меню остаётся на месте, а содержимое показывается с начала, без рывка вниз. В маленьком окне это заметно экономит место.',
+          },
+          {
+            type: 'h2',
+            text: 'И по мелочи',
+          },
+          {
+            type: 'p',
+            text: 'Скачивание видео теперь ловит и модальный плеер на vk.com — по ссылкам вида «?z=video-…», а не только страницы vkvideo.ru. Плюс несколько правок скрытия: список чатов сам смыкается после того, как спрятали диалог, а пустой отступ на месте убранного блока написания поста и историй больше не остаётся, даже когда ВК меняет вёрстку.',
+          },
+          {
+            type: 'quote',
+            text: 'Ничего громкого — просто набор шероховатостей, которые убрали, чтобы не спотыкаться о них каждый день.',
+          },
+        ],
+      },
+      en: {
+        title: 'A color picker of our own, live preview, and navigation that doesn’t jump',
+        excerpt:
+          'Update 1.7.1 is about the small things: a color picker of our own instead of the system dialog, width and offset that change as you drag the slider, video downloads from the modal player, and settings that no longer lurch between sections.',
+        readTime: 2,
+        blocks: [
+          {
+            type: 'p',
+            text: '**1.7.1** is about the little things that make the extension nicer to use every day.',
+          },
+          {
+            type: 'h2',
+            text: 'A color picker of our own',
+          },
+          {
+            type: 'p',
+            text: 'Theme, accent, and wallpaper colors used to be chosen through the browser’s system dialog — different in every browser and not always convenient. Now it’s our own picker: it looks the same in Chrome, Firefox, and Opera, opens above the interface, and never gets clipped by the edge of the popup. The color on the page follows along smoothly, with no jitter.',
+          },
+          {
+            type: 'h2',
+            text: 'See what you’re changing, instantly',
+          },
+          {
+            type: 'p',
+            text: 'Content width and offset are now live: the VK page adjusts as you drag the slider, not after you let go. It’s easier to land on the right value the first time.',
+          },
+          {
+            type: 'p',
+            text: 'We also reworked how you move between settings sections. The menu on the left and the content on the right are two separate columns with their own scroll, just like VK. Open a section and the menu stays put while the content shows from the top — no jerk downward. In a small window that noticeably saves space.',
+          },
+          {
+            type: 'h2',
+            text: 'And the smaller stuff',
+          },
+          {
+            type: 'p',
+            text: 'Video downloads now catch the modal player on vk.com too — links like “?z=video-…”, not just vkvideo.ru pages. Plus a few hiding fixes: the chat list closes the gap after you hide a dialog, and the empty space left by a removed post box or stories no longer lingers, even when VK changes its markup.',
+          },
+          {
+            type: 'quote',
+            text: 'Nothing loud — just a batch of rough edges smoothed out so you stop tripping over them.',
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: 'equalizer',
     date: '2026-06-28',
     category: 'feature',
