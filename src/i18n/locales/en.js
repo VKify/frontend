@@ -182,25 +182,25 @@ export const en = {
     badge: 'Fresh updates',
     titleTop: "What's new",
     titleAccent: 'in VKify',
-    description: 'The highlights from the latest updates — a music equalizer, a load monitor, and settings that no longer jump around.',
+    description: 'Version 1.8.0 brings smooth PDF conversation export, a fully bilingual interface, and audio format selection.',
     versionTag: 'In {version}',
     allNews: 'All news and updates',
     cards: {
-      equalizer: {
-        title: 'Music equalizer',
-        description: 'Ten bands, a preamp, and presets right in the VK player — the sound changes on the fly.',
+      pdfExport: {
+        title: 'Conversations as PDF',
+        description: 'Save an entire conversation or selected messages with avatars, attachments, and links.',
       },
-      perfDashboard: {
-        title: 'Load monitor',
-        description: 'See how hard each feature works, broken down by section, with a mini widget on the page.',
+      localization: {
+        title: 'Russian and English',
+        description: 'The entire interface is translated, and you can switch languages without reloading the tab.',
       },
-      columnsSwap: {
-        title: 'Swap the columns',
-        description: 'Swap columns on profiles and communities, or hide the right one entirely.',
+      audioFormats: {
+        title: 'Original or MP3',
+        description: 'Keep the original audio format or convert tracks to MP3 with familiar metadata.',
       },
-      smoothNav: {
-        title: 'Navigation without jumps',
-        description: 'The menu and the content scroll separately: a section opens from the top and the list stays put.',
+      fasterVk: {
+        title: 'No more VK freezes',
+        description: 'PDFs are built outside the page, while heavy components load only when they are needed.',
       },
     },
   },
