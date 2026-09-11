@@ -666,6 +666,7 @@ export const ru = {
     soonHint: 'Документация по этому разделу появится позже',
     quickAccessLabel: 'Быстрый доступ.',
     mediaShot: 'Скриншот интерфейса',
+    overviewShot: 'Актуальный интерфейс раздела в VKify',
     mediaGif: 'Демонстрация (GIF)',
     vkMenuCaption: 'Левое меню ВК — зачёркнутые пункты выключены',
   },

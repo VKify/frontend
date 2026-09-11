@@ -666,6 +666,7 @@ export const en = {
     soonHint: 'Documentation for this section is coming later',
     quickAccessLabel: 'Quick access.',
     mediaShot: 'Interface screenshot',
+    overviewShot: 'Current VKify section interface',
     mediaGif: 'Demo (GIF)',
     vkMenuCaption: 'VK left menu — struck-through items are off',
   },

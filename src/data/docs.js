@@ -473,30 +473,64 @@ const adsDocs = {
   },
   features: [
     {
+      anchor: 'recommendations',
+      icon: 'hide',
+      category: 'content',
+      subfeatures: [
+        { id: 'block_recommendations_feed', title: 'Лента', description: 'Рекомендации каналов и баннер Яндекс Браузера.' },
+        { id: 'block_recommendations_games', title: 'Игры', description: 'Рекомендуемые игры и рекламный баннер.' },
+        { id: 'block_recommendations_market', title: 'Маркет', description: 'Подборка «Может заинтересовать».' },
+        { id: 'block_recommendations_calls', title: 'Звонки', description: 'Промобаннер в разделе звонков.' },
+        { id: 'block_recommendations_profile', title: 'Меню профиля', description: 'Рекламный баннер в меню профиля.' },
+        { id: 'block_recommendations_messenger', title: 'Мессенджер', description: 'Промобаннер над списком диалогов.' },
+        { id: 'block_music_ads', title: 'Музыка', description: 'Баннеры подписки и рекламные предложения.' },
+        { id: 'block_recommendations_communities', title: 'Сообщества', description: 'Блок похожих сообществ.' },
+        { id: 'block_yandex_browser_promo', title: 'Левое меню', description: 'Промопункт Яндекс Браузера.' },
+      ],
+      ru: {
+        title: 'Реклама и рекомендации по разделам',
+        lead: 'Девять независимых переключателей позволяют убрать только те промоблоки, которые мешают именно вам.',
+        how: [
+          'Откройте вложенную страницу и отдельно настройте ленту, игры, Маркет, звонки, меню профиля, мессенджер, музыку, сообщества и левое меню.',
+          'Фильтр музыки убирает баннеры и предложения подписки, но не отключает звуковые рекламные вставки между треками.',
+          'Эти переключатели входят в общий уровень защиты и управляются кнопкой «Включить защиту».',
+        ],
+        access: '«Реклама» → «Реклама и рекомендации по разделам».',
+      },
+      en: {
+        title: 'Ads and recommendations by section',
+        lead: 'Nine independent switches let you remove only the promotional blocks that get in your way.',
+        how: [
+          'Open the nested page to configure Feed, Games, Market, Calls, profile menu, Messenger, Music, Communities, and the left menu separately.',
+          'The Music filter removes subscription banners and offers, but it cannot suppress audio ad breaks between tracks.',
+          'These switches count toward the overall protection level and follow the “Enable protection” action.',
+        ],
+        access: '“Ads” → “Ads and recommendations by section”.',
+      },
+    },
+    {
       anchor: 'ad_blocking',
       icon: 'ban',
       media: [{ type: 'screenshot', file: 'blocking.png' }],
       ru: {
         title: 'Блокировка рекламы',
-        lead: 'Четыре независимых фильтра. Кнопка «Включить всё» поднимает их разом, а баннер сверху показывает уровень защиты: полная, частичная или отключена.',
+        lead: 'Три основных фильтра входят в общий уровень защиты. Дополнительный DOM-фильтр слов вынесен отдельно и по умолчанию выключен.',
         items: [
           { title: 'Боковая панель', desc: 'Скрывает рекламные баннеры и виджеты в левой колонке' },
           { title: 'Лента · фильтр API', desc: 'Перехватывает рекламные посты на уровне сетевых запросов — они не доходят до страницы' },
-          { title: 'Лента · фильтр DOM', desc: 'Запасной слой: скрывает промопосты через CSS и анализ содержимого, если API-фильтр что-то пропустил' },
           { title: 'Блокировка трекеров', desc: 'Перехватывает аналитику, телеметрию и рекламные сети' },
         ],
-        access: 'Ctrl/Cmd + K → «Скрыть левый блок рекламы», «Резать рекламу в API/DOM» или «Блокировка трекеров».',
+        access: 'Ctrl/Cmd + K → «Скрыть левый блок рекламы», «Резать рекламу в API» или «Блокировка трекеров».',
       },
       en: {
         title: 'Ad blocking',
-        lead: 'Four independent filters. “Enable all” flips them together, and the banner on top shows your protection level: full, partial, or off.',
+        lead: 'Three core filters count toward the overall protection level. The optional DOM keyword filter is separate and off by default.',
         items: [
           { title: 'Sidebar', desc: 'Hides ad banners and widgets in the left column' },
           { title: 'Feed · API filter', desc: 'Intercepts promo posts at the network level — they never reach the page' },
-          { title: 'Feed · DOM filter', desc: 'A fallback layer: hides promo posts via CSS and content analysis if the API filter missed one' },
           { title: 'Tracker blocking', desc: 'Intercepts analytics, telemetry, and ad networks' },
         ],
-        access: 'Ctrl/Cmd + K → “Hide left ad block”, “Cut feed ads (API/DOM)”, or “Tracker blocking”.',
+        access: 'Ctrl/Cmd + K → “Hide left ad block”, “Cut feed ads (API)”, or “Tracker blocking”.',
       },
     },
     {
@@ -505,7 +539,7 @@ const adsDocs = {
       media: [{ type: 'screenshot', file: 'keywords.png' }],
       ru: {
         title: 'Фильтр по словам',
-        lead: 'Появляется, когда включён DOM-фильтр ленты. Прячет или, наоборот, всегда показывает посты по словам в тексте.',
+        lead: 'Необязательный DOM-фильтр, выключенный по умолчанию. Прячет или, наоборот, всегда показывает посты по словам в тексте.',
         how: [
           '**Список скрытия** — посты с этими словами уходят из ленты.',
           '**Список показа** — слова-исключения: такие посты остаются, даже если их зацепил бы другой фильтр.',
@@ -514,7 +548,7 @@ const adsDocs = {
       },
       en: {
         title: 'Keyword filter',
-        lead: 'Appears once the feed DOM filter is on. Hides posts — or always keeps them — based on words in the text.',
+        lead: 'An optional DOM filter that is off by default. It hides posts — or always keeps them — based on words in the text.',
         how: [
           '**Block list** — posts containing these words leave the feed.',
           '**Allow list** — exception words: those posts stay, even if another filter would catch them.',
@@ -1513,9 +1547,23 @@ const ITEM_IDS_BY_FEATURE = {
   music: ['hide_audio_ads'],
   menu: ['hidden_menu_items', 'hide_menu_settings', 'hide_menu_counters'],
   global: ['hide_recommendations', 'hide_mini_chat', 'hide_scroll_top'],
-  ad_blocking: ['block_left_ads', 'block_feed_ads_api', 'block_feed_ads_dom', 'block_trackers'],
+  ad_blocking: ['block_left_ads', 'block_feed_ads_api', 'block_trackers'],
   anti_tracking: ['prevent_typing', 'prevent_read', 'blur_on_unfocus'],
   hidden_dialogs: ['hidden_dialogs', 'hide_dialogs_hotkey'],
+}
+
+// Реальные снимки production-попапа. Старые декларации media оставались
+// заглушками; держим здесь только проверенные файлы, которые генерирует
+// `vkify-extension/scripts/capture-docs-screenshots.mjs`.
+const MEDIA_BY_FEATURE = {
+  'view:custom_background': [{ type: 'screenshot', file: 'background.png' }],
+  'center:message_quick_copy': [{ type: 'screenshot', file: 'message-templates.png' }],
+  'center:audio_download': [{ type: 'screenshot', file: 'audio-download.png' }],
+  'center:media_player_hotkeys': [{ type: 'screenshot', file: 'equalizer.png' }],
+  'privacy:message_crypto': [{ type: 'screenshot', file: 'crypto.png' }],
+  'onlinespy:spy_online': [{ type: 'screenshot', file: 'online.png' }],
+  'ads:custom_block_words': [{ type: 'screenshot', file: 'keywords.png' }],
+  'css:custom_css_enabled': [{ type: 'screenshot', file: 'editor.png' }],
 }
 
 function normalizeFeature(feature, docId) {
@@ -1539,6 +1587,7 @@ function normalizeFeature(feature, docId) {
 
   return {
     ...feature,
+    media: MEDIA_BY_FEATURE[`${docId}:${feature.anchor}`] ?? [],
     id: feature.id ?? feature.anchor,
     title: feature.title ?? feature.ru?.title ?? feature.anchor,
     description: feature.description ?? feature.ru?.lead ?? '',
@@ -1557,6 +1606,7 @@ function normalizeDoc(doc) {
     title: doc.title ?? doc.ru.title,
     description: doc.description ?? doc.ru.subtitle,
     category: doc.category ?? 'popup',
+    overviewMedia: doc.slug === 'notes' ? null : { type: 'screenshot', file: 'overview.png' },
     subfeatures: features.map(({ id, title, description, category }) => ({
       id,
       title,

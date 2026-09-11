@@ -32,7 +32,7 @@ function renderRich(text) {
 function DocMedia({ slug, item, t }) {
   const [failed, setFailed] = useState(false)
   const isGif = item.type === 'gif'
-  const label = isGif ? t('docsPage.mediaGif') : t('docsPage.mediaShot')
+  const label = item.label || (isGif ? t('docsPage.mediaGif') : t('docsPage.mediaShot'))
   const src = `/docs/${slug}/${item.file}`
 
   if (failed) {
@@ -197,6 +197,16 @@ export default function Docs() {
                 </p>
               )}
             </motion.div>
+
+            {doc.overviewMedia && (
+              <div className="mb-10">
+                <DocMedia
+                  slug={doc.slug}
+                  item={{ ...doc.overviewMedia, label: t('docsPage.overviewShot') }}
+                  t={t}
+                />
+              </div>
+            )}
 
             {/* Быстрый доступ — Ctrl+K */}
             <div className="mb-14 flex items-start gap-4 p-5 rounded-2xl border border-[#0077ff]/20 bg-gradient-to-br from-[#0077ff]/[0.07] to-blue-400/[0.04]">
