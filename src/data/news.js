@@ -16,7 +16,7 @@ export const news = [
     date: '2026-07-03',
     category: 'release',
     accent: 'green',
-    emoji: '🎨',
+    image: '/news/color-picker-and-polish.webp',
     cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
     translations: {
       ru: {
@@ -114,7 +114,7 @@ export const news = [
     date: '2026-06-28',
     category: 'feature',
     accent: 'blue',
-    emoji: '🎚️',
+    image: '/news/equalizer.webp',
     cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
     translations: {
       ru: {
@@ -196,7 +196,7 @@ export const news = [
     date: '2026-06-22',
     category: 'feature',
     accent: 'green',
-    emoji: '🎛️',
+    image: '/news/center-hub-and-autoplay.webp',
     cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
     translations: {
       ru: {
@@ -326,7 +326,7 @@ export const news = [
     date: '2026-06-15',
     category: 'feature',
     accent: 'purple',
-    emoji: '🎵',
+    image: '/news/music-download.webp',
     cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
     translations: {
       ru: {
@@ -432,7 +432,7 @@ export const news = [
     date: '2026-06-04',
     category: 'release',
     accent: 'orange',
-    emoji: '🦊',
+    image: '/news/firefox-support.webp',
     cta: { labelKey: 'common.installFirefox', linkKey: 'firefoxAddons' },
     translations: {
       ru: {

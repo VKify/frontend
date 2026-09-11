@@ -86,7 +86,7 @@ export default function NewsPost() {
     )
   }
 
-  const { date, category, accent = 'blue', emoji } = post
+  const { date, category, accent = 'blue', image } = post
   const tr = post.translations[lang] || post.translations.ru
   const gradient = accentGradients[accent] || accentGradients.blue
 
@@ -105,6 +105,7 @@ export default function NewsPost() {
       <SEO
         title={t('newsPage.postSeoTitle', { title: tr.title })}
         description={t('newsPage.postSeoDescription', { excerpt: tr.excerpt })}
+        image={image}
         url={`/news/${post.slug}`}
         type="article"
       />
@@ -122,7 +123,7 @@ export default function NewsPost() {
         </div>
 
         {/* Cover */}
-        <div className={`relative h-48 sm:h-56 rounded-3xl bg-gradient-to-br ${gradient} flex items-center justify-center overflow-hidden mb-8`}>
+        <div className={`relative aspect-[3/2] sm:aspect-[16/9] rounded-3xl bg-gradient-to-br ${gradient} overflow-hidden mb-8`}>
           <div
             className="absolute inset-0 opacity-20"
             style={{
@@ -130,7 +131,14 @@ export default function NewsPost() {
               backgroundSize: '28px 28px',
             }}
           />
-          {emoji && <span className="relative text-7xl sm:text-8xl drop-shadow-lg">{emoji}</span>}
+          {image && (
+            <img
+              src={image}
+              alt={tr.title}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10" />
           <span className="absolute top-5 left-5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-semibold">
             {t(`newsPage.categories.${category}`)}
           </span>

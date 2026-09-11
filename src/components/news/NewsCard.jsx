@@ -26,7 +26,7 @@ function CoverPattern() {
 
 export default function NewsCard({ post, isLatest = false, featured = false }) {
   const { t, lang } = useTranslation()
-  const { slug, date, category, accent = 'blue', emoji } = post
+  const { slug, date, category, accent = 'blue', image } = post
   const tr = post.translations[lang] || post.translations.ru
 
   const formatDate = (dateString) =>
@@ -86,13 +86,17 @@ export default function NewsCard({ post, isLatest = false, featured = false }) {
           to={`/news/${slug}`}
           className="group grid lg:grid-cols-5 rounded-3xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden hover:shadow-2xl hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-200"
         >
-          <div className={`relative lg:col-span-2 min-h-[200px] bg-gradient-to-br ${gradient} flex items-center justify-center overflow-hidden`}>
+          <div className={`relative lg:col-span-2 min-h-[220px] bg-gradient-to-br ${gradient} overflow-hidden`}>
             <CoverPattern />
-            {emoji && (
-              <span className="relative text-7xl sm:text-8xl drop-shadow-lg group-hover:scale-110 transition-transform duration-300">
-                {emoji}
-              </span>
+            {image && (
+              <img
+                src={image}
+                alt=""
+                loading="eager"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              />
             )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
             <div className="absolute top-5 left-5">{chips}</div>
           </div>
 
@@ -122,13 +126,17 @@ export default function NewsCard({ post, isLatest = false, featured = false }) {
         to={`/news/${slug}`}
         className="group flex flex-col h-full rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden hover:shadow-xl hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-150"
       >
-        <div className={`relative h-40 bg-gradient-to-br ${gradient} flex items-center justify-center overflow-hidden`}>
+        <div className={`relative h-44 bg-gradient-to-br ${gradient} overflow-hidden`}>
           <CoverPattern />
-          {emoji && (
-            <span className="relative text-6xl drop-shadow-lg group-hover:scale-110 transition-transform duration-200">
-              {emoji}
-            </span>
+          {image && (
+            <img
+              src={image}
+              alt=""
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            />
           )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
           <div className="absolute top-4 left-4">{chips}</div>
         </div>
 

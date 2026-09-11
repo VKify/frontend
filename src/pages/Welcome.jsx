@@ -11,7 +11,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  PartyPopper,
   ExternalLink,
   Settings,
   Palette,
@@ -23,10 +22,13 @@ import {
   Plug,
   Eye,
   Bug,
-  Search,
-  Bookmark,
   Download,
   Sparkles,
+  Video,
+  Music2,
+  Image,
+  Clapperboard,
+  History,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/common/SEO'
@@ -48,6 +50,14 @@ const FEATURED_IDS = [
 const featuredThemes = FEATURED_IDS
   .map(id => themes.find(t => t.id === id))
   .filter(Boolean)
+
+const DOWNLOAD_FEATURES = [
+  { id: 'video_download', Icon: Video },
+  { id: 'audio_download', Icon: Music2 },
+  { id: 'clip_download', Icon: Clapperboard },
+  { id: 'photo_download', Icon: Image },
+  { id: 'story_download', Icon: History },
+]
 
 function ExtensionStatusBadge({ detected, version }) {
   const { t } = useTranslation()
@@ -156,42 +166,65 @@ export default function Welcome() {
     saveSettings({ [key]: !settings[key] })
   }
 
+  const adProtectionEnabled = ['block_left_ads', 'block_feed_ads_api']
+    .every(key => settings[key] ?? true)
+
+  function setAdProtection(enabled) {
+    saveSettings({
+      block_left_ads: enabled,
+      block_feed_ads_api: enabled,
+    })
+  }
+
+  const allDownloadsEnabled = DOWNLOAD_FEATURES.every(({ id }) => settings[id] ?? false)
+
+  function setAllDownloads(enabled) {
+    saveSettings(Object.fromEntries(DOWNLOAD_FEATURES.map(({ id }) => [id, enabled])))
+  }
+
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-blue-50/60 to-white dark:from-gray-900 dark:to-gray-950">
+    <div className="relative min-h-screen overflow-hidden pt-24 pb-16 bg-gradient-to-b from-blue-50 via-white to-slate-50 dark:from-gray-900 dark:via-gray-950 dark:to-slate-950">
       <SEO
         title={t('welcome.seoTitle')}
         description={t('welcome.seoDescription')}
       />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <div className="pointer-events-none absolute -top-36 -left-28 h-96 w-96 rounded-full bg-[#0077ff]/15 blur-3xl" />
+      <div className="pointer-events-none absolute top-72 -right-40 h-[28rem] w-[28rem] rounded-full bg-violet-500/10 blur-3xl" />
+
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center"
+          className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/80 p-7 shadow-2xl shadow-blue-950/5 backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/75 sm:p-10 lg:p-12"
         >
-          <motion.div
-            animate={{ rotate: [0, 12, -8, 0], scale: [1, 1.08, 1] }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="inline-block mb-5"
-          >
-            <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-[#0077ff] to-blue-400 flex items-center justify-center shadow-2xl shadow-blue-500/30">
-              <PartyPopper className="w-12 h-12 text-white" />
+          <div className="absolute left-1/2 top-0 h-40 w-96 -translate-x-1/2 rounded-full bg-[#0077ff]/15 blur-3xl" />
+          <div className="relative mx-auto max-w-3xl text-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1 }}
+              className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#0077ff] shadow-xl shadow-blue-500/25"
+            >
+              <Sparkles className="h-8 w-8 text-white" />
+            </motion.div>
+
+            <div className="mb-5 flex flex-wrap items-center justify-center gap-3">
+              <span className="inline-flex items-center gap-2 rounded-full bg-[#0077ff]/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-[#0077ff]">
+                {t('welcome.kicker')}
+              </span>
+              <ExtensionStatusBadge detected={detected} version={version} />
             </div>
-          </motion.div>
 
-          <h1 className="text-4xl sm:text-5xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">
-            {t('welcome.titlePre')}{' '}
-            <span className="bg-gradient-to-r from-[#0077ff] to-blue-400 bg-clip-text text-transparent">
-              {t('welcome.titleAccent')}
-            </span>
-          </h1>
-          <p className="text-lg text-gray-500 dark:text-gray-400 mb-4">
-            {t('welcome.subtitle')}
-          </p>
-
-          {/* Статус подключения */}
-          <ExtensionStatusBadge detected={detected} version={version} />
+            <h1 className="mb-4 text-4xl font-black tracking-tight text-gray-950 dark:text-white sm:text-6xl">
+              {t('welcome.titlePre')}{' '}
+              <span className="text-[#0077ff]">{t('welcome.titleAccent')}</span>
+            </h1>
+            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-600 dark:text-gray-300">
+              {t('welcome.subtitle')}
+            </p>
+          </div>
 
           {/* Баннер «расширение не найдено» */}
           <AnimatePresence>
@@ -200,10 +233,9 @@ export default function Welcome() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mt-4 overflow-hidden"
+                className="relative mt-6 overflow-hidden"
               >
-                <div className="inline-flex items-start gap-3 p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20
-                  border border-amber-200 dark:border-amber-700/50 text-left max-w-lg mx-auto">
+                <div className="mx-auto flex max-w-lg items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-left dark:border-amber-700/50 dark:bg-amber-900/20">
                   <Plug className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
                   <p className="text-sm text-amber-800 dark:text-amber-300">
                     {t('welcome.notConnectedHint')}
@@ -272,69 +304,77 @@ export default function Welcome() {
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+          className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900 sm:p-8"
+        >
+          <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="flex items-center gap-2 text-xl font-bold text-gray-900 dark:text-white">
+                <Download className="h-5 w-5 text-[#0077ff]" />
+                {t('welcome.downloads.title')}
+              </h2>
+              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{t('welcome.downloads.subtitle')}</p>
+            </div>
+            <label className="flex items-center gap-3 text-sm font-medium text-gray-700 dark:text-gray-200">
+              {t('welcome.downloads.enableAll')}
+              <Toggle checked={allDownloadsEnabled} onChange={setAllDownloads} disabled={notConnected} />
+            </label>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {DOWNLOAD_FEATURES.map(({ id, Icon }) => (
+              <div key={id} className="flex items-center justify-between gap-3 rounded-2xl bg-gray-50 p-4 dark:bg-gray-800/60 lg:flex-col lg:items-start">
+                <div className="flex min-w-0 items-center gap-3 lg:block">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-[#0077ff]/10 lg:mb-4">
+                    <Icon className="h-5 w-5 text-[#0077ff]" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900 dark:text-white">{t(`welcome.downloads.items.${id}.title`)}</p>
+                    <p className="mt-0.5 text-xs leading-relaxed text-gray-500 dark:text-gray-400">{t(`welcome.downloads.items.${id}.desc`)}</p>
+                  </div>
+                </div>
+                <div className="lg:mt-auto lg:self-end">
+                  <Toggle
+                    checked={settings[id] ?? false}
+                    onChange={() => toggle(id)}
+                    disabled={notConnected}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.section>
+
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
           className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm"
         >
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-5">
-            <Settings className="w-5 h-5 text-[#0077ff]" />
-            {t('welcome.quickSettings')}
-          </h2>
+          <div className="mb-5">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+              <Settings className="w-5 h-5 text-[#0077ff]" />
+              {t('welcome.quickSettings')}
+            </h2>
+            <p className="mt-2 max-w-3xl text-sm text-gray-500 dark:text-gray-400">{t('welcome.quickSettingsSubtitle')}</p>
+          </div>
 
           <div className="divide-y divide-gray-100 dark:divide-gray-800">
 
-            {/* Реклама в левой колонке */}
+            {/* Единый пользовательский переключатель включает все слои блокировки рекламы. */}
             <div className="flex items-center justify-between py-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-[#0077ff]/10 flex items-center justify-center flex-shrink-0">
                   <Shield className="w-5 h-5 text-[#0077ff]" />
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white text-sm">{t('welcome.settings.block_left_ads.title')}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('welcome.settings.block_left_ads.desc')}</p>
+                  <p className="font-medium text-gray-900 dark:text-white text-sm">{t('welcome.settings.ad_protection.title')}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('welcome.settings.ad_protection.desc')}</p>
                 </div>
               </div>
               <Toggle
-                checked={settings.block_left_ads ?? true}
-                onChange={() => toggle('block_left_ads')}
-                disabled={notConnected}
-              />
-            </div>
-
-            {/* Реклама в ленте — фильтр API: перехват newsfeed.get до рендера,
-                рекламные посты режутся ещё на сетевом уровне. */}
-            <div className="flex items-center justify-between py-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#0077ff]/10 flex items-center justify-center flex-shrink-0">
-                  <Shield className="w-5 h-5 text-[#0077ff]" />
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900 dark:text-white text-sm">{t('welcome.settings.block_feed_ads_api.title')}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('welcome.settings.block_feed_ads_api.desc')}</p>
-                </div>
-              </div>
-              <Toggle
-                checked={settings.block_feed_ads_api ?? true}
-                onChange={() => toggle('block_feed_ads_api')}
-                disabled={notConnected}
-              />
-            </div>
-
-            {/* Реклама в ленте — фильтр DOM: страховочный слой поверх
-                API-фильтра. Срабатывает на промопосты, которые проскочили
-                сквозь сеть (ERID-маркеры, кастомные слова, hardMarkers). */}
-            <div className="flex items-center justify-between py-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#0077ff]/10 flex items-center justify-center flex-shrink-0">
-                  <Shield className="w-5 h-5 text-[#0077ff]" />
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900 dark:text-white text-sm">{t('welcome.settings.block_feed_ads_dom.title')}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('welcome.settings.block_feed_ads_dom.desc')}</p>
-                </div>
-              </div>
-              <Toggle
-                checked={settings.block_feed_ads_dom ?? true}
-                onChange={() => toggle('block_feed_ads_dom')}
+                checked={adProtectionEnabled}
+                onChange={setAdProtection}
                 disabled={notConnected}
               />
             </div>
@@ -385,7 +425,7 @@ export default function Welcome() {
         >
           <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-5 text-center">{t('welcome.howStart')}</h2>
           <div className="grid sm:grid-cols-3 gap-4">
-            {[ExternalLink, Palette, Settings].map((Icon, i) => {
+            {[Palette, ExternalLink, Download].map((Icon, i) => {
               const s = t('welcome.steps')[i]
               return (
                 <motion.div
