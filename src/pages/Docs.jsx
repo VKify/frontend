@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { EyeOff, Command, Image as ImageIcon, Film, Link as LinkIcon } from 'lucide-react'
+import { EyeOff, Command, Image as ImageIcon, Film, Link as LinkIcon, ZoomIn } from 'lucide-react'
 import SEO from '../components/common/SEO'
 import { VkIcon, VkMenuMock } from '../components/docs/vkIcons'
 import { DOCS, COMING_SOON, getDocBySlug } from '../data/docs'
 import { useTranslation } from '../i18n'
+import ImageLightbox from '../components/docs/ImageLightbox'
 
 // Инлайн-разметка: **жирный** и `код`
 function renderRich(text) {
@@ -31,6 +32,7 @@ function renderRich(text) {
 // Картинка из public/docs/<slug>/<file>; пока файла нет — аккуратная заглушка
 function DocMedia({ slug, item, t }) {
   const [failed, setFailed] = useState(false)
+  const [open, setOpen] = useState(false)
   const isGif = item.type === 'gif'
   const label = item.label || (isGif ? t('docsPage.mediaGif') : t('docsPage.mediaShot'))
   const src = `/docs/${slug}/${item.file}`
@@ -47,17 +49,28 @@ function DocMedia({ slug, item, t }) {
 
   return (
     <figure className="overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-      <img
-        src={src}
-        alt={label}
-        loading="lazy"
-        onError={() => setFailed(true)}
-        className="w-full h-auto block"
-      />
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label={t('docsPage.imageOpen')}
+        className="group relative block w-full cursor-zoom-in overflow-hidden text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0077ff]"
+      >
+        <img
+          src={src}
+          alt={label}
+          loading="lazy"
+          onError={() => setFailed(true)}
+          className="w-full h-auto block transition-transform duration-300 group-hover:scale-[1.01]"
+        />
+        <span className="absolute bottom-3 right-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-gray-950/65 text-white opacity-80 shadow-lg backdrop-blur transition group-hover:opacity-100">
+          <ZoomIn className="h-4 w-4" />
+        </span>
+      </button>
       <figcaption className="flex items-center gap-1.5 px-3 py-2 text-[11px] text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-800">
         {isGif ? <Film className="w-3.5 h-3.5" /> : <ImageIcon className="w-3.5 h-3.5" />}
         {label}
       </figcaption>
+      {open && <ImageLightbox src={src} alt={label} onClose={() => setOpen(false)} t={t} />}
     </figure>
   )
 }
