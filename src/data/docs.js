@@ -492,7 +492,7 @@ const adsDocs = {
         lead: 'Девять независимых переключателей позволяют убрать только те промоблоки, которые мешают именно вам.',
         how: [
           'Откройте вложенную страницу и отдельно настройте ленту, игры, Маркет, звонки, меню профиля, мессенджер, музыку, сообщества и левое меню.',
-          'Фильтр музыки убирает баннеры и предложения подписки, но не отключает звуковые рекламные вставки между треками.',
+          'Фильтр музыки убирает баннеры и предложения подписки, а также блокирует звуковые рекламные вставки между треками на сетевом уровне.',
           'Эти переключатели входят в общий уровень защиты и управляются кнопкой «Включить защиту».',
         ],
         access: '«Реклама» → «Реклама и рекомендации по разделам».',
@@ -502,7 +502,7 @@ const adsDocs = {
         lead: 'Nine independent switches let you remove only the promotional blocks that get in your way.',
         how: [
           'Open the nested page to configure Feed, Games, Market, Calls, profile menu, Messenger, Music, Communities, and the left menu separately.',
-          'The Music filter removes subscription banners and offers, but it cannot suppress audio ad breaks between tracks.',
+          'The Music filter removes subscription banners and offers, and also blocks spoken audio ad breaks between tracks at the network layer.',
           'These switches count toward the overall protection level and follow the “Enable protection” action.',
         ],
         access: '“Ads” → “Ads and recommendations by section”.',
@@ -514,21 +514,23 @@ const adsDocs = {
       media: [{ type: 'screenshot', file: 'blocking.png' }],
       ru: {
         title: 'Блокировка рекламы',
-        lead: 'Три основных фильтра входят в общий уровень защиты. Дополнительный DOM-фильтр слов вынесен отдельно и по умолчанию выключен.',
+        lead: 'Основные фильтры входят в общий уровень защиты. Дополнительный DOM-фильтр слов вынесен отдельно и по умолчанию выключен.',
         items: [
           { title: 'Боковая панель', desc: 'Скрывает рекламные баннеры и виджеты в левой колонке' },
           { title: 'Лента · фильтр API', desc: 'Перехватывает рекламные посты на уровне сетевых запросов — они не доходят до страницы' },
           { title: 'Блокировка трекеров', desc: 'Перехватывает аналитику, телеметрию и рекламные сети' },
+          { title: 'Аудиореклама', desc: 'Блокирует сетевые запросы звуковой рекламы между музыкальными треками' },
         ],
         access: 'Ctrl/Cmd + K → «Скрыть левый блок рекламы», «Резать рекламу в API» или «Блокировка трекеров».',
       },
       en: {
         title: 'Ad blocking',
-        lead: 'Three core filters count toward the overall protection level. The optional DOM keyword filter is separate and off by default.',
+        lead: 'Core filters count toward the overall protection level. The optional DOM keyword filter is separate and off by default.',
         items: [
           { title: 'Sidebar', desc: 'Hides ad banners and widgets in the left column' },
           { title: 'Feed · API filter', desc: 'Intercepts promo posts at the network level — they never reach the page' },
           { title: 'Tracker blocking', desc: 'Intercepts analytics, telemetry, and ad networks' },
+          { title: 'Audio ads', desc: 'Blocks network requests for spoken ads between music tracks' },
         ],
         access: 'Ctrl/Cmd + K → “Hide left ad block”, “Cut feed ads (API)”, or “Tracker blocking”.',
       },
@@ -566,6 +568,7 @@ const adsDocs = {
         how: [
           'Счётчики отдельно по рекламе и трекерам.',
           'Журнал последних блокировок с фильтром «Всё / Реклама / Трекеры» и постраничной подгрузкой.',
+          'Для аудиорекламы журнал показывает сетевой метод блокировки, домен и адрес запроса.',
         ],
         access: 'Ctrl/Cmd + K → «Реклама» → «Статистика и журнал».',
       },
@@ -575,6 +578,7 @@ const adsDocs = {
         how: [
           'Separate counters for ads and trackers.',
           'A log of recent blocks with an “All / Ads / Trackers” filter and paged loading.',
+          'For audio ads, the log shows the network blocking method, domain, and request URL.',
         ],
         access: 'Ctrl/Cmd + K → “Ads” → “Stats and log”.',
       },

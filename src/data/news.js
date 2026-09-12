@@ -12,6 +12,96 @@
 
 export const news = [
   {
+    slug: 'audio-ad-blocking-1-8-5',
+    date: '2026-09-12',
+    category: 'release',
+    accent: 'purple',
+    image: '/news/music-download.webp',
+    cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
+    translations: {
+      ru: {
+        title: 'VKify 1.8.5 блокирует звуковую рекламу между треками',
+        excerpt:
+          'Музыка в VK больше не прерывается рекламными вставками: VKify блокирует их сетевые запросы, считает каждое срабатывание и показывает его в журнале.',
+        readTime: 2,
+        blocks: [
+          {
+            type: 'p',
+            text: 'В версии **1.8.5** музыкальный фильтр VKify научился блокировать звуковую рекламу, которую VK вставляет между треками. Защита срабатывает до загрузки рекламного аудио и связанных ресурсов.',
+          },
+          {
+            type: 'h2',
+            text: 'Без лишних разрешений',
+          },
+          {
+            type: 'p',
+            text: 'Мы расширили уже существующий механизм блокировки телеметрии внутри страницы. Новые адреса и разрешения в манифест не добавлялись, а declarativeNetRequest не используется. Управляет функцией прежний переключатель рекламы в музыке.',
+          },
+          {
+            type: 'h2',
+            text: 'Каждая блокировка видна',
+          },
+          {
+            type: 'p',
+            text: 'Срабатывания не теряются: они увеличивают счётчик рекламы и записываются в раздел **«Статистика и журнал»**. Там видны время, рекламный домен, адрес запроса и сетевой метод блокировки.',
+          },
+          {
+            type: 'h2',
+            text: 'Заодно обновили первый запуск',
+          },
+          {
+            type: 'p',
+            text: 'Приветственное окно стало компактнее и современнее, использует штатные иконки и сразу ведёт на vk.ru/vkify_settings. Также в настройках появились ссылки на нужные разделы документации.',
+          },
+          {
+            type: 'quote',
+            text: 'Включите фильтр «Музыка» во вкладке «Реклама» — и слушайте очередь без рекламных пауз.',
+          },
+        ],
+      },
+      en: {
+        title: 'VKify 1.8.5 blocks spoken ads between tracks',
+        excerpt:
+          'Music on VK is no longer interrupted by ad breaks: VKify blocks their network requests, counts every hit, and records it in the log.',
+        readTime: 2,
+        blocks: [
+          {
+            type: 'p',
+            text: 'In **version 1.8.5**, the VKify Music filter can block spoken ads inserted by VK between tracks. Protection acts before the advertising audio and related resources load.',
+          },
+          {
+            type: 'h2',
+            text: 'No extra permissions',
+          },
+          {
+            type: 'p',
+            text: 'We extended the existing in-page telemetry blocker. No new hosts or permissions were added to the manifest, and declarativeNetRequest is not used. The existing Music ad switch controls the feature.',
+          },
+          {
+            type: 'h2',
+            text: 'Every block is visible',
+          },
+          {
+            type: 'p',
+            text: 'Interceptions are not discarded: they increment the ad counter and are recorded under **Stats and log**, including the time, ad domain, request URL, and network blocking method.',
+          },
+          {
+            type: 'h2',
+            text: 'A refreshed first run',
+          },
+          {
+            type: 'p',
+            text: 'The welcome dialog is now cleaner and more compact, uses the project’s existing icons, and links directly to vk.ru/vkify_settings. Settings also provide links to the relevant documentation sections.',
+          },
+          {
+            type: 'quote',
+            text: 'Enable Music under Ads and enjoy your queue without spoken ad breaks.',
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: 'color-picker-and-polish',
     date: '2026-07-03',
     category: 'release',
