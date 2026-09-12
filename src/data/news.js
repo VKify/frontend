@@ -16,7 +16,7 @@ export const news = [
     date: '2026-09-12',
     category: 'release',
     accent: 'purple',
-    image: '/news/music-download.webp',
+    image: '/news/audio-ad-blocking-1-8-5.webp',
     cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
     translations: {
       ru: {
