@@ -22,6 +22,7 @@ const ThemePreview = lazy(() => import('./pages/ThemePreview'))
 const ThemeDetail = lazy(() => import('./pages/ThemeDetail'))
 const Wallpapers = lazy(() => import('./pages/Wallpapers'))
 const WallpaperDetail = lazy(() => import('./pages/WallpaperDetail'))
+const FirefoxInstall = lazy(() => import('./pages/FirefoxInstall'))
 
 function App() {
     return (
@@ -48,6 +49,7 @@ function App() {
                         <Route path="/themes/:id" element={<ThemeDetail />} />
                         <Route path="/wallpapers" element={<Wallpapers />} />
                         <Route path="/wallpapers/:id" element={<WallpaperDetail />} />
+                        <Route path="/firefox" element={<FirefoxInstall />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Suspense>

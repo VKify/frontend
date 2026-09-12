@@ -523,17 +523,17 @@ export const news = [
     category: 'release',
     accent: 'orange',
     image: '/news/firefox-support.webp',
-    cta: { labelKey: 'common.installFirefox', linkKey: 'firefoxAddons' },
+    cta: { labelKey: 'common.installFirefox', linkKey: 'firefoxInstall' },
     translations: {
       ru: {
         title: 'VKify теперь работает в Firefox',
         excerpt:
-          'Любимое расширение для ВКонтакте вышло в Firefox — все функции, что и в Chrome, из единой кодовой базы. Устанавливается прямо из Firefox Add-ons.',
+          'Любимое расширение для ВКонтакте работает в Firefox — все функции, что и в Chrome, из единой кодовой базы. Сейчас подписанная версия доступна через GitHub Releases.',
         readTime: 2,
         blocks: [
           {
             type: 'p',
-            text: 'Отличные новости для поклонников лисы: **VKify теперь доступен в Firefox**. Расширение уже опубликовано в официальном каталоге Firefox Add-ons — устанавливается в один клик, как и в Chrome.',
+            text: 'Отличные новости для поклонников лисы: **VKify доступен в Firefox**. Подписанная версия расширения публикуется в GitHub Releases и устанавливается из файла .xpi.',
           },
           {
             type: 'h2',
@@ -568,19 +568,19 @@ export const news = [
           },
           {
             type: 'p',
-            text: 'Уже пользуетесь Firefox? Установите VKify из Firefox Add-ons и настройте ВКонтакте под себя. Edge и Opera по-прежнему ставятся из Chrome Web Store.',
+            text: 'Уже пользуетесь Firefox? Скачайте подписанную версию VKify по инструкции на сайте и настройте ВКонтакте под себя. Edge и Opera по-прежнему ставятся из Chrome Web Store.',
           },
         ],
       },
       en: {
         title: 'VKify now works in Firefox',
         excerpt:
-          'Your favorite VKontakte extension is now on Firefox — the same features as Chrome, from a single codebase. Install it straight from Firefox Add-ons.',
+          'Your favorite VKontakte extension works on Firefox — the same features as Chrome, from a single codebase. The signed build is now available through GitHub Releases.',
         readTime: 2,
         blocks: [
           {
             type: 'p',
-            text: 'Great news for fox fans: **VKify is now available on Firefox**. The extension is already published in the official Firefox Add-ons catalog — one-click install, just like on Chrome.',
+            text: 'Great news for fox fans: **VKify is available on Firefox**. The signed extension is published in GitHub Releases and installs from an .xpi file.',
           },
           {
             type: 'h2',
@@ -615,7 +615,7 @@ export const news = [
           },
           {
             type: 'p',
-            text: 'Already on Firefox? Install VKify from Firefox Add-ons and make VKontakte your own. Edge and Opera are still installed from the Chrome Web Store.',
+            text: 'Already on Firefox? Follow the guide on the VKify site to install the signed release and make VKontakte your own. Edge and Opera still install from the Chrome Web Store.',
           },
         ],
       },

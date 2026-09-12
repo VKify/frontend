@@ -36,6 +36,33 @@ export const en = {
     },
   },
 
+  firefoxInstall: {
+    seoTitle: 'Install VKify for Firefox',
+    seoDescription: 'Download the latest signed VKify release and install it in Firefox in a few simple steps.',
+    title: 'Install VKify for Firefox',
+    intro: 'Download the official signed VKify release from GitHub. Firefox will verify the file and prompt you to install the extension — it is safe and takes only a minute.',
+    download: 'Download the latest version',
+    loading: 'Finding the latest version…',
+    errorTitle: 'Could not connect to GitHub',
+    errorDescription: 'The download link is temporarily unavailable. Please try again in a few minutes.',
+    missingTitle: 'The latest release has no Firefox file yet',
+    missingDescription: 'We are preparing the signed .xpi. Please check this page again shortly.',
+    retry: 'Try again',
+    stepsTitle: 'How to install the extension',
+    stepsSubtitle: 'The whole process takes about a minute.',
+    stepNumber: 'Step {number}',
+    steps: {
+      download: { title: 'Download the .xpi file', description: 'Use the button above — the site finds the latest signed VKify version automatically.' },
+      open: { title: 'Open the file in Firefox', description: 'Select the downloaded file in Firefox downloads or open it from your Downloads folder.' },
+      confirm: { title: 'Confirm the installation', description: 'Firefox will show a window with the VKify name. Click “Add”.' },
+      permissions: { title: 'Allow VKify to work', description: 'If Firefox asks for permissions, review the list and confirm them.' },
+      check: { title: 'You are all set', description: 'The VKify icon will appear with your extensions. You can also find it on the Firefox add-ons page.' },
+    },
+    hintTitle: 'Firefox does not offer to install it?',
+    hintDescription: 'Open about:addons in Firefox, select the gear icon, then choose “Install Add-on From File” and pick the downloaded .xpi.',
+    allReleases: 'All releases on GitHub',
+  },
+
   donate: {
     title: 'Support VKify',
     subtitle: 'Choose a convenient payment method',
@@ -182,25 +209,25 @@ export const en = {
     badge: 'Fresh updates',
     titleTop: "What's new",
     titleAccent: 'in VKify',
-    description: 'Version 1.8.0 brings smooth PDF conversation export, a fully bilingual interface, and audio format selection.',
+    description: 'The standout features from recent updates bring more freedom to appearance, music, and downloads.',
     versionTag: 'In {version}',
     allNews: 'All news and updates',
     cards: {
-      pdfExport: {
-        title: 'Conversations as PDF',
-        description: 'Save an entire conversation or selected messages with avatars, attachments, and links.',
+      customization: {
+        title: 'Custom colors and live preview',
+        description: 'Tune the theme, accent, content width, and position with instant on-page feedback.',
       },
-      localization: {
-        title: 'Russian and English',
-        description: 'The entire interface is translated, and you can switch languages without reloading the tab.',
+      equalizer: {
+        title: 'Music equalizer',
+        description: 'Shape the sound live with 10 bands plus ready-made and custom presets.',
       },
-      audioFormats: {
-        title: 'Original or MP3',
-        description: 'Keep the original audio format or convert tracks to MP3 with familiar metadata.',
+      musicResume: {
+        title: 'Music keeps playing',
+        description: 'After a page reload, the player resumes the track from where you left off.',
       },
-      fasterVk: {
-        title: 'No more VK freezes',
-        description: 'PDFs are built outside the page, while heavy components load only when they are needed.',
+      downloadCenter: {
+        title: 'One Download Center',
+        description: 'Download music, videos, clips, photos, and stories from one convenient panel.',
       },
     },
   },
@@ -213,7 +240,7 @@ export const en = {
     steps: [
       {
         title: 'Install the extension',
-        description: 'Add VKify for free from the Chrome Web Store or Firefox Add-ons',
+        description: 'Add VKify for free from the Chrome Web Store or install the signed Firefox release',
         features: ['Chrome, Firefox, Edge, Opera', 'No registration', 'Auto-updates'],
       },
       {
@@ -342,7 +369,7 @@ export const en = {
       },
       {
         q: 'Which browsers are supported?',
-        a: 'Chrome, Firefox, Edge, Opera and any Chromium-based browser. Chromium browsers install from the Chrome Web Store, Firefox from Firefox Add-ons.',
+        a: 'Chrome, Firefox, Edge, Opera and any Chromium-based browser. Chromium browsers install from the Chrome Web Store; Firefox uses a signed file with a step-by-step guide.',
       },
       {
         q: 'Do I need an account or registration?',
@@ -841,7 +868,7 @@ export const en = {
       news: 'News',
       changelog: 'Changelog',
       chromeStore: 'Chrome Web Store',
-      firefoxStore: 'Firefox Add-ons',
+      firefoxStore: 'VKify for Firefox',
       sourceCode: 'Source code',
       reportBug: 'Report a bug',
       telegram: 'Telegram channel',

@@ -3,13 +3,14 @@ import Section from '../common/Section'
 import BrowserLogo from '../common/BrowserLogo'
 import config from '../../config'
 import { useTranslation } from '../../i18n'
+import { Link } from 'react-router-dom'
 
 // Edge/Opera/Brave/Vivaldi/Yandex/Arc и прочие Chromium-браузеры
-// ставятся из Chrome Web Store; Firefox — из Firefox Add-ons.
+// ставятся из Chrome Web Store; для Firefox есть отдельная инструкция.
 const cws = config.links.chromeWebStore
 const browsers = [
   { name: 'Chrome', logo: 'chrome', href: cws },
-  { name: 'Firefox', logo: 'firefox', href: config.links.firefoxAddons, isNew: true },
+  { name: 'Firefox', logo: 'firefox', href: '/firefox', internal: true, isNew: true },
   { name: 'Edge', logo: 'edge', href: cws },
   { name: 'Opera', logo: 'opera', href: cws },
   { name: 'Brave', logo: 'brave', href: cws },
@@ -19,11 +20,14 @@ const browsers = [
 ]
 
 function BrowserItem({ browser, newLabel }) {
+  const Component = browser.internal ? Link : 'a'
+  const linkProps = browser.internal
+    ? { to: browser.href }
+    : { href: browser.href, target: '_blank', rel: 'noopener noreferrer' }
+
   return (
-    <a
-      href={browser.href}
-      target="_blank"
-      rel="noopener noreferrer"
+    <Component
+      {...linkProps}
       className="group/item flex items-center gap-3 shrink-0 mr-6 sm:mr-10 px-5 py-2.5 rounded-2xl hover:bg-gray-100/80 dark:hover:bg-white/[0.06] transition-colors duration-200"
     >
       <BrowserLogo
@@ -38,7 +42,7 @@ function BrowserItem({ browser, newLabel }) {
           {newLabel}
         </span>
       )}
-    </a>
+    </Component>
   )
 }
 

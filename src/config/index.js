@@ -17,7 +17,7 @@ export const config = {
   // Внешние ссылки
   links: {
     chromeWebStore: 'https://chromewebstore.google.com/detail/vkify/lofggenkgbpdmmplnbgfplnpfjhgljla',
-    firefoxAddons: 'https://addons.mozilla.org/ru/firefox/addon/vkify/',
+    firefoxInstall: '/firefox',
     github: 'https://github.com/VKify',
     githubIssues: 'https://github.com/VKify/vkify-extension/issues',
     githubDiscussions: 'https://github.com/VKify/vkify-extension/discussions',
@@ -47,7 +47,7 @@ export const config = {
       ],
       resources: [
         { name: 'Chrome Web Store', labelKey: 'footer.links.chromeStore', href: 'https://chromewebstore.google.com/detail/vkify/lofggenkgbpdmmplnbgfplnpfjhgljla', external: true },
-        { name: 'Firefox Add-ons', labelKey: 'footer.links.firefoxStore', href: 'https://addons.mozilla.org/ru/firefox/addon/vkify/', external: true },
+        { name: 'Firefox', labelKey: 'footer.links.firefoxStore', href: '/firefox' },
         { name: 'Исходный код', labelKey: 'footer.links.sourceCode', href: 'https://github.com/VKify/vkify-extension', external: true },
         { name: 'Сообщить о баге', labelKey: 'footer.links.reportBug', href: 'https://github.com/VKify/vkify-extension/issues', external: true },
       ],

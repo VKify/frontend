@@ -36,6 +36,33 @@ export const ru = {
     },
   },
 
+  firefoxInstall: {
+    seoTitle: 'Установка VKify для Firefox',
+    seoDescription: 'Скачайте последнюю подписанную версию VKify и установите её в Firefox за несколько простых шагов.',
+    title: 'Установка VKify для Firefox',
+    intro: 'Скачайте официальную подписанную версию VKify с GitHub. Firefox проверит файл и предложит установить расширение — это безопасно и займёт всего минуту.',
+    download: 'Скачать последнюю версию',
+    loading: 'Ищем последнюю версию…',
+    errorTitle: 'Не удалось связаться с GitHub',
+    errorDescription: 'Ссылка временно недоступна. Попробуйте ещё раз через несколько минут.',
+    missingTitle: 'В последнем релизе пока нет файла для Firefox',
+    missingDescription: 'Мы уже готовим подписанный .xpi. Попробуйте проверить страницу немного позже.',
+    retry: 'Попробовать снова',
+    stepsTitle: 'Как установить расширение',
+    stepsSubtitle: 'Весь процесс занимает примерно минуту.',
+    stepNumber: 'Шаг {number}',
+    steps: {
+      download: { title: 'Скачайте файл .xpi', description: 'Нажмите кнопку выше — сайт сам найдёт последнюю подписанную версию VKify.' },
+      open: { title: 'Откройте файл в Firefox', description: 'Нажмите на скачанный файл в списке загрузок Firefox или откройте его из папки «Загрузки».' },
+      confirm: { title: 'Подтвердите установку', description: 'Firefox покажет окно с названием VKify. Нажмите «Добавить».' },
+      permissions: { title: 'Разрешите работу VKify', description: 'Если Firefox запросит разрешения, проверьте список и подтвердите их.' },
+      check: { title: 'Готово', description: 'Значок VKify появится среди расширений. Также его можно найти на странице дополнений Firefox.' },
+    },
+    hintTitle: 'Firefox не предлагает установку?',
+    hintDescription: 'Откройте в Firefox страницу about:addons, нажмите на шестерёнку и выберите «Установить дополнение из файла». Затем укажите скачанный .xpi.',
+    allReleases: 'Все релизы на GitHub',
+  },
+
   donate: {
     title: 'Поддержать VKify',
     subtitle: 'Выберите удобный способ оплаты',
@@ -182,25 +209,25 @@ export const ru = {
     badge: 'Свежие обновления',
     titleTop: 'Что нового',
     titleAccent: 'в VKify',
-    description: 'Главное в версии 1.8.0 — экспорт переписки в PDF без зависаний, два языка и выбор формата музыки.',
+    description: 'Самые заметные возможности последних обновлений — больше свободы в оформлении, музыке и загрузках.',
     versionTag: 'В {version}',
     allNews: 'Все новости и обновления',
     cards: {
-      pdfExport: {
-        title: 'Переписка в PDF',
-        description: 'Сохраняйте весь диалог или выбранные сообщения с аватарами, вложениями и ссылками.',
+      customization: {
+        title: 'Свой цвет и живой предпросмотр',
+        description: 'Настраивайте тему, акцент, ширину и положение контента — результат сразу виден на странице.',
       },
-      localization: {
-        title: 'Русский и английский',
-        description: 'Весь интерфейс переведён, а язык переключается сразу — перезагружать вкладку не нужно.',
+      equalizer: {
+        title: 'Эквалайзер музыки',
+        description: 'Меняйте звучание на лету с 10 полосами, готовыми и собственными пресетами.',
       },
-      audioFormats: {
-        title: 'Original или MP3',
-        description: 'Сохраняйте музыку в исходном формате или конвертируйте в MP3 с привычными тегами.',
+      musicResume: {
+        title: 'Музыка продолжается',
+        description: 'После перезагрузки страницы плеер продолжит трек с того же места.',
       },
-      fasterVk: {
-        title: 'ВК больше не зависает',
-        description: 'PDF собирается отдельно от страницы, а тяжёлые компоненты загружаются только по требованию.',
+      downloadCenter: {
+        title: 'Единый Центр загрузок',
+        description: 'Скачивайте музыку, видео, клипы, фото и истории в одной удобной панели.',
       },
     },
   },
@@ -213,7 +240,7 @@ export const ru = {
     steps: [
       {
         title: 'Установите расширение',
-        description: 'Добавьте VKify бесплатно из Chrome Web Store или Firefox Add-ons',
+        description: 'Добавьте VKify бесплатно из Chrome Web Store или установите подписанную версию для Firefox',
         features: ['Chrome, Firefox, Edge, Opera', 'Без регистрации', 'Автообновления'],
       },
       {
@@ -342,7 +369,7 @@ export const ru = {
       },
       {
         q: 'В каких браузерах работает?',
-        a: 'Chrome, Firefox, Edge, Opera и любой браузер на движке Chromium. Для Chromium-браузеров — из Chrome Web Store, для Firefox — из Firefox Add-ons.',
+        a: 'Chrome, Firefox, Edge, Opera и любой браузер на движке Chromium. Chromium-браузеры ставятся из Chrome Web Store, а для Firefox доступен подписанный файл с инструкцией.',
       },
       {
         q: 'Нужна ли регистрация или аккаунт?',
@@ -841,7 +868,7 @@ export const ru = {
       news: 'Новости',
       changelog: 'Обновления',
       chromeStore: 'Chrome Web Store',
-      firefoxStore: 'Firefox Add-ons',
+      firefoxStore: 'VKify для Firefox',
       sourceCode: 'Исходный код',
       reportBug: 'Сообщить о баге',
       telegram: 'Telegram канал',

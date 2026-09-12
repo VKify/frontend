@@ -7,6 +7,7 @@ import Logo from '../common/Logo'
 import { TelegramIcon, VKIcon } from '../common/SocialIcons'
 import config from '../../config'
 import { useTranslation } from '../../i18n'
+import { Link } from 'react-router-dom'
 
 const stats = [
   { icon: Users, value: config.stats.users, label: 'пользователей' },
@@ -196,18 +197,18 @@ export default function CTA() {
                     <ExternalLink className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
                   </motion.a>
 
-                  <motion.a
-                    href={config.links.firefoxAddons}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <motion.div
                     whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.98 }}
-                    className="group inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/10 backdrop-blur-sm text-white font-bold text-lg rounded-2xl border border-white/30 hover:bg-white/20 hover:border-white/50 transition-all duration-150"
                   >
-                    <FirefoxIcon className="w-6 h-6" />
-                    <span>{t('cta.installFirefox')}</span>
-                    <ExternalLink className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
-                  </motion.a>
+                    <Link
+                      to="/firefox"
+                      className="group inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/10 backdrop-blur-sm text-white font-bold text-lg rounded-2xl border border-white/30 hover:bg-white/20 hover:border-white/50 transition-all duration-150"
+                    >
+                      <FirefoxIcon className="w-6 h-6" />
+                      <span>{t('cta.installFirefox')}</span>
+                    </Link>
+                  </motion.div>
                 </div>
 
                 <div className="text-center space-y-1">

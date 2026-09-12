@@ -8,7 +8,7 @@ import { docsSlugs }    from './src/data/docs.js'
 
 const routes = [
   // Static pages
-  '/', '/welcome', '/uninstall', '/changelog', '/privacy', '/terms',
+  '/', '/welcome', '/uninstall', '/changelog', '/privacy', '/terms', '/firefox',
   '/themes', '/wallpapers', '/news', '/docs',
   // Docs sections
   ...docsSlugs.map(slug => `/docs/${slug}`),
@@ -43,6 +43,7 @@ export default defineConfig({
           rendererOptions: {
             maxConcurrentRoutes: 4,
             renderAfterTime: 1200,
+            inject: { isPrerender: true },
           },
         }),
       ],

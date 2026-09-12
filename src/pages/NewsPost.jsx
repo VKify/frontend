@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Calendar, Clock, ExternalLink } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Calendar, Clock, ExternalLink } from 'lucide-react'
 import SEO from '../components/common/SEO'
 import Button from '../components/common/Button'
 import NewsCard from '../components/news/NewsCard'
@@ -98,6 +98,7 @@ export default function NewsPost() {
     })
 
   const ctaHref = post.cta ? config.links[post.cta.linkKey] : null
+  const ctaIsInternal = ctaHref?.startsWith('/')
   const related = news.filter((n) => n.slug !== post.slug).slice(0, 2)
 
   return (
@@ -180,9 +181,14 @@ export default function NewsPost() {
             <p className="text-gray-700 dark:text-gray-300 font-medium text-center sm:text-left">
               {tr.excerpt}
             </p>
-            <Button href={ctaHref} target="_blank" rel="noopener noreferrer" className="gap-2 whitespace-nowrap">
+            <Button
+              {...(ctaIsInternal
+                ? { to: ctaHref }
+                : { href: ctaHref, target: '_blank', rel: 'noopener noreferrer' })}
+              className="gap-2 whitespace-nowrap"
+            >
               {t(post.cta.labelKey)}
-              <ExternalLink className="w-4 h-4" />
+              {ctaIsInternal ? <ArrowRight className="w-4 h-4" /> : <ExternalLink className="w-4 h-4" />}
             </Button>
           </div>
         )}

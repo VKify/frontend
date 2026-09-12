@@ -13,11 +13,11 @@ export function detectBrowser() {
 }
 
 // Куда ведёт установка для конкретного браузера.
-// Firefox → Firefox Add-ons; Chrome / Edge / Opera и любой Chromium →
+// Firefox → страница инструкции; Chrome / Edge / Opera и любой Chromium →
 // Chrome Web Store (расширение из него ставится во все Chromium-браузеры).
 export function installTargetFor(browser) {
   if (browser === 'firefox') {
-    return { store: 'firefox', href: config.links.firefoxAddons, logo: 'firefox' }
+    return { store: 'firefox', href: '/firefox', logo: 'firefox', internal: true }
   }
   return { store: 'chrome', href: config.links.chromeWebStore, logo: 'chrome' }
 }
@@ -25,7 +25,7 @@ export function installTargetFor(browser) {
 // Все варианты установки — для выпадающего меню.
 export const INSTALL_OPTIONS = [
   { id: 'chrome', store: 'Chrome Web Store', get href() { return config.links.chromeWebStore } },
-  { id: 'firefox', store: 'Firefox Add-ons', get href() { return config.links.firefoxAddons } },
+  { id: 'firefox', store: 'VKify', href: '/firefox', internal: true },
 ]
 
 export function useInstall() {
