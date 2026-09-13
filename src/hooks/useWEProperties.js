@@ -4,20 +4,25 @@
  * Структура project.json:
  *   general.properties — объект { key: { type, text, value, order, min?, max?, options? } }
  *
- * Фильтрует:
- *   - Служебные WE-свойства (text начинается с "ui_browse_")
- *   - Типы, которые не умеем отображать
- *   - Пустые объекты
+ * Фильтрует неподдерживаемые типы и пустые объекты. Служебные ключи
+ * локализации `ui_*` превращает в читаемые подписи: само свойство при этом
+ * остаётся пользовательским и должно попасть в схему расширения.
  *
  * Работает только для обоев с workshopId (папки Wallpaper Engine).
  */
 import { useState, useEffect } from 'react'
 
 // Типы, которые умеем отображать
-const KNOWN_TYPES = new Set(['slider', 'bool', 'combo', 'textinput', 'color'])
+const KNOWN_TYPES = new Set(['slider', 'bool', 'combo', 'textinput', 'color', 'group'])
 
-// Служебный префикс WE — такие свойства не показываем пользователю
-const INTERNAL_PREFIX = 'ui_browse_'
+function humanizeLabel(text, key) {
+    if (typeof text !== 'string' || !text.trim()) return key
+    if (!text.startsWith('ui_')) return text
+    return text
+        .replace(/^ui_(?:browse_)?(?:properties_)?/, '')
+        .replace(/_/g, ' ')
+        .replace(/^./, c => c.toUpperCase())
+}
 
 /**
  * Превращает сырой объект properties из project.json в нормализованный массив,
@@ -28,10 +33,24 @@ function normalize(rawProps) {
         .filter(([, p]) =>
             p &&
             typeof p.text === 'string' &&
-            !p.text.startsWith(INTERNAL_PREFIX) &&
             KNOWN_TYPES.has(p.type)
         )
-        .map(([key, p]) => ({ key, ...p }))
+        .map(([key, p]) => ({
+            key,
+            type: p.type,
+            label: humanizeLabel(p.text, key),
+            text: humanizeLabel(p.text, key),
+            defaultValue: p.value,
+            value: p.value,
+            min: p.min,
+            max: p.max,
+            step: p.step,
+            precision: p.precision,
+            order: p.order,
+            options: Array.isArray(p.options)
+                ? p.options.map(option => ({ label: String(option.label ?? option.value), value: String(option.value ?? '') }))
+                : undefined,
+        }))
         .sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
 }
 

@@ -58,14 +58,14 @@
 │  hydrateRoot ──► hydrate prerendered HTML                          │
 │  LanguageProvider ──► ru / en, switcher in the header              │
 │                                                                    │
-│  Prerender: 85 routes                                              │
-│    8 static + 72 themes (/themes/:id) + 3 wallpapers (/wallpapers) │
+│  Prerender: 84 routes                                              │
+│   9 static + 72 themes (/themes/:id) + 11 wallpapers (/wallpapers) │
 │    Puppeteer → static HTML for search engines                      │
 └────────────────────────────────────────────────────────────────────┘
          │                              │
          ▼                              ▼
   src/data/*.js                  src/config/index.js
-  (72 themes, 3 wallpapers,      (URLs, links, analytics,
+  (72 themes, 11 wallpapers,     (URLs, links, analytics,
    changelog, features)           Google Forms ID, stats)
          │                              │
          ▼                              ▼
@@ -164,7 +164,7 @@ frontend/
 │   │
 │   ├── data/
 │   │   ├── themes.js                # 72 themes, 10 categories (themes/themeCategories/themeIds)
-│   │   ├── wallpapers.js            # 3 wallpapers (IMAGE/VIDEO/WEB), 7 categories
+│   │   ├── wallpapers.js            # 11 wallpapers (IMAGE/VIDEO/WEB), 7 categories
 │   │   ├── features.js              # structural data of top features (id+icon+color)
 │   │   ├── changelog.js             # 5 versions
 │   │   └── news.js                  # bilingual news (slug + translations[lang])
@@ -304,7 +304,7 @@ The route list is built dynamically from data at build time:
 ```js
 // vite.config.js
 import { themeIds }     from './src/data/themes.js'     // 72 IDs
-import { wallpaperIds } from './src/data/wallpapers.js' // 3 IDs
+import { wallpaperIds } from './src/data/wallpapers.js' // 11 IDs
 import { newsSlugs }    from './src/data/news.js'       // 1 slug
 
 const routes = [

@@ -265,6 +265,13 @@ export default function Wallpapers() {
                     <p className="text-gray-500 dark:text-gray-400 max-w-lg">
                         {t('wallpapersPage.subtitle')}
                     </p>
+                    <Link
+                        to="/wallpapers/guide"
+                        className="mt-5 inline-flex items-center gap-2 rounded-xl bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 transition-colors hover:bg-blue-100 dark:bg-blue-500/10 dark:text-blue-300 dark:hover:bg-blue-500/20"
+                    >
+                        <Globe className="h-4 w-4" />
+                        {t('wallpapersPage.createGuide')}
+                    </Link>
                 </div>
 
                 {/* Поиск */}

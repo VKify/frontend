@@ -422,7 +422,19 @@ export default function WallpaperDetail() {
         share.copy(`${window.location.origin}/wallpapers/${wallpaper.id}`)
     }
 
-    const handleApplyInVK = () => apply(wallpaper?.extensionConfig)
+    const handleApplyInVK = () => {
+        if (!wallpaper) return
+        const config = {
+            ...wallpaper.extensionConfig,
+            web_wallpaper_id: '',
+            web_wallpaper_schema: '[]',
+        }
+        if (isWeb) {
+            config.web_wallpaper_id = wallpaper.id
+            config.web_wallpaper_schema = JSON.stringify(weProperties ?? [])
+        }
+        apply(config)
+    }
 
     if (!wallpaper) {
         return (
@@ -522,7 +534,8 @@ export default function WallpaperDetail() {
 
                                 <button
                                     onClick={handleApplyInVK}
-                                    className="hidden lg:flex items-center justify-center gap-2 w-full py-3 bg-[#0077ff] hover:bg-blue-500 text-white text-sm font-bold rounded-xl active:scale-[0.98] transition-all"
+                                    disabled={isWeb && weLoading}
+                                    className="hidden lg:flex items-center justify-center gap-2 w-full py-3 bg-[#0077ff] hover:bg-blue-500 text-white text-sm font-bold rounded-xl active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-wait"
                                 >
                                     {applied
                                         ? <><Check className="w-4 h-4" /> {t('detail.applied')}</>

@@ -70,9 +70,8 @@ export const wallpapers = [
         description: 'Радужный дождь символов в стиле «Матрицы». Интерактивная Canvas-анимация, работающая прямо в браузере.',
         type: WALLPAPER_TYPES.WEB,
         category: 'abstract',
-        workshopId: '2234955662',
         src:    '/wallpapers/web/2234955662/index.html',
-        poster: '/wallpapers/web/2234955662/preview.gif',
+        poster: '/wallpapers/web/2234955662/preview.png',
         tags: ['матрица', 'абстракция', 'анимация', 'веб', 'радуга'],
         extensionConfig: {
             custom_background:  abs('/wallpapers/web/2234955662/index.html'),
@@ -81,6 +80,34 @@ export const wallpapers = [
             background_dim:     0,
         },
     },
+    ...[
+        ['neon-waves', 'Neon Waves', 'Неоновые волны с регулируемой амплитудой, плотностью и цветовой палитрой.', 'abstract', ['неон', 'волны', 'синтвейв'], 'vkify-neon-waves'],
+        ['warp-starfield', 'Warp Starfield', 'Полёт сквозь звёздное поле с настраиваемой скоростью, плотностью и свечением.', 'space', ['космос', 'звёзды', 'warp'], 'vkify-warp-starfield'],
+        ['aurora-flow', 'Aurora Flow', 'Мягкие переливы северного сияния с гибкой палитрой и интенсивностью.', 'nature', ['северное сияние', 'градиент', 'спокойствие'], 'vkify-aurora-flow'],
+        ['particle-constellation', 'Particle Constellation', 'Живая сеть частиц, соединяющихся в динамические созвездия.', 'space', ['частицы', 'созвездия', 'сеть'], 'vkify-particle-constellation'],
+        ['cyber-grid', 'Cyber Grid', 'Бесконечная перспективная сетка в эстетике ретрофутуризма.', 'abstract', ['киберпанк', 'сетка', 'ретро'], 'vkify-cyber-grid'],
+        ['fluid-orbs', 'Fluid Orbs', 'Плавно движущиеся световые сферы с эффектом смешивания цветов.', 'abstract', ['сферы', 'ambient', 'градиент'], 'vkify-fluid-orbs'],
+        ['midnight-fireflies', 'Midnight Fireflies', 'Тихая ночная сцена с мерцающими светлячками и мягкими шлейфами.', 'nature', ['ночь', 'светлячки', 'уют'], 'vkify-midnight-fireflies'],
+        ['plasma-rings', 'Plasma Rings', 'Пульсирующие плазменные кольца с регулируемой толщиной и скоростью.', 'abstract', ['плазма', 'кольца', 'пульсация'], 'vkify-plasma-rings'],
+    ].map(([id, title, description, category, tags, folder]) => ({
+        id,
+        title,
+        description,
+        type: WALLPAPER_TYPES.WEB,
+        category,
+        workshopId: folder,
+        src: `/wallpapers/web/${folder}/index.html`,
+        poster: `/wallpapers/web/${folder}/preview.png`,
+        tags,
+        extensionConfig: {
+            custom_background: abs(`/wallpapers/web/${folder}/index.html`),
+            background_type: 'web',
+            background_opacity: 100,
+            background_dim: 0,
+            background_blur: 0,
+            background_scale: 100,
+        },
+    })),
 ]
 
 export const wallpaperIds = wallpapers.map(w => w.id)

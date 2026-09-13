@@ -58,14 +58,14 @@
 │  hydrateRoot ──► гидрация пре-рендеренного HTML                    │
 │  LanguageProvider ──► ru / en, переключатель в шапке               │
 │                                                                    │
-│  Пре-рендер: 85 маршрутов                                          │
-│    8 статических + 72 темы (/themes/:id) + 3 обоя (/wallpapers/:id)│
+│  Пре-рендер: 84 маршрута                                           │
+│   9 статических + 72 темы (/themes/:id) + 11 обоев (/wallpapers/:id)│
 │    Puppeteer → статический HTML для поисковиков                    │
 └────────────────────────────────────────────────────────────────────┘
          │                              │
          ▼                              ▼
   src/data/*.js                  src/config/index.js
-  (72 темы, 3 обоя,              (URL, ссылки, аналитика,
+  (72 темы, 11 обоев,             (URL, ссылки, аналитика,
    changelog, features)           Google Forms ID, статистика)
          │                              │
          ▼                              ▼
@@ -162,7 +162,7 @@ frontend/
 │   │
 │   ├── data/
 │   │   ├── themes.js                # 72 темы, 10 категорий (themes/themeCategories/themeIds)
-│   │   ├── wallpapers.js            # 3 обоя (IMAGE/VIDEO/WEB), 7 категорий
+│   │   ├── wallpapers.js            # 11 обоев (IMAGE/VIDEO/WEB), 7 категорий
 │   │   ├── features.js              # структурные данные топ-фич (id+icon+color)
 │   │   ├── changelog.js             # 5 версий
 │   │   └── news.js                  # двуязычные новости (slug + translations[lang])
@@ -302,7 +302,7 @@ npm run generate-og  # только перегенерировать og:image (�
 ```js
 // vite.config.js
 import { themeIds }     from './src/data/themes.js'     // 72 ID
-import { wallpaperIds } from './src/data/wallpapers.js' // 3 ID
+import { wallpaperIds } from './src/data/wallpapers.js' // 11 ID
 import { newsSlugs }    from './src/data/news.js'       // 1 slug
 
 const routes = [
