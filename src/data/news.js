@@ -12,6 +12,127 @@
 
 export const news = [
   {
+    slug: 'music-visualizer-and-web-wallpapers-1-8-6',
+    date: '2026-09-21',
+    category: 'release',
+    accent: 'purple',
+    cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
+    translations: {
+      ru: {
+        title: 'VKify 1.8.6: музыка в движении и интерактивные обои',
+        excerpt:
+          'Новый визуализатор реагирует на музыку VK, а веб-обои поддерживают интерактивные HTML-проекты Wallpaper Engine. Заодно исправлены скачивание музыки и сообщения сообществ.',
+        readTime: 3,
+        blocks: [
+          {
+            type: 'p',
+            text: 'Версия **1.8.6** добавляет два новых способа оживить VK: музыкальный визуализатор и интерактивные веб-обои. Обновление также исправляет несколько заметных проблем музыкального раздела и сообщений.',
+          },
+          {
+            type: 'h2',
+            text: 'Музыка становится видимой',
+          },
+          {
+            type: 'p',
+            text: 'Визуализатор реагирует на звук плеера VK и рисует эффект между обоями и интерфейсом. Доступны девять стилей: спектр, волна, полосы, орбита, частицы, аврора, кольца, спираль и матрица.',
+          },
+          {
+            type: 'ul',
+            items: [
+              'Живой предпросмотр работает даже без запущенного трека.',
+              'Цвет, чувствительность, интенсивность, размер и положение настраиваются отдельно.',
+              'Эффект можно перетаскивать мышью, скрывать на паузе и быстро сбрасывать к исходным параметрам.',
+            ],
+          },
+          {
+            type: 'h2',
+            text: 'Интерактивные веб-обои',
+          },
+          {
+            type: 'p',
+            text: 'Теперь в качестве фона можно использовать интерактивную HTML-страницу или веб-проект Wallpaper Engine. Если рядом с обоями размещён **project.json**, VKify автоматически прочитает доступные параметры проекта.',
+          },
+          {
+            type: 'p',
+            text: 'Сами настройки отображения обоев существовали и раньше. В этом обновлении мы лишь перенесли их в соседний пункт, чтобы экран выбора фона стал чище и не смешивал установку обоев с тонкой настройкой.',
+          },
+          {
+            type: 'h2',
+            text: 'Исправления и уборка',
+          },
+          {
+            type: 'ul',
+            items: [
+              'Восстановлена кнопка скачивания музыки после изменений в плеере VK.',
+              'Исправлена отправка сообщений со страниц сообществ при скрытом мини-чате.',
+              'Удалена экспериментальная настройка рекламных флагов, которая не влияла на фактическую выдачу рекламы. Остальные блокировщики VKify работают как прежде.',
+            ],
+          },
+          {
+            type: 'quote',
+            text: 'Включите визуализатор в разделе «Центр → Музыка» и подберите эффект под свою тему.',
+          },
+        ],
+      },
+      en: {
+        title: 'VKify 1.8.6: music in motion and interactive wallpapers',
+        excerpt:
+          'A new visualizer reacts to VK music, while web wallpapers support interactive Wallpaper Engine HTML projects. Music downloads and community messaging are fixed too.',
+        readTime: 3,
+        blocks: [
+          {
+            type: 'p',
+            text: 'Version **1.8.6** adds two new ways to bring VK to life: a music visualizer and interactive web wallpapers. The update also fixes several visible issues in music and messaging.',
+          },
+          {
+            type: 'h2',
+            text: 'See your music move',
+          },
+          {
+            type: 'p',
+            text: 'The visualizer reacts to the VK player and renders between your wallpaper and the interface. Nine styles are included: spectrum, wave, bars, orbit, particles, aurora, rings, helix and matrix.',
+          },
+          {
+            type: 'ul',
+            items: [
+              'The live preview works even when no track is playing.',
+              'Color, sensitivity, intensity, size and position can be tuned independently.',
+              'Drag the effect into place, hide it while paused, or reset everything in one click.',
+            ],
+          },
+          {
+            type: 'h2',
+            text: 'Interactive web wallpapers',
+          },
+          {
+            type: 'p',
+            text: 'You can now use an interactive HTML page or a Wallpaper Engine web project as the background. When a **project.json** sits next to the wallpaper, VKify automatically reads the project controls.',
+          },
+          {
+            type: 'p',
+            text: 'Wallpaper display controls already existed. This release only moves them into the adjacent settings page, keeping wallpaper selection clean and separate from fine tuning.',
+          },
+          {
+            type: 'h2',
+            text: 'Fixes and cleanup',
+          },
+          {
+            type: 'ul',
+            items: [
+              'Restored the music download action after VK player markup changes.',
+              'Fixed messaging from community pages when the mini chat is hidden.',
+              'Removed the experimental advertising-flags setting because it did not affect actual ad delivery. The rest of VKify ad blocking remains unchanged.',
+            ],
+          },
+          {
+            type: 'quote',
+            text: 'Open Center → Music, enable the visualizer, and match an effect to your theme.',
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: 'audio-ad-blocking-1-8-5',
     date: '2026-09-12',
     category: 'release',
