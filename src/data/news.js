@@ -16,6 +16,7 @@ export const news = [
     date: '2026-09-21',
     category: 'release',
     accent: 'purple',
+    image: '/news/music-visualizer-and-web-wallpapers-1-8-6.webp',
     cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
     translations: {
       ru: {
