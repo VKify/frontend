@@ -1021,6 +1021,36 @@ const centerDocs = {
         access: 'Ctrl/Cmd + K → “Download clip”, or “Center” → “Clips”.',
       },
     },
+    {
+      anchor: 'account_backup',
+      icon: 'download',
+      category: 'tools',
+      subfeatures: [
+        { id: 'account_backup', title: 'Полный экспорт аккаунта', description: 'Стена, медиа, документы, закладки, подписки и профиль в JSON или ZIP.' },
+      ],
+      ru: {
+        title: 'Полный экспорт аккаунта',
+        lead: 'Создаёт локальный бэкап выбранных данных аккаунта VK в JSON или ZIP.',
+        how: [
+          'Выберите разделы: стену, фото и альбомы, видео, документы, закладки, подарки, сообщества, друзей и информацию профиля. Друзья по умолчанию выключены.',
+          'JSON сохраняет все данные одним структурированным файлом. ZIP добавляет отдельный JSON для каждого раздела. Опция «Скачать файлы» также включает оригиналы фотографий, документов и доступных MP4; недоступные файлы остаются в JSON как ссылки VK/CDN.',
+          'Экспорт выполняется в фоне с учётом лимитов VK API. Popup можно закрыть и открыть снова: текущий этап и прогресс сохраняются. Задачу можно отменить.',
+          'Некоторые разделы требуют дополнительных разрешений токена VK. Если они недоступны, остальные данные всё равно попадут в бэкап, а пропущенные разделы будут отмечены.',
+        ],
+        access: 'Ctrl/Cmd + K → «Полный экспорт аккаунта» или «Центр» → «Бэкап».',
+      },
+      en: {
+        title: 'Full account export',
+        lead: 'Creates a local backup of selected VK account data as JSON or ZIP.',
+        how: [
+          'Select wall posts, photos and albums, videos, documents, bookmarks, gifts, communities, friends, and profile information. Friends are disabled by default.',
+          'JSON stores everything in one structured file. ZIP adds a separate JSON file per section. Download files also includes original photos, documents, and available MP4 files; unavailable files remain in JSON as VK/CDN links.',
+          'The export runs in the background and respects VK API limits. You can close and reopen the popup: the current stage and progress are preserved. The task can be cancelled.',
+          'Some sections require additional VK token scopes. If unavailable, the remaining data is still backed up and skipped sections are reported.',
+        ],
+        access: 'Ctrl/Cmd + K → “Full account export”, or “Center” → “Backup”.',
+      },
+    },
   ],
 }
 
