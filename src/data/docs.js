@@ -846,6 +846,36 @@ const centerDocs = {
       },
     },
     {
+      anchor: 'friends_audit',
+      icon: 'users3',
+      category: 'friends',
+      subfeatures: [
+        { id: 'friends_audit', title: 'Аудит друзей', description: 'Обзор активности, профилей и заявок без изменения списка друзей.' },
+      ],
+      ru: {
+        title: 'Аудит друзей',
+        lead: 'Сводка по друзьям и входящим и исходящим заявкам на отдельной странице.',
+        how: [
+          'Откройте «Центр» → «Друзья» → «Аудит друзей». Переход ведёт прямо в аналитику, без включения отдельной настройки. До открытия страницы данные не загружаются.',
+          'Карточки сводки и столбцы активности фильтруют список. Доступны поиск по имени, сортировка и компактный режим.',
+          'Порог неактивности — 90, 180 или 365 дней. Профили без точной даты учтены в общем количестве, отдельной карточке и диаграмме. Статусы ВК «недавно» и «давно» показаны как приблизительные, без выдуманного срока. Их можно добавить к списку неактивных для просмотра, сохраняя отдельную классификацию.',
+          'Снимок хранится локально 3 часа; кнопка обновления запрашивает новые данные. Аудит ничего не удаляет и не принимает заявки.',
+        ],
+        access: '«Центр» → «Друзья» → «Аудит друзей».',
+      },
+      en: {
+        title: 'Friends audit',
+        lead: 'An overview of friends and incoming and outgoing requests on a dedicated page.',
+        how: [
+          'Open Center → Friends → Friends audit. The navigation row opens analytics directly, without a setting switch. Data is only loaded when the page opens.',
+          'Summary cards and activity bars filter the list. Search by name, sorting and compact mode are available.',
+          'Choose an inactivity threshold of 90, 180 or 365 days. Profiles without an exact date are included in totals, a dedicated card and the chart. Approximate VK statuses are shown without inventing dates. These profiles can optionally be included in inactive results while keeping their separate classification.',
+          'Snapshots are cached locally for 3 hours; refresh requests fresh data. The audit never removes friends or accepts requests.',
+        ],
+        access: 'Center → Friends → Friends audit.',
+      },
+    },
+    {
       anchor: 'communities_swap_columns',
       icon: 'users3',
       category: 'communities',
