@@ -846,6 +846,34 @@ const centerDocs = {
       },
     },
     {
+      anchor: 'voice_download',
+      icon: 'message',
+      category: 'messages',
+      subfeatures: [
+        { id: 'voice_download', title: 'Скачивание голосовых сообщений', description: 'Сохраняет голосовые сообщения в MP3 или OGG.' },
+      ],
+      ru: {
+        title: 'Скачивание голосовых сообщений',
+        lead: 'Добавляет к голосовым сообщениям кнопку сохранения записи.',
+        how: [
+          'Включите функцию и откройте диалог с голосовым сообщением. Рядом с проигрывателем появится кнопка скачивания.',
+          'Расширение скачивает MP3, если он доступен в данных сообщения, иначе использует OGG. Перекодирование не выполняется.',
+          'Имя файла формируется из идентификаторов диалога и сообщения, чтобы разные записи не перезаписывали друг друга.',
+        ],
+        access: 'Ctrl/Cmd + K → «Скачивание голосовых сообщений» или «Центр» → «Мессенджер».',
+      },
+      en: {
+        title: 'Download voice messages',
+        lead: 'Adds a button for saving voice-message recordings.',
+        how: [
+          'Enable the feature and open a conversation containing a voice message. A download button appears next to the player.',
+          'The extension downloads MP3 when it is available in the message data and falls back to OGG. It does not transcode the recording.',
+          'The filename uses the conversation and message identifiers so different recordings do not overwrite one another.',
+        ],
+        access: 'Ctrl/Cmd + K → “Download voice messages”, or “Center” → “Messenger”.',
+      },
+    },
+    {
       anchor: 'friends_audit',
       icon: 'users3',
       category: 'friends',
