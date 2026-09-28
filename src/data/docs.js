@@ -31,6 +31,34 @@ const viewDocs = {
   },
   features: [
     {
+      anchor: 'clock_enabled',
+      icon: 'layout',
+      ru: {
+        title: 'Часы',
+        lead: 'Отображает на странице VK настраиваемые часы с текущим локальным временем.',
+        how: [
+          'Включите часы в разделе «Вид» → «Часы». Настройки сразу применяются на странице и в живом предпросмотре.',
+          'Выберите 24- или 12-часовой формат, показ секунд и даты. Дата доступна в цифровом формате или с названием месяца.',
+          'Пресеты «Минималистичный», «Стекло» и «Без фона» меняют оформление. Размер и жирность текста, цвета, непрозрачность, подложка и скругление настраиваются отдельно.',
+          'Выберите один из четырёх углов и отступ от краёв. Для свободного размещения нажмите «Переместить на странице VK», перетащите часы и нажмите «Готово» или Esc. Положение сохраняется.',
+          'В обычном режиме часы пропускают клики. Они продолжают работать при переходах между страницами VK; выключение удаляет часы и останавливает обновления.',
+        ],
+        access: 'Ctrl/Cmd + K → «Часы» или вкладка «Вид» → «Часы».',
+      },
+      en: {
+        title: 'Clock',
+        lead: 'Displays a customizable clock with the current local time on VK.',
+        how: [
+          'Enable the clock in Style → Clock. Settings update both the VK page and the live preview immediately.',
+          'Choose 24-hour or 12-hour time, optional seconds, and an optional date in numeric or written-month format.',
+          'Minimal, Glass and No background presets provide starting styles. Text size, weight, colors, opacity, background and corner radius can be adjusted individually.',
+          'Choose a corner and edge spacing, or press Move on VK page, drag the clock, then press Done or Esc. The position is saved.',
+          'The clock normally lets clicks pass through and continues working across VK navigation. Disabling it removes the clock and stops updates.',
+        ],
+        access: 'Ctrl/Cmd + K → Clock, or Style → Clock.',
+      },
+    },
+    {
       anchor: 'display_mode',
       icon: 'layout',
       media: [
@@ -1714,9 +1742,9 @@ const appearanceDocs = {
   id: 'appearance',
   popupTab: 'appearance',
   features: [
-    ...viewDocs.features.slice(0, 7),
+    ...viewDocs.features.slice(0, 8),
     builtinPresetsFeature,
-    ...viewDocs.features.slice(7),
+    ...viewDocs.features.slice(8),
   ],
 }
 
