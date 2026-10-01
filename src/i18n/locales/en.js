@@ -788,6 +788,7 @@ export const en = {
   },
 
   themePreview: {
+    applyFailed: 'Could not apply the theme. Please try again.',
     notFoundTitle: 'Theme not found',
     notFoundText: 'The link is invalid or outdated. Try getting a new link.',
     seeThemes: 'Browse themes',
@@ -805,6 +806,7 @@ export const en = {
   },
 
   paramMeta: {
+    savedConfiguration: 'Saved configuration',
     groups: {
       colors: 'Colors & theme', font: 'Font', shape: 'Shape & size', background: 'Background',
       filters: 'Filters', modes: 'Modes', elements: 'Hidden elements',
@@ -818,6 +820,25 @@ export const en = {
     bgTypes: { image: 'Image', video: 'Video', web: 'Web page', embed: 'Embed', color: 'Color', gradient: 'Gradient' },
     shapes: { none: 'Percent', drop: 'Drop', leaf: 'Leaf', petal: 'Petal', blob: 'Blob' },
     labels: {
+      clock_enabled: "Clock",
+      clock_settings: "Clock settings",
+      music_lyrics: "Lyrics",
+      music_lyrics_settings: "Lyrics settings",
+      music_visualizer: "Visualizer",
+      music_visualizer_settings: "Visualizer settings",
+      web_wallpaper_id: "Web wallpaper",
+      web_wallpaper_schema: "Wallpaper properties",
+      web_wallpaper_values: "Wallpaper settings",
+      hidden_menu_items: "Hidden menu items",
+      profile_swap_columns: "Swap profile columns",
+      communities_swap_columns: "Swap community columns",
+      hide_feed_right_column: "Feed right column",
+      hide_stories_discover: "Story recommendations",
+      hide_profile_friends_recommendations: "Profile friend suggestions",
+      hide_promo_link: "Promo link",
+      hide_profile_right_column: "Profile right column",
+      hide_channels_tab: "Channels tab",
+      hide_business_notifications: "Business notifications",
       custom_theme_id: 'Preset', custom_theme: 'Background color', custom_accent: 'Accent color',
       block_opacity: 'Block opacity', glass_blur: 'Glass blur', theme_radius: 'Theme radius',
       block_depth: 'Block depth',

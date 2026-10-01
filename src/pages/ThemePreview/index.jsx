@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { Check, Copy, Palette, AlertCircle, ExternalLink, Zap, SlidersHorizontal, RotateCcw } from 'lucide-react'
 import SEO from '../../components/common/SEO'
 import DetailNavbar from '../../components/common/DetailNavbar'
-import { decodeTheme, encodeTheme } from '../../utils/themeShare'
+import { decodeTheme, encodeTheme, buildSharedThemeSettings } from '../../utils/themeShare'
 import { useApplyToVK } from '../../hooks/useApplyToVK'
 import { useCopyToClipboard } from '../../hooks/useCopyToClipboard'
 import ExtensionHint from '../../components/common/ExtensionHint'
@@ -22,7 +22,7 @@ export default function ThemePreview() {
     const originalRef = useRef(null)   // исходные настройки для сброса
 
     const link = useCopyToClipboard()
-    const { detected, applied, apply, showInstallModal, closeInstallModal } = useApplyToVK()
+    const { detected, applied, applyError, apply, showInstallModal, closeInstallModal } = useApplyToVK()
 
     useEffect(() => {
         if (!encoded) { setError(true); return }
@@ -52,7 +52,7 @@ export default function ThemePreview() {
         setThemeData(prev => ({ ...prev, settings: originalRef.current }))
 
     const handleCopy = () => link.copy(shareUrl)
-    const handleApply = () => apply(themeData?.settings)
+    const handleApply = () => themeData && apply(buildSharedThemeSettings(themeData.settings))
 
     if (error) {
         return (
@@ -204,6 +204,7 @@ export default function ThemePreview() {
                                         : <><Zap className="w-4 h-4" /> {t('detail.apply')}</>
                                     }
                                 </button>
+                                {applyError && <p role="alert" className="text-sm text-red-500">{t('themePreview.applyFailed')}</p>}
                                 <button
                                     onClick={handleCopy}
                                     className="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-sm font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 active:scale-[0.98] transition-all"

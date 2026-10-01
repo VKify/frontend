@@ -14,6 +14,7 @@ import { useExtension } from './useExtension'
 export function useApplyToVK(appliedMs = 3000) {
   const { detected, saveSettings } = useExtension()
   const [applied, setApplied] = useState(false)
+  const [applyError, setApplyError] = useState(false)
   const [showInstallModal, setShowInstallModal] = useState(false)
   const timerRef = useRef(null)
 
@@ -24,13 +25,18 @@ export function useApplyToVK(appliedMs = 3000) {
 
   useEffect(() => () => clearTimeout(timerRef.current), [])
 
-  const apply = useCallback((settings) => {
+  const apply = useCallback(async (settings) => {
     if (!settings) return
     if (detected) {
-      saveSettings(settings)
-      setApplied(true)
+      setApplied(false)
+      setApplyError(false)
       clearTimeout(timerRef.current)
-      timerRef.current = setTimeout(() => setApplied(false), appliedMs)
+      if (await saveSettings(settings)) {
+        setApplied(true)
+        timerRef.current = setTimeout(() => setApplied(false), appliedMs)
+      } else {
+        setApplyError(true)
+      }
     } else {
       setShowInstallModal(true)
     }
@@ -38,5 +44,5 @@ export function useApplyToVK(appliedMs = 3000) {
 
   const closeInstallModal = useCallback(() => setShowInstallModal(false), [])
 
-  return { detected, applied, apply, showInstallModal, closeInstallModal }
+  return { detected, applied, applyError, apply, showInstallModal, closeInstallModal }
 }

@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "test:theme-share": "node scripts/test-theme-share.mjs",
     "check:docs": "node scripts/check-docs.mjs",
     "dev": "vite",
     "generate-og": "node scripts/generate-og.js",

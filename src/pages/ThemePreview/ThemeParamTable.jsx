@@ -16,6 +16,25 @@ export const GROUPS = [
 
 // Только группа/тип/видимость; подписи — из i18n: paramMeta.labels.<key>
 export const PARAM_META = {
+    clock_enabled: { group: 'modes', type: 'bool' },
+    clock_settings: { group: 'modes', type: 'config', readOnly: true },
+    music_lyrics: { group: 'background', type: 'bool' },
+    music_lyrics_settings: { group: 'background', type: 'config', readOnly: true },
+    music_visualizer: { group: 'background', type: 'bool' },
+    music_visualizer_settings: { group: 'background', type: 'config', readOnly: true },
+    web_wallpaper_id: { group: 'background', readOnly: true },
+    web_wallpaper_schema: { group: 'background', type: 'config', readOnly: true },
+    web_wallpaper_values: { group: 'background', type: 'config', readOnly: true },
+    hidden_menu_items: { group: 'elements', readOnly: true },
+    profile_swap_columns: { group: 'modes', type: 'bool' },
+    communities_swap_columns: { group: 'modes', type: 'bool' },
+    hide_feed_right_column: { group: 'elements', type: 'bool' },
+    hide_stories_discover: { group: 'elements', type: 'bool' },
+    hide_profile_friends_recommendations: { group: 'elements', type: 'bool' },
+    hide_promo_link: { group: 'elements', type: 'bool' },
+    hide_profile_right_column: { group: 'elements', type: 'bool' },
+    hide_channels_tab: { group: 'elements', type: 'bool' },
+    hide_business_notifications: { group: 'elements', type: 'bool' },
     custom_theme_id:            { group: 'colors' },
     custom_theme:               { group: 'colors',     type: 'color' },
     custom_accent:              { group: 'colors',     type: 'color' },
@@ -95,6 +114,7 @@ function formatValue(key, raw, t) {
     if (!meta) return String(raw)
     const n = Number(raw)
     switch (meta.type) {
+        case 'config': return t('paramMeta.savedConfiguration')
         case 'percent': return `${Math.round(n)}%`
         case 'opacity': return `${Math.round(n * 100)}%`
         case 'px':      return `${raw}px`
@@ -230,7 +250,7 @@ function ParamRow({ paramKey, value, onChange }) {
     return (
         <div className="flex items-center justify-between py-2.5 border-b border-gray-100 dark:border-gray-800/80 last:border-0 gap-4">
             <span className="text-sm text-gray-500 dark:text-gray-400 shrink-0">{label}</span>
-            {onChange ? (
+            {onChange && !meta?.readOnly ? (
                 <ParamEditor paramKey={paramKey} value={value} meta={meta} onChange={onChange} />
             ) : (
                 <div className="flex items-center gap-2 min-w-0">

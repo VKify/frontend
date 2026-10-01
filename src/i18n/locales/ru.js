@@ -788,6 +788,7 @@ export const ru = {
   },
 
   themePreview: {
+    applyFailed: 'Не удалось применить тему. Попробуйте ещё раз.',
     notFoundTitle: 'Тема не найдена',
     notFoundText: 'Ссылка некорректна или устарела. Попробуйте получить новую ссылку.',
     seeThemes: 'Смотреть темы',
@@ -805,6 +806,7 @@ export const ru = {
   },
 
   paramMeta: {
+    savedConfiguration: 'Сохранённые настройки',
     groups: {
       colors: 'Цвета и тема', font: 'Шрифт', shape: 'Форма и размер', background: 'Фон',
       filters: 'Фильтры', modes: 'Режимы', elements: 'Скрытые элементы',
@@ -818,6 +820,25 @@ export const ru = {
     bgTypes: { image: 'Изображение', video: 'Видео', web: 'Веб-страница', embed: 'Встраиваемый', color: 'Цвет', gradient: 'Градиент' },
     shapes: { none: 'Процент', drop: 'Капля', leaf: 'Лист', petal: 'Лепесток', blob: 'Блоб' },
     labels: {
+      clock_enabled: "Часы",
+      clock_settings: "Настройки часов",
+      music_lyrics: "Текст песни",
+      music_lyrics_settings: "Настройки текста песни",
+      music_visualizer: "Визуализатор",
+      music_visualizer_settings: "Настройки визуализатора",
+      web_wallpaper_id: "Веб-обои",
+      web_wallpaper_schema: "Параметры веб-обоев",
+      web_wallpaper_values: "Настройки веб-обоев",
+      hidden_menu_items: "Скрытые пункты меню",
+      profile_swap_columns: "Колонки профиля",
+      communities_swap_columns: "Колонки сообществ",
+      hide_feed_right_column: "Правая колонка ленты",
+      hide_stories_discover: "Рекомендации историй",
+      hide_profile_friends_recommendations: "Рекомендации друзей в профиле",
+      hide_promo_link: "Промоссылка",
+      hide_profile_right_column: "Правая колонка профиля",
+      hide_channels_tab: "Вкладка каналов",
+      hide_business_notifications: "Бизнес-уведомления",
       custom_theme_id: 'Пресет', custom_theme: 'Цвет фона', custom_accent: 'Акцентный цвет',
       block_opacity: 'Прозрачность блоков', glass_blur: 'Размытие стекла', theme_radius: 'Радиус темы',
       block_depth: 'Глубина блоков',
