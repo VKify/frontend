@@ -1,5 +1,5 @@
 // Документация по расширению. Каждая секция = одна вкладка расширения и
-// отдельная страница /docs/<slug>. Сейчас их две: «Вид» и «Скрытие».
+// отдельная страница /docs/<slug>. Порядок повторяет меню расширения.
 //
 // Движок страницы (pages/Docs.jsx) общий. Запись секции:
 //   slug        — адрес: /docs/<slug>
@@ -11,6 +11,8 @@
 //
 // Медиа лежат в public/docs/<slug>/<file>. Нет файла — DocMedia рисует
 // аккуратную заглушку, поэтому страницу можно публиковать до съёмки скриншотов.
+
+import { addCurrentFeatures } from './docs-current-features.js'
 
 const viewDocs = {
   slug: 'view',
@@ -769,17 +771,17 @@ const centerDocs = {
     nav: 'Центр',
     title: 'Вкладка «Центр»',
     subtitle: 'Инструменты для профиля, ленты, сообщений и медиа: меняйте раскладку, сохраняйте контент и автоматизируйте работу с плеером.',
-    note: 'Внутри вкладки девять страниц. Рейл слева повторяет основные разделы ВКонтакте; у музыки, плеера и сообщений есть дополнительные подстраницы.',
+    note: 'Вкладка объединяет десять разделов. Инструменты данных VK API отделены от настроек страниц; эквалайзер, тексты и мини-плеер находятся в «Музыке».',
     seoTitle: 'Документация VKify — вкладка «Центр»',
-    seoDescription: 'Все функции Центра VKify: профиль, лента, мессенджер, сообщества, фото, музыка, плеер, видео и клипы.',
+    seoDescription: 'Центр VKify: файлы и статистика диалогов, аудит друзей, подписки, музыкальные инструменты, видеокаталог, скачивание и бэкап аккаунта.',
   },
   en: {
     nav: 'Center',
     title: 'The “Center” tab',
     subtitle: 'Tools for profiles, feed, messages, and media: rearrange layouts, save content, and automate the player.',
-    note: 'The tab contains nine pages. Its left rail mirrors VK’s main sections; Music, Player, and Messenger have nested pages.',
+    note: 'The tab contains ten sections. VK API account tools are separate from page settings; the equalizer, lyrics and mini player live under Music.',
     seoTitle: 'VKify documentation — the “Center” tab',
-    seoDescription: 'Every VKify Center feature: profile, feed, messenger, communities, photos, music, player, video, and clips.',
+    seoDescription: 'VKify Center: dialog files and statistics, friends audit, subscriptions, music tools, saved video catalog, downloads and account backup.',
   },
   features: [
     {
@@ -1040,7 +1042,7 @@ const centerDocs = {
           '**Эквалайзер.** Обрабатывает звук через Web Audio API: преамп и десять частотных полос применяются сразу, без перезапуска трека. Есть встроенные и пользовательские пресеты.',
           'При сильном усилении нескольких полос уменьшите преамп, чтобы избежать перегруза и искажений.',
         ],
-        access: '«Центр» → «Плеер». Хоткеи и эквалайзер открываются как отдельные подстраницы.',
+        access: '«Центр» → «Музыка». Хоткеи и эквалайзер открываются как отдельные подстраницы.',
       },
       en: {
         title: 'Player',
@@ -1052,7 +1054,7 @@ const centerDocs = {
           '**Equalizer.** Uses the Web Audio API: preamp and ten frequency bands apply instantly without restarting the track. Built-in and custom presets are supported.',
           'If several bands are boosted heavily, lower the preamp to avoid clipping and distortion.',
         ],
-        access: '“Center” → “Player”. Hotkeys and Equalizer open as nested pages.',
+        access: 'Center → Music. Hotkeys and Equalizer open as nested pages.',
       },
     },
     {
@@ -1659,9 +1661,9 @@ const moreDocs = {
  * хлебных крошках и будущей типизированной схеме без повторного парсинга текста.
  */
 const ITEM_IDS_BY_FEATURE = {
-  profile: ['hide_emoji_status', 'hide_stories_discover', 'hide_promo_link', 'hide_profile_right_column'],
+  profile: ['hide_emoji_status', 'hide_stories_discover', 'hide_promo_link', 'hide_profile_right_column', 'hide_profile_friends_recommendations'],
   feed: ['hide_stories', 'hide_post_box', 'hide_post_comments', 'hide_feed_right_column'],
-  messenger: ['hide_recommended_channels'],
+  messenger: ['hide_recommended_channels', 'hide_channels_tab', 'hide_business_notifications'],
   friends: ['hide_friends_suggestions'],
   communities: ['hide_recent_groups'],
   music: ['hide_audio_ads'],
@@ -1676,12 +1678,27 @@ const ITEM_IDS_BY_FEATURE = {
 // заглушками; держим здесь только проверенные файлы, которые генерирует
 // `vkify-extension/scripts/capture-docs-screenshots.mjs`.
 const MEDIA_BY_FEATURE = {
+  'view:clock_enabled': [{ type: 'screenshot', file: 'clock.png' }],
+  'view:display_mode': [{ type: 'screenshot', file: 'layout.png' }],
   'view:custom_background': [{ type: 'screenshot', file: 'background.png' }],
   'center:message_quick_copy': [{ type: 'screenshot', file: 'message-templates.png' }],
   'center:audio_download': [{ type: 'screenshot', file: 'audio-download.png' }],
   'center:media_player_hotkeys': [{ type: 'screenshot', file: 'equalizer.png' }],
+  'center:music_mini_player': [{ type: 'screenshot', file: 'mini-player.png' }],
+  'center:music_lyrics': [{ type: 'screenshot', file: 'lyrics.png' }],
+  'center:music_visualizer': [{ type: 'screenshot', file: 'visualizer.png' }],
+  'center:dialog-files': [{ type: 'screenshot', file: 'dialog-files.png' }, { type: 'screenshot', file: 'all-dialog-files.png' }],
+  'center:messages-stats': [{ type: 'screenshot', file: 'dialog-statistics.png' }],
+  'center:friends_audit': [{ type: 'screenshot', file: 'friends-audit.png' }],
+  'center:subscriptions': [{ type: 'screenshot', file: 'subscriptions.png' }],
+  'center:video-catalog': [{ type: 'screenshot', file: 'video-catalog.png' }],
+  'center:account_backup': [{ type: 'screenshot', file: 'account-backup.png' }],
+  'more:telegram_notifications': [{ type: 'screenshot', file: 'telegram.png' }],
+  'ads:ads_stats': [{ type: 'screenshot', file: 'statistics.png' }],
   'privacy:message_crypto': [{ type: 'screenshot', file: 'crypto.png' }],
   'onlinespy:spy_online': [{ type: 'screenshot', file: 'online.png' }],
+  'onlinespy:spy_activity': [{ type: 'screenshot', file: 'activity.png' }],
+  'onlinespy:profile_spy': [{ type: 'screenshot', file: 'profiles.png' }],
   'ads:custom_block_words': [{ type: 'screenshot', file: 'keywords.png' }],
   'css:custom_css_enabled': [{ type: 'screenshot', file: 'editor.png' }],
 }
@@ -1760,7 +1777,7 @@ export const DOCS = [
   adsDocs,
   cssDocs,
   moreDocs,
-].map(normalizeDoc)
+].map(addCurrentFeatures).map(normalizeDoc)
 
 // Все вкладки документированы. Экспорт оставлен для обратной совместимости с
 // текущим Docs.jsx, который умеет показывать неактивные разделы «Позже».
