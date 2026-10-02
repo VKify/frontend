@@ -4,6 +4,24 @@ const article = (anchor, icon, ru, en) => ({ anchor, icon, ru, en })
 
 export const CURRENT_FEATURES = {
   center: [
+    article('auto_add_friends', 'users3', {
+      title: 'Авто-добавление друзей', lead: 'Отправка заявок через VK API с заданными лимитами.',
+      how: ['Выберите рекомендации, собственный список ID или ссылок на людей, файл TXT/CSV/JSON либо результат парсера участников.', 'Подтвердите риск перед запуском. Максимум 20 заявок в час, 50 в сутки и 20 за сессию, пауза от 30 секунд. Это ограничения расширения, а не гарантия безопасности аккаунта.', 'Прогресс сохраняется; любую ошибку, капчу или предупреждение VK скрипт обрабатывает остановкой. Используйте только на свой страх и риск.'],
+      access: '«Центр» → «Друзья» → «Авто-добавление друзей».',
+    }, {
+      title: 'Auto add friends', lead: 'Send friend requests through the VK API with configured limits.',
+      how: ['Choose recommendations, your own user IDs or links, a TXT/CSV/JSON file, or the member parser result.', 'Acknowledge the risk before starting. At most 20 requests per hour, 50 per day and 20 per session, with pauses of at least 30 seconds. These extension limits do not guarantee account safety.', 'Progress is saved; any VK error, CAPTCHA or warning stops the script. Use at your own risk.'],
+      access: 'Center → Friends → Auto add friends.',
+    }),
+    article('group_members_parser', 'users3', {
+      title: 'Парсер участников', lead: 'Список ID участников сообщества через VK API.',
+      how: ['Выберите своё сообщество в списке с аватарами или укажите ссылку либо ID. Задайте лимит и запустите сбор.', 'Прогресс показывает сохранённые участники, загрузку страницы и время до следующего запроса. До 10 000 участников, страницы по 1 000 с паузой от 30 секунд; до 120 API-запросов в час и 500 в сутки, включая ошибки.', 'Любая ошибка, капча или предупреждение останавливает сбор; готовые страницы сохраняются. Скрытые участники недоступны, а меняющийся состав группы не является точным снимком.', 'Экспортируйте TXT, CSV или JSON. Список доступен в авто-добавлении друзей, включая частично собранный результат.'],
+      access: '«Центр» → «Сообщества» → «Парсер участников».',
+    }, {
+      title: 'Member parser', lead: 'Community member IDs collected through the VK API.',
+      how: ['Choose one of your communities using the avatar list, or enter its link or ID. Set a limit and start collection.', 'Live progress shows saved members, the current page and the next-request countdown. Up to 10,000 members, pages of 1,000 at least 30 seconds apart; up to 120 API calls per hour and 500 per day, including failures.', 'Any error, CAPTCHA or warning stops collection and preserves completed pages. Hidden members remain inaccessible; changing membership is not a point-in-time snapshot.', 'Export TXT, CSV or JSON, or use the list in Auto add friends. Partial results are available too.'],
+      access: 'Center → Communities → Member parser.',
+    }),
     article('music_visualizer', 'music', {
       title: 'Музыкальный визуализатор', lead: 'Анимация на странице VK, реагирующая на воспроизведение музыки.',
       how: ['Выберите вид анимации, цвета, интенсивность, прозрачность и положение. Пресеты дают готовые сочетания параметров.', 'Визуализатор можно разместить свободно или в панели виджетов. Настройки паузы определяют поведение без воспроизведения.', 'Тексты песен имеют отдельный переключатель и собственные настройки; для них не нужно менять режим визуализатора.'], access: '«Центр» → «Музыка» → «Визуализатор».',
