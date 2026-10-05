@@ -3,6 +3,8 @@
 
   # VKify — Frontend
 
+  Документация и превью: **2.0.0**.
+
   **Лендинг-сайт расширения VKify для ВКонтакте**
 
   [![Website](https://img.shields.io/badge/vkify.ru-0077FF?style=for-the-badge&logo=googlechrome&logoColor=white)](https://vkify.ru)
@@ -21,7 +23,7 @@
 
   <br/>
 
-  <img src=".github/assets/site-preview.png" alt="VKify Frontend Preview" width="100%" />
+  <img src=".github/assets/site-preview.jpg" alt="VKify Frontend Preview" width="100%" />
 </div>
 
 ---

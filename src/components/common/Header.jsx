@@ -155,7 +155,7 @@ function AnnouncementBar({ isVisible, latestVersion }) {
           <div className="hidden lg:block bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 text-white text-center py-2 text-sm">
             <Link to="/changelog" className="inline-flex items-center gap-2 hover:underline group">
               <Sparkles className="w-4 h-4" />
-              <span>{t('header.announcement', { version: latestVersion })}</span>
+              <span>{t('docsPage.currentVersion', { version: config.app.version })}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -280,7 +280,7 @@ function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, late
                       {config.app.name}
                     </span>
                     <span className="text-xs text-gray-500 dark:text-gray-400">
-                      v{latestVersion}
+                      {t('docsPage.currentVersion', { version: config.app.version })}
                     </span>
                   </div>
                 </Link>

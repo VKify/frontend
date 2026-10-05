@@ -15,7 +15,6 @@ import DonateModal from './DonateModal'
 import { socialIcons, socialHoverStyles } from './SocialIcons'
 import config from '../../config'
 import { useTranslation } from '../../i18n'
-import { getLatestVersion } from '../../data/changelog'
 import { scrollWithOffset, scrollToTop } from '../../utils/scroll'
 
 function AnimatedBackground() {
@@ -307,11 +306,11 @@ function BrandSection({ onDonateClick, latestVersion }) {
             {config.app.name}
           </Link>
           <Link 
-            to="/changelog" 
+            to="/changelog"
             className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 hover:text-[#0077ff] transition-colors"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-            v{latestVersion}
+            {latestVersion}
           </Link>
         </div>
       </div>
@@ -358,7 +357,7 @@ function BottomBar({ currentYear, latestVersion }) {
             to="/changelog"
             className="text-sm text-gray-500 dark:text-gray-500 hover:text-[#0077ff] transition-colors"
           >
-            v{latestVersion}
+            {latestVersion}
           </Link>
           <span className="hidden sm:block text-gray-300 dark:text-gray-700">•</span>
           <p className="text-sm text-gray-500 dark:text-gray-500 flex items-center gap-1">
@@ -388,10 +387,7 @@ export default function Footer() {
   const [isDonateOpen, setIsDonateOpen] = useState(false)
   const currentYear = useMemo(() => new Date().getFullYear(), [])
 
-  const latestVersion = useMemo(() => {
-    const latest = getLatestVersion()
-    return latest?.version || '1.0.0'
-  }, [])
+  const latestVersion = t('docsPage.currentVersion', { version: config.app.version })
 
   const { footer } = config.navigation
 

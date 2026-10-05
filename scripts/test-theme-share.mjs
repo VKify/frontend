@@ -14,6 +14,7 @@ test('new appearance features survive preview decoding, editing and re-sharing',
     web_wallpaper_id: 'aurora', web_wallpaper_values: '{"aurora":{"speed":2}}',
     hide_feed_right_column: true, hide_stories_discover: true,
     hide_profile_friends_recommendations: true, hide_promo_link: true,
+    hide_open_profile_block: true, menu_items_order: ['l_msg', 'l_pr'],
     hide_profile_right_column: true, hide_channels_tab: true,
     hide_business_notifications: true, hidden_menu_items: ['l_aud'],
     page_offset_value: 0, custom_font_value: '"Шрифт", sans-serif', profile_swap_columns: true,
@@ -26,6 +27,11 @@ test('new appearance features survive preview decoding, editing and re-sharing',
   assert.equal(patch.filter_sepia, false);
   assert.equal(patch.content_width, 1100);
   assert.equal(patch.custom_background, '');
+  for (const avatar_radius_shape of ['arch', 'shield', 'egg', 'pebble', 'pillow']) {
+    const shared = decodeTheme(encodeTheme({ ...settings, avatar_radius_shape }));
+    assert.equal(shared.settings.avatar_radius_shape, avatar_radius_shape);
+    assert.equal(buildSharedThemeSettings(shared.settings).avatar_radius_shape, avatar_radius_shape);
+  }
 });
 
 test('legacy aliases still decode while non-appearance keys stay excluded', () => {

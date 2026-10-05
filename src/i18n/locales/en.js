@@ -209,25 +209,25 @@ export const en = {
     badge: 'Fresh updates',
     titleTop: "What's new",
     titleAccent: 'in VKify',
-    description: 'The standout features from recent updates bring more freedom to appearance, music, and downloads.',
+    description: 'Account tools, a shared widget panel, a music visualizer, and interactive wallpapers.',
     versionTag: 'In {version}',
     allNews: 'All news and updates',
     cards: {
-      customization: {
-        title: 'Custom colors and live preview',
-        description: 'Tune the theme, accent, content width, and position with instant on-page feedback.',
+      accountTools: {
+        title: 'More tools in Center',
+        description: 'Review friends, requests and subscriptions, collect community members, and run actions with a list review and pauses.',
       },
-      equalizer: {
-        title: 'Music equalizer',
-        description: 'Shape the sound live with 10 bands plus ready-made and custom presets.',
+      widgets: {
+        title: 'Widgets in one place',
+        description: 'Arrange the clock, player, lyrics and downloads freely or in a shared panel with your preferred order.',
       },
-      musicResume: {
-        title: 'Music keeps playing',
-        description: 'After a page reload, the player resumes the track from where you left off.',
+      visualizer: {
+        title: 'Music in motion',
+        description: 'An animation that responds to your music. Choose its style, colors, intensity and position on the page.',
       },
-      downloadCenter: {
-        title: 'One Download Center',
-        description: 'Download music, videos, clips, photos, and stories from one convenient panel.',
+      webWallpapers: {
+        title: 'Interactive web wallpapers',
+        description: 'Use HTML wallpapers and Wallpaper Engine projects, adjusting supported project properties directly in VKify.',
       },
     },
   },
@@ -683,6 +683,7 @@ export const en = {
   },
 
   docsPage: {
+    currentVersion: 'VKify {version}',
     kicker: 'Documentation',
     quickTitle: 'Quick access to any feature',
     quickPre: 'Inside the extension press ',
@@ -788,6 +789,9 @@ export const en = {
   },
 
   themePreview: {
+    currentVersion: 'VKify {version}',
+    defaultName: 'VKify preview',
+    defaultDescription: 'Appearance settings of the current extension version.',
     applyFailed: 'Could not apply the theme. Please try again.',
     notFoundTitle: 'Theme not found',
     notFoundText: 'The link is invalid or outdated. Try getting a new link.',
@@ -818,7 +822,7 @@ export const en = {
     fontSampleText: 'This is how VK looks — clean and beautiful.',
     strip: { bg: 'Background', accent: 'Accent', overlay: 'Overlay' },
     bgTypes: { image: 'Image', video: 'Video', web: 'Web page', embed: 'Embed', color: 'Color', gradient: 'Gradient' },
-    shapes: { none: 'Percent', drop: 'Drop', leaf: 'Leaf', petal: 'Petal', blob: 'Blob' },
+    shapes: { none: 'Percent', drop: 'Drop', leaf: 'Leaf', petal: 'Petal', blob: 'Blob', arch: 'Arch', shield: 'Shield', egg: 'Egg', pebble: 'Pebble', pillow: 'Pillow' },
     labels: {
       clock_enabled: "Clock",
       clock_settings: "Clock settings",
@@ -829,6 +833,8 @@ export const en = {
       web_wallpaper_id: "Web wallpaper",
       web_wallpaper_schema: "Wallpaper properties",
       web_wallpaper_values: "Wallpaper settings",
+      menu_items_order: 'Menu item order',
+      hide_open_profile_block: 'Hide the open profile block',
       hidden_menu_items: "Hidden menu items",
       profile_swap_columns: "Swap profile columns",
       communities_swap_columns: "Swap community columns",

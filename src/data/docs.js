@@ -12,7 +12,7 @@
 // Медиа лежат в public/docs/<slug>/<file>. Нет файла — DocMedia рисует
 // аккуратную заглушку, поэтому страницу можно публиковать до съёмки скриншотов.
 
-import { addCurrentFeatures } from './docs-current-features.js'
+import { addCurrentFeatures, WIDGETS_DOC } from './docs-current-features.js'
 
 const viewDocs = {
   slug: 'view',
@@ -89,7 +89,7 @@ const viewDocs = {
           '**Search.** The search bar can collapse into an icon that expands on hover.',
           '**Appearance.** Compact spacing removes gaps between blocks, and avatar shape is picked from presets (drop, leaf, petal, blob) or a corner-radius percentage.',
         ],
-        access: 'Ctrl/Cmd + K → “Display mode”. It’s the first block on the “View” tab.',
+        access: 'Ctrl/Cmd + K → “Display mode”. View → Layout → Layout.',
       },
     },
     {
@@ -101,23 +101,23 @@ const viewDocs = {
       ],
       ru: {
         title: 'Тема',
-        lead: 'Перекрашивает ВКонтакте целиком. Это главный блок вкладки — он выделен и помечен значком «Основное».',
+        lead: 'Перекрашивает ВКонтакте целиком. Откройте карточку «Тема» в группе «Оформление».',
         how: [
           'Готовые пресеты разбиты по категориям (Classic, AMOLED, Neon и другие). Клик по карточке применяет тему сразу, без перезагрузки.',
           'Свой цвет фона задаётся пипеткой — расширение само подберёт под него остальную палитру.',
-          'Блок «Блоки» настраивает прозрачность карточек, эффект стекла (размытие за полупрозрачными блоками), скругление и глубину с тенями.',
+          'Блок «Блоки» настраивает прозрачность карточек, эффект стекла (размытие за полупрозрачными блоками), скругление и глубину блоков.',
         ],
-        access: 'Ctrl/Cmd + K → «Цветовая тема». Внутри вкладки — карточка «Тема» с пометкой «Основное».',
+        access: 'Ctrl/Cmd + K → «Цветовая тема». «Вид» → «Оформление» → «Тема».',
       },
       en: {
         title: 'Theme',
-        lead: 'Repaints all of VKontakte. This is the tab’s key block — highlighted and marked “Primary”.',
+        lead: 'Repaints all of VKontakte. Open the Theme card in the Appearance group.',
         how: [
           'Presets are grouped by category (Classic, AMOLED, Neon, and more). A click applies the theme instantly, no reload.',
           'Pick your own background color with the eyedropper, and the extension derives the rest of the palette.',
-          'The “Blocks” group tunes card opacity, a glass blur behind translucent blocks, corner radius, and depth with shadows.',
+          'The “Blocks” group tunes card opacity, a glass blur behind translucent blocks, corner radius and block depth.',
         ],
-        access: 'Ctrl/Cmd + K → “Theme”. Inside the tab it’s the “Theme” card marked “Primary”.',
+        access: 'Ctrl/Cmd + K → “Theme”. View → Appearance → Theme.',
       },
     },
     {
@@ -514,14 +514,15 @@ const adsDocs = {
         { id: 'block_recommendations_profile', title: 'Меню профиля', description: 'Рекламный баннер в меню профиля.' },
         { id: 'block_recommendations_messenger', title: 'Мессенджер', description: 'Промобаннер над списком диалогов.' },
         { id: 'block_music_ads', title: 'Музыка', description: 'Баннеры подписки и рекламные предложения.' },
+        { id: 'block_recommendations_video', title: 'Видео', description: 'Рекомендации и продвижение VK Premium.' },
         { id: 'block_recommendations_communities', title: 'Сообщества', description: 'Блок похожих сообществ.' },
         { id: 'block_yandex_browser_promo', title: 'Левое меню', description: 'Промопункт Яндекс Браузера.' },
       ],
       ru: {
         title: 'Реклама и рекомендации по разделам',
-        lead: 'Девять независимых переключателей позволяют убрать только те промоблоки, которые мешают именно вам.',
+        lead: 'Десять независимых переключателей позволяют убрать только те промоблоки, которые мешают именно вам.',
         how: [
-          'Откройте вложенную страницу и отдельно настройте ленту, игры, Маркет, звонки, меню профиля, мессенджер, музыку, сообщества и левое меню.',
+          'Откройте вложенную страницу и отдельно настройте ленту, игры, Маркет, звонки, меню профиля, мессенджер, музыку, видео, сообщества и левое меню.',
           'Фильтр музыки убирает баннеры и предложения подписки, а также блокирует звуковые рекламные вставки между треками на сетевом уровне.',
           'Эти переключатели входят в общий уровень защиты и управляются кнопкой «Включить защиту».',
         ],
@@ -529,9 +530,9 @@ const adsDocs = {
       },
       en: {
         title: 'Ads and recommendations by section',
-        lead: 'Nine independent switches let you remove only the promotional blocks that get in your way.',
+        lead: 'Ten independent switches let you remove only the promotional blocks that get in your way.',
         how: [
-          'Open the nested page to configure Feed, Games, Market, Calls, profile menu, Messenger, Music, Communities, and the left menu separately.',
+          'Open the nested page to configure Feed, Games, Market, Calls, profile menu, Messenger, Music, Video, Communities, and the left menu separately.',
           'The Music filter removes subscription banners and offers, and also blocks spoken audio ad breaks between tracks at the network layer.',
           'These switches count toward the overall protection level and follow the “Enable protection” action.',
         ],
@@ -770,7 +771,7 @@ const centerDocs = {
   ru: {
     nav: 'Центр',
     title: 'Вкладка «Центр»',
-    subtitle: 'Инструменты для профиля, ленты, сообщений и медиа: меняйте раскладку, сохраняйте контент и автоматизируйте работу с плеером.',
+    subtitle: 'Инструменты страницы и данные аккаунта: друзья и заявки, подписки, участники сообществ, переписки, медиа, музыка и массовые действия.',
     note: 'Вкладка объединяет десять разделов. Инструменты данных VK API отделены от настроек страниц; эквалайзер, тексты и мини-плеер находятся в «Музыке».',
     seoTitle: 'Документация VKify — вкладка «Центр»',
     seoDescription: 'Центр VKify: файлы и статистика диалогов, аудит друзей, подписки, музыкальные инструменты, видеокаталог, скачивание и бэкап аккаунта.',
@@ -778,7 +779,7 @@ const centerDocs = {
   en: {
     nav: 'Center',
     title: 'The “Center” tab',
-    subtitle: 'Tools for profiles, feed, messages, and media: rearrange layouts, save content, and automate the player.',
+    subtitle: 'Page tools and account data: friends and requests, subscriptions, community members, conversations, media, music and bulk actions.',
     note: 'The tab contains ten sections. VK API account tools are separate from page settings; the equalizer, lyrics and mini player live under Music.',
     seoTitle: 'VKify documentation — the “Center” tab',
     seoDescription: 'VKify Center: dialog files and statistics, friends audit, subscriptions, music tools, saved video catalog, downloads and account backup.',
@@ -908,7 +909,7 @@ const centerDocs = {
       icon: 'users3',
       category: 'friends',
       subfeatures: [
-        { id: 'friends_audit', title: 'Аудит друзей', description: 'Обзор активности, профилей и заявок без изменения списка друзей.' },
+        { id: 'friends_audit', title: 'Аудит друзей', description: 'Обзор друзей и заявок, выбор пользователей и действия через VK API.' },
       ],
       ru: {
         title: 'Аудит друзей',
@@ -917,7 +918,7 @@ const centerDocs = {
           'Откройте «Центр» → «Друзья» → «Аудит друзей». Переход ведёт прямо в аналитику, без включения отдельной настройки. До открытия страницы данные не загружаются.',
           'Карточки сводки и столбцы активности фильтруют список. Доступны поиск по имени, сортировка и компактный режим.',
           'Порог неактивности — 90, 180 или 365 дней. Профили без точной даты учтены в общем количестве, отдельной карточке и диаграмме. Статусы ВК «недавно» и «давно» показаны как приблизительные, без выдуманного срока. Их можно добавить к списку неактивных для просмотра, сохраняя отдельную классификацию.',
-          'Снимок хранится локально 3 часа; кнопка обновления запрашивает новые данные. Аудит ничего не удаляет и не принимает заявки.',
+          'Снимок хранится локально 3 часа; кнопка обновления запрашивает новые данные. Выберите пользователей для удаления из друзей, принятия или отклонения входящих заявок либо отмены исходящих. Перед запуском проверьте список и подтвердите действие; список можно экспортировать в JSON.',
         ],
         access: '«Центр» → «Друзья» → «Аудит друзей».',
       },
@@ -928,7 +929,7 @@ const centerDocs = {
           'Open Center → Friends → Friends audit. The navigation row opens analytics directly, without a setting switch. Data is only loaded when the page opens.',
           'Summary cards and activity bars filter the list. Search by name, sorting and compact mode are available.',
           'Choose an inactivity threshold of 90, 180 or 365 days. Profiles without an exact date are included in totals, a dedicated card and the chart. Approximate VK statuses are shown without inventing dates. These profiles can optionally be included in inactive results while keeping their separate classification.',
-          'Snapshots are cached locally for 3 hours; refresh requests fresh data. The audit never removes friends or accepts requests.',
+          'Snapshots are cached locally for 3 hours; refresh requests fresh data. Select users to remove friends, accept or decline incoming requests, or cancel outgoing requests. Review the list and confirm before running an action; the list can be exported as JSON.',
         ],
         access: 'Center → Friends → Friends audit.',
       },
@@ -1324,48 +1325,31 @@ const scriptsDocs = {
   ru: {
     nav: 'Скрипты',
     title: 'Вкладка «Скрипты»',
-    subtitle: 'Автоматизация повторяющихся действий: заявки в друзья, исправление раскладки и прямые внешние ссылки.',
+    subtitle: 'Исправление раскладки набранного текста и прямые внешние ссылки. Авто-добавление друзей перенесено в «Центр».',
     seoTitle: 'Документация VKify — скрипты и автоматизация',
-    seoDescription: 'Авто-добавление друзей, смена раскладки и обход away.php в VKify.',
+    seoDescription: 'Смена раскладки и обход away.php в VKify; авто-добавление друзей доступно в «Центре».',
   },
   en: {
     nav: 'Scripts',
     title: 'The “Scripts” tab',
-    subtitle: 'Automation for repetitive actions: friend requests, keyboard-layout correction, and direct external links.',
+    subtitle: 'Keyboard-layout correction and direct external links. Auto add friends has moved to Center.',
     seoTitle: 'VKify documentation — scripts and automation',
-    seoDescription: 'Auto-add friends, keyboard-layout conversion, and away.php bypass in VKify.',
+    seoDescription: 'Keyboard-layout conversion and away.php bypass in VKify; Auto add friends is available in Center.',
   },
   features: [
     {
-      anchor: 'auto_add_friends',
-      icon: 'users',
-      category: 'automation',
-      subfeatures: [
-        { id: 'auto_add_limit', title: 'Лимит в час', description: 'От 10 до 100 заявок.' },
-        { id: 'auto_add_delay_min', title: 'Минимальная задержка', description: 'От 10 до 60 секунд.' },
-        { id: 'auto_add_delay_max', title: 'Максимальная задержка', description: 'От 20 до 120 секунд.' },
-      ],
+      anchor: 'auto_add_friends', icon: 'users', category: 'automation',
       ru: {
-        title: 'Авто-добавление друзей',
-        lead: 'Отправляет заявки случайным пользователям на странице поиска друзей с заданным темпом и лимитом.',
-        how: [
-          'Функция работает только на `vk.ru/friends?act=find`. Кнопка в popup открывает нужную страницу.',
-          'Задайте лимит 10–100 заявок в час и случайный диапазон задержки. По умолчанию — 50 заявок, 20–40 секунд между действиями.',
-          'Остановка скрипта сбрасывает статистику текущей сессии. Не закрывайте страницу поиска, пока автоматизация должна работать.',
-          '**Важно.** Массовые заявки могут привести к `Flood control` или временной блокировке аккаунта. Используйте умеренный лимит и не запускайте скрипт надолго без контроля.',
-        ],
-        access: 'Ctrl/Cmd + K → «Авто-добавление друзей» или «Скрипты» → одноимённая подстраница.',
+        title: 'Авто-добавление друзей перенесено',
+        lead: 'Функция теперь находится в «Центре» и отправляет заявки через VK API.',
+        how: ['Откройте «Центр» → «Друзья» → «Авто-добавление друзей». Доступны рекомендации, список ID или ссылок, файл и результат парсера участников.', 'Инструкция и действующие лимиты описаны в статье «Авто-добавление друзей» в разделе «Центр» (`/docs/center#auto_add_friends`). Старый скрипт на странице поиска больше не используется.'],
+        access: '«Центр» → «Друзья» → «Авто-добавление друзей».',
       },
       en: {
-        title: 'Auto-add friends',
-        lead: 'Sends requests to random users on the friend-search page at a configured pace and limit.',
-        how: [
-          'The feature works only at `vk.ru/friends?act=find`; the popup has a button that opens the correct page.',
-          'Set 10–100 requests per hour and a randomized delay range. Defaults are 50 requests and 20–40 seconds between actions.',
-          'Stopping the script resets the current-session counter. Keep the search page open while automation is expected to run.',
-          '**Important.** Bulk requests may trigger `Flood control` or a temporary account restriction. Use conservative limits and supervise long runs.',
-        ],
-        access: 'Ctrl/Cmd + K → “Auto-add friends”, or its page under “Scripts”.',
+        title: 'Auto add friends has moved',
+        lead: 'The feature now lives in Center and sends requests through the VK API.',
+        how: ['Open Center → Friends → Auto add friends. Choose recommendations, IDs or links, a file, or member-parser results.', 'See the Auto add friends guide under Center (`/docs/center#auto_add_friends`) for instructions and current limits. The old friend-search page script is no longer used.'],
+        access: 'Center → Friends → Auto add friends.',
       },
     },
     {
@@ -1678,6 +1662,9 @@ const ITEM_IDS_BY_FEATURE = {
 // заглушками; держим здесь только проверенные файлы, которые генерирует
 // `vkify-extension/scripts/capture-docs-screenshots.mjs`.
 const MEDIA_BY_FEATURE = {
+  'widgets:available_widgets': [{ type: 'screenshot', file: 'overview.png' }],
+  'notes:notes_view': [{ type: 'screenshot', file: 'overview.png' }],
+  'view:custom_font': [{ type: 'screenshot', file: 'font.png' }],
   'view:clock_enabled': [{ type: 'screenshot', file: 'clock.png' }],
   'view:display_mode': [{ type: 'screenshot', file: 'layout.png' }],
   'view:custom_background': [{ type: 'screenshot', file: 'background.png' }],
@@ -1743,7 +1730,7 @@ function normalizeDoc(doc) {
     title: doc.title ?? doc.ru.title,
     description: doc.description ?? doc.ru.subtitle,
     category: doc.category ?? 'popup',
-    overviewMedia: doc.slug === 'notes' ? null : { type: 'screenshot', file: 'overview.png' },
+    overviewMedia: doc.overviewMedia === null ? null : { type: 'screenshot', file: 'overview.png' },
     subfeatures: features.map(({ id, title, description, category }) => ({
       id,
       title,
@@ -1770,6 +1757,7 @@ export const DOCS = [
   appearanceDocs,
   hidingDocs,
   centerDocs,
+  WIDGETS_DOC,
   notesDocs,
   privacyDocs,
   onlineSpyDocs,

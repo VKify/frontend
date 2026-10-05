@@ -11,8 +11,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useExtension } from './useExtension'
 
-export function useApplyToVK(appliedMs = 3000) {
-  const { detected, saveSettings } = useExtension()
+export function useApplyToVK(appliedMs = 3000, autoPrompt = true) {
+  const { detected, settings, saveSettings } = useExtension()
   const [applied, setApplied] = useState(false)
   const [applyError, setApplyError] = useState(false)
   const [showInstallModal, setShowInstallModal] = useState(false)
@@ -20,8 +20,8 @@ export function useApplyToVK(appliedMs = 3000) {
 
   // Если расширение точно не найдено — сразу предлагаем установку.
   useEffect(() => {
-    if (detected === false) setShowInstallModal(true)
-  }, [detected])
+    if (autoPrompt && detected === false) setShowInstallModal(true)
+  }, [detected, autoPrompt])
 
   useEffect(() => () => clearTimeout(timerRef.current), [])
 
@@ -44,5 +44,5 @@ export function useApplyToVK(appliedMs = 3000) {
 
   const closeInstallModal = useCallback(() => setShowInstallModal(false), [])
 
-  return { detected, applied, applyError, apply, showInstallModal, closeInstallModal }
+  return { settings, detected, applied, applyError, apply, showInstallModal, closeInstallModal }
 }

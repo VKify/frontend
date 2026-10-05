@@ -1,6 +1,10 @@
 # Extension documentation
 
-The ten `/docs/*` pages share `src/data/docs.js`. Detailed RU/EN articles
+Current source version: **2.0.0**.
+The `/theme/` route loads portable settings from a detected extension or the
+current contract defaults; shared `/theme/:encoded` links remain supported.
+
+The eleven `/docs/*` pages share `src/data/docs.js`. Detailed RU/EN articles
 added by the audit starting at extension commit
 `9728d5958fb44963b5bae1a712632414ce869456` live in
 `src/data/docs-current-features.js`; existing articles keep their anchors.
@@ -8,7 +12,7 @@ added by the audit starting at extension commit
 The audit covers dialog files (including the all-dialog library), dialog
 statistics, friends audit, subscription review, saved videos, account backup,
 voice and playlist downloads, mini player, lyrics, visualizer, widget stack,
-clock modes, privacy acknowledgements, hiding controls, recommendation logs
+clock modes, the dedicated Widgets and Notes tabs, privacy acknowledgements, hiding controls, recommendation logs
 and Telegram delivery. Telegram instructions explain the desktop browser
 requirement, the shared configuration in More and all three tracking switches.
 
@@ -32,3 +36,9 @@ preview origin, screenshot output directory and local Chrome executable.
 Capture to a temporary directory while a site build is copying public assets,
 then copy the inspected results into `public/docs`. The screenshot script
 rejects popup error boundaries and JavaScript errors instead of saving them.
+
+Refresh portable theme settings after extension appearance changes:
+
+```
+node scripts/export-theme-contract.mjs ../frontend/src/data/theme-contract.json
+```

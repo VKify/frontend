@@ -48,12 +48,7 @@ function depthPageBg(hex) {
 
 // Фигурные пресеты аватарок — синхронизировано с SHAPE_RADIUS расширения
 // (content/features/appearance/theme/border-radius.ts) и AVATAR_SHAPES попапа.
-const AVATAR_SHAPES = {
-  drop:  '0 50% 50% 50%',
-  leaf:  '0 50% 0 50%',
-  petal: '50% 0 50% 0',
-  blob:  '30% 70% 70% 30% / 30% 30% 70% 70%',
-}
+import { AVATAR_SHAPES } from '../../data/avatarShapes'
 
 function buildPalette({ bg, accent, blockOpacity = 1 }) {
   const dark = isDarkColor(bg)
@@ -96,13 +91,15 @@ const NAV = [
   { id: 'games', label: 'Игры' },
   { id: 'stickers', label: 'Стикеры' },
   { id: 'market', label: 'Маркет' },
-  { sep: true },
+  { id: 'sep_main', sep: true },
   { id: 'services', label: 'Сервисы' },
   { id: 'votes', label: 'Голоса' },
-  { sep: true },
+  { id: 'sep_services', sep: true },
   { id: 'bookmarks', label: 'Закладки' },
+  { id: 'files', label: 'Файлы' },
   { id: 'ads', label: 'Реклама' },
   { id: 'help', label: 'Помощь' },
+  { id: 'vkify', label: 'Настройки VKify' },
 ]
 
 const TABS = [
@@ -121,13 +118,14 @@ function extractFontFamily(cssValue) {
 }
 
 function buildCssFilter(s) {
-  const parts = []
-  if (s.filter_grayscale)      parts.push('grayscale(1)')
-  if (s.filter_sepia)          parts.push('sepia(1)')
-  if (s.filter_invert)         parts.push('invert(1)')
-  if (s.filter_high_contrast)  parts.push('contrast(1.5)')
-  if (s.filter_low_brightness) parts.push('brightness(0.75)')
-  return parts.length ? parts.join(' ') : undefined
+  // Extension CSS rules override each other in this order.
+  let filter
+  if (s.filter_grayscale) filter = 'grayscale(1)'
+  if (s.filter_sepia) filter = 'sepia(0.8)'
+  if (s.filter_invert) filter = 'invert(1) hue-rotate(180deg)'
+  if (s.filter_high_contrast) filter = 'contrast(1.3)'
+  if (s.filter_low_brightness) filter = 'brightness(0.8)'
+  return filter
 }
 
 export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpacity = 1, settings = {}, className = '' }) {
@@ -158,6 +156,14 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
   const compactSpacing = !!settings.compact_spacing
   // Скрытые элементы, у которых есть аналог в макете
   const hidePostBox = !!settings.hide_post_box
+  const menuIds = {profile:'l_pr',feed:'l_nwsf',messenger:'l_msg',calls:'l_ca',friends:'l_fr',groups:'l_gr',photo:'l_ph',music:'l_aud',video:'l_vid',clips:'l_svd',games:'l_ap',stickers:'l_stickers',market:'l_mk',services:'l_mini_apps',votes:'l_buy_votes',bookmarks:'l_fav',files:'l_doc',ads:'l_ads',help:'l_faq',vkify:'l_vkify_settings',sep_main:'sep_main',sep_services:'sep_services'}
+  const hidden = Array.isArray(settings.hidden_menu_items) ? settings.hidden_menu_items : []
+  const order = Array.isArray(settings.menu_items_order) ? settings.menu_items_order : []
+  const navigation = NAV.filter(item => !hidden.includes(menuIds[item.id])).map((item,index) => ({...item, index})).sort((a,b) => {
+    if (!order.length) return a.index - b.index
+    const rank = item => { const index = order.indexOf(menuIds[item.id]); return index < 0 ? order.length + item.index : index }
+    return rank(a) - rank(b)
+  })
 
   // Скругление блоков (карточек) — theme_radius (px). 0/не задано → нативный
   // вид VK (~12px). Компактный режим обнуляет.
@@ -290,9 +296,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
           глубины) — поэтому фон отдаём самому макету через backgroundColor. */}
       {wallpaper && hasRealWallpaper && (
         <div style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden' }}>{wallpaper}</div>
-      )}
-
-      <div style={{ position: 'relative', zIndex: 1, width: SIM_W, zoom }}>
+      )}      <div style={{ position: 'relative', zIndex: 1, width: SIM_W, zoom }}>
 
         {/* ── Top bar (подложка на всю ширину; контент растягивается/сдвигается) ── */}
         <div style={{
@@ -367,7 +371,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
               width: compactMenu ? 52 : 168,
               ...(menuBg ? { background: p.card, border: `1px solid ${p.cardBorder}`, borderRadius: blockRadius, padding: 8, ...glassStyle } : {}),
             }}>
-              {NAV.map((item, i) =>
+              {navigation.map((item, i) =>
                 item.sep ? (
                   <div key={`sep-${i}`} style={{ height: 1, background: p.sep, margin: compactMenu ? '7px 8px' : '7px 10px' }} />
                 ) : (
@@ -379,7 +383,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                     background: item.active ? p.field : 'transparent',
                     color: item.active ? p.accent : p.text,
                   }}>
-                    <VkIcon id={item.id} size={20} color={p.accent} />
+                    {item.id === 'vkify' ? <Logo color={p.accent} className="w-5 h-5" /> : <VkIcon id={item.id === 'files' ? 'bookmarks' : item.id} size={20} color={p.accent} />}
                     {!compactMenu && <span>{item.label}</span>}
                   </div>
                 )
@@ -399,7 +403,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                 </div>
 
                 {/* Аватар = логотип проекта */}
-                <div style={{ position: 'absolute', left: 20, top: 106, width: 88, height: 88 }}>
+                <div data-preview-avatar={avatarShape || 'percent'} style={{ position: 'absolute', left: 20, top: 106, width: 88, height: 88 }}>
                   <div style={{
                     width: 88, height: 88, borderRadius: avatarRadius, background: p.accent,
                     border: `4px solid ${p.card}`,
@@ -425,7 +429,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 9, minWidth: 0 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
                       <Sk w={140} h={15} c={p.skel} />
-                      <span style={{ fontSize: 15, lineHeight: 1 }}>😎</span>
+                      {!settings.hide_emoji_status && <span style={{ fontSize: 15, lineHeight: 1 }}>😎</span>}
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                       <Sk w={120} h={9} c={withAlpha(p.accent, 0.55)} />
@@ -443,7 +447,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
               </div>
 
               {/* ── Колонки под профилем ── */}
-              <div style={{ display: 'flex', gap: gap, alignItems: 'flex-start' }}>
+              <div data-preview-profile-columns style={{ display: 'flex', flexDirection: settings.profile_swap_columns && bpLg ? 'row-reverse' : 'row', gap: gap, alignItems: 'flex-start' }}>
 
                 {/* Левая: вкладки + музыка + пост */}
                 <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: gap }}>
@@ -469,6 +473,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                         <div style={{ flexShrink: 0 }}>
                           <div style={{
                             width: 116, height: 116, borderRadius: 10, background: p.skel2,
+                            filter: settings.filter_dim_images ? 'brightness(0.6)' : undefined,
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
                           }}>
                             <VkIcon id="music" size={40} color={p.text3} />
@@ -479,7 +484,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                         <div style={{ display: 'grid', gridTemplateColumns: bpSm ? '1fr 1fr' : '1fr', flex: 1, minWidth: 0, gap: '6px 18px' }}>
                           {Array.from({ length: 4 }).map((_, i) => (
                             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 11, padding: '6px 4px' }}>
-                              <div style={{ width: 36, height: 36, borderRadius: 7, background: p.skel2, flexShrink: 0 }} />
+                              <div style={{ width: 36, height: 36, borderRadius: 7, background: p.skel2, flexShrink: 0, filter: settings.filter_dim_images ? 'brightness(0.6)' : undefined }} />
                               <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
                                 <Sk w={'80%'} h={9} c={p.skel} />
                                 <Sk w={'52%'} h={8} c={p.skel2} />
@@ -514,7 +519,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
                 </div>
 
                 {/* Правая: друзья + подписки */}
-                {bpLg && (
+                {bpLg && !settings.hide_profile_right_column && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: gap, width: 252, flexShrink: 0 }}>
                   {/* Друзья */}
                   <div style={{ ...block, padding: 14 }}>

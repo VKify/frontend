@@ -2,6 +2,7 @@ import { Palette, Type, Image, Sliders, Layers, Settings2, EyeOff } from 'lucide
 import { useGoogleFont } from '../../hooks/useGoogleFont'
 import { parseVideoUrl, platformLabel } from '../../utils/videoEmbed'
 import { useTranslation } from '../../i18n'
+import { AVATAR_SHAPE_OPTIONS } from '../../data/avatarShapes'
 
 // Только структура (id + иконка); подписи групп — из i18n: paramMeta.groups.<id>
 export const GROUPS = [
@@ -18,13 +19,15 @@ export const GROUPS = [
 export const PARAM_META = {
     clock_enabled: { group: 'modes', type: 'bool' },
     clock_settings: { group: 'modes', type: 'config', readOnly: true },
-    music_lyrics: { group: 'background', type: 'bool' },
-    music_lyrics_settings: { group: 'background', type: 'config', readOnly: true },
-    music_visualizer: { group: 'background', type: 'bool' },
-    music_visualizer_settings: { group: 'background', type: 'config', readOnly: true },
+    music_lyrics: { group: 'background', type: 'bool', hidden: true },
+    music_lyrics_settings: { group: 'background', type: 'config', readOnly: true, hidden: true },
+    music_visualizer: { group: 'background', type: 'bool', hidden: true },
+    music_visualizer_settings: { group: 'background', type: 'config', readOnly: true, hidden: true },
     web_wallpaper_id: { group: 'background', readOnly: true },
     web_wallpaper_schema: { group: 'background', type: 'config', readOnly: true },
     web_wallpaper_values: { group: 'background', type: 'config', readOnly: true },
+    menu_items_order: { group: 'elements', readOnly: true },
+    hide_open_profile_block: { group: 'elements', type: 'bool' },
     hidden_menu_items: { group: 'elements', readOnly: true },
     profile_swap_columns: { group: 'modes', type: 'bool' },
     communities_swap_columns: { group: 'modes', type: 'bool' },
@@ -57,7 +60,7 @@ export const PARAM_META = {
     content_width:              { group: 'shape',      type: 'px' },
     compact_spacing:            { group: 'modes',      type: 'bool' },
     page_offset_enabled:        { group: 'modes',      type: 'bool' },
-    page_offset_value:          { group: 'modes',      type: 'px' },
+    page_offset_value:          { group: 'modes',      type: 'percent' },
     custom_background:          { group: 'background', type: 'url' },
     background_type:            { group: 'background', type: 'bgtype' },
     background_opacity:         { group: 'background', type: 'percent' },
@@ -120,7 +123,7 @@ function formatValue(key, raw, t) {
         case 'px':      return `${raw}px`
         case 'deg':     return `${raw}°`
         case 'scale':   return `${n}%`
-        case 'speed':   return `${n}×`
+        case 'speed':   return `${n / 100}×`
         case 'color':   return String(raw).toUpperCase()
         case 'bool':    return raw ? t('paramMeta.enabled') : t('paramMeta.disabled')
         case 'bgtype':  return t(`paramMeta.bgTypes.${raw}`)
@@ -150,9 +153,9 @@ const PX_RANGE = {
     glass_blur:            [0, 40, 1],
     theme_radius:          [0, 24, 1],
     border_radius:         [0, 50, 5],
-    content_width:         [800, 1800, 10],
+    content_width:         [900, 2500, 10],
     page_offset_value:     [0, 100, 1],
-    custom_font_size:      [10, 28, 1],
+    custom_font_size:      [0, 28, 1],
     custom_letter_spacing: [-3, 10, 0.5],
     background_blur:       [0, 40, 1],
 }
@@ -177,9 +180,10 @@ function ParamEditor({ paramKey, value, meta, onChange }) {
     }
 
     if (type === 'shape') {
-        const shapes = ['', 'drop', 'leaf', 'petal', 'blob']
+        const shapes = AVATAR_SHAPE_OPTIONS
         return (
             <select
+                aria-label={t('paramMeta.labels.avatar_radius_shape')}
                 value={shapes.includes(value) ? value : ''}
                 onChange={e => onChange(paramKey, e.target.value)}
                 className="text-sm font-medium text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-2 py-1 shrink-0 cursor-pointer"
@@ -279,7 +283,7 @@ export function ParamGroup({ groupId, settings, onChange }) {
 
     const entries = Object.entries(settings).filter(([key, val]) => {
         const meta = PARAM_META[key]
-        return meta?.group === groupId && !meta?.hidden && val !== undefined && val !== null && val !== ''
+        return meta?.group === groupId && !meta?.hidden && val !== undefined && val !== null && (onChange || val !== '')
     })
     if (entries.length === 0) return null
 

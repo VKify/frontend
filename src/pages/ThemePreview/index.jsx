@@ -1,3 +1,5 @@
+import config from '../../config'
+import contract from '../../data/theme-contract.json'
 import { useState, useEffect, useMemo, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Check, Copy, Palette, AlertCircle, ExternalLink, Zap, SlidersHorizontal, RotateCcw } from 'lucide-react'
@@ -22,15 +24,22 @@ export default function ThemePreview() {
     const originalRef = useRef(null)   // исходные настройки для сброса
 
     const link = useCopyToClipboard()
-    const { detected, applied, applyError, apply, showInstallModal, closeInstallModal } = useApplyToVK()
+    const { settings: extensionSettings, detected, applied, applyError, apply, showInstallModal, closeInstallModal } = useApplyToVK(3000, false)
 
     useEffect(() => {
-        if (!encoded) { setError(true); return }
+        setError(false)
+        if (!encoded) {
+            const settings = { ...contract.defaults, ...Object.fromEntries(Object.entries(extensionSettings || {}).filter(([key]) => contract.keys.includes(key))) }
+            originalRef.current = settings
+            setThemeData({ settings, meta: { name: t('themePreview.defaultName'), description: t('themePreview.defaultDescription'), tags: [] } })
+            setEditing(true)
+            return
+        }
         const decoded = decodeTheme(encoded)
         if (!decoded)  { setError(true); return }
         originalRef.current = decoded.settings
         setThemeData(decoded)
-    }, [encoded])
+    }, [encoded, extensionSettings, t])
 
     // Перекодируем текущие (возможно изменённые) настройки — для ссылки/применения
     const liveEncoded = useMemo(
@@ -41,7 +50,7 @@ export default function ThemePreview() {
 
     // Держим адресную строку в синхроне с правками (без перезагрузки роутера)
     useEffect(() => {
-        if (themeData && liveEncoded && liveEncoded !== encoded) {
+        if (encoded && themeData && liveEncoded && liveEncoded !== encoded) {
             window.history.replaceState(null, '', `/theme/${liveEncoded}`)
         }
     }, [liveEncoded, encoded, themeData])
@@ -93,7 +102,7 @@ export default function ThemePreview() {
             <SEO
                 title={t('themePreview.seoTitle', { name: meta.name })}
                 description={meta.description || t('themePreview.seoDescription', { count: paramCount })}
-                url={`/theme/${encoded}`}
+                url={encoded ? `/theme/${encoded}` : "/theme/"}
             />
 
             <DetailNavbar
@@ -115,7 +124,7 @@ export default function ThemePreview() {
                 {/* Реалистичный превью интерфейса VK в цветах темы + обои фоном */}
                 <div className="w-full overflow-hidden border-y border-black/5 dark:border-white/10">
                     <VkMockup
-                        bg={settings.custom_theme || '#0d1117'}
+                        bg={settings.custom_theme || '#ffffff'}
                         accent={settings.custom_accent || '#0077ff'}
                         blockOpacity={settings.block_opacity ?? 1}
                         wallpaper={<WallpaperLayer settings={settings} />}
@@ -131,7 +140,7 @@ export default function ThemePreview() {
                             <div>
                                 <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 dark:bg-blue-950/50 text-[#0077ff] text-xs font-semibold rounded-full mb-3">
                                     <Palette className="w-3.5 h-3.5" />
-                                    {t('themePreview.sharedBadge')}
+                                    {t('themePreview.currentVersion', { version: config.app.version })}
                                 </span>
                                 <h1 className="text-3xl font-black text-gray-950 dark:text-white tracking-tight mb-2">
                                     {meta.name}

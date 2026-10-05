@@ -46,7 +46,7 @@ function App() {
                         <Route path="/privacy" element={<Privacy />} />
                         <Route path="/terms" element={<Terms />} />
                         <Route path="/themes" element={<Themes />} />
-                        <Route path="/theme/:encoded" element={<ThemePreview />} />
+                        <Route path="/theme/:encoded?" element={<ThemePreview />} />
                         <Route path="/themes/:id" element={<ThemeDetail />} />
                         <Route path="/wallpapers" element={<Wallpapers />} />
                         <Route path="/wallpapers/guide" element={<WebWallpaperGuide />} />

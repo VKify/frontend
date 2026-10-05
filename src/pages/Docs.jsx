@@ -1,3 +1,4 @@
+import config from '../config'
 import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -128,7 +129,7 @@ export default function Docs() {
           <aside className="hidden lg:flex lg:flex-col lg:sticky lg:top-24 lg:self-start lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto pr-2 scrollbar-hide">
             {/* Секции документации */}
             <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-3">
-              {t('docsPage.kicker')}
+              {t('docsPage.kicker')} · {t('docsPage.currentVersion', { version: config.app.version })}
             </p>
             <nav className="space-y-1">
               {DOCS.map((d) => {
