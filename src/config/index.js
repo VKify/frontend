@@ -3,6 +3,7 @@ export const config = {
   app: {
     url: 'https://vkify.ru',
     name: 'VKify',
+    version: '2.0.0',
     description: 'Расширение для браузера: темы и видео-обои, блокировка рекламы и трекеров, шифрование переписки и скачивание медиа из ВКонтакте',
     tagline: 'Расширение для VK',
     email: 'support@vkify.ru',

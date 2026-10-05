@@ -11,6 +11,149 @@
 // Новый пост добавляется одной записью в начало массива.
 
 export const news = [
+{
+  "slug": "vkify-2-0-0",
+  "date": "2026-10-05",
+  "category": "announcement",
+  "accent": "blue",
+  "image": "/news/vkify-2-0-0-v2.webp",
+  "translations": {
+    "ru": {
+      "title": "VKify 2.0.0: новый интерфейс и больше возможностей для VK",
+      "excerpt": "Виджеты и часы с пресетами, редактор макета, каталоги медиа с ZIP-скачиванием и исправление загрузки музыки в Firefox. Главное в VKify 2.0.0.",
+      "readTime": 4,
+      "blocks": [
+        {
+          "type": "p",
+          "text": "**VKify 2.0.0** объединяет обновлённые настройки, оформление страницы и инструменты для работы с аккаунтом. Все изменения после 1.8.6 собраны в журнале версии 2.0.0."
+        },
+        {
+          "type": "h2",
+          "text": "Настройки и внешний вид"
+        },
+        {
+          "type": "p",
+          "text": "Разделы настроек получили новые панели и адаптивную боковую навигацию. Открыть расширение можно из пункта «Настройки VKify» в меню VK. Порядок пунктов и разделителей меню настраивается отдельно, а визуальные подсказки помогают найти расширение после установки."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Редактор макета прямо на странице VK позволяет менять ширину и положение контента перетаскиванием и сохранять результат.",
+            "Фото и видео для фона можно выбирать из галерей VK или задавать ссылкой. Доступны установка фотографии в обои, плавная смена фона и дневное/ночное расписание.",
+            "Пять новых форм аватарок: «Арка», «Щит», «Яйцо», «Камень» и «Подушка». Все формы доступны в предпросмотре темы на сайте."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Виджеты и музыка"
+        },
+        {
+          "type": "p",
+          "text": "Во вкладке «Виджеты» можно собрать общую панель или разместить элементы свободно, настроить порядок, размеры, прозрачность и стеклянный фон. Добавлены автоматическое скрытие у края экрана, видимость на VK Видео и виджет статистики блокировки рекламы."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Часы с пресетами оформления, настройками времени, даты и фона работают как наложение или виджет. Плавающий мини-плеер управляет музыкой и открывает скачивание, эквалайзер и тексты песен.",
+            "Синхронизированные тексты песен поддерживают оформление и вывод в виджет. Для музыкального визуализатора добавлены «Портал», «Призма» и «Туманность»."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Инструменты аккаунта"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Вложения одного диалога или всех переписок: поиск, фильтры, скачивание выбранных файлов и экспорт списка. Голосовые сообщения тоже можно скачать.",
+            "Статистика переписок с уточнением числа сообщений и отметкой выбранных диалогов прочитанными; аудит друзей и активности подписок.",
+            "Каталоги фото, видео и документов с поиском, фильтрами, выбором файлов и скачиванием в ZIP; загрузка медиа в VK, скачивание видеоплейлистов и экспорт данных аккаунта.",
+            "Действия через VK API, парсер участников сообществ и авто-добавление друзей: предварительная проверка, подтверждение, лимиты, очередь и отчёт."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Приватность, уведомления и исправления"
+        },
+        {
+          "type": "p",
+          "text": "Добавлены анонимный просмотр историй, сохранение уведомлений VK непрочитанными и новые настройки скрытия, включая фильтры мессенджера, блок открытого профиля, рекомендации видео и продвижение VK Premium. Telegram поддерживает уведомления об онлайне, активности и профиле, а также пересылку новых сообщений."
+        },
+        {
+          "type": "p",
+          "text": "Настройки можно сохранить в документы VK и восстановить из них; в Firefox появилась проверка обновлений. Исправлено скачивание музыки с vkuseraudio.ru: расширение запрашивает доступ к аудио-CDN и объясняет, если разрешение ещё не выдано. Восстановлены обложки и тексты песен в скачиваемых MP3. Исправлены исчезновение текстов песен, синхронизация виджетов, восстановление фона из резервных копий и потеря заметок при одновременных изменениях из разных вкладок. В заметках также можно сохранять вложения и просматривать изображения галереей."
+        }
+      ]
+    },
+    "en": {
+      "title": "VKify 2.0.0: a new interface and more ways to use VK",
+      "excerpt": "Widgets and clock presets, a page layout editor, media catalogs with ZIP downloads and Firefox music download fixes. Highlights of VKify 2.0.0.",
+      "readTime": 4,
+      "blocks": [
+        {
+          "type": "p",
+          "text": "**VKify 2.0.0** brings together redesigned settings, page appearance and account tools. The 2.0.0 changelog covers changes since 1.8.6."
+        },
+        {
+          "type": "h2",
+          "text": "Settings and appearance"
+        },
+        {
+          "type": "p",
+          "text": "Settings sections have new dashboards and adaptive sidebar navigation. A “VKify settings” entry opens the extension from VK. Menu items and separators can be reordered, and visual guides help you find the settings after installation."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Drag the page layout editor handles inside VK to adjust content width and position, preview changes and save them.",
+            "Choose wallpaper from VK photo and video galleries or provide a link. Set photos as wallpaper, use smooth transitions and schedule day/night backgrounds.",
+            "Five new avatar shapes: Arch, Shield, Egg, Pebble and Pillow. Every shape is available in the website theme preview."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Widgets and music"
+        },
+        {
+          "type": "p",
+          "text": "The Widgets tab supports a dock or free placement, adjustable order, size, opacity and glass backgrounds. Added edge auto-hide, visibility on VK Video and an ad-blocking statistics widget."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Clocks offer appearance presets, time, date and background controls in overlay and widget modes. The floating mini-player opens downloads, the equalizer and lyrics.",
+            "Synced lyrics have appearance controls and widget output. Portal, Prism and Nebula join the music visualizer styles."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Account tools"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Browse attachments from one conversation or all chats, search and filter them, download selected files and export the list. Voice messages can be downloaded too.",
+            "Refine conversation message counts, mark selected chats as read, audit friends and review community subscription activity.",
+            "Photo, video and document catalogs offer search, filters, file selection and ZIP downloads. Upload media to VK, download video playlists and export account data.",
+            "VK API actions, community member parsing and automatic friend requests provide previews, confirmations, limits, queues and reports."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Privacy, notifications and fixes"
+        },
+        {
+          "type": "p",
+          "text": "New controls cover anonymous story viewing, keeping VK notifications unread, messenger filters, the make-profile-public block, video recommendations and VK Premium promotions. Telegram supports online, activity and profile alerts plus forwarding new messages."
+        },
+        {
+          "type": "p",
+          "text": "Save and restore settings through VK documents; Firefox can check for extension updates. Music downloads now support vkuseraudio.ru, request access to audio CDNs and explain when permission is missing. Album artwork and lyrics are restored in downloaded MP3 files. Fixes also address disappearing lyrics, widget synchronization, wallpaper restoration from backups and notes being lost during concurrent changes from multiple tabs. Notes can now save attachments and display images in galleries."
+        }
+      ]
+    }
+  }
+},
   {
     slug: 'music-visualizer-and-web-wallpapers-1-8-6',
     date: '2026-09-21',
