@@ -40,7 +40,7 @@ export const news = [
           "items": [
             "Редактор макета прямо на странице VK позволяет менять ширину и положение контента перетаскиванием и сохранять результат.",
             "Фото и видео для фона можно выбирать из галерей VK или задавать ссылкой. Доступны установка фотографии в обои, плавная смена фона и дневное/ночное расписание.",
-            "Пять новых форм аватарок: «Арка», «Щит», «Яйцо», «Камень» и «Подушка». Все формы доступны в предпросмотре темы на сайте."
+            "Пять новых форм аватарок: «Арка», «Щит», «Яйцо», «Камень» и «Подушка»."
           ]
         },
         {
@@ -107,7 +107,7 @@ export const news = [
           "items": [
             "Drag the page layout editor handles inside VK to adjust content width and position, preview changes and save them.",
             "Choose wallpaper from VK photo and video galleries or provide a link. Set photos as wallpaper, use smooth transitions and schedule day/night backgrounds.",
-            "Five new avatar shapes: Arch, Shield, Egg, Pebble and Pillow. Every shape is available in the website theme preview."
+            "Five new avatar shapes: Arch, Shield, Egg, Pebble and Pillow."
           ]
         },
         {
