@@ -8,7 +8,7 @@ import { docsSlugs }    from './src/data/docs.js'
 
 const routes = [
   // Static pages
-  '/', '/changelog/2.1.0', '/changelog/2.0.0', '/welcome', '/uninstall', '/changelog', '/privacy', '/terms', '/firefox',
+  '/', '/changelog/2.1.1', '/changelog/2.1.0', '/changelog/2.0.0', '/welcome', '/uninstall', '/changelog', '/privacy', '/terms', '/firefox',
   '/themes', '/theme/', '/wallpapers', '/wallpapers/guide', '/news', '/docs',
   // Docs sections
   ...docsSlugs.map(slug => `/docs/${slug}`),
