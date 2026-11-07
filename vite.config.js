@@ -4,12 +4,14 @@ import prerender from '@prerenderer/rollup-plugin'
 import { themeIds }     from './src/data/themes.js'
 import { wallpaperIds } from './src/data/wallpapers.js'
 import { newsSlugs }    from './src/data/news.js'
+import { changelog } from './src/data/changelog.js'
 import { docsSlugs }    from './src/data/docs.js'
 
 const routes = [
   // Static pages
-  '/', '/changelog/2.1.1', '/changelog/2.1.0', '/changelog/2.0.0', '/welcome', '/uninstall', '/changelog', '/privacy', '/terms', '/firefox',
+  '/', '/welcome', '/uninstall', '/changelog', '/privacy', '/terms', '/firefox',
   '/themes', '/theme/', '/wallpapers', '/wallpapers/guide', '/news', '/docs',
+  ...changelog.map(({ version }) => `/changelog/${version}`),
   // Docs sections
   ...docsSlugs.map(slug => `/docs/${slug}`),
   // Dynamic theme pages

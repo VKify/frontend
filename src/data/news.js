@@ -12,6 +12,128 @@
 
 export const news = [
 {
+  "slug": "vkify-2-2-0",
+  "date": "2026-11-07",
+  "category": "announcement",
+  "accent": "blue",
+  "translations": {
+    "ru": {
+      "title": "VKify 2.2.0 — Кадры вместо обложек, меню справа и обновлённый мини-плеер",
+      "excerpt": "Кадры из видео вместо обложек на VK Видео. Боковое меню слева или справа и обложка трека на весь мини-плеер. Восстановленная блокировка рекламы и подробный журнал.",
+      "readTime": 3,
+      "blocks": [
+        {
+          "type": "h2",
+          "text": "Кадры видео вместо обложек"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Добавлена необязательная функция «Кадры видео вместо обложек» с выбором начала, середины или конца ролика. Названия видео не меняются.",
+            "В режиме «Начало» используется кадр около 3:30; для роликов короче четырёх минут — из первой четверти. Если доступного кадра нет, сохраняется исходная обложка. Прямые эфиры, предстоящие трансляции, клипы и недоступные видео не подменяются.",
+            "Обложки подготавливаются до отрисовки из ответов API и предварительно загруженных данных VK. Поддерживаются главная, поиск, подписки, плейлисты, профили и лента, а также старый каталог основного сайта VK Видео: «Тренды», «Политика», «Музыка» и похожие разделы, включая догрузку карточек."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Реклама, трекеры и журнал"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Восстановлена API-блокировка рекламы в ленте после перехода VK на newsfeed.getFeed.",
+            "Добавлено автоматическое обнаружение совместимых ответов ленты при смене метода. Проверки ограничены по объёму работы; знакомые методы и неизменённые ответы обрабатываются по быстрому пути.",
+            "При включённой API-фильтрации подавляются проверки скрытых записей VK и уведомление «Вам видны не все посты». Сохранён запасной способ корректно закрыть уже созданное окно вместе с затемнением и блокировкой прокрутки."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Меню слева или справа"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Добавлен выбор стороны меню для обычного, мини-, плиточного и расположенного у края меню. Вместе с меню зеркалятся мини-чаты, кнопка «Наверх» и привязанные к краям виджеты; порядок элементов шапки и внутренние колонки страниц сохраняются.",
+            "Исправлены компактность меню справа, отступы шапки, положение значков настройки пунктов и направление всплывающих ссылок. При переключении стороны корректно восстанавливаются нативные отступы панелей и позиции виджетов.",
+            "Ссылки «Блог», «Разработчикам», «Для бизнеса», «Авторам», «Ещё» и «Информация о контенте» корректно размещаются после отключения рекламной защиты во всех видах меню. В мини-меню используется кнопка без фона с тремя точками и всплывающим меню по наведению или фокусу."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Музыка и мини-плеер"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Исправлено растягивание аудиозаписей под альбомами и плейлистами на широком профиле. Элементы управления треками адаптированы к узким колонкам, в том числе при ширине контента 900 px.",
+            "Исправлены сетка друзей, боковые отступы и подсветка карточек при изменении ширины контента.",
+            "Разделена логика свёрнутого режима и «Режима пилюли» мини-плеера. Исправлены наложение кнопок, центрирование подсветки и переходы между свободным размещением, стеком и сворачиванием. В свёрнутом виде плеер занимает всю ширину стека."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "VKify 2.2.0 — Video frames, right-side navigation and a refreshed mini player",
+      "excerpt": "Choose real video frames for thumbnails, move navigation to the right and see more detail in the ad blocking log.",
+      "readTime": 3,
+      "blocks": [
+        {
+          "type": "h2",
+          "text": "Video frames instead of thumbnails"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Added an optional setting that replaces video card thumbnails with a frame from the beginning, middle or end. Video titles remain unchanged.",
+            "Beginning mode selects a frame around 3:30, or the first quarter of videos shorter than four minutes. Unavailable frames retain the original thumbnail. Live streams, upcoming broadcasts, clips and restricted videos are excluded.",
+            "Frames are prepared before rendering from API responses and VK prefetch data. Coverage includes the home page, search, subscriptions, playlists, profiles and feeds, plus the main VK Video site's legacy Trends, Politics, Music and similar catalogue sections, including pagination."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Ads, trackers and blocking logs"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Restored feed API ad filtering after VK moved to newsfeed.getFeed. Added bounded discovery of compatible feed responses when method names change, retaining fast paths for known methods and unchanged responses.",
+            "Suppressed VK's hidden-post checks and the “Not all posts are visible” warning while feed API filtering is enabled. A fallback dismisses an existing notice together with its backdrop and scroll lock.",
+            "Added filtering of recommended-game cards and carousels while retaining ordinary posts about games."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Navigation and layout"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Added left/right navigation for all sidebar modes. Mini chats, back-to-top controls and edge-docked widgets mirror with the menu while header order and page columns stay unchanged.",
+            "Fixed compact right-side navigation, header spacing, item settings controls and footer popup direction. Native panel spacing and logical widget dock positions recover correctly when switching sides.",
+            "Adapted VK footer links to every sidebar mode when ad protection is disabled. Mini mode uses a borderless ellipsis button with a hover/focus popup; fixed pointer-gap dismissal and reopening after Escape on delayed scroll/resize events."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Music and mini player"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Fixed profile audio rows below albums/playlists at increased content widths and contained track controls in narrow columns, including 900 px content layouts. Corrected friend-grid spacing and hover highlighting with Content width.",
+            "Separated collapsed and pill player modes. Fixed overlapping controls, hover alignment and transitions between floating, stacked and collapsed states; collapsed players fill their stack width.",
+            "Added current-track artwork as the background of expanded free-floating players. Controls appear over a darkened cover on hover/focus and remain visible on touch devices. Stacked, collapsed, edge-auto-hide and missing-artwork states retain the standard layout."
+          ]
+        }
+      ]
+    }
+  },
+  "cta": {
+    "labelKey": "common.installFirefox",
+    "linkKey": "firefoxInstall"
+  }
+},
+{
   "slug": "vkify-2-0-0",
   "date": "2026-10-05",
   "category": "announcement",

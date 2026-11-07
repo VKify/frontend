@@ -293,6 +293,22 @@ const hidingDocs = {
   },
   features: [
     {
+      anchor: 'video',
+      icon: 'hide',
+      ru: {
+        title: 'Что скрывать в VK Видео',
+        lead: 'Настройте вид страницы просмотра и каталога VK Видео.',
+        how: ['По отдельности скрывайте комментарии, рекомендации, плейлист, категории и предложение войти.', 'Если хотите сохранить доступ к плейлисту, выберите сворачивание панели.'],
+        access: '«Скрытие» → «Видео».',
+      },
+      en: {
+        title: 'Hide items in VK Video',
+        lead: 'Customize the watch page and VK Video catalogue.',
+        how: ['Hide comments, recommendations, playlists, categories and sign-in prompts independently.', 'Collapse the playlist panel to keep it available on demand.'],
+        access: 'Hiding → Video.',
+      },
+    },
+    {
       anchor: 'profile',
       icon: 'profile',
       media: [{ type: 'screenshot', file: 'profile.png' }],
@@ -507,7 +523,7 @@ const adsDocs = {
       icon: 'hide',
       category: 'content',
       subfeatures: [
-        { id: 'block_recommendations_feed', title: 'Лента', description: 'Рекомендации каналов и баннер Яндекс Браузера.' },
+        { id: 'block_recommendations_feed', title: 'Лента', description: 'Рекомендации каналов, «Игра для вас» и игровые карусели.' },
         { id: 'block_recommendations_games', title: 'Игры', description: 'Рекомендуемые игры и рекламный баннер.' },
         { id: 'block_recommendations_market', title: 'Маркет', description: 'Подборка «Может заинтересовать».' },
         { id: 'block_recommendations_calls', title: 'Звонки', description: 'Промобаннер в разделе звонков.' },
@@ -516,13 +532,13 @@ const adsDocs = {
         { id: 'block_music_ads', title: 'Музыка', description: 'Баннеры подписки и рекламные предложения.' },
         { id: 'block_recommendations_video', title: 'Видео', description: 'Рекомендации и продвижение VK Premium.' },
         { id: 'block_recommendations_communities', title: 'Сообщества', description: 'Блок похожих сообществ.' },
-        { id: 'block_yandex_browser_promo', title: 'Левое меню', description: 'Промопункт Яндекс Браузера.' },
+        { id: 'block_yandex_browser_promo', title: 'Яндекс Браузер', description: 'Продвижение в ленте, поиске, боковом меню, меню профиля и подсказках.' },
       ],
       ru: {
         title: 'Реклама и рекомендации по разделам',
         lead: 'Десять независимых переключателей позволяют убрать только те промоблоки, которые мешают именно вам.',
         how: [
-          'Откройте вложенную страницу и отдельно настройте ленту, игры, Маркет, звонки, меню профиля, мессенджер, музыку, видео, сообщества и левое меню.',
+          'Откройте вложенную страницу и отдельно настройте ленту, игры, Маркет, звонки, меню профиля, мессенджер, музыку, видео, сообщества и продвижение Яндекс Браузера.',
           'Фильтр музыки убирает баннеры и предложения подписки, а также блокирует звуковые рекламные вставки между треками на сетевом уровне.',
           'Эти переключатели входят в общий уровень защиты и управляются кнопкой «Включить защиту».',
         ],
@@ -532,7 +548,7 @@ const adsDocs = {
         title: 'Ads and recommendations by section',
         lead: 'Ten independent switches let you remove only the promotional blocks that get in your way.',
         how: [
-          'Open the nested page to configure Feed, Games, Market, Calls, profile menu, Messenger, Music, Video, Communities, and the left menu separately.',
+          'Open the nested page to configure Feed, Games, Market, Calls, profile menu, Messenger, Music, Video, Communities, and Yandex Browser promotions separately.',
           'The Music filter removes subscription banners and offers, and also blocks spoken audio ad breaks between tracks at the network layer.',
           'These switches count toward the overall protection level and follow the “Enable protection” action.',
         ],

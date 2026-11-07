@@ -64,6 +64,7 @@ export const en = {
   },
 
   donate: {
+    vkDonut: { description: 'Support the project through the VKify community', badge: 'VK' },
     title: 'Support VKify',
     subtitle: 'Choose a convenient payment method',
     secure: 'Secure payments',
@@ -213,22 +214,10 @@ export const en = {
     versionTag: 'In {version}',
     allNews: 'All news and updates',
     cards: {
-      accountTools: {
-        title: 'More tools in Center',
-        description: 'Review friends, requests and subscriptions, collect community members, and run actions with a list review and pauses.',
-      },
-      widgets: {
-        title: 'Widgets in one place',
-        description: 'Arrange the clock, player, lyrics and downloads freely or in a shared panel with your preferred order.',
-      },
-      visualizer: {
-        title: 'Music in motion',
-        description: 'An animation that responds to your music. Choose its style, colors, intensity and position on the page.',
-      },
-      webWallpapers: {
-        title: 'Interactive web wallpapers',
-        description: 'Use HTML wallpapers and Wallpaper Engine projects, adjusting supported project properties directly in VKify.',
-      },
+      videoFrames: { title: "Video frames as thumbnails", description: "Choose a frame from the beginning, middle or end of a VK video." },
+      rightMenu: { title: "Right-side navigation", description: "Move the sidebar and its edge panels to the right." },
+      playerArtwork: { title: "Full-player artwork", description: "Track artwork fills the floating mini player and controls appear on hover." },
+      adLog: { title: "Detailed blocking log", description: "Expand API entries to see available details about blocked posts." },
     },
   },
 

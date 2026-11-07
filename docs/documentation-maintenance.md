@@ -1,6 +1,6 @@
 # Extension documentation
 
-Current source version: **2.0.0**.
+Current source version: **2.2.0**.
 The `/theme/` route loads portable settings from a detected extension or the
 current contract defaults; shared `/theme/:encoded` links remain supported.
 

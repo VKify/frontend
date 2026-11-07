@@ -194,13 +194,25 @@ export const CURRENT_FEATURES = {
 
 // Existing articles retain their stable anchors; expand their user instructions.
 export const ARTICLE_ADDITIONS = {
+  'more:project_links': {
+    ru: ["Ссылки на Tribute и VK Donut находятся в блоке поддержки проекта в настройках."],
+    en: ["Tribute and VK Donut links are available in the project support section of Settings."],
+  },
+  'scripts:bypass_away_links': {
+    ru: ["Вложенные и повторно закодированные перенаправления VK раскрываются до конечного адреса."],
+    en: ["Nested and repeatedly encoded VK redirects resolve to the final destination."],
+  },
+  'center:music_mini_player': {
+    ru: ["Включите фон из обложки трека для развёрнутого плавающего плеера. При наведении или фокусе поверх затемнённой обложки появляются кнопки. В стеке и при автоскрытии у края используется обычная раскладка."],
+    en: ["Enable track artwork as the background of the expanded floating player. Controls appear over the dimmed artwork on hover or focus. Stacked and auto-hidden players use the standard layout."],
+  },
+  'view:display_mode': {
+    ru: ["В настройках макета включите «Меню справа». Настройка работает с обычным, мини-, плиточным меню и режимом «У края». Мини-чаты и панели у края перемещаются вслед за меню. При смещении страницы к панели сохраняется зазор 16 px."],
+    en: ["Enable Right-side menu in layout settings. It works with standard, mini, tile and edge menus. Mini chats and edge panels follow the menu. Moving the page toward the edge panel keeps a 16 px gap."],
+  },
   'view:share_theme': {
     ru: ['Страница /theme/ показывает настройки подключённого расширения или значения по умолчанию актуальной версии. Изменения видны в превью; «Применить» отправляет их в расширение, «Скопировать ссылку» создаёт общую ссылку с текущими параметрами.'],
     en: ['The /theme/ page shows settings from the connected extension or current-version defaults. Edits update the preview; Apply sends them to the extension, while Copy link creates a shared URL with the current settings.'],
-  },
-  'hiding:menu': {
-    ru: ['Порядок пунктов и разделителей задаётся в настройках меню и сохраняется вместе с оформлением. Общая ссылка темы передаёт порядок и список скрытых пунктов.'],
-    en: ['Menu settings control the order of items and dividers, saved with appearance settings. Shared themes include that order and the list of hidden items.'],
   },
   'hiding:menu': {
     ru: ['В «Пунктах меню» перемещайте пункты и разделители стрелками вверх и вниз. Порядок сохраняется; кнопка сброса возвращает стандартный порядок.', 'Пункт VKify открывает настройки на `vk.ru/vkify_settings`. Его можно скрыть и переместить, как остальные пункты.'],
@@ -221,12 +233,12 @@ export const ARTICLE_ADDITIONS = {
     en: ['Mini-widget mode docks the clock in the widget stack or keeps it floating. Free placement is stored relative to the viewport and stays reachable after resizing.'],
   },
   'view:custom_background': {
-    ru: ['Сброс к стандартному фону возвращает страницу к выбору нового фона. Для видео доступно действие «В обои» независимо от скачивания видео.'],
-    en: ['Resetting to the default background returns to background selection. Videos offer Set as wallpaper independently of video downloads.'],
+    ru: ["Для видеообоев VK подходят ссылки с параметром ?z=video…, в том числе со страниц сообществ. Встроенный плеер скрывает рекомендации и возобновляет фон при возвращении на вкладку.", 'Сброс к стандартному фону возвращает страницу к выбору нового фона. Для видео доступно действие «В обои» независимо от скачивания видео.'],
+    en: ["VK video wallpapers accept links containing ?z=video…, including community links. The embedded player hides recommendations and resumes on returning to the tab.", 'Resetting to the default background returns to background selection. Videos offer Set as wallpaper independently of video downloads.'],
   },
   'center:video_download': {
-    ru: ['На странице плейлиста доступно скачивание всей подборки: выберите качество и запустите очередь. Недоступные потоки могут быть пропущены.', 'Действие «В обои» доступно независимо от переключателя скачивания видео.'],
-    en: ['Playlist pages also support downloading the collection: select quality and start the queue. Unavailable streams may be skipped.', 'Set as wallpaper works independently of the video-download switch.'],
+    ru: ["В «Центр → Видео» включите «Кадры видео вместо обложек» и выберите начало, середину или конец. Начало берётся около 3:30, для видео короче четырёх минут — из первой четверти. Обновите страницу для применения. При отсутствии кадра сохраняется исходная обложка.", 'На странице плейлиста доступно скачивание всей подборки: выберите качество и запустите очередь. Недоступные потоки могут быть пропущены.', 'Действие «В обои» доступно независимо от переключателя скачивания видео.'],
+    en: ["In Center → Video, enable Video frames instead of thumbnails and choose beginning, middle or end. Beginning uses a frame around 3:30, or the first quarter for videos shorter than four minutes. Reload the page to apply. Unavailable frames retain the original thumbnail.", 'Playlist pages also support downloading the collection: select quality and start the queue. Unavailable streams may be skipped.', 'Set as wallpaper works independently of the video-download switch.'],
   },
   'center:media_player_hotkeys': {
     ru: ['Эквалайзер открывается из плеера VK и мини-плеера. Если он выключен, действие позволяет включить инструмент непосредственно из плеера.'],
@@ -238,8 +250,8 @@ export const ARTICLE_ADDITIONS = {
     en: ['A separate Video switch hides recommendations and VK Premium promotions. Recommendation blocks in other sections have independent switches.'],
   },
   'ads:ads_stats': {
-    ru: ['Журнал также учитывает скрытые блоки рекомендаций разделов; сводка и фильтры помогают отличать их от рекламы и трекеров.'],
-    en: ['The log also counts hidden section recommendation blocks; summaries and filters distinguish them from ads and trackers.'],
+    ru: ["Откройте запись API в журнале, чтобы увидеть доступные сведения о публикации: автора, заголовок, текст, вложения и ссылку. Старые записи могут содержать только причину блокировки.", 'Журнал также учитывает скрытые блоки рекомендаций разделов; сводка и фильтры помогают отличать их от рекламы и трекеров.'],
+    en: ["Expand an API log entry to see available post details: author, title, text, attachments and link. Older entries may only show the blocking reason.", 'The log also counts hidden section recommendation blocks; summaries and filters distinguish them from ads and trackers.'],
   },
   'onlinespy:profile_spy': {
     ru: ['Смена аватара определяется по идентификатору фотографии, а не временной CDN-ссылке: обновление адреса того же фото не создаёт событие. История показывает изменения с временем; её можно экспортировать.'],

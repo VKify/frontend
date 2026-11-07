@@ -6,6 +6,13 @@ import { useTranslation } from '../../i18n'
 // Описания и бейджи — из i18n: donate.<id>.*
 const donateOptions = [
   {
+    id: 'vkDonut',
+    title: 'VK Donut',
+    href: 'https://vk.ru/vkify?analytics_screen=profile&levelId=3650&source=donut_banner&w=donut_payment822543105',
+    icon: Heart,
+    color: 'from-blue-500 to-violet-500',
+  },
+  {
     id: 'cloudtips',
     title: 'CloudTips',
     href: 'https://pay.cloudtips.ru/p/b59e1765',
