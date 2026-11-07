@@ -44,7 +44,9 @@ export default defineConfig({
           renderer: '@prerenderer/renderer-puppeteer',
           rendererOptions: {
             maxConcurrentRoutes: 4,
-            renderAfterTime: 1200,
+            // The HTML snapshot only needs the local app and its route metadata.
+            skipThirdPartyRequests: true,
+            renderAfterDocumentEvent: 'vkify:prerender-ready',
             inject: { isPrerender: true },
           },
         }),

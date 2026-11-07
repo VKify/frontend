@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import ScrollToTop from './components/common/ScrollToTop'
 import Header from './components/common/Header'
 import Footer from './components/common/Footer'
@@ -25,10 +25,25 @@ const WallpaperDetail = lazy(() => import('./pages/WallpaperDetail'))
 const WebWallpaperGuide = lazy(() => import('./pages/WebWallpaperGuide'))
 const FirefoxInstall = lazy(() => import('./pages/FirefoxInstall'))
 
+function PrerenderReady() {
+    useEffect(() => {
+        // Helmet applies the route metadata on the next animation frame.
+        let frame = requestAnimationFrame(() => {
+            frame = requestAnimationFrame(() => {
+                document.dispatchEvent(new Event('vkify:prerender-ready'))
+            })
+        })
+        return () => cancelAnimationFrame(frame)
+    }, [])
+    return null
+}
+
 function App() {
+    const isPrerender = window.__PRERENDER_INJECTED?.isPrerender
+
     return (
         <div className="min-h-screen flex flex-col bg-primary">
-            <Analytics />
+            {!isPrerender && <Analytics />}
             <ScrollToTop />
             <Header />
             <main className="flex-1">
@@ -54,6 +69,7 @@ function App() {
                         <Route path="/firefox" element={<FirefoxInstall />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
+                    {isPrerender && <PrerenderReady />}
                 </Suspense>
             </main>
             <Footer />
