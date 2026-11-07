@@ -13,6 +13,7 @@
 export const news = [
 {
   "slug": "vkify-2-2-0",
+  "image": "/news/vkify-2-2-0.webp",
   "date": "2026-11-07",
   "category": "announcement",
   "accent": "blue",
