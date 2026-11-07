@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useLayoutEffect } from 'react'
 import ScrollToTop from './components/common/ScrollToTop'
 import Header from './components/common/Header'
 import Footer from './components/common/Footer'
@@ -26,14 +26,8 @@ const WebWallpaperGuide = lazy(() => import('./pages/WebWallpaperGuide'))
 const FirefoxInstall = lazy(() => import('./pages/FirefoxInstall'))
 
 function PrerenderReady() {
-    useEffect(() => {
-        // Helmet applies the route metadata on the next animation frame.
-        let frame = requestAnimationFrame(() => {
-            frame = requestAnimationFrame(() => {
-                document.dispatchEvent(new Event('vkify:prerender-ready'))
-            })
-        })
-        return () => cancelAnimationFrame(frame)
+    useLayoutEffect(() => {
+        window.__VKIFY_PRERENDER_READY = true
     }, [])
     return null
 }

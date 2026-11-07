@@ -51,7 +51,7 @@ export default function SEO({
   }
 
   return (
-    <Helmet>
+    <Helmet defer={!window.__PRERENDER_INJECTED?.isPrerender}>
       <title>{fullTitle}</title>
       <meta name="description" content={finalDescription} />
       

@@ -64,7 +64,7 @@ export default function FAQ() {
 
   return (
     <Section id="faq" variant="alternate" withGlow>
-      <Helmet>
+      <Helmet defer={!window.__PRERENDER_INJECTED?.isPrerender}>
         <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
       </Helmet>
 

@@ -7,6 +7,8 @@ import { newsSlugs }    from './src/data/news.js'
 import { changelog } from './src/data/changelog.js'
 import { docsSlugs }    from './src/data/docs.js'
 
+const pageErrors = new WeakMap()
+
 const routes = [
   // Static pages
   '/', '/welcome', '/uninstall', '/changelog', '/privacy', '/terms', '/firefox',
@@ -46,8 +48,24 @@ export default defineConfig({
             maxConcurrentRoutes: 4,
             // The HTML snapshot only needs the local app and its route metadata.
             skipThirdPartyRequests: true,
-            renderAfterDocumentEvent: 'vkify:prerender-ready',
             inject: { isPrerender: true },
+            pageSetup(page) {
+              const errors = []
+              pageErrors.set(page, errors)
+              page.on('pageerror', error => errors.push(error.message))
+            },
+            async pageHandler(page, route) {
+              try {
+                const ready = await page.waitForFunction(
+                  () => window.__VKIFY_PRERENDER_READY && document.head.querySelector('meta[property="og:title"]'),
+                  { polling: 100, timeout: 30_000 },
+                )
+                await ready.dispose()
+              } catch (error) {
+                const details = pageErrors.get(page).join('; ')
+                throw new Error(`Could not prerender ${route}: ${details || error.message}`, { cause: error })
+              }
+            },
           },
         }),
       ],
