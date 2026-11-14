@@ -832,6 +832,7 @@ const centerDocs = {
       icon: 'feed',
       category: 'feed',
       subfeatures: [
+        { id: 'post_views', title: 'Просмотры постов', description: 'Показывает счётчик просмотров рядом с датой записи.' },
         { id: 'feed_post_dividers', title: 'Разделители постов', description: 'Добавляет линии между записями в ленте, профилях и сообществах.' },
         { id: 'expand_post_text', title: 'Разворачивать посты', description: 'Показывает полный текст без «Показать ещё».' },
         { id: 'story_download', title: 'Скачивание сторис', description: 'Добавляет кнопку скачивания в просмотрщик историй.' },
@@ -841,20 +842,22 @@ const centerDocs = {
         lead: 'Убирает лишние действия при чтении постов и позволяет сохранить открытую историю.',
         items: [
           { title: 'Разделители постов', desc: 'добавляет тонкие линии на всю ширину между записями в ленте, профилях и сообществах; оформление и действия постов остаются прежними' },
+          { title: 'Просмотры постов', desc: 'отдельная опция, выключенная по умолчанию: значок глаза и число рядом с датой записи в ленте, профилях и сообществах; недостающие значения загружаются через API пакетами для постов рядом с видимой областью, прочерк означает, что VK не предоставил число' },
           { title: 'Разворачивать посты', desc: 'автоматически показывает текст целиком, без нажатия «Показать ещё»' },
           { title: 'Скачивание сторис', desc: 'добавляет кнопку «Скачать» в просмотрщик историй' },
         ],
-        access: '«Центр» → «Лента», либо Ctrl/Cmd + K → «Разделители постов», «Разворачивать текст постов» или «Скачать историю».',
+        access: '«Центр» → «Лента», либо Ctrl/Cmd + K → «Просмотры постов», «Разделители постов», «Разворачивать текст постов» или «Скачать историю».',
       },
       en: {
         title: 'Feed',
         lead: 'Removes extra clicks while reading posts and lets you save the story currently being viewed.',
         items: [
           { title: 'Post dividers', desc: 'adds subtle full-width lines between posts in the feed, profiles and communities, preserving post formatting and actions' },
+          { title: 'Post views', desc: 'an optional counter, off by default, with an eye icon next to the post date in feeds, profiles and communities; missing values are fetched in batches for nearby posts, and a dash means VK did not provide a count' },
           { title: 'Expand posts', desc: 'shows the full post automatically, without pressing “Show more”' },
           { title: 'Story download', desc: 'adds a Download button to the story viewer' },
         ],
-        access: '“Center” → “Feed”, or Ctrl/Cmd + K → “Post dividers”, “Expand post text” or “Download story”.',
+        access: '“Center” → “Feed”, or Ctrl/Cmd + K → “Post views”, “Post dividers”, “Expand post text” or “Download story”.',
       },
     },
     {
