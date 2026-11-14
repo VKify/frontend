@@ -832,6 +832,7 @@ const centerDocs = {
       icon: 'feed',
       category: 'feed',
       subfeatures: [
+        { id: 'feed_post_dividers', title: 'Разделители постов', description: 'Добавляет линии между записями в ленте, профилях и сообществах.' },
         { id: 'expand_post_text', title: 'Разворачивать посты', description: 'Показывает полный текст без «Показать ещё».' },
         { id: 'story_download', title: 'Скачивание сторис', description: 'Добавляет кнопку скачивания в просмотрщик историй.' },
       ],
@@ -839,19 +840,21 @@ const centerDocs = {
         title: 'Лента',
         lead: 'Убирает лишние действия при чтении постов и позволяет сохранить открытую историю.',
         items: [
+          { title: 'Разделители постов', desc: 'добавляет тонкие линии на всю ширину между записями в ленте, профилях и сообществах; оформление и действия постов остаются прежними' },
           { title: 'Разворачивать посты', desc: 'автоматически показывает текст целиком, без нажатия «Показать ещё»' },
           { title: 'Скачивание сторис', desc: 'добавляет кнопку «Скачать» в просмотрщик историй' },
         ],
-        access: 'Ctrl/Cmd + K → «Разворачивать текст постов» или «Скачать историю».',
+        access: '«Центр» → «Лента», либо Ctrl/Cmd + K → «Разделители постов», «Разворачивать текст постов» или «Скачать историю».',
       },
       en: {
         title: 'Feed',
         lead: 'Removes extra clicks while reading posts and lets you save the story currently being viewed.',
         items: [
+          { title: 'Post dividers', desc: 'adds subtle full-width lines between posts in the feed, profiles and communities, preserving post formatting and actions' },
           { title: 'Expand posts', desc: 'shows the full post automatically, without pressing “Show more”' },
           { title: 'Story download', desc: 'adds a Download button to the story viewer' },
         ],
-        access: 'Ctrl/Cmd + K → “Expand post text” or “Download story”.',
+        access: '“Center” → “Feed”, or Ctrl/Cmd + K → “Post dividers”, “Expand post text” or “Download story”.',
       },
     },
     {
