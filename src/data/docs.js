@@ -833,6 +833,7 @@ const centerDocs = {
       category: 'feed',
       subfeatures: [
         { id: 'post_views', title: 'Просмотры постов', description: 'Показывает счётчик просмотров рядом с датой записи.' },
+        { id: 'post_summary', title: 'Краткая сводка поста', description: 'Открывает выбор ИИ для пересказа записи; список сервисов настраивается.' },
         { id: 'feed_post_dividers', title: 'Разделители постов', description: 'Добавляет линии между записями в ленте, профилях и сообществах.' },
         { id: 'expand_post_text', title: 'Разворачивать посты', description: 'Показывает полный текст без «Показать ещё».' },
         { id: 'story_download', title: 'Скачивание сторис', description: 'Добавляет кнопку скачивания в просмотрщик историй.' },
@@ -843,10 +844,11 @@ const centerDocs = {
         items: [
           { title: 'Разделители постов', desc: 'добавляет тонкие линии на всю ширину между записями в ленте, профилях и сообществах; оформление и действия постов остаются прежними' },
           { title: 'Просмотры постов', desc: 'отдельная опция, выключенная по умолчанию: значок глаза и число рядом с датой записи в ленте, профилях и сообществах; недостающие значения загружаются через API пакетами для постов рядом с видимой областью, прочерк означает, что VK не предоставил число' },
+          { title: 'Краткая сводка поста', desc: 'выключена по умолчанию; под текстом записи появляется одна кнопка «Кратко», открывающая окно выбора: Google ИИ, Алиса AI, Perplexity, ChatGPT и Claude. Сервисы включаются и отключаются отдельно в настройках этой опции; порядок меняется перетаскиванием за ручку слева или стрелками. Позиции выключенных сервисов сохраняются, а меню следует выбранному порядку. Если отключить все сервисы, кнопка исчезнет. Только по выбору сервиса доступный текст поста передаётся ему с просьбой выделить главное; ответ или подготовленный запрос открывается в новой вкладке. Длинные записи передаются ссылкой с учётом лимита выбранного сервиса. Если лимит превышен, появляются полный запрос, кнопка «Скопировать запрос» и ссылка «Открыть чат» для ручной вставки; текст не обрезается. Если запрос помещается в ссылку Алисы и она включена, её можно выбрать в том же окне. Ключ API и дополнительные разрешения расширения не нужны; сервис может запросить вход или капчу. Посты без собственного текста пропускаются' },
           { title: 'Разворачивать посты', desc: 'автоматически показывает текст целиком, без нажатия «Показать ещё»' },
           { title: 'Скачивание сторис', desc: 'добавляет кнопку «Скачать» в просмотрщик историй' },
         ],
-        access: '«Центр» → «Лента», либо Ctrl/Cmd + K → «Просмотры постов», «Разделители постов», «Разворачивать текст постов» или «Скачать историю».',
+        access: '«Центр» → «Лента», либо Ctrl/Cmd + K → «Краткая сводка поста», «Просмотры постов», «Разделители постов», «Разворачивать текст постов» или «Скачать историю».',
       },
       en: {
         title: 'Feed',
@@ -854,10 +856,11 @@ const centerDocs = {
         items: [
           { title: 'Post dividers', desc: 'adds subtle full-width lines between posts in the feed, profiles and communities, preserving post formatting and actions' },
           { title: 'Post views', desc: 'an optional counter, off by default, with an eye icon next to the post date in feeds, profiles and communities; missing values are fetched in batches for nearby posts, and a dash means VK did not provide a count' },
+          { title: 'AI post summary', desc: 'off by default; adds one Summarize button below post text with a picker for Google AI, Alice AI, Perplexity, ChatGPT and Claude. Services can be enabled or disabled individually in this feature’s settings. Drag the handle on the left or use the arrows to reorder them; disabled services retain their positions and the picker follows the saved order. Disabling all services hides the button. Only selecting a service sends the available post text with a summary prompt; the answer or prepared prompt opens in a new tab. Long posts use links within each service’s limit. If a prompt exceeds that limit, a full text field, Copy prompt button and Open chat link allow manual transfer without truncation. If a prompt fits Alice’s link and Alice is enabled, she is suggested in the same picker. No API key or additional extension permissions are needed; the service may require sign-in or a CAPTCHA. Posts without their own text are skipped' },
           { title: 'Expand posts', desc: 'shows the full post automatically, without pressing “Show more”' },
           { title: 'Story download', desc: 'adds a Download button to the story viewer' },
         ],
-        access: '“Center” → “Feed”, or Ctrl/Cmd + K → “Post views”, “Post dividers”, “Expand post text” or “Download story”.',
+        access: '“Center” → “Feed”, or Ctrl/Cmd + K → “AI post summary”, “Post views”, “Post dividers”, “Expand post text” or “Download story”.',
       },
     },
     {
@@ -989,12 +992,14 @@ const centerDocs = {
       category: 'media',
       subfeatures: [
         { id: 'photo_download', title: 'Скачивание фото', description: 'Оригинал одного фото или ZIP всего альбома.' },
+        { id: 'photo_search', title: 'Поиск по фото', description: 'Поиск изображения в выбранных сервисах с настройкой порядка и быстрых кнопок.' },
       ],
       ru: {
         title: 'Фото',
         lead: 'Сохраняет фотографии без ручного поиска исходного файла.',
         how: [
           'Для отдельной фотографии VKify загружает оригинал в доступном качестве.',
+          'В разделе «Поиск по фото» можно включить сервисы, выбрать поисковик по умолчанию и быстрые кнопки. Перетащите сервис за ручку слева или используйте стрелки: порядок сохраняется и применяется к меню и быстрым кнопкам. Выключение сервиса не сбрасывает его позицию; поисковик по умолчанию остаётся отмеченным, но не перескакивает в начало меню.',
           'Для альбома расширение собирает выбранные фотографии в ZIP‑архив. На больших альбомах дождитесь завершения подготовки архива и не закрывайте вкладку.',
         ],
         access: 'Ctrl/Cmd + K → «Скачать фото» или «Центр» → «Фото».',
@@ -1004,6 +1009,7 @@ const centerDocs = {
         lead: 'Saves photos without making you hunt for the original file.',
         how: [
           'For a single photo, VKify downloads the best original available.',
+          'Search by image settings let you enable providers, choose a default engine and pin quick buttons. Drag a provider by its left handle or use the arrows: the saved order applies to the menu and quick buttons. Disabled providers retain their positions; the default engine stays marked without jumping to the top of the menu.',
           'For an album, the extension collects the photos into a ZIP archive. Keep the tab open while a large archive is being prepared.',
         ],
         access: 'Ctrl/Cmd + K → “Download photo”, or “Center” → “Photos”.',
