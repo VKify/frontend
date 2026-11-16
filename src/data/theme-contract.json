@@ -140,7 +140,7 @@
     "custom_logo_color_mode": "original",
     "custom_logo_color": "#0077ff",
     "custom_logo": "",
-    "border_radius": 0,
+    "border_radius": 50,
     "avatar_radius_shape": "",
     "content_width": 1100,
     "content_width_enabled": false,
