@@ -6,13 +6,13 @@ export const WIDGETS_DOC = {
   slug: 'widgets', heroIcon: 'layout', overviewMedia: { type: 'screenshot', file: 'overview.png' },
   ru: {
     nav: 'Виджеты', title: 'Вкладка «Виджеты»',
-    subtitle: 'Видимость и размещение семи виджетов: часы, мини-плеер, эквалайзер, визуализатор, тексты песен, загрузки и производительность.',
+    subtitle: 'Восемь виджетов: часы, мини-плеер, эквалайзер, визуализатор, тексты песен, загрузки, производительность и статистика блокировки рекламы.',
     seoTitle: 'Документация — вкладка «Виджеты»',
     seoDescription: 'Как включить виджеты VKify, разместить их свободно или в общей панели, изменить порядок, ширину и прозрачность.',
   },
   en: {
     nav: 'Widgets', title: 'The “Widgets” tab',
-    subtitle: 'Visibility and placement for seven widgets: clock, mini player, equalizer, visualizer, lyrics, downloads and performance.',
+    subtitle: 'Eight widgets: clock, mini player, equalizer, visualizer, lyrics, downloads, performance and ad-blocking statistics.',
     seoTitle: 'Documentation — the “Widgets” tab',
     seoDescription: 'Enable VKify widgets, arrange them freely or in a shared panel, and change their order, width and opacity.',
   },
@@ -28,11 +28,11 @@ export const WIDGETS_DOC = {
     }),
     article('widget_stack', 'layout', {
       title: 'Панель и её оформление', lead: 'Объединяет выбранные виджеты в настраиваемую панель.',
-      how: ['Разместите панель слева, справа или свободно; выберите выравнивание сверху, по центру или снизу.', 'Настройте запуск в свёрнутом виде и анимацию. Измените ширину от 240 до 600 px, прозрачность от 40 до 100% и расстояние между виджетами от 0 до 80 px.', 'Свободные положения сохраняются. Сброс всех позиций возвращает расположение панели и виджетов, сохраняя другие параметры оформления.'],
+      how: ['Разместите панель слева, справа или свободно; выберите выравнивание сверху, по центру или снизу.', 'Настройте запуск в свёрнутом виде и анимацию. Измените ширину от 240 до 600 px, прозрачность от 40 до 100% и отступ панели от края от 0 до 80 px.', 'Для панели доступен эффект стекла с размытием 0–60 px и непрозрачностью 0–100%. Отдельный переключатель разрешает показ виджетов и стека на vkvideo.ru.', 'Свободные положения сохраняются. Сброс всех позиций возвращает расположение панели и виджетов, сохраняя другие параметры оформления.'],
       access: '«Виджеты» → настройки панели и оформления.',
     }, {
       title: 'Panel and appearance', lead: 'Combine selected widgets in a configurable panel.',
-      how: ['Place the panel on the left, right or freely; align it to the top, center or bottom.', 'Configure collapsed startup and animation. Set width from 240 to 600 px, opacity from 40 to 100%, and widget spacing from 0 to 80 px.', 'Free positions are saved. Reset all positions to restore panel and widget placement while retaining other appearance options.'],
+      how: ['Place the panel on the left, right or freely; align it to the top, center or bottom.', 'Configure collapsed startup and animation. Set width from 240 to 600 px, opacity from 40 to 100%, and panel edge spacing from 0 to 80 px.', 'The panel offers a glass effect with 0–60 px blur and 0–100% opacity. A separate switch enables widgets and the stack on vkvideo.ru.', 'Free positions are saved. Reset all positions to restore panel and widget placement while retaining other appearance options.'],
       access: 'Widgets → panel and appearance settings.',
     }),
   ],
@@ -148,7 +148,7 @@ export const CURRENT_FEATURES = {
     }),
     article('widget_stack', 'layout', {
       title: 'Панель виджетов', lead: 'Общее место для музыкальных инструментов, часов и служебных виджетов.',
-      how: ['Добавляйте виджеты в панель или оставляйте их свободно на странице. Порядок, видимость и положения сохраняются.', 'Мини-плеер, эквалайзер, визуализатор, тексты, часы, загрузки и виджет производительности используют согласованное состояние.', 'Скрытие виджета и отключение функции учитываются и на странице, и в настройках; свободные позиции подстраиваются при изменении окна.'],
+      how: ['Добавляйте виджеты в панель или оставляйте их свободно на странице. Порядок, видимость и положения сохраняются.', 'Мини-плеер, эквалайзер, визуализатор, тексты, часы, загрузки, производительность и статистика блокировки рекламы используют согласованное состояние.', 'Скрытие виджета и отключение функции учитываются и на странице, и в настройках; свободные позиции подстраиваются при изменении окна.'],
       access: 'Вкладка «Виджеты» или меню виджета на странице VK.',
     }, {
       title: 'Widget stack', lead: 'A shared home for music tools, the clock and utility widgets.',
@@ -207,26 +207,32 @@ export const ARTICLE_ADDITIONS = {
     en: ["Enable track artwork as the background of the expanded floating player. Controls appear over the dimmed artwork on hover or focus. Stacked and auto-hidden players use the standard layout."],
   },
   'view:display_mode': {
-    ru: ["В настройках макета включите «Меню справа». Настройка работает с обычным, мини-, плиточным меню и режимом «У края». Мини-чаты и панели у края перемещаются вслед за меню. При смещении страницы к панели сохраняется зазор 16 px."],
-    en: ["Enable Right-side menu in layout settings. It works with standard, mini, tile and edge menus. Mini chats and edge panels follow the menu. Moving the page toward the edge panel keeps a 16 px gap."],
+    ru: ['Вкладка «Вид» разделяет «Режим отображения» и «Вид меню». В «Виде меню» выберите обычное, мини-, плиточное меню или «У края», затем сторону. У режима «У края» есть ширина, фон, высота и скругление пунктов; у остальных — закрепление и фон меню.', 'В «Режиме отображения» находятся ширина и смещение страницы, шапка, поиск, интервалы и форма аватарок. Доступны девять форм или своё скругление от 0 до 50%. Обложки сообществ масштабируются с блоком, смещение также применяется к клипам.', "В «Виде меню» выберите сторону «Справа». Настройка работает с обычным, мини-, плиточным меню и режимом «У края». Мини-чаты и панели у края перемещаются вслед за меню. При смещении страницы к панели сохраняется зазор 16 px."],
+    en: ['The View tab separates Display mode and Menu appearance. Menu appearance offers standard, mini, tile and edge modes and the side. Edge mode has width, background, item height and radius settings; other modes offer pinning and menu background.', 'Display mode contains content width and offset, header, search, spacing and avatar shape. Choose one of nine shapes or a custom radius from 0 to 50%. Community covers scale with their block, and page offset also applies to clips.', "Choose Right in Menu appearance settings. It works with standard, mini, tile and edge menus. Mini chats and edge panels follow the menu. Moving the page toward the edge panel keeps a 16 px gap."],
   },
   'view:share_theme': {
     ru: ['Страница /theme/ показывает настройки подключённого расширения или значения по умолчанию актуальной версии. Изменения видны в превью; «Применить» отправляет их в расширение, «Скопировать ссылку» создаёт общую ссылку с текущими параметрами.'],
     en: ['The /theme/ page shows settings from the connected extension or current-version defaults. Edits update the preview; Apply sends them to the extension, while Copy link creates a shared URL with the current settings.'],
   },
   'hiding:menu': {
-    ru: ['В «Пунктах меню» перемещайте пункты и разделители стрелками вверх и вниз. Порядок сохраняется; кнопка сброса возвращает стандартный порядок.', 'Пункт VKify открывает настройки на `vk.ru/vkify_settings`. Его можно скрыть и переместить, как остальные пункты.'],
-    en: ['In Menu items, move entries and separators with the up and down arrows. The order is saved; Reset order restores the default.', 'The VKify entry opens settings at `vk.ru/vkify_settings`. Hide or reorder it like other entries.'],
+    items: { ru: [{ title: 'Подвал меню', desc: 'Ссылки и информация под основным меню VK.RU' }, { title: 'Меню VKVIDEO', desc: 'Независимое скрытие пунктов, групп авторов и разделителей на vkvideo.ru' }, { title: 'Порядок VKVIDEO', desc: 'Свой порядок пунктов и разделителей; сброс не меняет видимость' }], en: [{ title: 'Menu footer', desc: 'Links and information below the VK.RU sidebar' }, { title: 'VKVIDEO menu', desc: 'Independent visibility for entries, the author list and separators on vkvideo.ru' }, { title: 'VKVIDEO order', desc: 'A custom entry and separator order; resetting order keeps visibility' }] },
+    ru: ['В «Пунктах меню» перемещайте пункты и разделители стрелками вверх и вниз. Порядок сохраняется; кнопка сброса возвращает стандартный порядок.', 'Пункт VKify открывает настройки на `vk.ru/vkify_settings`. Его можно скрыть и переместить, как остальные пункты.', 'Откройте «Скрытие → Меню → VKVIDEO». Доступны также «Политика», «Фильмы и сериалы» и «Телеканалы». Категории внутри «Развернуть» управляются теми же переключателями; набор видимых пунктов зависит от меню вашего аккаунта VK.'],
+    en: ['In Menu items, move entries and separators with the up and down arrows. The order is saved; Reset order restores the default.', 'The VKify entry opens settings at `vk.ru/vkify_settings`. Hide or reorder it like other entries.', 'Open Hiding → Menu → VKVIDEO. Politics, Movies and series, and TV channels are also available. Categories under Expand use the same switches; native entry availability depends on your VK account.'],
+  },
+  'center:expand_post_text': {
+    ru: ['Разделители постов проходят на всю ширину блока, на 10 px ниже его края. У последнего поста разделителя нет; при загрузке следующей записи линия появляется автоматически. Вложенные репосты отдельной линии не получают.'],
+    en: ['Post dividers span the full block width, 10 px below its edge. The last post has no divider; loading another post adds the preceding line automatically. Nested reposts have no separate divider.'],
+  },
+  'widgets:available_widgets': {
+    ru: ['В заголовке виджета отдельные кнопки сворачивания и «Ещё». В меню «Ещё» находятся перенос в панель или обратно, закрытие и дополнительные действия конкретного виджета. В мини-плеере воспроизведение остаётся в отдельном ряду.', 'Меню доступно с клавиатуры: Enter открывает, стрелки выбирают действие, Esc закрывает. Восьмой виджет — статистика блокировки рекламы.'],
+    en: ['Widget headers have separate collapse and More buttons. More contains docking or undocking, close and widget-specific actions. Mini-player playback controls stay on a separate row.', 'Use Enter to open the menu, arrows to select an action and Esc to close it. Ad-blocking statistics is the eighth widget.'],
   },
   'center:friends_audit': {
     ru: ['Для массовых действий выберите паузу от 1 до 30 секунд. Остановка отменяет следующие действия; уже отправленный запрос должен завершиться. После остановки можно проверить отчёт, экспортировать JSON и подтвердить продолжение оставшегося списка.', 'Ошибки авторизации, капча, ограничения частоты и неопределённый результат останавливают очередь. Ошибки доступа к отдельному объекту могут быть пропущены. При закрытии страницы или смене аккаунта выполнение прекращается.'],
     en: ['Choose a pause from 1 to 30 seconds for bulk actions. Stop cancels upcoming actions; an already dispatched request must finish. Review the report, export JSON and confirm before continuing the remaining list.', 'Authentication errors, CAPTCHA, rate limits and uncertain results stop the queue. Object-specific access errors may be skipped. Closing the page or changing accounts stops execution.'],
   },
-  'hiding:profile': {
-    items: { ru: [{ title: 'Рекомендации друзей', desc: 'Блок рекомендаций на странице профиля, независимо от основной колонки' }], en: [{ title: 'Friend recommendations', desc: 'The profile recommendation block, independently of the main column' }] },
-  },
   'hiding:messenger': {
-    items: { ru: [{ title: 'Вкладка каналов', desc: 'Фильтр каналов в мессенджере' }, { title: 'Бизнес-уведомления', desc: 'Фильтр бизнес-уведомлений в мессенджере' }], en: [{ title: 'Channels tab', desc: 'The messenger channel filter' }, { title: 'Business notifications', desc: 'The messenger business-notification filter' }] },
+    items: { ru: [{ title: 'Вкладка каналов', desc: 'Фильтр каналов в мессенджере' }, { title: 'Бизнес-уведомления', desc: 'Фильтр бизнес-уведомлений в мессенджере' }, { title: 'Кнопки в шапке списка чатов', desc: 'Звонки, архив и начало общения' }, { title: 'Панель фильтров и папок', desc: 'Вся верхняя панель списка чатов, включая настройки папок' }], en: [{ title: 'Channels tab', desc: 'The messenger channel filter' }, { title: 'Business notifications', desc: 'The messenger business-notification filter' }, { title: 'Chat-list header buttons', desc: 'Calls, archive and start conversation' }, { title: 'Filters and folders panel', desc: 'The entire chat-list tab bar, including folder settings' }] },
   },
   'view:clock_enabled': {
     ru: ['Режим мини-виджета добавляет часы в общую панель виджетов или оставляет их плавающими. Свободное положение сохраняется относительно окна и остаётся доступным после изменения его размера.'],
@@ -246,8 +252,8 @@ export const ARTICLE_ADDITIONS = {
     access: { ru: '«Центр» → «Музыка» → «Хоткеи плеера» или «Эквалайзер».', en: 'Center → Music → Player hotkeys or Equalizer.' },
   },
   'ads:recommendations': {
-    ru: ['Отдельный переключатель раздела «Видео» скрывает рекомендации и продвижение VK Premium. Блоки рекомендаций других разделов управляются независимо.'],
-    en: ['A separate Video switch hides recommendations and VK Premium promotions. Recommendation blocks in other sections have independent switches.'],
+    ru: ['Переключатель «Профиль» в рекламе и рекомендациях блокирует промобаннер «Розыгрыш призов» до отрисовки через API, независимо от скрытия всей правой колонки.', 'Отдельный переключатель раздела «Видео» скрывает рекомендации и продвижение VK Premium. Блоки рекомендаций других разделов управляются независимо.'],
+    en: ['The Profile switch under ads and recommendations blocks the prize-giveaway promo through the API before rendering, independently of hiding the entire right column.', 'A separate Video switch hides recommendations and VK Premium promotions. Recommendation blocks in other sections have independent switches.'],
   },
   'ads:ads_stats': {
     ru: ["Откройте запись API в журнале, чтобы увидеть доступные сведения о публикации: автора, заголовок, текст, вложения и ссылку. Старые записи могут содержать только причину блокировки.", 'Журнал также учитывает скрытые блоки рекомендаций разделов; сводка и фильтры помогают отличать их от рекламы и трекеров.'],

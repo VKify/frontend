@@ -43,6 +43,16 @@ if (existsSync(mapping)) {
   const shapeSource = readFileSync(resolve(extension, 'src/content/features/appearance/theme/border-radius.ts'), 'utf8')
   const expectedShapes = Object.fromEntries([...shapeSource.matchAll(/^\s+(\w+):\s+'([^']+)'/gm)].map(match => [match[1], match[2]]))
   assert.deepEqual(AVATAR_SHAPES, expectedShapes, 'Theme preview avatar shapes differ from extension')
+  const tabSource = readFileSync(resolve(extension, 'src/popup/constants/tabs.ts'), 'utf8')
+  const tabIds = [...tabSource.matchAll(/\{ id: '([^']+)'/g)].map(match => match[1])
+  assert.deepEqual(DOCS.map(doc => doc.popupTab), tabIds, 'Documentation navigation differs from popup tabs')
+  for (const page of ['profile', 'messenger']) {
+    const name = page[0].toUpperCase() + page.slice(1)
+    const ui = readFileSync(resolve(extension, 'src/popup/components/tabs/hiding', page, name + 'Page.tsx'), 'utf8')
+    const ids = [...ui.matchAll(/id: '([^']+)'/g)].map(match => match[1]).sort()
+    const guide = DOCS.find(doc => doc.slug === 'hiding').features.find(feature => feature.anchor === page)
+    assert.deepEqual(guide.subfeatures.map(item => item.id).sort(), ids, page + ': documented controls differ from popup')
+  }
   const source = readFileSync(mapping, 'utf8')
   for (const match of source.matchAll(/\['([^']+)',\s*'([^']+)'\]/g)) {
     assert(targets.has(`${match[1]}#${match[2]}`), `Broken extension documentation link: ${match[1]}#${match[2]}`)

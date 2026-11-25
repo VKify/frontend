@@ -1,6 +1,6 @@
 # Extension documentation
 
-Current source version: **2.2.0**.
+Current source version: **2.3.0**.
 The `/theme/` route loads portable settings from a detected extension or the
 current contract defaults; shared `/theme/:encoded` links remain supported.
 
@@ -13,7 +13,16 @@ The audit covers dialog files (including the all-dialog library), dialog
 statistics, friends audit, subscription review, saved videos, account backup,
 voice and playlist downloads, mini player, lyrics, visualizer, widget stack,
 clock modes, the dedicated Widgets and Notes tabs, privacy acknowledgements, hiding controls, recommendation logs
-and Telegram delivery. Telegram instructions explain the desktop browser
+and Telegram delivery.
+
+The current navigation separates Menu appearance from Display mode. Hiding
+contains three profile controls and five messenger controls. VK.RU and VKVIDEO
+have independent menu visibility and ordering, including the current Politics,
+Movies and series, and TV channels entries. Removed profile recommendation and
+promo-link controls must not be documented as available. Widgets contains eight
+entries, including ad-blocking statistics, with shared More action menus. Post
+dividers omit the final post. Profile recommendations protection also intercepts
+the type-26 owner promo banner before rendering. Telegram instructions explain the desktop browser
 requirement, the shared configuration in More and all three tracking switches.
 
 Run `npm run check:docs` to verify translations, unique anchors and existing
