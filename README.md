@@ -3,7 +3,7 @@
 
   # VKify — Frontend
 
-  Документация и превью: **2.0.0**.
+  Документация и превью: **2.3.0**.
 
   **Лендинг-сайт расширения VKify для ВКонтакте**
 
@@ -175,7 +175,6 @@ frontend/
 │   │   ├── useCopyToClipboard.js    # copy + авто-сброс флага «скопировано»
 │   │   ├── useGoogleFont.js
 │   │   ├── useVideoMeta.js          # resolution, duration, format, size
-│   │   └── useWEProperties.js       # парсит project.json Wallpaper Engine
 │   │
 │   ├── utils/
 │   │   ├── colors.js                # isDarkColor, adjustColor, pluralizeRu
@@ -345,7 +344,6 @@ fallback — `/og-image.png`). Автоматически добавляет `og
 | `useApplyToVK` | Общая логика «применить + InstallModal» для детальных страниц |
 | `useCopyToClipboard` | `copy(text)` + флаг `copied` с авто-сбросом, чистит таймер при unmount |
 | `useVideoMeta` / `useImageMeta` | Авто-извлечение метаданных медиа (resolution, duration, size, format) |
-| `useWEProperties` | Парсит `project.json` обоев Wallpaper Engine |
 | `useGoogleFont` | Подгружает шрифт Google Fonts по `font-family` |
 | `useTranslation` | i18n — см. раздел выше |
 

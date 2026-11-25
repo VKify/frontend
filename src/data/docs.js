@@ -203,7 +203,7 @@ const viewDocs = {
         lead: 'Ставит за страницу картинку, видео или целые веб-обои.',
         how: [
           'Вкладка «Готовые» — каталог обоев; «Свой» принимает ссылку или файл с компьютера.',
-          'Поддерживаются картинки (JPG, PNG, WebP, GIF, AVIF), видео по прямой ссылке или с YouTube, VK Video, Rutube и других, а также HTML-обои (анимации, Wallpaper Engine).',
+          'Поддерживаются картинки (JPG, PNG, WebP, GIF, AVIF), видео по прямой ссылке или с YouTube, VK Video, Rutube и других, а также HTML-обои (анимации).',
           'Когда фон установлен, открываются настройки отображения: размытие, затемнение, прозрачность, цветовые фильтры, эффекты, для видео — скорость и громкость.',
         ],
         access: 'Ctrl/Cmd + K → «Фон страницы».',
@@ -213,7 +213,7 @@ const viewDocs = {
         lead: 'Puts an image, a video, or full web wallpapers behind the page.',
         how: [
           'The “Presets” tab is a wallpaper catalog; “Custom” takes a link or a file from your computer.',
-          'Supports images (JPG, PNG, WebP, GIF, AVIF), video by direct link or from YouTube, VK Video, Rutube and others, plus HTML wallpapers (animations, Wallpaper Engine).',
+          'Supports images (JPG, PNG, WebP, GIF, AVIF), video by direct link or from YouTube, VK Video, Rutube and others, plus HTML wallpapers (animations).',
           'Once a background is set, display settings open up: blur, dim, opacity, color filters, effects, and — for video — speed and volume.',
         ],
         access: 'Ctrl/Cmd + K → “Background”.',

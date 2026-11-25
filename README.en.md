@@ -3,7 +3,7 @@
 
   # VKify — Frontend
 
-  Documentation and previews: **2.0.0**.
+  Documentation and previews: **2.3.0**.
 
   **Landing website for the VKify VKontakte browser extension**
 
@@ -177,7 +177,6 @@ frontend/
 │   │   ├── useCopyToClipboard.js    # copy + auto-reset "copied" flag, clears timer on unmount
 │   │   ├── useGoogleFont.js
 │   │   ├── useVideoMeta.js          # resolution, duration, format, size
-│   │   └── useWEProperties.js       # parses Wallpaper Engine project.json
 │   │
 │   ├── utils/
 │   │   ├── colors.js                # isDarkColor, adjustColor, pluralizeRu
@@ -347,7 +346,6 @@ Every theme page gets a unique `og:image`:
 | `useApplyToVK` | Shared "apply + InstallModal" logic for detail pages |
 | `useCopyToClipboard` | `copy(text)` + `copied` flag with auto-reset, clears timer on unmount |
 | `useVideoMeta` / `useImageMeta` | Auto-extracts media metadata (resolution, duration, size, format) |
-| `useWEProperties` | Parses Wallpaper Engine `project.json` |
 | `useGoogleFont` | Loads a Google Font by `font-family` |
 | `useTranslation` | i18n — see section above |
 

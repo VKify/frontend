@@ -14,6 +14,7 @@ import Logo from './Logo'
 import DonateModal from './DonateModal'
 import { socialIcons, socialHoverStyles } from './SocialIcons'
 import config from '../../config'
+import { products } from '../../data/products'
 import { useTranslation } from '../../i18n'
 import { scrollWithOffset, scrollToTop } from '../../utils/scroll'
 
@@ -208,14 +209,14 @@ function FooterLink({ item }) {
   )
 }
 
-function LinkSection({ title, links }) {
+function LinkSection({ title, links, wide = false }) {
   return (
     <div>
       <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
         <span className="w-1 h-4 bg-gradient-to-b from-[#0077ff] to-blue-600 rounded-full" />
         {title}
       </h3>
-      <ul className="space-y-3">
+      <ul className={wide ? "grid grid-cols-2 gap-x-6 gap-y-3 lg:grid-cols-1" : "space-y-3"}>
         {links.map((link) => (
           <motion.li 
             key={link.name}
@@ -286,7 +287,7 @@ function DonateButton({ onClick }) {
 function BrandSection({ onDonateClick, latestVersion }) {
   const { t } = useTranslation()
   return (
-    <div className="col-span-2">
+    <div className="col-span-2 md:col-span-1 lg:col-span-2">
       <div className="inline-flex items-center gap-3 mb-6 group">
         <Link to="/">
           <motion.div 
@@ -306,7 +307,7 @@ function BrandSection({ onDonateClick, latestVersion }) {
             {config.app.name}
           </Link>
           <Link 
-            to="/changelog"
+            to="/browser/changelog"
             className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 hover:text-[#0077ff] transition-colors"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
@@ -316,7 +317,7 @@ function BrandSection({ onDonateClick, latestVersion }) {
       </div>
       
       <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed max-w-xs mb-6">
-        {t('footer.description')}
+        {t('ecosystem.footerDescription')}
       </p>
 
       <div className="space-y-2 mb-6">
@@ -334,11 +335,6 @@ function BrandSection({ onDonateClick, latestVersion }) {
 
       <DonateButton onClick={onDonateClick} />
 
-      <div className="flex items-center gap-2 mt-6 lg:hidden">
-        {config.social.map((link) => (
-          <SocialIcon key={link.name} link={link} size="md" />
-        ))}
-      </div>
     </div>
   )
 }
@@ -354,7 +350,7 @@ function BottomBar({ currentYear, latestVersion }) {
           </p>
           <span className="hidden sm:block text-gray-300 dark:text-gray-700">•</span>
           <Link 
-            to="/changelog"
+            to="/browser/changelog"
             className="text-sm text-gray-500 dark:text-gray-500 hover:text-[#0077ff] transition-colors"
           >
             {latestVersion}
@@ -372,10 +368,8 @@ function BottomBar({ currentYear, latestVersion }) {
           </p>
         </div>
         
-        <div className="hidden lg:flex items-center gap-1.5">
-          {config.social.map((link) => (
-            <SocialIcon key={link.name} link={link} size="sm" />
-          ))}
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
+          {config.navigation.footer.legal.map(item => <FooterLink key={item.href} item={item} />)}
         </div>
       </div>
     </div>
@@ -392,10 +386,9 @@ export default function Footer() {
   const { footer } = config.navigation
 
   const linkSections = useMemo(() => [
-    { title: t('footer.sections.product'), links: footer.product },
-    { title: t('footer.sections.resources'), links: footer.resources },
-    { title: t('footer.sections.community'), links: footer.community },
-    { title: t('footer.sections.info'), links: footer.legal },
+    { title: t('ecosystem.products'), links: products },
+    { title: t('ecosystem.extensionResources'), links: footer.product },
+    { title: t('ecosystem.projectLinks'), links: [...footer.resources, ...footer.community], wide: true },
   ], [footer, t])
 
   return (
@@ -408,7 +401,7 @@ export default function Footer() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="py-12 border-b border-gray-200/50 dark:border-gray-800/50"
+            className="py-8 border-b border-gray-200/50 dark:border-gray-800/50"
           >
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="text-center md:text-left">
@@ -428,7 +421,7 @@ export default function Footer() {
           </motion.div>
 
           <div className="py-12 md:py-16">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-12">
               <BrandSection 
                 onDonateClick={() => setIsDonateOpen(true)} 
                 latestVersion={latestVersion}
@@ -437,12 +430,13 @@ export default function Footer() {
               {linkSections.map((section, index) => (
                 <motion.div
                   key={section.title}
+                  className={section.wide ? "col-span-2 lg:col-span-1" : ""}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <LinkSection title={section.title} links={section.links} />
+                  <LinkSection title={section.title} links={section.links} wide={section.wide} />
                 </motion.div>
               ))}
             </div>

@@ -1,3 +1,4 @@
+import EcosystemHeroVisual from './EcosystemHeroVisual'
 import { motion } from 'framer-motion'
 import { ArrowRight, Download, Sparkles, Shield, Palette, Lock } from 'lucide-react'
 import Button from '../common/Button'
@@ -14,11 +15,11 @@ const features = [
   { Icon: Download, id: 'download', color: 'from-blue-500 to-cyan-500' },
 ]
 
-export default function Hero() {
+export default function Hero({ ecosystem = false }) {
   const { t } = useTranslation()
 
   const handleScrollToFeatures = () => {
-    scrollToElement('features')
+    scrollToElement(ecosystem ? 'products' : 'features')
   }
 
   return (
@@ -58,17 +59,22 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Column - Content */}
           <div className="text-center lg:text-left">
+            {ecosystem && (
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/5 px-4 py-2 text-sm font-semibold text-blue-600 dark:text-blue-400">
+                <Sparkles className="size-4" />{t('ecosystem.tagline')}
+              </div>
+            )}
             {/* Main Heading */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="font-display font-black leading-[0.95] tracking-tight text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-gray-900 dark:text-white"
+              className={`font-display font-black leading-[0.98] tracking-tight text-gray-900 dark:text-white ${ecosystem ? 'text-4xl sm:text-5xl lg:text-6xl xl:text-7xl' : 'text-5xl sm:text-6xl lg:text-7xl xl:text-8xl'}`}
             >
-              {t('hero.h.make')}{' '}
-              <span className="font-serif font-bold italic">{t('hero.h.your')}</span>{' '}
-              {t('hero.h.vk')}{' '}
-              <span className="text-[#0077ff]">{t('hero.h.quiet')}</span>
+              {ecosystem ? t('ecosystem.hero') : t('hero.h.make')}{' '}
+              {!ecosystem && <span className="font-serif font-bold italic">{t('hero.h.your')}</span>}{' '}
+              {!ecosystem && t('hero.h.vk')}{' '}
+              <span className="text-[#0077ff]">{ecosystem ? t('ecosystem.heroAccent') : t('hero.h.quiet')}</span>
             </motion.h1>
 
             {/* Description */}
@@ -78,7 +84,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-6 text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-xl mx-auto lg:mx-0"
             >
-              {t('hero.subtitle', { features: config.stats.features })}
+              {ecosystem ? t('ecosystem.subtitle') : t('hero.subtitle', { features: config.stats.features })}
             </motion.p>
 
             {/* Feature Pills */}
@@ -122,7 +128,7 @@ export default function Hero() {
                 className="w-full sm:w-auto gap-2"
               >
                 <Sparkles className="w-4 h-4" />
-                <span>{t('common.allFeatures')}</span>
+                <span>{ecosystem ? t('ecosystem.allProducts') : t('common.allFeatures')}</span>
               </Button>
             </motion.div>
 
@@ -148,7 +154,7 @@ export default function Hero() {
           </div>
 
           {/* Right Column - Visual */}
-          <Hero3DCard />
+          {ecosystem ? <EcosystemHeroVisual /> : <Hero3DCard />}
         </div>
       </div>
 

@@ -6,7 +6,7 @@ export const config = {
     version: '2.3.0',
     description: 'Расширение для браузера: темы и видео-обои, блокировка рекламы и трекеров, шифрование переписки и скачивание медиа из ВКонтакте',
     tagline: 'Расширение для VK',
-    email: 'support@vkify.ru',
+    email: 'vkify.support@gmail.com',
   },
 
   // Аналитика
@@ -29,22 +29,22 @@ export const config = {
   // Навигация
   navigation: {
     main: [
-        { name: 'Возможности', labelKey: 'nav.features', href: '/#features', isAnchor: true, sectionId: 'features' },
-        { name: 'Как это работает', labelKey: 'nav.howItWorks', href: '/#how-it-works', isAnchor: true, sectionId: 'how-it-works' },
-        { name: 'Статистика', labelKey: 'nav.stats', href: '/#stats', isAnchor: true, sectionId: 'stats' },
-        { name: 'Скриншоты', labelKey: 'nav.screenshots', href: '/#screenshots', isAnchor: true, sectionId: 'screenshots' },
-        { name: 'Скачать', labelKey: 'nav.download', href: '/#cta', isAnchor: true, sectionId: 'cta' },
+        { name: 'Возможности', labelKey: 'nav.features', href: '/browser#features', isAnchor: true, sectionId: 'features' },
+        { name: 'Как это работает', labelKey: 'nav.howItWorks', href: '/browser#how-it-works', isAnchor: true, sectionId: 'how-it-works' },
+        { name: 'Статистика', labelKey: 'nav.stats', href: '/browser#stats', isAnchor: true, sectionId: 'stats' },
+        { name: 'Скриншоты', labelKey: 'nav.screenshots', href: '/browser#screenshots', isAnchor: true, sectionId: 'screenshots' },
+        { name: 'Скачать', labelKey: 'nav.download', href: '/browser#cta', isAnchor: true, sectionId: 'cta' },
     ],
     footer: {
       product: [
-        { name: 'Возможности', labelKey: 'footer.links.features', href: '/#features', isAnchor: true },
-        { name: 'Скриншоты', labelKey: 'footer.links.screenshots', href: '/#screenshots', isAnchor: true },
-        { name: 'Как установить', labelKey: 'footer.links.install', href: '/#how-it-works', isAnchor: true },
+        { name: 'Возможности', labelKey: 'footer.links.features', href: '/browser#features', isAnchor: true },
+        { name: 'Скриншоты', labelKey: 'footer.links.screenshots', href: '/browser#screenshots', isAnchor: true },
+        { name: 'Как установить', labelKey: 'footer.links.install', href: '/browser#how-it-works', isAnchor: true },
         { name: 'Темы оформления', labelKey: 'footer.links.themes', href: '/themes' },
         { name: 'Коллекция обоев', labelKey: 'footer.links.wallpapers', href: '/wallpapers' },
         { name: 'Документация', labelKey: 'footer.links.docs', href: '/docs' },
         { name: 'Новости', labelKey: 'footer.links.news', href: '/news' },
-        { name: 'Обновления', labelKey: 'footer.links.changelog', href: '/changelog' },
+        { name: 'Обновления', labelKey: 'footer.links.changelog', href: '/browser/changelog' },
       ],
       resources: [
         { name: 'Chrome Web Store', labelKey: 'footer.links.chromeStore', href: 'https://chromewebstore.google.com/detail/vkify/lofggenkgbpdmmplnbgfplnpfjhgljla', external: true },

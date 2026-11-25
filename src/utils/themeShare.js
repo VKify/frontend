@@ -41,13 +41,6 @@ export function encodeTheme(settings, meta = {}) {
 
     THEME_PARAMS.forEach(key => {
         let val = settings[key];
-        if (key === 'web_wallpaper_values') {
-            try {
-                const values = JSON.parse(val || '{}');
-                const id = settings.web_wallpaper_id;
-                val = JSON.stringify(id && Object.prototype.hasOwnProperty.call(values, id) ? { [id]: values[id] } : {});
-            } catch { return; }
-        }
 
         // Пропускаем: undefined / null / ''
         if (val === undefined || val === null || val === '') return;

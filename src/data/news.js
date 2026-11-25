@@ -12,8 +12,110 @@
 
 export const news = [
 {
+  "slug": "vkify-lampa-launch",
+  "date": "2026-11-17",
+  "image": "/news/covers/vkify-lampa-launch.webp",
+  "category": "announcement",
+  "accent": "orange",
+  "cta": {
+    "href": "/lampa",
+    "label": {
+      "ru": "Подключить VKify для Lampa",
+      "en": "Get VKify for Lampa"
+    }
+  },
+  "translations": {
+    "ru": {
+      "title": "Выпускаем VKify Видео для Lampa",
+      "excerpt": "Фильмы, сериалы и телеканалы из VK в привычной Lampa. Поиск без аккаунта, продолжение просмотра и подключение одной ссылкой на Android.",
+      "readTime": 2,
+      "blocks": [
+        {
+          "type": "p",
+          "text": "VKify теперь доступен в Lampa. Плагин добавляет отдельный раздел «VKify Видео» и источник в карточке фильма: выбирайте видео из каталога или ищите по названию без входа в аккаунт VK."
+        },
+        {
+          "type": "h2",
+          "text": "Что умеет плагин"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Каталог фильмов и сериалов VK, поиск с фильтрами качества и длительности.",
+            "Сезоны, эпизоды, продолжение с сохранённой позиции и автоматическая следующая серия.",
+            "История, «Смотреть позже» и публичные телеканалы с избранным."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Как подключить"
+        },
+        {
+          "type": "p",
+          "text": "На Android и Android TV добавьте https://vkify.ru/plugins/vkify.js в расширения Lampa и перезапустите приложение. Прокси не нужен. Для Smart TV, браузера и компьютера доступны персональные ссылки от своего VPS и локальный прокси. Подробные инструкции собраны на странице документации Lampa."
+        },
+        {
+          "type": "h2",
+          "text": "Какой IP нужен для каталога"
+        },
+        {
+          "type": "p",
+          "text": "Для полного каталога VK нужен российский исходящий IP: на Android — самого устройства, при работе через VPS — сервера. Российский IP телевизора не изменит ответ VK, если запросы идут через зарубежный VPS. При ограниченной витрине плагин покажет пояснение; поиск видео останется доступен."
+        },
+        {
+          "type": "quote",
+          "text": "Без аккаунта VK. В интерфейсе Lampa. Доступность видео зависит от источника и устройства."
+        }
+      ]
+    },
+    "en": {
+      "title": "Introducing VKify Video for Lampa",
+      "excerpt": "VK films, series and live channels in the familiar Lampa interface. Search without a VK account, resume playback and install with one URL on Android.",
+      "readTime": 2,
+      "blocks": [
+        {
+          "type": "p",
+          "text": "VKify is now available in Lampa. The plugin adds a VKify Video menu section and a source in film cards. Browse the catalogue or search by title without signing in to VK."
+        },
+        {
+          "type": "h2",
+          "text": "What you can do"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Browse VK films and series or filter search by quality and duration.",
+            "Choose seasons and episodes, resume playback and automatically continue to the next episode.",
+            "Keep history, save videos for later and explore public live channels with favourites."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Get connected"
+        },
+        {
+          "type": "p",
+          "text": "On Android and Android TV, add https://vkify.ru/plugins/vkify.js to Lampa extensions and restart the app. No proxy is needed. Smart TV, browser and computer setups can use personal URLs from your VPS or a local proxy. Follow the Lampa documentation for the complete steps."
+        },
+        {
+          "type": "h2",
+          "text": "Which IP does the catalogue use?"
+        },
+        {
+          "type": "p",
+          "text": "The full VK catalogue requires a Russian outgoing IP: your device on Android, or the server when using a VPS. A Russian TV IP does not change the VK response when requests go through a foreign VPS. A limited catalogue is replaced with a notice; video search remains available."
+        },
+        {
+          "type": "quote",
+          "text": "No VK account. Inside Lampa. Video availability depends on the source and your device."
+        }
+      ]
+    }
+  }
+},
+{
   "slug": "vkify-2-2-0",
-  "image": "/news/vkify-2-2-0.webp",
+  "image": "/news/covers/vkify-2-2-0.webp",
   "date": "2026-11-07",
   "category": "announcement",
   "accent": "blue",
@@ -139,7 +241,7 @@ export const news = [
   "date": "2026-10-05",
   "category": "announcement",
   "accent": "blue",
-  "image": "/news/vkify-2-0-0-v2.webp",
+  "image": "/news/covers/vkify-2-0-0.webp",
   "translations": {
     "ru": {
       "title": "VKify 2.0.0: новый интерфейс и больше возможностей для VK",
@@ -282,13 +384,13 @@ export const news = [
     date: '2026-09-21',
     category: 'release',
     accent: 'purple',
-    image: '/news/music-visualizer-and-web-wallpapers-1-8-6.webp',
+    image: '/news/covers/music-visualizer-and-web-wallpapers-1-8-6.webp',
     cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
     translations: {
       ru: {
         title: 'VKify 1.8.6: музыка в движении и интерактивные обои',
         excerpt:
-          'Новый визуализатор реагирует на музыку VK, а веб-обои поддерживают интерактивные HTML-проекты Wallpaper Engine. Заодно исправлены скачивание музыки и сообщения сообществ.',
+          'Новый визуализатор реагирует на музыку VK, а веб-обои поддерживают интерактивные HTML-обои. Заодно исправлены скачивание музыки и сообщения сообществ.',
         readTime: 3,
         blocks: [
           {
@@ -317,7 +419,7 @@ export const news = [
           },
           {
             type: 'p',
-            text: 'Теперь в качестве фона можно использовать интерактивную HTML-страницу или веб-проект Wallpaper Engine. Если рядом с обоями размещён **project.json**, VKify автоматически прочитает доступные параметры проекта.',
+            text: 'Теперь в качестве фона можно использовать интерактивную HTML-страницу. Разместите её на хостинге и вставьте прямую ссылку в настройки фона.',
           },
           {
             type: 'p',
@@ -344,7 +446,7 @@ export const news = [
       en: {
         title: 'VKify 1.8.6: music in motion and interactive wallpapers',
         excerpt:
-          'A new visualizer reacts to VK music, while web wallpapers support interactive Wallpaper Engine HTML projects. Music downloads and community messaging are fixed too.',
+          'A new visualizer reacts to VK music, while web wallpapers support interactive HTML pages. Music downloads and community messaging are fixed too.',
         readTime: 3,
         blocks: [
           {
@@ -373,7 +475,7 @@ export const news = [
           },
           {
             type: 'p',
-            text: 'You can now use an interactive HTML page or a Wallpaper Engine web project as the background. When a **project.json** sits next to the wallpaper, VKify automatically reads the project controls.',
+            text: 'You can now use an interactive HTML page as the background. Host the page and paste its direct URL into the background settings.',
           },
           {
             type: 'p',
@@ -404,7 +506,7 @@ export const news = [
     date: '2026-09-12',
     category: 'release',
     accent: 'purple',
-    image: '/news/audio-ad-blocking-1-8-5.webp',
+    image: '/news/covers/audio-ad-blocking-1-8-5.webp',
     cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
     translations: {
       ru: {
@@ -494,7 +596,7 @@ export const news = [
     date: '2026-07-03',
     category: 'release',
     accent: 'green',
-    image: '/news/color-picker-and-polish.webp',
+    image: '/news/covers/color-picker-and-polish.webp',
     cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
     translations: {
       ru: {
@@ -592,7 +694,7 @@ export const news = [
     date: '2026-06-28',
     category: 'feature',
     accent: 'blue',
-    image: '/news/equalizer.webp',
+    image: '/news/covers/equalizer.webp',
     cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
     translations: {
       ru: {
@@ -674,7 +776,7 @@ export const news = [
     date: '2026-06-22',
     category: 'feature',
     accent: 'green',
-    image: '/news/center-hub-and-autoplay.webp',
+    image: '/news/covers/center-hub-and-autoplay.webp',
     cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
     translations: {
       ru: {
@@ -804,7 +906,7 @@ export const news = [
     date: '2026-06-15',
     category: 'feature',
     accent: 'purple',
-    image: '/news/music-download.webp',
+    image: '/news/covers/music-download.webp',
     cta: { labelKey: 'common.installChrome', linkKey: 'chromeWebStore' },
     translations: {
       ru: {
@@ -910,7 +1012,7 @@ export const news = [
     date: '2026-06-04',
     category: 'release',
     accent: 'orange',
-    image: '/news/firefox-support.webp',
+    image: '/news/covers/firefox-support.webp',
     cta: { labelKey: 'common.installFirefox', linkKey: 'firefoxInstall' },
     translations: {
       ru: {

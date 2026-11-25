@@ -47,7 +47,7 @@ export default function WebWallpaperGuide() {
           <FolderTree className="mt-1 h-6 w-6 text-blue-600" />
           <div>
             <h2 className="font-bold text-gray-950 dark:text-white">{lang === 'ru' ? 'Структура папки' : 'Folder structure'}</h2>
-            <pre className="mt-3 overflow-x-auto font-mono text-sm leading-6 text-gray-600 dark:text-gray-300">{`my-wallpaper/\n├─ index.html\n├─ wallpaper.js\n├─ wallpaper-runtime.js  (properties)\n├─ project.json          (properties)\n└─ preview.png`}</pre>
+            <pre className="mt-3 overflow-x-auto font-mono text-sm leading-6 text-gray-600 dark:text-gray-300">{`my-wallpaper/\n├─ index.html\n├─ wallpaper.js\n└─ preview.png`}</pre>
           </div>
         </div>
         <div className="space-y-8">

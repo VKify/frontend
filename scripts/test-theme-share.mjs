@@ -11,7 +11,6 @@ const { decodeTheme, encodeTheme, buildSharedThemeSettings } = await import(
 test('new appearance features survive preview decoding, editing and re-sharing', () => {
   const settings = {
     clock_enabled: true, music_visualizer: true, music_lyrics: true,
-    web_wallpaper_id: 'aurora', web_wallpaper_values: '{"aurora":{"speed":2}}',
     hide_feed_right_column: true, hide_stories_discover: true,
     hide_profile_friends_recommendations: true, hide_promo_link: true,
     hide_open_profile_block: true, menu_items_order: ['l_msg', 'l_pr'],

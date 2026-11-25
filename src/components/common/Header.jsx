@@ -1,4 +1,7 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import FloatingMenu from './FloatingMenu'
+import { ProductMark } from '../home/ProductArtwork'
+import { ChevronDown, Check } from 'lucide-react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link'
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
@@ -16,6 +19,7 @@ import InstallButton from './InstallButton'
 import Logo from './Logo'
 import { socialIcons } from './SocialIcons'
 import config from '../../config'
+import { products } from '../../data/products'
 import { useTranslation } from '../../i18n'
 import { getLatestVersion } from '../../data/changelog'
 import { useExtension } from '../../hooks/useExtension'
@@ -80,7 +84,7 @@ function HeaderLogo({ isScrolled, isHomePage }) {
             ${isScrolled ? 'opacity-100' : 'opacity-0'}
           `}
         >
-          {t('header.tagline')}
+          {t('ecosystem.tagline')}
         </span>
       </div>
     </Link>
@@ -140,6 +144,42 @@ function NavItem({ item, isActive }) {
   )
 }
 
+function ProductsMenu({ pathname }) {
+  const { t } = useTranslation()
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+  const close = useCallback(() => setOpen(false), [])
+  const active = products.some(product => product.href === pathname)
+
+  useEffect(close, [pathname, close])
+
+  return (
+    <div ref={ref}>
+      <button type="button" aria-haspopup="menu" aria-expanded={open} aria-controls="products-menu"
+        onClick={() => setOpen(value => !value)}
+        className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${active ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-white dark:text-gray-200 dark:hover:bg-gray-700'}`}>
+        {t('ecosystem.products')}<ChevronDown className={`size-4 transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      <FloatingMenu align="left" id="products-menu" label={t('ecosystem.products')} open={open} onClose={close} anchorRef={ref}>
+        <div className="space-y-1">
+          {products.map(product => (
+            <Link key={product.id} to={product.href} role="menuitem" onClick={close}
+              aria-current={pathname === product.href ? 'page' : undefined}
+              className={`flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors ${pathname === product.href ? 'bg-blue-50 dark:bg-blue-900/20' : 'hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+              <span className="w-8 shrink-0"><ProductMark product={product} /></span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-semibold text-gray-900 dark:text-white">{t(product.labelKey)}</span>
+                <span className="block text-xs text-gray-500 dark:text-gray-400">{t('ecosystem.status.' + product.status)}</span>
+              </span>
+              {pathname === product.href && <Check className="size-4 text-blue-500" />}
+            </Link>
+          ))}
+        </div>
+      </FloatingMenu>
+    </div>
+  )
+}
+
 function AnnouncementBar({ isVisible, latestVersion }) {
   const { t } = useTranslation()
   return (
@@ -152,8 +192,8 @@ function AnnouncementBar({ isVisible, latestVersion }) {
           transition={{ duration: 0.2 }}
           className="overflow-hidden"
         >
-          <div className="hidden lg:block bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 text-white text-center py-2 text-sm">
-            <Link to="/changelog" className="inline-flex items-center gap-2 hover:underline group">
+          <div className="hidden xl:block bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 text-white text-center py-2 text-sm">
+            <Link to="/browser/changelog" className="inline-flex items-center gap-2 hover:underline group">
               <Sparkles className="w-4 h-4" />
               <span>{t('docsPage.currentVersion', { version: config.app.version })}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -175,6 +215,7 @@ function MenuButton({ isOpen, onClick }) {
         isOpen ? 'bg-gray-200 dark:bg-gray-700' : 'hover:bg-gray-100 dark:hover:bg-gray-800'
       }`}
       aria-label={t('header.menu')}
+      aria-expanded={isOpen}
     >
       <div className="w-5 h-5 relative flex flex-col justify-center items-center">
         <motion.span
@@ -234,7 +275,7 @@ function MobileNavItem({ item, isActive, onClick }) {
   }
 
   return (
-    <Link to={item.href} onClick={onClick} className={baseClasses}>
+    <Link to={item.href} onClick={onClick} className={baseClasses} aria-current={isActive ? 'page' : undefined}>
       {content}
     </Link>
   )
@@ -244,7 +285,7 @@ function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, late
   const { t } = useTranslation()
   const checkIsActive = (item) => {
     if (item.isAnchor) {
-      return activeSection === (item.sectionId || item.href.replace('/#', ''))
+      return activeSection === (item.sectionId || item.href.split('#')[1])
     }
     return pathname === item.href
   }
@@ -258,7 +299,7 @@ function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, late
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 xl:hidden"
             onClick={onClose}
           />
           
@@ -267,7 +308,7 @@ function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, late
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', stiffness: 400, damping: 40 }}
-            className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white dark:bg-gray-900 z-50 lg:hidden shadow-2xl"
+            className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white dark:bg-gray-900 z-50 xl:hidden shadow-2xl"
           >
             <div className="flex flex-col h-full">
               <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
@@ -294,6 +335,12 @@ function MobileMenu({ isOpen, onClose, navigation, activeSection, pathname, late
               </div>
 
               <div className="flex-1 overflow-y-auto p-4">
+                <p className="px-4 text-xs font-medium uppercase tracking-wider text-gray-500">{t('ecosystem.products')}</p>
+                <div className="mb-4 space-y-1">
+                  {products.map(product => (
+                    <MobileNavItem key={product.id} item={product} isActive={pathname === product.href} onClick={onClose} />
+                  ))}
+                </div>
                 <div className="space-y-1">
                   {navigation.map((item, index) => (
                     <motion.div
@@ -362,7 +409,10 @@ export default function Header() {
 
   const { t } = useTranslation()
   const location = useLocation()
-  const navigation = useMemo(() => config.navigation.main, [])
+  const navigation = useMemo(() => location.pathname === '/browser'
+    ? config.navigation.main
+    : config.navigation.footer.product.filter(item => ['/themes', '/wallpapers', '/docs', '/news'].includes(item.href)),
+  [location.pathname])
   const isHomePage = location.pathname === '/'
   const isDetailRoute = DETAIL_ROUTES.test(location.pathname)
 
@@ -381,10 +431,10 @@ export default function Header() {
         requestAnimationFrame(() => {
           setIsScrolled(window.scrollY > SCROLL_THRESHOLD)
           
-          if (location.pathname === '/') {
+          if (location.pathname === '/browser') {
             const sectionIds = navigation
               .filter(item => item.isAnchor)
-              .map(item => item.sectionId || item.href.replace('/#', ''))
+              .map(item => item.sectionId || item.href.split('#')[1])
             
             setActiveSection(getActiveSection(sectionIds) || '')
           }
@@ -402,7 +452,7 @@ export default function Header() {
   }, [location.pathname, navigation])
 
   useEffect(() => {
-    if (location.pathname !== '/') setActiveSection('')
+    if (location.pathname !== '/browser') setActiveSection('')
   }, [location.pathname])
 
   useEffect(() => {
@@ -416,14 +466,14 @@ export default function Header() {
 
   const checkIsActive = useCallback((item) => {
     if (item.isAnchor) {
-      return activeSection === (item.sectionId || item.href.replace('/#', ''))
+      return activeSection === (item.sectionId || item.href.split('#')[1])
     }
     return location.pathname === item.href
   }, [location.pathname, activeSection])
 
   // Бар «новая версия» скрываем если расширение уже установлено актуальной версии
   const extensionIsUpToDate = detected === true && extensionVersion === latestVersion
-  const showAnnouncementBar = !isScrolled && location.pathname === '/' && !extensionIsUpToDate
+  const showAnnouncementBar = !isScrolled && ['/', '/browser'].includes(location.pathname) && !extensionIsUpToDate
 
   // Детальные страницы рендерят собственный DetailNavbar — глобальная шапка
   // им не нужна (и раньше визуально конфликтовала: оба элемента fixed top-0 z-50).
@@ -442,21 +492,22 @@ export default function Header() {
           <div className="flex items-center justify-between h-16 lg:h-20">
             <HeaderLogo isScrolled={isScrolled} isHomePage={isHomePage} />
 
-            <div className="hidden lg:flex items-center">
+            <div className="hidden xl:flex items-center">
               <div className="flex items-center bg-gray-100/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full p-1.5">
+                <ProductsMenu pathname={location.pathname} />
                 {navigation.map((item) => (
                   <NavItem key={item.name} item={item} isActive={checkIsActive(item)} />
                 ))}
               </div>
             </div>
 
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden xl:flex items-center gap-3">
               <LanguageSwitcher />
               <ThemeToggle />
               <InstallButton size="sm" label={t('common.install')} />
             </div>
 
-            <div className="flex lg:hidden items-center gap-2">
+            <div className="flex xl:hidden items-center gap-2">
               <ThemeToggle />
               <MenuButton isOpen={isMobileMenuOpen} onClick={() => setIsMobileMenuOpen(prev => !prev)} />
             </div>

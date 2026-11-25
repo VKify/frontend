@@ -91,17 +91,6 @@
     requestAnimationFrame(draw)
   }
 
-  window.wallpaperPropertyListener = {
-    applyUserProperties(properties) {
-      let layoutChanged = false
-      Object.keys(state).forEach((key) => {
-        if (!properties[key] || !Object.prototype.hasOwnProperty.call(properties[key], 'value')) return
-        state[key] = properties[key].value
-        if (key === 'fontsize' || key === 'space') layoutChanged = true
-      })
-      if (layoutChanged) resetColumns()
-    },
-  }
 
   window.addEventListener('resize', resize)
   resize()

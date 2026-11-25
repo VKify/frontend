@@ -97,7 +97,7 @@ export default function NewsPost() {
       year: 'numeric',
     })
 
-  const ctaHref = post.cta ? config.links[post.cta.linkKey] : null
+  const ctaHref = post.cta ? (post.cta.href || config.links[post.cta.linkKey]) : null
   const ctaIsInternal = ctaHref?.startsWith('/')
   const related = news.filter((n) => n.slug !== post.slug).slice(0, 2)
 
@@ -124,7 +124,7 @@ export default function NewsPost() {
         </div>
 
         {/* Cover */}
-        <div className={`relative aspect-[3/2] sm:aspect-[16/9] rounded-3xl bg-gradient-to-br ${gradient} overflow-hidden mb-8`}>
+        <div className={`relative aspect-[8/5] rounded-3xl bg-gradient-to-br ${gradient} overflow-hidden mb-8`}>
           <div
             className="absolute inset-0 opacity-20"
             style={{
@@ -139,12 +139,10 @@ export default function NewsPost() {
               className="absolute inset-0 h-full w-full object-cover"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10" />
-          <span className="absolute top-5 left-5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-semibold">
-            {t(`newsPage.categories.${category}`)}
-          </span>
+
         </div>
 
+        <p className="mb-4 text-sm font-semibold text-blue-600 dark:text-blue-400">{t(`newsPage.categories.${category}`)}</p>
         {/* Meta */}
         <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
           <span className="flex items-center gap-1.5">
@@ -187,7 +185,7 @@ export default function NewsPost() {
                 : { href: ctaHref, target: '_blank', rel: 'noopener noreferrer' })}
               className="gap-2 whitespace-nowrap"
             >
-              {t(post.cta.labelKey)}
+              {post.cta.label ? (post.cta.label[lang] || post.cta.label.ru) : t(post.cta.labelKey)}
               {ctaIsInternal ? <ArrowRight className="w-4 h-4" /> : <ExternalLink className="w-4 h-4" />}
             </Button>
           </div>

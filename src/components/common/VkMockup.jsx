@@ -128,7 +128,7 @@ function buildCssFilter(s) {
   return filter
 }
 
-export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpacity = 1, settings = {}, className = '' }) {
+export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpacity = 1, settings = {}, className = '', fitContainer = false }) {
   const p = useMemo(() => buildPalette({ bg, accent, blockOpacity }), [bg, accent, blockOpacity])
 
   // ── Шрифт ──
@@ -218,7 +218,7 @@ export default function VkMockup({ bg, accent, card, wallpaper = null, blockOpac
   //  и его собственные брейкпоинты (bpSm/bpMd/bpLg) дают нативный компактный вид
   //  с нормальным размером текста — как настоящий мобильный VK, без «зум-костыля».
   const VIRTUAL_W = 1900
-  const isWidePreview = frameW >= 700
+  const isWidePreview = !fitContainer && frameW >= 700
   const SIM_W = isWidePreview ? Math.max(frameW, VIRTUAL_W) : (frameW || 375)
   const zoom = isWidePreview && frameW > 0 ? frameW / SIM_W : 1
 

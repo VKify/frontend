@@ -4,7 +4,7 @@ import { Calendar, Sparkles, Bug, Zap, ChevronRight } from 'lucide-react'
 import Badge from '../common/Badge'
 import { useTranslation } from '../../i18n'
 
-export default function VersionCard({ version, isLatest = false }) {
+export default function VersionCard({ version, isLatest = false, showChanges = false }) {
   const { t } = useTranslation()
   const { version: ver, date, title, highlights, changes } = version
 
@@ -13,6 +13,7 @@ export default function VersionCard({ version, isLatest = false }) {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
+      timeZone: 'UTC',
     })
   }
 
@@ -24,9 +25,9 @@ export default function VersionCard({ version, isLatest = false }) {
       className="relative"
     >
       {/* Timeline dot */}
-      <div className={`absolute left-[7px] top-7 w-4 h-4 rounded-full border-4 border-white dark:border-gray-950 -translate-x-1/2 hidden md:block z-10 ${isLatest ? 'bg-[#0077ff] ring-4 ring-[#0077ff]/20' : 'bg-gray-300 dark:bg-gray-700'}`} />
+      <div className={`absolute left-[7px] top-7 w-4 h-4 rounded-full border-4 border-white dark:border-gray-950 -translate-x-1/2 hidden z-10 ${isLatest ? 'bg-[#0077ff] ring-4 ring-[#0077ff]/20' : 'bg-gray-300 dark:bg-gray-700'}`} />
 
-      <div className={`md:ml-8 p-5 sm:p-6 rounded-2xl border bg-white dark:bg-gray-900/60 hover:shadow-lg hover:shadow-blue-500/[0.06] hover:-translate-y-0.5 transition-all duration-200 ${isLatest ? 'border-[#0077ff]/30 dark:border-[#0077ff]/30' : 'border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700'}`}>
+      <div className={`p-5 sm:p-6 rounded-2xl border bg-white dark:bg-gray-900/60 hover:shadow-lg hover:shadow-blue-500/[0.06] hover:-translate-y-0.5 transition-all duration-200 ${isLatest ? 'border-[#0077ff]/30 dark:border-[#0077ff]/30' : 'border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700'}`}>
         {/* Header */}
         <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
           <div>
@@ -43,7 +44,7 @@ export default function VersionCard({ version, isLatest = false }) {
           </div>
           
           <Link
-            to={`/changelog/${ver}`}
+            to={`/browser/changelog/${ver}`}
             className="flex items-center gap-1 text-[#0077ff] hover:underline text-sm font-medium group"
           >
             {t('changelogPage.more')}
@@ -56,7 +57,7 @@ export default function VersionCard({ version, isLatest = false }) {
 
         {/* Highlights — это полноразмерные тезисы, поэтому не «таблетки» (rounded-full
             на многострочном тексте выглядит криво), а аккуратные блоки с маркером */}
-        <div className="flex flex-col gap-2 mb-4">
+        {!showChanges && <div className="flex flex-col gap-2 mb-4">
           {highlights.map((highlight, i) => (
             <div
               key={i}
@@ -66,8 +67,20 @@ export default function VersionCard({ version, isLatest = false }) {
               <span>{highlight}</span>
             </div>
           ))}
-        </div>
+        </div>}
 
+        {showChanges && (
+          <div className="space-y-5 pb-5">
+            {['new', 'fixed', 'improved'].map(type => changes[type]?.length > 0 && (
+              <section key={type} data-change-type={type}>
+                <h5 className="mb-3 text-sm font-semibold text-blue-600 dark:text-blue-400">{t('changelogPage.filters.' + type)}</h5>
+                <ul className="space-y-3">
+                  {changes[type].map((text, index) => <li key={index} className="flex gap-3 text-sm leading-relaxed text-gray-700 dark:text-gray-300"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-blue-500" /><span>{text}</span></li>)}
+                </ul>
+              </section>
+            ))}
+          </div>
+        )}
         {/* Quick Stats */}
         <div className="flex flex-wrap gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
           {changes.new?.length > 0 && (

@@ -7,6 +7,8 @@ import {
   Icon24UserCircleOutline, Icon24NewsfeedOutline, Icon24MessageOutline,
   Icon24UsersOutline, Icon24Users3Outline, Icon24LogoVkMusicOutline,
   Icon24MenuOutline, Icon24Globe,
+  Icon24SmartphoneOutline, Icon24ComputerSmartphoneOutline, Icon24ComputerStackOutline,
+  Icon24ComputerOutline, Icon24RefreshOutline, Icon24ClapperboardVideoOutline,
   // Приватность / реклама
   Icon24Lock, Icon24View,
   // «Позже»-вкладки
@@ -41,6 +43,12 @@ export const VK_ICONS = {
   music: Icon24LogoVkMusicOutline,
   menu: Icon24MenuOutline,
   globe: Icon24Globe,
+  smartphone: Icon24SmartphoneOutline,
+  devices: Icon24ComputerSmartphoneOutline,
+  server: Icon24ComputerStackOutline,
+  computer: Icon24ComputerOutline,
+  refresh: Icon24RefreshOutline,
+  video: Icon24ClapperboardVideoOutline,
   lock: Icon24Lock,
   eye: Icon24View,
   // «Позже»-вкладки

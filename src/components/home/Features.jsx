@@ -7,13 +7,13 @@ import Section, { SectionHeader } from '../common/Section'
 import config from '../../config'
 import { useTranslation } from '../../i18n'
 
-export default function Features() {
+export default function Features({ variant = 'alternate' }) {
   const { t } = useTranslation()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <Section id="features" variant="alternate" withGlow>
+    <Section id="features" variant={variant} withGlow>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge={t('features.badge', { features: config.stats.features })}

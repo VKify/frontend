@@ -6,12 +6,11 @@
  */
 import { useState, useRef, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Download, Copy, Check, Globe, Zap, Settings2, Sparkles } from 'lucide-react'
+import { Download, Copy, Check, Globe, Zap, Sparkles } from 'lucide-react'
 import SEO from '../components/common/SEO'
 import DetailNavbar from '../components/common/DetailNavbar'
 import { getWallpaperById, getSimilarWallpapers, WALLPAPER_TYPES, CATEGORIES, detectFormat } from '../data/wallpapers'
 import { useVideoMeta, useImageMeta } from '../hooks/useVideoMeta'
-import { useWEProperties } from '../hooks/useWEProperties'
 import { useApplyToVK } from '../hooks/useApplyToVK'
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard'
 import ExtensionHint from '../components/common/ExtensionHint'
@@ -84,147 +83,6 @@ function SimilarCard({ wallpaper }) {
                 <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{detectFormat(wallpaper) || '—'}</p>
             </div>
         </Link>
-    )
-}
-
-// WE хранит цвет как "r g b" в долях 0–1 → "#rrggbb"
-function weColorToHex(value) {
-    const parts = String(value).trim().split(/\s+/).map(Number)
-    if (parts.length !== 3 || parts.some(n => !isFinite(n))) return null
-    const hex = parts
-        .map(n => Math.round(Math.min(1, Math.max(0, n)) * 255).toString(16).padStart(2, '0'))
-        .join('')
-    return `#${hex}`
-}
-
-function PropertyRow({ prop }) {
-    const { t } = useTranslation()
-    if (prop.type === 'slider') {
-        const pct = Math.round(((prop.value - prop.min) / (prop.max - prop.min)) * 100)
-        return (
-            <div>
-                <div className="flex justify-between items-center mb-1.5">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{prop.text}</span>
-                    <span className="text-xs font-mono font-semibold text-gray-900 dark:text-white">
-                        {prop.value}
-                        <span className="text-gray-400 dark:text-gray-600 font-normal"> / {prop.max}</span>
-                    </span>
-                </div>
-                <div className="h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                    <div
-                        className="h-1 bg-blue-500 rounded-full transition-all"
-                        style={{ width: `${pct}%` }}
-                    />
-                </div>
-            </div>
-        )
-    }
-
-    if (prop.type === 'bool') {
-        return (
-            <div className="flex justify-between items-center">
-                <span className="text-xs text-gray-500 dark:text-gray-400">{prop.text}</span>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full
-                    ${prop.value
-                        ? 'bg-green-500/15 text-green-600 dark:text-green-400'
-                        : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
-                    }`}>
-                    {prop.value ? t('wallpaperDetail.propOn') : t('wallpaperDetail.propOff')}
-                </span>
-            </div>
-        )
-    }
-
-    if (prop.type === 'combo') {
-        const opt = prop.options?.find(o => o.value === prop.value)
-        return (
-            <div className="flex justify-between items-center">
-                <span className="text-xs text-gray-500 dark:text-gray-400">{prop.text}</span>
-                <span className="text-xs font-mono font-semibold text-gray-900 dark:text-white">
-                    {opt?.label ?? prop.value}
-                </span>
-            </div>
-        )
-    }
-
-    if (prop.type === 'textinput') {
-        return (
-            <div className="flex justify-between items-center">
-                <span className="text-xs text-gray-500 dark:text-gray-400">{prop.text}</span>
-                <span className="text-xs font-mono font-semibold text-gray-900 dark:text-white">
-                    {prop.value || <span className="text-gray-400 dark:text-gray-600 font-normal italic">{t('wallpaperDetail.propEmpty')}</span>}
-                </span>
-            </div>
-        )
-    }
-
-    if (prop.type === 'color') {
-        const hex = weColorToHex(prop.value)
-        if (!hex) return null
-        return (
-            <div className="flex justify-between items-center">
-                <span className="text-xs text-gray-500 dark:text-gray-400">{prop.text}</span>
-                <div className="flex items-center gap-2">
-                    <span className="w-4 h-4 rounded border border-black/10 dark:border-white/15 shadow-sm inline-block"
-                          style={{ background: hex }} />
-                    <span className="text-xs font-mono font-semibold text-gray-900 dark:text-white">{hex}</span>
-                </div>
-            </div>
-        )
-    }
-
-    return null
-}
-
-function WEPropertiesPanel({ properties, loading }) {
-    const { t } = useTranslation()
-    return (
-        <div className="p-5 bg-gray-50 dark:bg-gray-900 rounded-2xl">
-            {/* Заголовок */}
-            <div className="flex items-center gap-2 mb-4">
-                <Settings2 className="w-3.5 h-3.5 text-gray-400" />
-                <h3 className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
-                    {t('wallpaperDetail.weTitle')}
-                </h3>
-            </div>
-
-            {/* Скелетон пока грузится */}
-            {loading && (
-                <div className="space-y-4 mb-4">
-                    {[80, 60, 70, 50, 40].map(w => (
-                        <div key={w}>
-                            <div className="flex justify-between mb-1.5">
-                                <span className="inline-block h-3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"
-                                      style={{ width: `${w}%` }} />
-                                <span className="inline-block h-3 w-8 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-                            </div>
-                            <div className="h-1 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse" />
-                        </div>
-                    ))}
-                </div>
-            )}
-
-            {/* Список параметров */}
-            {!loading && properties?.length > 0 && (
-                <div className="space-y-3.5 mb-4">
-                    {properties.map(prop => (
-                        <PropertyRow key={prop.key} prop={prop} />
-                    ))}
-                </div>
-            )}
-
-            {/* Разделитель */}
-            <div className="border-t border-gray-200 dark:border-gray-800 mb-4" />
-
-            {/* Плашка «Скоро» */}
-            <div className="flex items-start gap-2.5 p-3 bg-violet-50 dark:bg-violet-950/30
-                            border border-violet-100 dark:border-violet-900/50 rounded-xl">
-                <Sparkles className="w-3.5 h-3.5 text-violet-500 flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-violet-700 dark:text-violet-400 leading-relaxed">
-                    <strong>{t('wallpaperDetail.weSoonLabel')}</strong> {t('wallpaperDetail.weSoonText')}
-                </p>
-            </div>
-        </div>
     )
 }
 
@@ -386,7 +244,6 @@ export default function WallpaperDetail() {
     const isVideo   = wallpaper?.type === WALLPAPER_TYPES.VIDEO
     const isWeb     = wallpaper?.type === WALLPAPER_TYPES.WEB
 
-    const { properties: weProperties, loading: weLoading } = useWEProperties(wallpaper)
 
     const videoMeta = useVideoMeta(
         isVideo ? wallpaper.src    : null,
@@ -424,16 +281,7 @@ export default function WallpaperDetail() {
 
     const handleApplyInVK = () => {
         if (!wallpaper) return
-        const config = {
-            ...wallpaper.extensionConfig,
-            web_wallpaper_id: '',
-            web_wallpaper_schema: '[]',
-        }
-        if (isWeb) {
-            config.web_wallpaper_id = wallpaper.id
-            config.web_wallpaper_schema = JSON.stringify(weProperties ?? [])
-        }
-        apply(config)
+        apply(wallpaper.extensionConfig)
     }
 
     if (!wallpaper) {
@@ -480,11 +328,6 @@ export default function WallpaperDetail() {
                                     ))}
                                 </div>
                             </div>
-
-                            {/* Параметры Wallpaper Engine — читаются из project.json */}
-                            {(weLoading || (weProperties && weProperties.length > 0)) && (
-                                <WEPropertiesPanel properties={weProperties} loading={weLoading} />
-                            )}
 
                             {similar.length > 0 && (
                                 <div>
@@ -534,7 +377,6 @@ export default function WallpaperDetail() {
 
                                 <button
                                     onClick={handleApplyInVK}
-                                    disabled={isWeb && weLoading}
                                     className="hidden lg:flex items-center justify-center gap-2 w-full py-3 bg-[#0077ff] hover:bg-blue-500 text-white text-sm font-bold rounded-xl active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-wait"
                                 >
                                     {applied

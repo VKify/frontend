@@ -59,7 +59,7 @@ export default function NewsCard({ post, isLatest = false, featured = false }) {
         {t(`newsPage.categories.${category}`)}
       </span>
       {featured && (
-        <span className="px-3 py-1 rounded-full bg-black/25 backdrop-blur-sm text-white text-xs font-semibold">
+        <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-semibold">
           {t('newsPage.featured')}
         </span>
       )}
@@ -86,21 +86,22 @@ export default function NewsCard({ post, isLatest = false, featured = false }) {
           to={`/news/${slug}`}
           className="group grid lg:grid-cols-5 rounded-3xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden hover:shadow-2xl hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-200"
         >
-          <div className={`relative lg:col-span-2 min-h-[220px] bg-gradient-to-br ${gradient} overflow-hidden`}>
+          <div className={`relative lg:col-span-2 aspect-[8/5] self-center bg-gradient-to-br ${gradient} overflow-hidden`}>
             <CoverPattern />
             {image && (
               <img
                 src={image}
                 alt=""
                 loading="eager"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                className="absolute inset-0 h-full w-full object-cover"
               />
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
-            <div className="absolute top-5 left-5">{chips}</div>
+
+
           </div>
 
           <div className="lg:col-span-3 p-7 sm:p-9 flex flex-col justify-center gap-4">
+            {chips}
             {meta}
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white group-hover:text-[#0077ff] transition-colors">
               {tr.title}
@@ -126,21 +127,22 @@ export default function NewsCard({ post, isLatest = false, featured = false }) {
         to={`/news/${slug}`}
         className="group flex flex-col h-full rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden hover:shadow-xl hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-150"
       >
-        <div className={`relative h-44 bg-gradient-to-br ${gradient} overflow-hidden`}>
+        <div className={`relative aspect-[8/5] bg-gradient-to-br ${gradient} overflow-hidden`}>
           <CoverPattern />
           {image && (
             <img
               src={image}
               alt=""
               loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              className="absolute inset-0 h-full w-full object-cover"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
-          <div className="absolute top-4 left-4">{chips}</div>
+
+
         </div>
 
         <div className="flex flex-col flex-1 p-6">
+          <div className="mb-3">{chips}</div>
           <div className="mb-3">{meta}</div>
           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-[#0077ff] transition-colors">
             {tr.title}

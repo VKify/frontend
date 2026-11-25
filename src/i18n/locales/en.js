@@ -2,6 +2,178 @@
 export const en = {
   langName: 'English',
 
+  ecosystem: {
+    otherPlatforms: "More VKify platforms",
+    stageNumber: "Stage {number} of {total}",
+    fullRoadmap: "View the full roadmap",
+    upNext: "Coming to more platforms",
+    upNextDescription: "Android and Lampa are our next priorities, followed by a standalone TV client and desktop apps.",
+    newsDescription: "Releases, new features, and progress on upcoming platforms.",
+    "footerDescription": "Appearance, privacy, and extra VK features across platforms.",
+    "projectLinks": "Project",
+    "extensionResources": "Resources",
+    "currentStage": "Where we are now",
+    "availableNow": "VKify is available in your browser",
+    "availableDescription": "Try themes, ad blocking, and music tools in the browser extension today.",
+    "productDetails": {
+      "android": {
+        "heading": "Your VK, always with you",
+        "intro": "Bringing VKify features to a standalone client for your phone.",
+        "features": [
+          "Personalize the app’s colors and appearance.",
+          "We plan to filter advertising elements within the client.",
+          "Save files to your device and return to them later.",
+          "We plan to protect messages with end-to-end encryption between client users."
+        ],
+        "stage": "Bring the Android client to a stable public release."
+      },
+      "android-tv": {
+        "heading": "VK Video on the big screen",
+        "intro": "Planning a TV experience from finding a video to controlling playback.",
+        "features": [
+          "Browse the catalog and control playback using your remote.",
+          "Find videos through search and a catalog designed for TV.",
+          "We plan a player with large controls that are easy to use from a distance."
+        ],
+        "stage": "Develop a standalone client with a more convenient interface and broader functionality."
+      },
+      "desktop": {
+        "heading": "A dedicated space for VK",
+        "intro": "Exploring a desktop application with familiar VKify tools.",
+        "features": [
+          "Make the app your own with themes and interface settings.",
+          "We plan to bring playback and media tools together in a separate window.",
+          "We’re considering notification settings so you can choose what needs your attention."
+        ],
+        "stage": "Work on Windows, Linux, and macOS after the mobile and TV products have stabilized."
+      },
+      "lampa": {
+        "heading": "VK Video in your media library",
+        "intro": "Exploring how VK Video could fit into the familiar Lampa interface.",
+        "features": [
+          "We plan to provide catalog access through a plugin.",
+          "Search for videos using familiar Lampa navigation.",
+          "We’re considering playback directly from the Lampa interface."
+        ],
+        "stage": "Release the first working plugin. It may be simpler to deliver than a full TV client."
+      }
+    },
+    "browserTitle": "A VK experience you make your own",
+    "browserDetails": "Explore the extension",
+    "tryTheme": "Try a different theme",
+    "tagline": "The VKify ecosystem",
+    "seoTitle": "An ecosystem for a better VK experience",
+    "hero": "Your VK.",
+    "subtitle": "Change how VK looks, filter ads, and control your privacy. Start with the browser extension today while we work on bringing VKify to more devices.",
+    "install": "Install extension",
+    "allProducts": "All products",
+    "products": "Products",
+    "featuresTitle": "What you can do in your browser today",
+    "features": [
+      {
+        "title": "Make VK look like yours",
+        "description": "Pick a theme, set a video wallpaper, and rearrange the sidebar."
+      },
+      {
+        "title": "Filter ads",
+        "description": "Hide promoted posts in the feed and skip ad interruptions in music."
+      },
+      {
+        "title": "Protect your chats",
+        "description": "Use end-to-end encryption in conversations with other VKify users."
+      },
+      {
+        "title": "Take control of music",
+        "description": "Tune the equalizer, open the mini player, or download individual tracks."
+      }
+    ],
+    "roadmap": "Roadmap",
+    "latest": "Latest news",
+    "cta": "Make VK yours in your browser",
+    "plannedFeatures": "Planned features",
+    "follow": "Follow the news",
+    "support": "Support the project",
+    "backHome": "Back to home",
+    "viewBrowser": "Explore the browser extension",
+    "status": {
+      "ready": "Available",
+      "development": "In development",
+      "planned": "Planned",
+      "longTerm": "Long-term plan",
+      "backlog": "On the roadmap"
+    },
+    "platforms": {
+      "browser": {
+        "name": "Browsers",
+        "title": "Browser extension",
+        "description": "The VKify extension for Firefox and Chromium browsers brings themes, ad blocking, and extra tools to VK.",
+        "shortName": "Browser",
+        "summary": "An extension for Chrome, Firefox, and other browsers. Change themes, filter ads, encrypt chats, and customize your music experience inside VK."
+      },
+      "android": {
+        "name": "Android",
+        "title": "VKify for Android",
+        "description": "We’re building a standalone VK client for Android with plans for themes, media downloads, and privacy tools. Our current focus is preparing and testing the first version.",
+        "features": [
+          "Themes",
+          "Ad blocking",
+          "Media downloads",
+          "End-to-end message encryption"
+        ],
+        "shortName": "Android",
+        "summary": "A VK client for your phone with themes, media downloads, and privacy controls."
+      },
+      "android-tv": {
+        "name": "Android TV",
+        "title": "VKify for Android TV",
+        "description": "We’re planning a VK Video app for Android TV, with browsing and search built for a big screen and playback controls designed for a remote.",
+        "features": [
+          "Remote control navigation",
+          "Video search and browsing",
+          "Full-screen playback"
+        ],
+        "shortName": "Android TV",
+        "summary": "Watch VK Video on your TV and browse with your remote."
+      },
+      "desktop": {
+        "name": "Desktop",
+        "title": "VKify for desktop",
+        "description": "We plan apps for Windows, Linux, and macOS after the mobile and TV products have stabilized.",
+        "features": [
+          "Appearance customization",
+          "Music and video tools",
+          "Notification controls"
+        ],
+        "shortName": "Desktop",
+        "summary": "A standalone VK app with familiar VKify tools."
+      },
+      "lampa": {
+        "name": "Lampa plugin",
+        "title": "VKify for Lampa",
+        "description": "We are preparing a plugin for watching VK Video in Lampa. Its first working release follows the stable Android client in our priorities, as it may be simpler than a full TV app.",
+        "features": [
+          "VK Video catalog in Lampa",
+          "Video search",
+          "Playback within Lampa"
+        ],
+        "shortName": "Lampa",
+        "summary": "A VK Video integration for the Lampa media library."
+      }
+    },
+    "heroAccent": "Your rules.",
+    "productsTitle": "VKify across devices",
+    "productsDescription": "Start with the browser extension or see what we’re planning for phones, TVs, and desktop.",
+    "roadmapDescription": "A stable Android client comes first, followed by TV products and desktop applications.",
+    "roadmapSteps": {
+      "android": "Bring the Android client to a stable public release.",
+      "lampa": "Release the first working plugin. It may be simpler to deliver than a full TV client.",
+      "android-tv": "Develop a standalone client with a more convenient interface and broader functionality.",
+      "desktop": "Work on Windows, Linux, and macOS after the mobile and TV products have stabilized."
+    },
+    "browserParallelTitle": "The extension evolves in parallel",
+    "browserParallel": "We will keep improving stability, compatibility, and existing features. Major new features will be added when needed."
+  },
+
   seo: {
     homeDescription: 'VKify — a powerful browser extension to customize VKontakte. Themes, ad blocking, privacy and 50+ features.',
   },
@@ -495,12 +667,6 @@ export const en = {
     livePreview: '{title} — live preview',
     hintConnected: 'The wallpaper applies instantly — no VK reload needed.',
     hintDisconnected: 'Install the VKify extension to apply wallpapers instantly — without extra steps.',
-    weTitle: 'Wallpaper Engine parameters',
-    weSoonLabel: 'Available in VKify:',
-    weSoonText: 'these parameters can be adjusted in the extension settings in real time.',
-    propOn: 'On',
-    propOff: 'Off',
-    propEmpty: 'empty',
   },
 
   welcome: {
@@ -612,6 +778,11 @@ export const en = {
   },
 
   changelogPage: {
+    filterHelp: "The VKify browser extension release history. Choose a change type or search for a feature to see only matching entries.",
+    searchLabel: "Search release history",
+    searchPlaceholder: "Version, feature, or change description",
+    results: "Releases — {releases}, changes — {changes}",
+    reset: "Reset filters",
     seoTitle: 'Changelog',
     seoDescription: 'Follow all VKify updates — new features, fixes and improvements.',
     titleTop: 'Change',
@@ -819,9 +990,6 @@ export const en = {
       music_lyrics_settings: "Lyrics settings",
       music_visualizer: "Visualizer",
       music_visualizer_settings: "Visualizer settings",
-      web_wallpaper_id: "Web wallpaper",
-      web_wallpaper_schema: "Wallpaper properties",
-      web_wallpaper_values: "Wallpaper settings",
       menu_items_order: 'Menu item order',
       hide_open_profile_block: 'Hide the open profile block',
       hidden_menu_items: "Hidden menu items",

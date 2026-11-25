@@ -1,3 +1,5 @@
+import { mkdirSync, writeFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import prerender from '@prerenderer/rollup-plugin'
@@ -7,14 +9,18 @@ import { newsSlugs }    from './src/data/news.js'
 import { changelog } from './src/data/changelog.js'
 import { docsSlugs }    from './src/data/docs.js'
 
+import { products } from './src/data/products.js'
+
 const pageErrors = new WeakMap()
 
 const routes = [
   // Static pages
-  '/', '/welcome', '/uninstall', '/changelog', '/privacy', '/terms', '/firefox',
+  '/', '/welcome', '/uninstall', '/browser/changelog', '/privacy', '/terms', '/firefox',
   '/themes', '/theme/', '/wallpapers', '/wallpapers/guide', '/news', '/docs',
-  ...changelog.map(({ version }) => `/changelog/${version}`),
+  ...changelog.map(({ version }) => `/browser/changelog/${version}`),
+  ...products.map(product => product.href),
   // Docs sections
+  ...products.map(({ id }) => `/docs/${id}`),
   ...docsSlugs.map(slug => `/docs/${slug}`),
   // Dynamic theme pages
   ...themeIds.map(id => `/themes/${id}`),
@@ -25,7 +31,20 @@ const routes = [
 ]
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: 'legacy-changelog-redirects',
+      closeBundle() {
+        for (const suffix of ['', ...changelog.map(({ version }) => '/' + version)]) {
+          const directory = resolve('dist/changelog' + suffix)
+          const target = '/browser/changelog' + suffix
+          mkdirSync(directory, { recursive: true })
+          writeFileSync(resolve(directory, 'index.html'), `<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>VKify</title><link rel="canonical" href="https://vkify.ru${target}"><script>location.replace(${JSON.stringify(target)} + location.search + location.hash)</script><meta http-equiv="refresh" content="0;url=${target}"></head><body><a href="${target}">VKify</a></body></html>`)
+        }
+      },
+    },
+  ],
   base: '/',
   build: {
     rollupOptions: {

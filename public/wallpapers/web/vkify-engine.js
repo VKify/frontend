@@ -215,13 +215,6 @@
         requestAnimationFrame(frame)
     }
 
-    window.wallpaperPropertyListener = {
-        applyUserProperties(properties) {
-            Object.keys(state).forEach((key) => {
-                if (properties[key] && Object.prototype.hasOwnProperty.call(properties[key], 'value')) state[key] = properties[key].value
-            })
-        },
-    }
 
     window.addEventListener('resize', resize)
     resize()

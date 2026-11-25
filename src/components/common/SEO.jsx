@@ -7,6 +7,8 @@ export default function SEO({
   image,
   url,
   type = 'website',
+  robots = 'index, follow',
+  locale = 'ru',
   appSchema = false
 }) {
   const siteTitle = config.app.name
@@ -62,10 +64,10 @@ export default function SEO({
       <meta property="og:image" content={finalImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={`${siteTitle} - Расширение для ВКонтакте`} />
+      <meta property="og:image:alt" content={fullTitle} />
       <meta property="og:url" content={finalUrl} />
       <meta property="og:site_name" content={siteTitle} />
-      <meta property="og:locale" content="ru_RU" />
+      <meta property="og:locale" content={locale === 'en' ? 'en_US' : 'ru_RU'} />
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -77,7 +79,7 @@ export default function SEO({
       <link rel="canonical" href={finalUrl} />
       
       {/* Additional */}
-      <meta name="robots" content="index, follow" />
+      <meta name="robots" content={robots} />
       <meta name="author" content={`${siteTitle} Team`} />
       <meta name="keywords" content="VKify, VK, ВКонтакте, расширение, кастомизация, темы, блокировка рекламы, приватность" />
       

@@ -22,7 +22,7 @@ export default function ChangelogVersion() {
           <p className="text-gray-600 dark:text-gray-400 mb-6">
             {t('changelogPage.versionNotFoundText', { version })}
           </p>
-          <Button to="/changelog">
+          <Button to="/browser/changelog">
             <ArrowLeft className="w-4 h-4 mr-2" />
             {t('changelogPage.backToList')}
           </Button>
@@ -73,14 +73,14 @@ export default function ChangelogVersion() {
       <SEO
         title={t('changelogPage.versionSeoTitle', { version: ver })}
         description={t('changelogPage.versionSeoDescription', { title, version: ver })}
-        url={`/changelog/${ver}`}
+        url={`/browser/changelog/${ver}`}
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Link */}
         <div className="mb-8">
           <Link
-            to="/changelog"
+            to="/browser/changelog"
             className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-[#0077ff] dark:hover:text-[#0077ff] transition-colors group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -166,7 +166,7 @@ export default function ChangelogVersion() {
 
         {/* Navigation */}
         <div className="mt-12 flex justify-center">
-          <Button to="/changelog" variant="secondary" className="gap-2">
+          <Button to="/browser/changelog" variant="secondary" className="gap-2">
             <ArrowLeft className="w-4 h-4" />
             {t('changelogPage.backToListLong')}
           </Button>
